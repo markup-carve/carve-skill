@@ -1,0 +1,62 @@
+---
+title: Carve Showcase
+tags: [carve, demo]
+---
+
+{#intro}
+# Carve Showcase
+
+A short document exercising core Carve constructs. It is written to pass
+`carve lint` cleanly, so it doubles as the skill's round-trip check.
+
+Inline: /italic/, *bold*, /*bold italic*/, _underline_, ~strike~, =highlight=,
+`code`, water is H{,2,}O and energy is E = mc{^2^}. See </#tables> below,
+and a footnote here.[^note] An inline aside too.^[Inline footnotes number into
+the same endnotes.]
+
+## Lists
+
+- unordered item
+- item with a continuation
++
+> A note attached to the item above.
+- [ ] a task
+- [x] a done task
+
+1. first
+2. second
+
+:: term
+:  Its definition, one block per entry.
+
+{#tables}
+## Tables
+
+|= Name |=> Score |
+| Alice |< 30     |
+| Bob   |< 42     |
+^ Table: a small scoreboard.
+
+## Code and math
+
+```python "example.py"
+def greet(name: str) -> str:
+    return f"Hello, {name}"
+```
+
+Inline math $`e^{i\pi} + 1 = 0` and a display block:
+
+$$`\int_0^1 x \, dx = \tfrac{1}{2}`
+
+## Admonition and quote
+
+::: note "Heads up"
+Attributes for a heading go on the line above it, not trailing.
+:::
+
+> The markup looks like its output.
+^ Carve's mnemonic
+
+%% This comment does not render.
+
+[^note]: A reference footnote definition.

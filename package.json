@@ -1,0 +1,34 @@
+{
+  "name": "@markup-carve/carve-skill",
+  "version": "0.1.0",
+  "description": "A Claude Code / agent authoring skill for Carve markup — teaches AI tools to write valid, idiomatic .crv the first time.",
+  "keywords": [
+    "carve",
+    "markup",
+    "djot",
+    "claude-code",
+    "skill",
+    "agent",
+    "authoring"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/markup-carve/carve-skill.git"
+  },
+  "bugs": "https://github.com/markup-carve/carve-skill/issues",
+  "homepage": "https://github.com/markup-carve/carve-skill#readme",
+  "type": "module",
+  "private": true,
+  "files": [
+    "SKILL.md",
+    "references"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "lint:examples": "carve lint examples/*.crv"
+  },
+  "devDependencies": {
+    "@markup-carve/carve": "^0.1.1"
+  }
+}

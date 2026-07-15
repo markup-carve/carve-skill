@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    name: Drift guard + round-trip lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive # spec docs the drift guard reads
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Drift guard: the skill must not diverge from the vendored spec docs.
+      - run: npm test
+
+      # Round-trip: the showcase must lint clean with hand-written Carve rules
+      # (no --from-djot). If the skill taught wrong syntax, this would fail.
+      - run: npm run lint:examples

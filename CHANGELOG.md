@@ -4,6 +4,13 @@ All notable changes to carve-skill are documented in this file.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+- Advance the spec submodule to carve `0.1.1` and cover the two new
+  divergence sections in `references/traps.md`: raw passthrough is
+  target-routed (10) and list continuation requires the content column /
+  strict column-0 (11).
+
 ## [0.1.0] - 2026-07-15
 
 First release.

@@ -6,6 +6,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+- Cover divergence 14, single-line headings (spec markup-carve/carve#451): a
+  heading ends at the newline, so prose beneath it is a paragraph and the
+  auto-id comes from the heading line alone. Documented ahead of the spec
+  submodule, which the drift guard allows; sections 12 and 13 still need
+  covering when that pin moves.
+
 - Advance the spec submodule to carve `0.1.1` and cover the two new
   divergence sections in `references/traps.md`: raw passthrough is
   target-routed (10) and list continuation requires the content column /

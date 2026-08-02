@@ -81,6 +81,44 @@ A **blank line ends the definition** — there is no multi-paragraph (loose) `<d
 
 A block belongs to a list item only if it reaches the item's content column, the column where the item's own text starts (`- ` is 2, `1. ` is 3, `10. ` is 4). A block below that column detaches to document level (or lazily continues the paragraph); a block indented past it keeps its residual spaces and is paragraph text. The blank line before the block only decides tight vs loose, not attachment. This is the same rule Carve applies everywhere: a block opener fires only at column 0 of its context, so at the top level a leading-indented ` # h`, ` > q`, `` ` ``` ` ``, or ` :::` is literal paragraph text, not a block (Djot attaches at any indent). The `+` continuation marker (trap 3) still attaches a flush-left block regardless.
 
+## 12. Smart typography always runs, and keeps your source
+
+`--`, `...`, `->`, `"` and `'` are rewritten to typographic glyphs on every
+render — there is no per-span opt-out and no "off in Markdown output" default.
+The AST keeps the run you typed alongside the resolved glyph, so `carve fmt`
+writes back `He said "hello"`, not the curly form, and `----` round-trips to
+exactly four hyphens. Escape a single one with a backslash (`\"`); switch the
+whole document off with the host option (`smartTypography: false` in carve-js,
+`smartTypography:` in carve-php, `with_smart_typography(false)` in carve-rs),
+which is meant for machine-facing output — a corpus a model will read, or
+anything re-parsed downstream. Heading ids are identical either way: the id pass
+normalizes the glyphs back to ASCII before slugging.
+
+## 13. Containers nest by width, and an unclosed one is text
+
+An inner container must be **strictly wider** than the one holding it: `::::`
+inside `:::`, not `:::` inside `:::`. Djot nests equal-length fences; Carve
+reads the width as a depth count, so at equal length the inner opener is
+neither a closer (a closer is bare, and `::: tip` carries a type word) nor an
+opener — it stays paragraph text, and the first bare `:::` closes the outer
+block. A bare closer closes **one** container, not every one open above it.
+
+```
+::: note        →  the `::: tip` line is TEXT inside the note,
+::: tip            and the trailing `:::` is its own paragraph
+Inner.
+:::
+:::
+```
+
+**An opener you never close renders nothing.** Djot closes it at end of file;
+Carve leaves the opener line and its body as a paragraph, `:::` and all. A
+mistyped closer therefore turns the tail of the document into text rather than
+producing a slightly wrong container — the same call as an unclosed `%%%`
+comment block, which degrades to line comments instead of swallowing the rest.
+Widening the *inner* fence is broken in both languages: `::::` under an open
+`:::` is a long bare closer, so it ends the outer container.
+
 ## 14. Headings are single-line
 
 A heading ends at the newline. Nothing folds into it, so prose written directly

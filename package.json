@@ -1,7 +1,7 @@
 {
   "name": "@markup-carve/carve-skill",
   "version": "0.1.0",
-  "description": "A Claude Code / agent authoring skill for Carve markup — teaches AI tools to write valid, idiomatic .crv the first time.",
+  "description": "A Claude Code / agent authoring skill for Carve markup \u2014 teaches AI tools to write valid, idiomatic .crv the first time.",
   "keywords": [
     "carve",
     "markup",
@@ -29,6 +29,6 @@
     "lint:examples": "carve lint examples/*.crv"
   },
   "devDependencies": {
-    "@markup-carve/carve": "^0.1.1"
+    "@markup-carve/carve": "^0.1.2"
   }
 }

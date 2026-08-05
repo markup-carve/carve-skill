@@ -18,13 +18,22 @@ Point Claude Code at this repo as a skill/plugin so it activates when you author
 
 ## Not drifting
 
-The syntax card and trap list are sourced from the canonical spec docs, vendored as the `spec` submodule. A [drift guard](test/drift.test.mjs) fails CI if the skill falls behind the spec's divergences or essential constructs, and a round-trip test lints an [example document](examples/showcase.crv) to prove the taught syntax is valid Carve.
+The syntax card and trap list are sourced from the canonical spec docs, vendored as the `spec` submodule. A [drift guard](test/drift.test.mjs) fails CI if the skill falls behind the spec, and a round-trip test lints an [example document](examples/showcase.crv) to prove the taught syntax is valid Carve.
+
+The guard has to catch two different failures, because a check that reads its own pinned input cannot see that input move:
+
+- **The skill fell behind its pin.** The trap list must have a section for every numbered divergence in the pinned spec, and every essential construct must still appear in both the spec cheatsheet and the skill.
+- **A divergence was rewritten under the same heading number.** [`test/spec-review.json`](test/spec-review.json) records which *text* of each numbered section the trap list was last read against. A submodule bump that rewrites a section fails until someone re-reads it — the case that slipped through when the spec inverted the container rule inside section 13 without renumbering it.
+- **The pin itself fell behind.** `npm test` cannot see that; the scheduled [spec-drift workflow](.github/workflows/spec-drift.yml) runs the same section comparison against `markup-carve/carve` main and fails when one has moved.
 
 ```sh
 git submodule update --init
 npm ci
-npm test              # drift guard
+npm test              # drift guard, against the pinned spec
 npm run lint:examples # round-trip: the showcase must lint clean
+
+npm run spec:check    # which sections moved, without the test harness
+npm run spec:review   # record the review — AFTER re-reading the sections it names
 ```
 
 ## License

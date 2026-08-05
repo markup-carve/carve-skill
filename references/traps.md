@@ -88,11 +88,20 @@ render — there is no per-span opt-out and no "off in Markdown output" default.
 The AST keeps the run you typed alongside the resolved glyph, so `carve fmt`
 writes back `He said "hello"`, not the curly form, and `----` round-trips to
 exactly four hyphens. Escape a single one with a backslash (`\"`); switch the
-whole document off with the host option (`smartTypography: false` in carve-js,
-`smartTypography:` in carve-php, `with_smart_typography(false)` in carve-rs),
-which is meant for machine-facing output — a corpus a model will read, or
-anything re-parsed downstream. Heading ids are identical either way: the id pass
-normalizes the glyphs back to ASCII before slugging.
+whole document off with the host option, which is meant for machine-facing
+output — a corpus a model will read, or anything re-parsed downstream. It is
+host API, not syntax, so each engine spells it its own way:
+
+| | carve-js | carve-php | carve-rs |
+|---|---|---|---|
+| HTML | `carveToHtml(src, { smartTypography: false })` | `(new HtmlRenderer())->setSmartTypography(SmartTypographyMode::Source)` | `Options { smart_typography: SmartTypographyMode::Source, ..Options::default() }` |
+| Markdown | `carveToMarkdown(src, { smartTypography: 'source' })` | `(new MarkdownRenderer())->setSmartTypography(...)` | the same `Options` field |
+
+carve-php and carve-rs also take `--smart-typography source` on the command
+line, and reject an unknown mode rather than ignoring it. The plain-text and
+ANSI renderers still emit the glyph in all three (spec markup-carve/carve#560).
+Heading ids are identical either way: the id pass normalizes the glyphs back to
+ASCII before slugging.
 
 ## 13. Containers nest by width, and an unclosed one is text
 
@@ -118,6 +127,15 @@ producing a slightly wrong container — the same call as an unclosed `%%%`
 comment block, which degrades to line comments instead of swallowing the rest.
 Widening the *inner* fence is broken in both languages: `::::` under an open
 `:::` is a long bare closer, so it ends the outer container.
+
+**Status: the spec has moved past this and no released engine has.** Spec
+section 13 (markup-carve/carve#455) now closes a fence on an *exact* length
+match, which makes equal-length fences nest, lets `:::` hold `::::`, and closes
+an unclosed opener at end of input. Every rendering above is the behavior of
+`@markup-carve/carve` 0.1.2 — the only published engine, and the one this skill
+is tested against — measured, not assumed. Until 0.1.3 ships (markup-carve/carve#499)
+write containers that parse the same under both rules: close every opener you
+open, and nest by widening *outward*.
 
 ## 14. Headings are single-line
 

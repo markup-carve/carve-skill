@@ -26,7 +26,9 @@
   ],
   "scripts": {
     "test": "node --test test/*.test.mjs",
-    "lint:examples": "carve lint examples/*.crv"
+    "lint:examples": "carve lint examples/*.crv",
+    "spec:check": "node scripts/check-spec-review.mjs",
+    "spec:review": "node scripts/record-spec-review.mjs"
   },
   "devDependencies": {
     "@markup-carve/carve": "^0.1.2"

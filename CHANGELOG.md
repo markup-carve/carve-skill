@@ -6,6 +6,18 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+- Correct the smart-typography host options in `references/traps.md` (12). It
+  named a `CarveConverter::create(smartTypography: ...)` parameter and a
+  `with_smart_typography(...)` builder that no engine has; the real spellings
+  are `setSmartTypography(SmartTypographyMode::Source)` on a carve-php renderer
+  and the `smart_typography` field on carve-rs `Options`, both also reachable as
+  `--smart-typography source`.
+
+- Note in `references/traps.md` (13) that spec section 13 has moved past what
+  the trap describes: the container rules there are those of
+  `@markup-carve/carve` 0.1.2, the only published engine, and the section flips
+  when 0.1.3 ships.
+
 - Advance the spec submodule to carve `92bef65` and cover the three divergence
   sections it brings in `references/traps.md`: smart typography always runs and
   keeps the author's source (12), containers nest by width and an unclosed one

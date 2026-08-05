@@ -1,17 +1,27 @@
 name: Spec drift
 
-# The `spec` submodule is a pin, and nothing watches it. The engines get bump
-# PRs from carve's bump-downstream workflow; this repo does not.
-#
-# It matters more here than the commit count suggests. The drift guard in
-# test/drift.test.mjs asserts the trap list covers every divergence section in
-# the PINNED spec - so it catches "the skill fell behind its pin" and can never
+# The `spec` submodule is a pin, and the drift guard in test/drift.test.mjs reads
+# the PINNED copy - so it catches "the skill fell behind its pin" and can never
 # catch "the pin fell behind the spec". A check that reads its own frozen input
-# cannot see that input move (#4). This is the other half.
+# cannot see that input move (#4). This job is the other half: it reads carve
+# main.
 #
-# Reported, not gated: the skill's prose, its spec pin and its engine have to
-# move together, and the engine cannot move past a published carve-js. Failing
-# on lag would go red for something this repo cannot fix alone.
+# What is reported and what fails:
+#
+# - Commit lag is REPORTED, not gated. The skill's prose, its spec pin and its
+#   engine have to move together, and the engine cannot move past a published
+#   carve-js. Failing on lag alone would go red for something this repo cannot
+#   fix by itself.
+# - A CHANGED DIVERGENCE SECTION fails. test/spec-review.json records which text
+#   of each numbered section in docs/divergence-from-djot.md the trap list was
+#   last read against; when one of those sections moves at carve main, the
+#   offline guard's green stops meaning anything, and no other check in this repo
+#   can tell. That is fixable here: bump the pin, re-read the named sections
+#   against references/traps.md, and record the review.
+#
+# Not hypothetical. carve#455 inverted the whole container rule inside section 13
+# without changing a heading number, the pin bump carried it in (#6), and every
+# check stayed green while references/traps.md kept describing the old rule.
 
 on:
   schedule:
@@ -24,6 +34,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
 
       - name: Check out the spec
         uses: actions/checkout@v4
@@ -52,3 +66,14 @@ jobs:
           if [ "${behind}" -gt 0 ]; then
             echo "::warning::the spec submodule is ${behind} commit(s) behind carve main (corpus ${corpus} vs ${latest})"
           fi
+
+      # The same comparison `npm test` runs against the pinned copy, pointed at
+      # carve main instead. Deliberately NOT `continue-on-error`: this is the one
+      # condition nothing else in this repo can observe.
+      - name: Has a divergence section moved since the trap list was read?
+        run: |
+          set -euo pipefail
+          node scripts/check-spec-review.mjs carve-spec/docs/divergence-from-djot.md || {
+            echo "::error::a divergence section changed at carve main; the trap list has not been read against it"
+            exit 1
+          }

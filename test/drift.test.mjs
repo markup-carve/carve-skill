@@ -8,6 +8,11 @@ import assert from 'node:assert/strict'
 import { readFileSync, existsSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import {
+  sectionFingerprints,
+  compareSections,
+  describeFindings,
+} from '../scripts/spec-sections.mjs'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const root = dirname(here)
@@ -51,6 +56,37 @@ test('trap list covers every divergence section in the spec', () => {
     [],
     `references/traps.md is missing spec divergence section(s) ${missing.join(', ')}. ` +
       'Update it after bumping the spec submodule.',
+  )
+})
+
+// Section NUMBERS are not the divergence. carve#455 inverted the entire
+// container rule inside section 13 - equal-length fences went from "the inner
+// opener is text" to "they nest", an unclosed opener went from "stays a
+// paragraph" to "closes at end of input" - and left the heading numbered 13
+// throughout. The coverage test above passes on both texts, and passed across
+// the pin bump that carried the change in (#6), while references/traps.md
+// section 13 kept describing the pre-455 rule.
+//
+// So the guard also records WHICH TEXT the trap list was last read against, per
+// section. When a pin bump moves a section, this fails and names it; a human
+// re-reads that section, fixes references/traps.md if it now lies, and records
+// the review with `npm run spec:review`.
+test('every divergence section still matches the recorded review', () => {
+  const review = JSON.parse(readFileSync(join(here, 'spec-review.json'), 'utf8'))
+  const current = sectionFingerprints(readFileSync(specDivergence, 'utf8'))
+
+  assert.ok(
+    Object.keys(review.sections).length > 0,
+    'test/spec-review.json records no sections — run `npm run spec:review`',
+  )
+
+  const findings = compareSections(review.sections, current)
+  assert.deepEqual(
+    findings,
+    [],
+    `the pinned spec has moved since the trap list was read against it:\n${describeFindings(findings)}\n\n` +
+      'Re-read those sections of spec/docs/divergence-from-djot.md, check the matching\n' +
+      'section of references/traps.md still tells the truth, then run `npm run spec:review`.',
   )
 })
 

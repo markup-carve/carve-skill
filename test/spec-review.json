@@ -1,0 +1,72 @@
+{
+  "$comment": "Which spec divergence sections the trap list in references/traps.md was last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
+  "source": "spec/docs/divergence-from-djot.md",
+  "spec_rev": "6a16aa395394f9728808b32b78ea22a753e5eb75",
+  "sections": {
+    "1": {
+      "title": "Case-preserving heading ids with case-insensitive cross-references",
+      "sha256": "81edbc90458e0b12580845f91fbd35092f32b41c3c87365d858c35cc18e4d0cd"
+    },
+    "2": {
+      "title": "A list marker must have content",
+      "sha256": "6f2260e6bcd90651562b15c347357580b72fa62ecee7c2dd836cca289928e811"
+    },
+    "3": {
+      "title": "`+` is the continuation marker, not a bullet",
+      "sha256": "fe302d9acd29b76b055b8de9903185fdeff7295c808fa43f75c429689be98dcb"
+    },
+    "4": {
+      "title": "Visual-mnemonic emphasis",
+      "sha256": "102308f3f56a98c56f5990e84875c3691e5deba4002eb607d058de0b440c412e"
+    },
+    "5": {
+      "title": "No parenthesized ordered markers",
+      "sha256": "c6728330c785ffb2d99078408292fca95cef3ec3df609dbfe454eb99fd10ecf9"
+    },
+    "6": {
+      "title": "Plain-text comments",
+      "sha256": "f864ee78dcd5c58fa22fb38b49c49967c212ac6908115bd77e690e0593032872"
+    },
+    "7": {
+      "title": "Block openers interrupt paragraphs (Markdown-like)",
+      "sha256": "a9a7472cb4aa94b9d507b76ffa3da08e58185944d1e11a85060741120c00a229"
+    },
+    "8": {
+      "title": "Symbols: same name, stricter shape and boundary",
+      "sha256": "82e41be74a07d000391307400b2c90584d03c67911a006b08926390a66aef288"
+    },
+    "9": {
+      "title": "Definition lists use explicit markers",
+      "sha256": "be5444e3e3aeb83919722eb51670845fc4b07a28aa2d52db24732aa74964b428"
+    },
+    "10": {
+      "title": "Raw passthrough is target-routed (and the pandoc boundary)",
+      "sha256": "6a1e9232b4ce07b70133c8307cab611632d48afe0f430307415328cea783fd88"
+    },
+    "11": {
+      "title": "List continuation requires the content column",
+      "sha256": "5c97fb5fb146fd2f444c0efd6756c45486ce04e74ed061a6b79cc1858884ac4d"
+    },
+    "12": {
+      "title": "Smart punctuation is one leaf node, not three container types",
+      "sha256": "e0edbc7c4f515e3d8746dc038b61f68a218ed7044a3df94ab47270631bc31a96"
+    },
+    "13": {
+      "title": "A colon fence closes on an exact length match",
+      "sha256": "2bfc86da596a3c8554369681f2053d5c71a8f8a9ce64bac3cdee63bc2205cdea",
+      "note": "Read and deliberately not adopted: references/traps.md section 13 documents @markup-carve/carve 0.1.2, the only published engine, which still implements the pre-455 rule. It flips when carve-js 0.1.3 ships (markup-carve/carve#499, markup-carve/carve-skill#4)."
+    },
+    "14": {
+      "title": "Headings are single-line",
+      "sha256": "f45c76e778b797c430bfe22211b356b9c600d3087168025b13a17fda4f780623"
+    },
+    "1b": {
+      "title": "Heading-id punctuation model",
+      "sha256": "0f3d544ba579815f7c64cffab9ef0c19f314a92751b77f1746888e3838efdefc"
+    },
+    "1c": {
+      "title": "Only the id hoists to the `<section>` wrapper",
+      "sha256": "bc212b0c9f645f8a83c195e4eae00b08be6519a23c68e61b6abd06d7b96baa32"
+    }
+  }
+}

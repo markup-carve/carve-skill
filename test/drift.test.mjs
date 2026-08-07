@@ -13,6 +13,7 @@ import {
   compareSections,
   describeFindings,
 } from '../scripts/spec-sections.mjs'
+import { shortfall } from '../scripts/participants.mjs'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const root = dirname(here)
@@ -40,9 +41,31 @@ test('spec submodule is checked out', () => {
 test('trap list covers every divergence section in the spec', () => {
   const spec = readFileSync(specDivergence, 'utf8')
   // Numbered divergence sections, e.g. "## 1." … "## 9." (allow a "1b" suffix).
+  //
+  // Read through sectionFingerprints rather than through a second regex of its
+  // own. scripts/spec-sections.mjs opens by calling itself "one spelling of what
+  // is a divergence section", and this test used to carry a slightly different
+  // second one - `/^## (\d+)[a-z]?\. /gm`, capturing without the letter suffix.
+  // Two spellings of one rule is the defect markup-carve/carve#755 keeps
+  // recording, and the failure mode here is silent: a spec heading form that the
+  // shared parser accepts and the local copy does not leaves `specNums` empty,
+  // and an empty list makes the assertion below trivially true. Measured -
+  // rewrite the spec's headings and this test passes with references/traps.md
+  // COMPLETELY EMPTY.
   const specNums = [...new Set(
-    [...spec.matchAll(/^## (\d+)[a-z]?\. /gm)].map((m) => m[1]),
+    Object.keys(sectionFingerprints(spec)).map((label) => label.replace(/[a-z]$/, '')),
   )].sort((a, b) => a - b)
+
+  const thin = shortfall({
+    label: 'DIVERGENCES',
+    actual: specNums.length,
+    atLeast: 10,
+    of: 'numbered section(s) in spec/docs/divergence-from-djot.md',
+    hint: 'the coverage claim below is about this list; over an empty one it ' +
+      'holds no matter what references/traps.md says.',
+  })
+  assert.equal(thin, null, thin ?? '')
+
   const trapNums = new Set(
     [...traps.matchAll(/^## (\d+)\. /gm)].map((m) => m[1]),
   )

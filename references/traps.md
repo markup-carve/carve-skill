@@ -160,6 +160,81 @@ heading-then-prose now answer the same way.
 What you lose is source-wrapping a long heading. Keep headings short; there is
 no continuation form.
 
+## 15. Block markers are column-strict, and the separator is a literal space
+
+A top-level block opener must start at column 0, and a marker's separator is a
+literal space that a tab does not satisfy.
+
+```
+ # H           ->  <p># H</p>          (leading space: prose, not a heading)
+>	q           ->  <p>&gt;	q</p>       (tab after the marker: prose, not a quote)
+```
+
+Both are invisible in a diff and in most editors, so search for them rather than
+reading for them. Trap 11 is the same rule seen from the list-item side.
+
+## 16. Attribute identifiers are strict
+
+A class or id may not start with a digit, and an attribute block that fails the
+shape is not an attribute block - it stays literal text.
+
+```
+[x]{.123}      ->  <p>[x]{.123}</p>    (Djot: <span class="123">)
+```
+
+The failure is loud rather than silent: you see the braces in the output.
+
+## 17. A list marker takes attributes
+
+An attribute block right after the marker binds to the ITEM.
+
+```
+-{.c} x        ->  <ul><li class="c">x</li></ul>
+```
+
+Djot reads the same bytes as a paragraph with a span on the `-`. If you are
+porting, the block structure changes, not just the styling.
+
+## 18. An attribute line inside a paragraph is preserved, not consumed
+
+```
+intro
+{.c}
+# H            ->  <p>intro</p><h1 class="c">H</h1>
+```
+
+Djot consumes `{.c}` on the soft break and those bytes leave no trace. Carve
+ends the paragraph at the block opener (trap 7) and applies the attributes to
+the block below. This is the one porting case that silently CHANGES meaning
+rather than becoming visible - the Djot output was well-formed and merely
+missing something.
+
+## 19. An attached sub-block leaves the item tight
+
+A blank line inside an item attaches what follows; it does not loosen the item.
+
+```
+- a
+
+  > q          ->  <li>a<blockquote><p>q</p></blockquote></li>   (lead stays bare)
+```
+
+Djot makes that item loose, wrapping the lead in `<p>`. Holds for an attached
+quote, fence, div, heading and table. It does NOT hold for a nested list, which
+is tight in both, and a plain paragraph after the blank is loose in both.
+
+## 20. A typed container is a native admonition
+
+```
+::: note
+body
+:::            ->  <aside class="admonition note"><p>body</p></aside>
+```
+
+Djot renders `<div class="note">`. An unrecognized type still renders a div.
+Only the element differs - same source, same tree shape - so this is a
+rendering difference rather than a parsing one.
+
 ## Porting Djot → Carve (mechanical)
 
 1. `_italic_` → `/italic/`; check every `*…*` (Djot strong stays `*…*`).

@@ -6,6 +6,17 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+- Advance the spec submodule to carve `881134e` and cover the divergence
+  section it brings in `references/traps.md`: footnote labels are matched
+  exactly (21) - no whitespace normalization, no trimming of the ends, and a
+  reference may not wrap across lines, so only a reference written the way the
+  definition was written binds.
+
+- Record in `references/traps.md` (7) that fence and `:::` closers and bare
+  images are excluded from paragraph interruption alongside list markers, and
+  point at trap 18 for the attribute line, which is the one case where the two
+  languages differ by more than block position.
+
 - Correct the smart-typography host options in `references/traps.md` (12). It
   named a `CarveConverter::create(smartTypography: ...)` parameter and a
   `with_smart_typography(...)` builder that no engine has; the real spellings

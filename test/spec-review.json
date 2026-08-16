@@ -1,7 +1,7 @@
 {
   "$comment": "Which spec divergence sections the trap list in references/traps.md was last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/divergence-from-djot.md",
-  "spec_rev": "78dc8a32de00ac285b90abd279e0de8face7e0aa",
+  "spec_rev": "881134ee439e9b3669d873d217f035ebd1bb0fbb",
   "sections": {
     "1": {
       "title": "Case-preserving heading ids with case-insensitive cross-references",
@@ -29,7 +29,7 @@
     },
     "7": {
       "title": "Block openers interrupt paragraphs (Markdown-like)",
-      "sha256": "a9a7472cb4aa94b9d507b76ffa3da08e58185944d1e11a85060741120c00a229"
+      "sha256": "e4ee6d048970b76df01ab439c190621e2b75140a7887b650b4ecdea86919ee8d"
     },
     "8": {
       "title": "Symbols: same name, stricter shape and boundary",
@@ -58,7 +58,35 @@
     },
     "14": {
       "title": "Headings are single-line",
-      "sha256": "f45c76e778b797c430bfe22211b356b9c600d3087168025b13a17fda4f780623"
+      "sha256": "7c7347e53f19621b5e8e5e6003cd94f19341253673f5d7278f799c3bccc800e0"
+    },
+    "15": {
+      "title": "Block markers are column-strict and their separator is a literal space",
+      "sha256": "3dd1a460906af8fd60941d0e862e3cd28c447f15fb2c7dffe94730e199c54ef0"
+    },
+    "16": {
+      "title": "Attribute identifiers are strict",
+      "sha256": "b8706c81f302a044110e6be040824cd0328d979282d0cffc2b08e8c6031ffbc0"
+    },
+    "17": {
+      "title": "A list marker takes attributes",
+      "sha256": "bacba9f8e42822a421af68b73dc2f88063c1ce35a1e460c52bbadaba7a198012"
+    },
+    "18": {
+      "title": "An attribute line in inline position is preserved, not consumed",
+      "sha256": "2dc9868a3c9dbc29ae3ffa87724f8444bfc85f1f9878e8b41797dc77749963da"
+    },
+    "19": {
+      "title": "An attached sub-block leaves the item tight",
+      "sha256": "1d620d9109d1d74cea8122d718eec6bf299776b96ce129ce6aa351aab67de2aa"
+    },
+    "20": {
+      "title": "A typed container is a native admonition",
+      "sha256": "23c890df7306e6a6b7b5272be2d524b28dacdc5564d9fc05fdc700403ac0fd4b"
+    },
+    "21": {
+      "title": "Footnote labels are matched exactly",
+      "sha256": "6241ad58d122626f2df9d1c4646a1fcb82a3990a0db26390f40f34772061c11d"
     },
     "1b": {
       "title": "Heading-id punctuation model",

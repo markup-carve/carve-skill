@@ -56,7 +56,9 @@ intro
 # Heading      →  <p>intro</p><h1>Heading</h1>
 ```
 
-**Exception: list markers do NOT interrupt.** A bullet/ordered/task marker under prose stays in the paragraph; a list still needs a blank line before it (an ordered marker is common in prose — "see step 2."). Escape a marker (`\# H`, `\- item`) or add a blank line to control it.
+**Exception: list markers do NOT interrupt.** A bullet/ordered/task marker under prose stays in the paragraph; a list still needs a blank line before it (an ordered marker is common in prose — "see step 2."). Escape a marker (`\# H`, `\- item`) or add a blank line to control it. Fence and `:::` **closers** and bare images are excluded too, for the same reason: only an opener that starts something visible interrupts.
+
+An attribute line between the prose and the block is the one place the two differ by more than block position - see trap 18.
 
 ## 8. Symbols `:name:` — stricter shape and boundary
 
@@ -234,6 +236,48 @@ body
 Djot renders `<div class="note">`. An unrecognized type still renders a div.
 Only the element differs - same source, same tree shape - so this is a
 rendering difference rather than a parsing one.
+
+## 21. Footnote labels are matched exactly
+
+The label runs to the closing `]` and is compared byte for byte. Whitespace is
+not collapsed, the ends are not trimmed, and a reference may not contain a
+newline at all. Only a reference written the way the definition was written
+binds.
+
+Given the definition `[^a b]: foo`:
+
+```
+[^a b]         ->  binds
+[^a  b]        ->  literal text        (two spaces; Djot binds)
+[^a	b]        ->  literal text        (a tab; Djot binds)
+[^ a b ]       ->  literal text        (padded ends; Djot binds)
+```
+
+A reference cannot be wrapped, so a long label has to stay on one line:
+
+```
+see[^two
+words].
+
+[^two words]: foo
+```
+
+renders
+
+```html
+<p>see[^two
+words].</p>
+```
+
+Djot normalizes the label before lookup, so all four spellings above are one
+footnote there. Released djot.js agrees with Carve on the wrapped case today,
+but that half is on its way to becoming a divergence too - so treat one-line,
+byte-identical labels as the rule rather than a style preference.
+
+Same ruling as link-reference labels: the bytes decide, and nothing is silently
+dropped - an unmatched reference stays visible as the text you typed, which is
+how you spot it. `carve portability` reports a document that relies on the Djot
+behavior.
 
 ## Porting Djot → Carve (mechanical)
 

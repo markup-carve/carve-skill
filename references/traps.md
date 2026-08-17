@@ -209,6 +209,11 @@ comment block, which degrades to line comments instead of swallowing the rest.
 Widening the *inner* fence is broken in both languages: `::::` under an open
 `:::` is a long bare closer, so it ends the outer container.
 
+**The code fence next door runs the other way** - do not carry this trap's
+intuition across to backticks. A code fence's length is not a depth count and
+its body never nests, so there the *outer* fence has to be the longest thing in
+the block. See trap 13a.
+
 **Status: the spec has moved past this and no released engine has.** Spec
 section 13 (markup-carve/carve#455) now closes a fence on an *exact* length
 match, which makes equal-length fences nest, lets `:::` hold `::::`, and closes
@@ -217,6 +222,102 @@ an unclosed opener at end of input. Every rendering above is the behavior of
 is tested against — measured, not assumed. Until 0.1.3 ships (markup-carve/carve#499)
 write containers that parse the same under both rules: close every opener you
 open, and nest by widening *outward*.
+
+## 13a. A code fence must be longer than every fence line it holds
+
+The wrapper is the OUTER fence, and it has to be **strictly longer** than any
+fence line inside it: content holding a three-backtick line needs a
+four-backtick wrapper. This is the one rule here that Markdown and Djot already
+share. It earns a trap anyway because trap 13 is its neighbor and runs the
+other way, and because the place it actually goes wrong is not the `.crv` file
+- it is Carve written into a GitHub issue, a PR body, a docs page or a chat
+answer, where nobody renders the result before posting it. Carve documentation
+is usually *about* fences, so its examples contain literal fence lines.
+
+A code fence closes on the first **bare** fence of the same character that is
+*at least as long* as the opener (`code_fence_close`: `len(close) >=
+len(open)`). It never nests - the body is opaque, so there is no depth to count
+and the length is a quoting relation instead. Equal length therefore closes.
+
+Broken. The inner fence closes the wrapper on the second line, so the sample
+that was meant to be shown is rendered instead:
+
+````
+```
+```
+- item
+```
+renders as a list
+```
+````
+
+renders
+
+````html
+<pre><code>
+</code></pre>
+<ul>
+  <li>item</li>
+</ul>
+<pre><code>renders as a list
+</code></pre>
+````
+
+One more backtick, on the wrapper only, is the fix:
+
+`````
+````
+```
+- item
+```
+renders as a list
+````
+`````
+
+renders
+
+````html
+<pre><code>```
+- item
+```
+renders as a list
+</code></pre>
+````
+
+A language tag changes nothing - a ` ```html ` wrapper holding a bare
+three-backtick line breaks the same way. Only a *bare* fence closes, so an
+inner opener carrying an info string (` ```js `) is content even at the
+wrapper's own length; the bare closer that ends that inner block is not, so a
+complete inner block still needs the wider wrapper. A fence of the *other*
+character never closes at all - a `~~~` wrapper holds backtick fences of any
+length - but width is the rule to write by, because it is the one that holds
+when the content you are quoting turns out to contain both.
+
+Two things that look like fixes and are not:
+
+- **Widening the inner fence.** ` ``` ` holding ` ```` ` ends on the longer
+  line and leaves a stray inline code span in the tail. Widen outward, never
+  inward.
+- **Indenting the inner fence.** A delimiter indented past its opener is
+  content rather than a closer, so the block does survive - but the leading
+  spaces are preserved verbatim, and columns are the one thing a markup example
+  exists to show.
+
+Some breakage is not a width problem at all: an example missing its own closing
+fence, or an info string that itself contains backticks (```` ```js `x` ````,
+which opens no fence and degrades to an inline code span), needs a line fixed
+rather than a wider wrapper. That is also why the two obvious detection
+signatures - a fence line followed by one of the same or shorter length, and an
+odd total fence count - over-flag by about a third: an odd count is legitimate
+when a lone three-backtick line sits inside a four-backtick wrapper, and
+same-length neighbors are harmless when the inner one carries an info string.
+Parse the document and require a real defect instead.
+
+Unlike trap 13, this rule is stable. markup-carve/carve#455 moved the container
+closer to an exact-length match and deliberately left code fences on `>=`,
+"because their length axis really is quoting: opaque content that never nests,
+which must be able to hold a shorter fence". The spec and `@markup-carve/carve`
+0.1.2 agree here, measured.
 
 ## 14. Headings are single-line
 

@@ -159,6 +159,7 @@ Inline $`e^{i\pi}+1=0`        Display $$`\int_0^1 x\,dx`
 
 %% line comment
 text %% trailing comment
+before {% delimited %} after      (spec 21a; literal on 0.1.2 - see trap 6)
 %%%
 block comment
 %%%

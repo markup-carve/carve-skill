@@ -45,7 +45,32 @@ Ordered lists use `.` and `)` only (`1.` / `1)`). `(1)`, `(a)`, `(i)` stay liter
 
 ## 6. Plain-text comments
 
-`%%` to end of line, `text %% trailing`, or a `%%%` fenced block. Not `{% comment %}` and not `<!-- -->`.
+`%%` to end of line, `text %% trailing`, or a `%%%` fenced block. Not `<!-- -->`.
+
+`%%` runs to the end of its inline **run**, so prose cannot resume after it on the
+same line. Structure supplies a boundary where there is one — a table cell ends at
+`|`, link text at `]` — but plain prose supplies none.
+
+**Status: the spec has added a form for that and no released engine has it.** Spec
+section 21a (markup-carve/carve#1239) takes Djot's `{% … %}` unchanged, so
+`foo {% bar %} baz` is specified to render `<p>foo  baz</p>`. Measured against
+`@markup-carve/carve` 0.1.2 — the only published engine, and the one this skill is
+tested against — the same line renders `<p>foo {% bar %} baz</p>`, braces and all.
+So **write `%%` today.** Reach for `{% … %}` only once an engine past 0.1.2 ships,
+and until then treat a `{%` you did not intend as visible output.
+
+When it does land: `{%` opens and the **first** `%}` closes, there is no nesting, a
+comment inside an emphasis run does not break it (`*bo{% c %}ld*` is one
+`<strong>`), the run may cross soft line breaks inside one paragraph but never a
+blank line, an unterminated `a {% oops` stays literal, code spans and raw inlines
+pass `{%` through, and `\{%` is literal text. Both spellings drop out of every
+render target and both parse to a `comment` node that records which one produced
+it, so `carve fmt` cannot collapse a delimited comment into a trailing `%%` and
+swallow the rest of the line.
+
+One consequence to know before you author: under that rule a Liquid or Nunjucks
+page whose `{% raw %}` reaches the parser as text has its tags read as comments.
+`carve lint` reports that shape rather than rewriting it.
 
 ## 7. Block openers interrupt paragraphs (Markdown-like)
 
@@ -284,7 +309,7 @@ behavior.
 1. `_italic_` → `/italic/`; check every `*…*` (Djot strong stays `*…*`).
 2. `~sub~` → `{,sub,}`, `^sup^` → `{^sup^}`; a `~…~` used for strikethrough is now native.
 3. `+` bullets → `-` or `*`.
-4. `{% comment %}` → `%%`.
+4. `{% comment %}` → `%%`. (Spec section 21a keeps the Djot spelling working, but no released engine implements it yet — trap 6.)
 5. A marker line directly under prose now starts a block — add a blank line or escape where you relied on Djot keeping it in the paragraph.
 6. A wrapped heading (a plain or same-`#` line under `# Title`) no longer folds in — join it onto the heading line, or accept it as a paragraph.
 7. Definition lists: `: term` (+ indented body) → `:: term` then `:  definition`.

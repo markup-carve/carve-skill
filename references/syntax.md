@@ -161,8 +161,8 @@ Inline $`e^{i\pi}+1=0`        Display $$`\int_0^1 x\,dx`
 text %% trailing comment
 before {% delimited %} after      (spec 21a; literal on 0.1.2 - see trap 6)
 %%%
-block comment
-%%%
+block comment                     (hides its body at any column; on 0.1.2 a
+%%%                                definition inside one still resolves - trap 6)
 
 {+inserted+}  {-deleted-}  {~old~>new~}  {#a comment#}   (CriticMarkup)
 ```

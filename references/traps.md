@@ -72,6 +72,60 @@ One consequence to know before you author: under that rule a Liquid or Nunjucks
 page whose `{% raw %}` reaches the parser as text has its tags read as comments.
 `carve lint` reports that shape rather than rewriting it.
 
+**A `%%%` fence hides its body wherever the fence sits**, not only at column 0.
+PART 9 section 24 S1 places a line by the column it reaches rather than by its
+first character, S2 makes a line verbatim as soon as the innermost matched
+container is a fenced body, and section 28 makes a comment fence's body verbatim
+and invisible. None of the three is scoped to column 0, so a definition inside an
+indented comment fence registers nothing and a reference to it stays literal.
+This is not an exception to traps 11 and 15 - the fence still has to reach its
+container's content column to be a fence at all.
+
+**Status: the spec has moved past this and no released engine has it.** The rule
+is pinned by corpus documents `335` to `341` (markup-carve/carve#1311). Measured
+against `@markup-carve/carve` 0.1.2 - the only published engine, and the one this
+skill is tested against - six of those seven diverge: the fence hides the
+*rendering*, but the definition-collection pass reads straight through it, so a
+commented-out definition still resolves. Only the footnote form matches.
+
+````
+- item
+  %%%
+  [r]: /url
+  %%%
+
+[r][]
+````
+
+The spec, and carve-js and carve-rs on `main`:
+
+````html
+<ul>
+  <li>item</li>
+</ul>
+<p>[r][]</p>
+````
+
+0.1.2, which resolves the reference the author commented out:
+
+````html
+<ul>
+  <li>item</li>
+</ul>
+<p><a href="/url">r</a></p>
+````
+
+Same shape for a fence opened on the `- ` marker line, one item deeper, a wider
+`%%%%` fence, and one inside a `::: note`; the abbreviation form emits the
+`<abbr>` instead. So **do not comment out a definition** while 0.1.2 is what you
+render with - delete it, or move it out of the document. Commenting out ordinary
+prose is unaffected, and so is a footnote definition.
+
+This note expires the moment a release past 0.1.2 carries the rule: carve-js and
+carve-rs implement it on `main` today, carve-php does not yet
+(markup-carve/carve-php#1349). At that point the paragraph above the status line
+is simply the rule, and the status block should be deleted rather than updated.
+
 ## 7. Block openers interrupt paragraphs (Markdown-like)
 
 A **visible** block marker directly under a line of prose starts a block with no blank line before it — `#` heading, `>` quote, `|` table row, or a fence. (Djot would keep it in the paragraph.)

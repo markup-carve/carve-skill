@@ -51,6 +51,101 @@ Ordered lists use `.` and `)` only (`1.` / `1)`). `(1)`, `(a)`, `(i)` stay liter
 same line. Structure supplies a boundary where there is one — a table cell ends at
 `|`, link text at `]` — but plain prose supplies none.
 
+**There are two comment constructs, not one, and which you wrote decides every
+hard case.** A line whose first character is `%` is `comment_line`, a **block**:
+it is settled at the block layer, before any inline content exists. A `%%` after
+content on the same line is `inline_comment`, an **inline** construct (spec
+section 21). The two rules below are that split, not exceptions to it.
+
+**An inline comment does not survive an unclosed verbatim run.** PART 3's
+UNCLOSED RUN clause turns every inline construct after an unclosed opener into
+content, and an inline comment is not exempt, so its text is *published* rather
+than hidden:
+
+````
+a `b %% secret
+````
+
+````html
+<p>a <code>b %% secret</code></p>
+````
+
+Those are two percent signs inside a code span, not a comment. No container is
+involved and 0.1.2 renders it the same way, so this is the rule rather than a
+version note. The author who hits it is writing a private aside next to a code
+span whose backtick they never closed. A comment on its own line is settled
+before any run exists and cannot be reached this way, which is the whole of the
+difference.
+
+**Inside a `::: |` line block a comment must start at column 0.** Leading
+whitespace is content in verse, so `comment_line`'s optional whitespace prefix
+has nothing to consume there: only a body line whose FIRST character is `%` is a
+comment line. An indented `%%` is ordinary verse text and its leading run
+renders as NBSPs like any other.
+
+````
+::: |
+%% hidden
+  %% shown
+b
+:::
+````
+
+````html
+<div class="line-block">
+  <p><br>
+&nbsp;&nbsp;%% shown<br>
+b</p>
+</div>
+````
+
+This is not trap 15's column strictness reaching one construct further; it is
+the opposite. Verse has no indentation to skip, because a leading run is content
+the block preserves. The writer side says the same thing from the other end: the
+comment stays a node and `carve fmt` writes it back at the same column, so a
+writer that indented it by one space to stop it re-reading as a comment would
+publish the very text the comment exists to hide.
+
+**Status: main hides a comment-only verse line under an unclosed run; 0.1.2
+publishes it.** The two rules above meet in one document, and the spec settles it
+at the block layer (markup-carve/carve#1333, shipped as
+markup-carve/carve#1339): the comment is gone before the run exists, and the run
+carries the emptied line as a newline.
+
+````
+::: |
+a `b
+%% secret
+c
+:::
+````
+
+carve-js, carve-php and carve-rs on `main`:
+
+````html
+<div class="line-block">
+  <p>a <code>b
+
+c</code></p>
+</div>
+````
+
+`@markup-carve/carve` 0.1.2, the only published engine and the one this skill is
+tested against:
+
+````html
+<div class="line-block">
+  <p>a <code>b
+%% secret
+c</code></p>
+</div>
+````
+
+So until a release past 0.1.2 ships, **do not put a private note on its own line
+inside a line block that holds a code span** - one unclosed backtick above it is
+enough to print it. Both other rules in this trap hold on 0.1.2 already; only
+this one waits on a release, and the status block goes when it lands.
+
 **Status: the spec has added a form for that and no released engine has it.** Spec
 section 21a (markup-carve/carve#1239) takes Djot's `{% … %}` unchanged, so
 `foo {% bar %} baz` is specified to render `<p>foo  baz</p>`. Measured against

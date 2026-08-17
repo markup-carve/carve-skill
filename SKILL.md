@@ -24,6 +24,7 @@ These are the Markdown/Djot habits that break in Carve. Full list with rationale
 9. **Block markers interrupt paragraphs** (Markdown-like): a `#`/`>`/fence/table line directly under prose starts a block. Exception: list markers do NOT interrupt (a list still needs a blank line before it).
 10. **Comments are `%%`** to end of line (or a `%%%` fenced block), never `<!-- -->`. The spec has since added Djot's `{% … %}` for commenting mid-prose, but no released engine renders it yet — write `%%` (trap 6).
 11. **Definition lists use explicit markers:** `:: term` then `:  definition` (single colon + two spaces). Djot's `: term` + indented body does not work.
+12. **A code fence must be longer than any bare same-character fence line inside it.** Content holding a three-backtick line needs a four-backtick wrapper; at equal length the inner line closes the block early and the sample renders as live markup. Note this runs the *opposite* way to `:::` containers (trap 13), and it applies wherever you write Carve (an issue body, a PR description, a chat answer), not only in a file (trap 13a).
 
 ## Core syntax (quick)
 

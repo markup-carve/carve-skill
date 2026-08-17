@@ -6,6 +6,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+- Qualify the comment trap in `references/traps.md` (6) with the block/inline
+  split the spec now states, so `%%` stops reading as reliably invisible. An
+  inline comment is an inline construct, so an unclosed verbatim run publishes
+  its text; a verse comment is a block settled at column 0, so an indented `%%`
+  inside a `::: |` is content. Both hold on 0.1.2. The shape where the two meet,
+  a comment-only verse line under an unclosed run, is hidden on `main` and
+  published on 0.1.2, and carries a status block until a release past 0.1.2
+  ships.
+
 - Advance the spec submodule to carve `881134e` and cover the divergence
   section it brings in `references/traps.md`: footnote labels are matched
   exactly (21) - no whitespace normalization, no trimming of the ends, and a

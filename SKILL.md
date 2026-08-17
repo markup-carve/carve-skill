@@ -22,7 +22,7 @@ These are the Markdown/Djot habits that break in Carve. Full list with rationale
 7. **A list marker needs content.** A lone `-` (or `- `) is paragraph text, not an empty list item.
 8. **Cross-references are `</#id>`** — the link text is auto-filled from the target heading. Implicit heading links: `[Heading][]`.
 9. **Block markers interrupt paragraphs** (Markdown-like): a `#`/`>`/fence/table line directly under prose starts a block. Exception: list markers do NOT interrupt (a list still needs a blank line before it).
-10. **Comments are `%%`** to end of line (or a `%%%` fenced block), not `{% %}` or `<!-- -->`.
+10. **Comments are `%%`** to end of line (or a `%%%` fenced block), never `<!-- -->`. The spec has since added Djot's `{% … %}` for commenting mid-prose, but no released engine renders it yet — write `%%` (trap 6).
 11. **Definition lists use explicit markers:** `:: term` then `:  definition` (single colon + two spaces). Djot's `: term` + indented body does not work.
 
 ## Core syntax (quick)

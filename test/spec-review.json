@@ -1,7 +1,7 @@
 {
   "$comment": "Which spec divergence sections the trap list in references/traps.md was last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/divergence-from-djot.md",
-  "spec_rev": "881134ee439e9b3669d873d217f035ebd1bb0fbb",
+  "spec_rev": "b6917ab7ec0784b08ff775f669026af1fc823b20",
   "sections": {
     "1": {
       "title": "Case-preserving heading ids with case-insensitive cross-references",
@@ -25,7 +25,7 @@
     },
     "6": {
       "title": "Plain-text comments",
-      "sha256": "f864ee78dcd5c58fa22fb38b49c49967c212ac6908115bd77e690e0593032872"
+      "sha256": "e9c8b900e0293490bba3018316f378638fd81fc5f89ed6a99b67e1882ee17c3f"
     },
     "7": {
       "title": "Block openers interrupt paragraphs (Markdown-like)",

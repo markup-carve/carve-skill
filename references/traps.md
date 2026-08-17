@@ -186,12 +186,21 @@ ASCII before slugging.
 
 ## 13. Containers nest by width, and an unclosed one is text
 
-An inner container must be **strictly wider** than the one holding it: `::::`
-inside `:::`, not `:::` inside `:::`. Djot nests equal-length fences; Carve
-reads the width as a depth count, so at equal length the inner opener is
-neither a closer (a closer is bare, and `::: tip` carries a type word) nor an
-opener — it stays paragraph text, and the first bare `:::` closes the outer
-block. A bare closer closes **one** container, not every one open above it.
+**Nest by widening outward, and close every opener you open.** The container
+that *holds* another must be strictly wider than the one it holds: `::: tip`
+inside `:::: note`. Djot nests equal-length fences; Carve reads the width as a
+depth count, so at equal length the inner opener is neither a closer (a closer
+is bare, and `::: tip` carries a type word) nor an opener — it stays paragraph
+text, and the first bare `:::` closes the outer block. A bare closer closes
+**one** container, not every one open above it.
+
+```
+:::: note       →  a tip nested inside a note
+::: tip
+Inner.
+:::
+::::
+```
 
 ```
 ::: note        →  the `::: tip` line is TEXT inside the note,
@@ -201,38 +210,59 @@ Inner.
 :::
 ```
 
+**Widening the *inner* fence is broken too**, and differently: `::::` under an
+open `:::` is a long bare closer, so it ends the outer container, and the
+`:::: tip` opener it was meant to nest stays text. Only outward widening nests.
+
+```
+::: note        →  the `:::: tip` line is TEXT inside the note,
+:::: tip           `::::` closes the note early, and the
+Inner.             trailing `:::` is its own paragraph
+::::
+:::
+```
+
 **An opener you never close renders nothing.** Djot closes it at end of file;
 Carve leaves the opener line and its body as a paragraph, `:::` and all. A
 mistyped closer therefore turns the tail of the document into text rather than
 producing a slightly wrong container — the same call as an unclosed `%%%`
 comment block, which degrades to line comments instead of swallowing the rest.
-Widening the *inner* fence is broken in both languages: `::::` under an open
-`:::` is a long bare closer, so it ends the outer container.
 
-**The code fence next door runs the other way** - do not carry this trap's
-intuition across to backticks. A code fence's length is not a depth count and
-its body never nests, so there the *outer* fence has to be the longest thing in
-the block. See trap 13a.
+**The code fence next door points the same way today and will not tomorrow.**
+Both say widen outward, so the habit carries; what does not carry is the reason,
+and the two part company at equal length as soon as spec section 13 lands (see
+the status note). A code fence's length is not a depth count and its body never
+nests (its length is a quoting relation), so an equal-length inner fence
+*closes* the wrapper there and always will. See trap 13a.
 
-**Status: the spec has moved past this and no released engine has.** Spec
-section 13 (markup-carve/carve#455) now closes a fence on an *exact* length
-match, which makes equal-length fences nest, lets `:::` hold `::::`, and closes
-an unclosed opener at end of input. Every rendering above is the behavior of
-`@markup-carve/carve` 0.1.2 — the only published engine, and the one this skill
-is tested against — measured, not assumed. Until 0.1.3 ships (markup-carve/carve#499)
-write containers that parse the same under both rules: close every opener you
-open, and nest by widening *outward*.
+**Status: the spec has moved past this and no released engine has.** Every
+rendering above is the behavior of `@markup-carve/carve` 0.1.2 — the only
+published engine, and the one this skill is tested against — measured, not
+assumed. Spec section 13 (markup-carve/carve#455) closes a fence on an *exact*
+length match instead, which makes equal-length containers nest, lets `:::` hold
+`::::`, and closes an unclosed opener at end of input. That only *widens* what
+parses: every shape recommended above still nests under the new rule, because
+outward widening and a matching closer read the same either way. What changes is
+that the two failures shown above stop being failures.
+
+That is what makes this block deletable rather than editable: when a release
+past 0.1.2 carries section 13 (markup-carve/carve#499), delete from **Status:**
+to here and leave the advice above standing. Do not promote the new rule into
+the lead instead: `::: tip` inside `::: note` is the shape that breaks on every
+engine published so far, and a reader who stops at the first paragraph, which is
+what a quick lookup does, would get the answer that fails.
 
 ## 13a. A code fence must be longer than every fence line it holds
 
 The wrapper is the OUTER fence, and it has to be **strictly longer** than any
 fence line inside it: content holding a three-backtick line needs a
 four-backtick wrapper. This is the one rule here that Markdown and Djot already
-share. It earns a trap anyway because trap 13 is its neighbor and runs the
-other way, and because the place it actually goes wrong is not the `.crv` file
-- it is Carve written into a GitHub issue, a PR body, a docs page or a chat
-answer, where nobody renders the result before posting it. Carve documentation
-is usually *about* fences, so its examples contain literal fence lines.
+share. It earns a trap anyway because trap 13 is its neighbor and is about to
+stop agreeing with it, and because the place it actually goes wrong is not the
+`.crv` file - it is Carve written into a GitHub issue, a PR body, a docs page
+or a chat answer, where nobody renders the result before posting it. Carve
+documentation is usually *about* fences, so its examples contain literal fence
+lines.
 
 A code fence closes on the first **bare** fence of the same character that is
 *at least as long* as the opener (`code_fence_close`: `len(close) >=
@@ -313,11 +343,14 @@ when a lone three-backtick line sits inside a four-backtick wrapper, and
 same-length neighbors are harmless when the inner one carries an info string.
 Parse the document and require a real defect instead.
 
-Unlike trap 13, this rule is stable. markup-carve/carve#455 moved the container
-closer to an exact-length match and deliberately left code fences on `>=`,
-"because their length axis really is quoting: opaque content that never nests,
-which must be able to hold a shorter fence". The spec and `@markup-carve/carve`
-0.1.2 agree here, measured.
+Unlike trap 13, this rule is stable, and that is the whole of the difference
+between them today. Both say widen outward on 0.1.2; markup-carve/carve#455
+moved the *container* closer to an exact-length match and deliberately left code
+fences on `>=`, "because their length axis really is quoting: opaque content
+that never nests, which must be able to hold a shorter fence". So when that
+ships, an equal-length container will nest and an equal-length code fence will
+still close early. The spec and `@markup-carve/carve` 0.1.2 agree here,
+measured.
 
 ## 14. Headings are single-line
 

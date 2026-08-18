@@ -40,7 +40,3 @@ npm run lint:examples # round-trip: the showcase must lint clean
 npm run spec:check    # which sections moved, without the test harness
 npm run spec:review   # record the review — AFTER re-reading the sections it names
 ```
-
-## License
-
-MIT — see [LICENSE](LICENSE).

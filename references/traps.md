@@ -71,7 +71,7 @@ a `b %% secret
 ````
 
 Those are two percent signs inside a code span, not a comment. No container is
-involved and 0.1.2 renders it the same way, so this is the rule rather than a
+involved and 0.1.3 renders it the same way, so this is the rule rather than a
 version note. The author who hits it is writing a private aside next to a code
 span whose backtick they never closed. A comment on its own line is settled
 before any run exists and cannot be reached this way, which is the whole of the
@@ -106,11 +106,11 @@ comment stays a node and `carve fmt` writes it back at the same column, so a
 writer that indented it by one space to stop it re-reading as a comment would
 publish the very text the comment exists to hide.
 
-**Status: main hides a comment-only verse line under an unclosed run; 0.1.2
-publishes it.** The two rules above meet in one document, and the spec settles it
-at the block layer (markup-carve/carve#1333, shipped as
-markup-carve/carve#1339): the comment is gone before the run exists, and the run
-carries the emptied line as a newline.
+**A comment on its OWN LINE is hidden even under an unclosed run.** The two
+rules above meet in one document, and the spec settles it at the block layer
+(markup-carve/carve#1333, shipped as markup-carve/carve#1339): the comment is
+gone before the run exists, and the run carries the emptied line as a newline.
+`@markup-carve/carve` 0.1.3 carries it.
 
 ````
 ::: |
@@ -120,39 +120,25 @@ c
 :::
 ````
 
-carve-js, carve-php and carve-rs on `main`:
-
 ````html
 <div class="line-block">
-  <p>a <code>b
-
-c</code></p>
+  <p>a <code>b</code><br>
+<br>
+c</p>
 </div>
 ````
 
-`@markup-carve/carve` 0.1.2, the only published engine and the one this skill is
-tested against:
-
-````html
-<div class="line-block">
-  <p>a <code>b
-%% secret
-c</code></p>
-</div>
-````
-
-So until a release past 0.1.2 ships, **do not put a private note on its own line
-inside a line block that holds a code span** - one unclosed backtick above it is
-enough to print it. Both other rules in this trap hold on 0.1.2 already; only
-this one waits on a release, and the status block goes when it lands.
+The private aside stays private. Only an INLINE comment, one that follows
+content on the same line, is published by an unclosed run - which is the rule
+two paragraphs up, and the whole of the difference between the two constructs.
 
 **Status: the spec has added a form for that and no released engine has it.** Spec
 section 21a (markup-carve/carve#1239) takes Djot's `{% … %}` unchanged, so
 `foo {% bar %} baz` is specified to render `<p>foo  baz</p>`. Measured against
-`@markup-carve/carve` 0.1.2 — the only published engine, and the one this skill is
-tested against — the same line renders `<p>foo {% bar %} baz</p>`, braces and all.
-So **write `%%` today.** Reach for `{% … %}` only once an engine past 0.1.2 ships,
-and until then treat a `{%` you did not intend as visible output.
+`@markup-carve/carve` 0.1.3 — the newest published engine, and the one this skill
+is tested against — the same line renders `<p>foo {% bar %} baz</p>`, braces and
+all. So **write `%%` today.** Reach for `{% … %}` only once an engine past 0.1.3
+ships, and until then treat a `{%` you did not intend as visible output.
 
 When it does land: `{%` opens and the **first** `%}` closes, there is no nesting, a
 comment inside an emphasis run does not break it (`*bo{% c %}ld*` is one
@@ -176,12 +162,10 @@ indented comment fence registers nothing and a reference to it stays literal.
 This is not an exception to traps 11 and 15 - the fence still has to reach its
 container's content column to be a fence at all.
 
-**Status: the spec has moved past this and no released engine has it.** The rule
-is pinned by corpus documents `335` to `341` (markup-carve/carve#1311). Measured
-against `@markup-carve/carve` 0.1.2 - the only published engine, and the one this
-skill is tested against - six of those seven diverge: the fence hides the
-*rendering*, but the definition-collection pass reads straight through it, so a
-commented-out definition still resolves. Only the footnote form matches.
+The rule is pinned by corpus documents `335` to `341`
+(markup-carve/carve#1311), and `@markup-carve/carve` 0.1.3 carries it: a
+definition inside a comment fence is not collected, so a reference to it stays
+literal.
 
 ````
 - item
@@ -192,8 +176,6 @@ commented-out definition still resolves. Only the footnote form matches.
 [r][]
 ````
 
-The spec, and carve-js and carve-rs on `main`:
-
 ````html
 <ul>
   <li>item</li>
@@ -201,25 +183,13 @@ The spec, and carve-js and carve-rs on `main`:
 <p>[r][]</p>
 ````
 
-0.1.2, which resolves the reference the author commented out:
-
-````html
-<ul>
-  <li>item</li>
-</ul>
-<p><a href="/url">r</a></p>
-````
-
 Same shape for a fence opened on the `- ` marker line, one item deeper, a wider
-`%%%%` fence, and one inside a `::: note`; the abbreviation form emits the
-`<abbr>` instead. So **do not comment out a definition** while 0.1.2 is what you
-render with - delete it, or move it out of the document. Commenting out ordinary
-prose is unaffected, and so is a footnote definition.
+`%%%%` fence, and one inside a `::: note`; the abbreviation form is hidden the
+same way, and so is a footnote definition. Ports can lag the JS engine on this
+one - markup-carve/carve-php#1349 tracks it there - so if you render with
+another implementation, check before relying on a commented-out definition
+staying unresolved.
 
-This note expires the moment a release past 0.1.2 carries the rule: carve-js and
-carve-rs implement it on `main` today, carve-php does not yet
-(markup-carve/carve-php#1349). At that point the paragraph above the status line
-is simply the rule, and the status block should be deleted rather than updated.
 
 ## 7. Block openers interrupt paragraphs (Markdown-like)
 
@@ -279,15 +249,12 @@ ANSI renderers still emit the glyph in all three (spec markup-carve/carve#560).
 Heading ids are identical either way: the id pass normalizes the glyphs back to
 ASCII before slugging.
 
-## 13. Containers nest by width, and an unclosed one is text
+## 13. Containers nest, and an unclosed one closes at the end
 
-**Nest by widening outward, and close every opener you open.** The container
-that *holds* another must be strictly wider than the one it holds: `::: tip`
-inside `:::: note`. Djot nests equal-length fences; Carve reads the width as a
-depth count, so at equal length the inner opener is neither a closer (a closer
-is bare, and `::: tip` carries a type word) nor an opener — it stays paragraph
-text, and the first bare `:::` closes the outer block. A bare closer closes
-**one** container, not every one open above it.
+**Nest by widening outward, and close every opener you open.** A container that
+holds another can always be strictly wider than the one it holds: `::: tip`
+inside `:::: note`. That shape reads the same under every rule the language has
+had, and ports that lag still get it right, which is why it is the one to write.
 
 ```
 :::: note       →  a tip nested inside a note
@@ -297,55 +264,38 @@ Inner.
 ::::
 ```
 
+**Equal length nests too, and an opener you never close is closed for you.**
+Spec section 13 (markup-carve/carve#455) closes a fence on an *exact* length
+match rather than reading the width as a depth count, so a `:::` container holds
+a `::: tip`, holds a `:::: tip`, and an opener with no closer ends at end of
+input instead of degrading to paragraph text. A bare closer still closes **one**
+container, not every one open above it.
+
+Measured against `@markup-carve/carve` 0.1.3, the engine this skill is tested
+against:
+
 ```
-::: note        →  the `::: tip` line is TEXT inside the note,
-::: tip            and the trailing `:::` is its own paragraph
+::: note        →  a tip nested inside a note
+::: tip
 Inner.
 :::
 :::
 ```
 
-**Widening the *inner* fence is broken too**, and differently: `::::` under an
-open `:::` is a long bare closer, so it ends the outer container, and the
-`:::: tip` opener it was meant to nest stays text. Only outward widening nests.
-
 ```
-::: note        →  the `:::: tip` line is TEXT inside the note,
-:::: tip           `::::` closes the note early, and the
-Inner.             trailing `:::` is its own paragraph
-::::
-:::
+::: note        →  the note holds the body and closes
+Body.              at the end of the document
 ```
 
-**An opener you never close renders nothing.** Djot closes it at end of file;
-Carve leaves the opener line and its body as a paragraph, `:::` and all. A
-mistyped closer therefore turns the tail of the document into text rather than
-producing a slightly wrong container — the same call as an unclosed `%%%`
-comment block, which degrades to line comments instead of swallowing the rest.
+This is a widening, not a reversal: every shape the first paragraph recommends
+parses the same either way. It is the two shapes that used to fail - an
+equal-length inner opener left as text, and an unclosed opener left as a
+paragraph - that stopped failing.
 
-**The code fence next door points the same way today and will not tomorrow.**
-Both say widen outward, so the habit carries; what does not carry is the reason,
-and the two part company at equal length as soon as spec section 13 lands (see
-the status note). A code fence's length is not a depth count and its body never
-nests (its length is a quoting relation), so an equal-length inner fence
-*closes* the wrapper there and always will. See trap 13a.
-
-**Status: the spec has moved past this and no released engine has.** Every
-rendering above is the behavior of `@markup-carve/carve` 0.1.2 — the only
-published engine, and the one this skill is tested against — measured, not
-assumed. Spec section 13 (markup-carve/carve#455) closes a fence on an *exact*
-length match instead, which makes equal-length containers nest, lets `:::` hold
-`::::`, and closes an unclosed opener at end of input. That only *widens* what
-parses: every shape recommended above still nests under the new rule, because
-outward widening and a matching closer read the same either way. What changes is
-that the two failures shown above stop being failures.
-
-That is what makes this block deletable rather than editable: when a release
-past 0.1.2 carries section 13 (markup-carve/carve#499), delete from **Status:**
-to here and leave the advice above standing. Do not promote the new rule into
-the lead instead: `::: tip` inside `::: note` is the shape that breaks on every
-engine published so far, and a reader who stops at the first paragraph, which is
-what a quick lookup does, would get the answer that fails.
+**The code fence next door does not follow.** Both say widen outward, so the
+habit carries; the reason does not. A code fence's length is a quoting relation
+rather than a depth count, so an equal-length inner fence *closes* the wrapper
+there and always will. See trap 13a.
 
 ## 13a. A code fence must be longer than every fence line it holds
 
@@ -438,14 +388,13 @@ when a lone three-backtick line sits inside a four-backtick wrapper, and
 same-length neighbors are harmless when the inner one carries an info string.
 Parse the document and require a real defect instead.
 
-Unlike trap 13, this rule is stable, and that is the whole of the difference
-between them today. Both say widen outward on 0.1.2; markup-carve/carve#455
-moved the *container* closer to an exact-length match and deliberately left code
-fences on `>=`, "because their length axis really is quoting: opaque content
-that never nests, which must be able to hold a shorter fence". So when that
-ships, an equal-length container will nest and an equal-length code fence will
-still close early. The spec and `@markup-carve/carve` 0.1.2 agree here,
-measured.
+Unlike trap 13, this rule never moved, and that is the whole of the difference
+between them. Both say widen outward; markup-carve/carve#455 moved the
+*container* closer to an exact-length match and deliberately left code fences on
+`>=`, "because their length axis really is quoting: opaque content that never
+nests, which must be able to hold a shorter fence". That has shipped, so an
+equal-length container nests and an equal-length code fence still closes early.
+The spec and `@markup-carve/carve` 0.1.3 agree here, measured.
 
 ## 14. Headings are single-line
 

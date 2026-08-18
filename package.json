@@ -27,6 +27,7 @@
   "scripts": {
     "test": "node --test test/*.test.mjs",
     "lint:examples": "carve lint examples/*.crv",
+    "test:behavior": "node --test test/behavior.test.mjs",
     "spec:check": "node scripts/check-spec-review.mjs",
     "spec:review": "node scripts/record-spec-review.mjs"
   },

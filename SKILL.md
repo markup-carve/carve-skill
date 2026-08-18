@@ -9,6 +9,21 @@ Carve's mnemonic: **the markup looks like its output.** It starts from [Djot](ht
 
 Files use the **`.crv`** extension (`.carve` also accepted).
 
+## Establish the target before writing
+
+Before using syntax whose behavior can vary, inspect the project and determine:
+
+1. the Carve implementation and installed version;
+2. the output renderer (HTML, Markdown, ANSI, plain text, or a host integration);
+3. which Tier-2/Tier-3 extensions the host enables; and
+4. whether the user wants authored spelling preserved or canonical formatting.
+
+Use core syntax when any of those facts is unknown. Do not copy a construct from
+the current spec into a project whose released engine does not implement it.
+[references/capabilities.json](references/capabilities.json) records the known
+version boundaries; [references/workflows.md](references/workflows.md) gives the
+discovery and editing playbooks.
+
 ## The rules you will get wrong (read first)
 
 These are the Markdown/Djot habits that break in Carve. Full list with rationale in [references/traps.md](references/traps.md).
@@ -52,10 +67,31 @@ Some constructs are Tier-2/Tier-3 extensions, enabled per-processor and **host-d
 Carve ships a linter that catches constructs that parse but render wrong. After authoring or editing a `.crv`, run it and fix every finding:
 
 ```sh
-carve lint file.crv
+./node_modules/.bin/carve lint file.crv
 ```
 
 - Default lint targets hand-written Carve (flags `**bold**`, `~~strike~~`, `^sup^`, `+` bullets, broken `</#id>`, duplicate ids, trailing heading attributes, etc.).
 - Add `--from-djot` **only** when checking a document migrated from Djot (it also flags `_x_`/`~x~`/`{=x=}`, which are valid in hand-written Carve).
 
-The round-trip you are aiming for: author using several constructs → `carve lint` is clean with no `--from-djot`. See [references/validation.md](references/validation.md).
+Never install a validator merely to finish a task. Prefer a project script or
+local binary, then `npx --no-install carve`; use a global `carve` only when its
+version matches the project. Lint every touched Carve file and report the command
+and version. A clean lint is necessary but not proof of the intended rendering;
+inspect rendered or parsed output when structure or target routing matters.
+
+The round-trip you are aiming for: author using several constructs → lint is
+clean with no `--from-djot` → rendered structure matches the request. See
+[references/validation.md](references/validation.md).
+
+## Editing and document quality
+
+Make the smallest local edit that satisfies the request. Preserve nearby
+delimiter choices, attributes, indentation, line endings, and container widths;
+do not canonicalize or rewrite a whole document unless asked. For issue, PR, or
+chat bodies, widen the *outer* Markdown fence beyond every bare fence line in the
+Carve sample and preview the body before submitting it.
+
+Write useful alt text, keep heading levels logical, use meaningful link text and
+table headers/captions, and treat raw HTML, remote embeds, template syntax, and
+Tier-3 renderers as host-controlled trust boundaries. The complete checklist is
+in [references/quality-and-safety.md](references/quality-and-safety.md).

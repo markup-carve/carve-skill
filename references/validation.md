@@ -2,6 +2,21 @@
 
 Carve parses tolerantly, so many mistakes render as the wrong thing instead of erroring. The linter catches those silent failures. **Always run it after authoring or editing a `.crv` and fix every finding before you finish.**
 
+## Find the project validator without changing dependencies
+
+Use the first available option that belongs to the project:
+
+1. A documented package script such as `npm run lint:carve`.
+2. `./node_modules/.bin/carve`.
+3. `npx --no-install carve` (never omit `--no-install` during discovery).
+4. A global `carve`, after checking that its version matches the project.
+
+If none exists, say that validation could not be run. Do not download or install
+a validator unless the user authorizes dependency changes.
+
+Record `carve --version` (or the dependency version from the lockfile) in the
+handoff whenever version-sensitive syntax is involved.
+
 ## Command
 
 ```sh
@@ -25,7 +40,16 @@ Author a document using several constructs, then:
 carve lint file.crv        # no --from-djot
 ```
 
-must be clean. If it is not, you emitted Markdown/Djot-flavored output — fix per the finding and re-run. Common fixes map straight to [traps.md](traps.md): `**b**` → `*b*`, `~~s~~` → `~s~`, `^x^` → `{^x^}`, `+ item` → `- item`, trailing heading `{#id}` → move it to the line above.
+must be clean. Run it over every touched `.crv`/`.carve` file, not only the
+smallest example. If it is not clean, fix per the finding and re-run. Common
+fixes map straight to [traps.md](traps.md): `**b**` → `*b*`, `~~s~~` → `~s~`,
+`^x^` → `{^x^}`, `+ item` → `- item`, trailing heading `{#id}` → move it above.
+
+Lint checks known hazards; it does not prove semantic intent. When changing
+containers, captions, references, raw target routing, extensions, or generated
+PR/issue snippets, also use the project's parser/render tests or preview and
+confirm the relevant structure. Do not run `carve fmt` across existing authored
+source unless canonicalization was requested.
 
 ## Getting the linter
 

@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Carve emphasis instead of Markdown doubles",
+    "source": "A /lean/ and *strong* and ~gone~.",
+    "htmlIncludes": ["<em>lean</em>", "<strong>strong</strong>", "<s>gone</s>"],
+    "htmlExcludes": ["**", "~~"]
+  },
+  {
+    "name": "heading attributes precede the heading and resolve as a cross-reference",
+    "source": "{#target}\n# Target\n\nSee </#target>.",
+    "htmlIncludes": ["<section id=\"target\">", "<a href=\"#target\">Target</a>"]
+  },
+  {
+    "name": "a continuation marker attaches a fenced block to its list item",
+    "source": "- first\n+\n```js\nx\n```",
+    "htmlIncludes": ["<li>first", "<pre><code class=\"language-js\">x"]
+  },
+  {
+    "name": "comments use released-engine syntax and do not render",
+    "source": "Visible. %% private\n\n%%%\nhidden\n%%%",
+    "htmlIncludes": ["Visible."],
+    "htmlExcludes": ["private", "hidden", "{%"]
+  },
+  {
+    "name": "raw HTML is routed to the HTML target",
+    "source": "`<mark>safe fixture</mark>`{=html}",
+    "htmlIncludes": ["<mark>safe fixture</mark>"]
+  }
+]

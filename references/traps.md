@@ -145,6 +145,17 @@ So **`{% … %}` is safe to write.** `%%` remains correct and is still the right
 choice for a whole-line or end-of-line comment; the delimited form is for the
 middle of a sentence, where `%%` would take the rest of the line with it.
 
+**A table cell's VERTICAL alignment is specified and unreleased.** A cell marker
+may carry a second axis - `|=<^` is left plus top - and the pair must be
+HORIZONTAL FIRST (markup-carve/carve#1405, #1407): `<^ <~ <v ~^ ~~ ~v >^ >~ >v`
+are runs, while `v>` and a lone `^` or `v` are ordinary cell content. Measured
+2026-08-18 against the PUBLISHED engines: `@markup-carve/carve` 0.1.4 renders
+`|=<^ A |` as `text-align: left` with the caret surviving as the text `^ A`, and
+no released carve-php or carve-rs records the feature. So write the horizontal
+marker alone today, and read a stray `^` in a cell as output rather than as
+markup. Note the collision to come: `^` alone in a DATA cell is the rowspan
+marker (`| ^ |`), which is unaffected and works now.
+
 The rules: `{%` opens and the **first** `%}` closes, there is no nesting, a
 comment inside an emphasis run does not break it (`*bo{% c %}ld*` is one
 `<strong>`), the run may cross soft line breaks inside one paragraph but never a

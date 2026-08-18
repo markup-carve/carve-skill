@@ -130,6 +130,9 @@ inner
 
 |= Name |=> Age |=~ City |   (alignment glued to |=: < ~ >)
 | Sum    |< 12   | NYC    |   (a data-cell marker overrides per cell)
+                              (a VERTICAL second axis - |=<^ - is specified but
+                               no released engine renders it yet: the ^ shows up
+                               as literal text. Horizontal only, for now.)
 
 | Name  | Age |              (GFM separator row accepted as an alias)
 |-------|----:|
@@ -159,7 +162,7 @@ Inline $`e^{i\pi}+1=0`        Display $$`\int_0^1 x\,dx`
 
 %% line comment
 text %% trailing comment
-before {% delimited %} after      (spec 21a; literal on 0.1.3 - see trap 6)
+before {% delimited %} after      (spec 21a; live in every released engine)
 %%%
 block comment                     (hides its body at any column, including a
 %%%                                definition inside it - trap 6)

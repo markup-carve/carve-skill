@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "testedEngine": "@markup-carve/carve@0.1.3",
+  "policy": "Prefer released-engine behavior. A spec-only construct must not be authored unless the target explicitly supports it.",
+  "features": {
+    "trailing_comment": { "syntax": "%%", "spec": true, "carveJs_0_1_3": true },
+    "fenced_comment": { "syntax": "%%%", "spec": true, "carveJs_0_1_3": true },
+    "delimited_comment": {
+      "syntax": "{% comment %}",
+      "spec": true,
+      "carveJs_0_1_3": false,
+      "guidance": "Use %% until the target engine explicitly advertises support."
+    },
+    "container_exact_closer": {
+      "syntax": "equal-width nested ::: fences",
+      "spec": true,
+      "carveJs_0_1_3": false,
+      "guidance": "Widen outer fences for released engines and portable samples."
+    },
+    "raw_html": {
+      "syntax": "`x`{=html} or ```=html",
+      "spec": true,
+      "carveJs_0_1_3": true,
+      "renderer": "html only"
+    },
+    "tier3_renderers": {
+      "syntax": "mermaid, chart, rendered math, host directives",
+      "spec": true,
+      "carveJs_0_1_3": "host-dependent"
+    }
+  }
+}

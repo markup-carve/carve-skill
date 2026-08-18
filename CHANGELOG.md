@@ -6,6 +6,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+- Add target/version discovery, a machine-readable capability matrix,
+  non-installing validator discovery, localized-edit and PR-body workflows,
+  quality/security guidance, behavioral render fixtures, documentation-link
+  checks, and published-bundle integrity tests.
+
 - Qualify the comment trap in `references/traps.md` (6) with the block/inline
   split the spec now states, so `%%` stops reading as reliably invisible. An
   inline comment is an inline construct, so an unclosed verbatim run publishes

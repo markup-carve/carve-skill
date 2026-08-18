@@ -21,14 +21,6 @@ const root = dirname(here)
 const specDivergence = join(root, 'spec', 'docs', 'divergence-from-djot.md')
 const specCheatsheet = join(root, 'spec', 'docs', 'cheatsheet.md')
 
-const skillText = [
-  'SKILL.md',
-  'references/syntax.md',
-  'references/traps.md',
-  'references/extensions.md',
-  'references/validation.md',
-].map((f) => readFileSync(join(root, f), 'utf8')).join('\n')
-
 const traps = readFileSync(join(root, 'references', 'traps.md'), 'utf8')
 
 test('spec submodule is checked out', () => {
@@ -144,11 +136,45 @@ test('essential constructs are present in the spec cheatsheet', () => {
   }
 })
 
-test('essential constructs are covered by the skill', () => {
-  for (const token of ESSENTIAL) {
-    assert.ok(
-      skillText.includes(token),
-      `essential construct ${JSON.stringify(token)} is missing from the skill files.`,
-    )
+// The pages held to the FULL construct list, and the criterion for being one.
+//
+// A REFERENCE page is a page that claims to enumerate the core syntax, so a
+// construct absent from it is a hole in what the skill teaches rather than a
+// paraphrase. Exactly one page in this repository makes that claim:
+// references/syntax.md opens with "The whole core syntax" and "Sourced from the
+// spec's `docs/cheatsheet.md`" - the same document ESSENTIAL is checked against
+// in the test above. The other three references are topic pages (traps.md is
+// the divergence list, extensions.md is Tier-2/3, validation.md is the linter)
+// and none of them undertakes to name every core construct.
+//
+// SKILL.md is deliberately NOT on this list. It is a front page that paraphrases
+// on purpose, and ESSENTIAL holds the cheatsheet's literal spelling: measured,
+// SKILL.md writes `{^sup^}` and `{^text^}` and never the cheatsheet's
+// `{^super^}`, so holding it to these tokens would be satisfied only by padding
+// it with a spelling it does not use.
+const REFERENCE_PAGES = ['references/syntax.md']
+
+// This replaces a union over all five skill files concatenated, which could
+// only fail once a construct had left EVERY page. Measured on that shape:
+// replacing `{,sub,}` with `{,subscript,}` in references/syntax.md alone - the
+// page that teaches the delimiter - was a complete no-op, 13 passing and 0
+// failing, because SKILL.md and references/traps.md still mentioned it
+// (markup-carve/carve-skill#61).
+//
+// The union is removed rather than narrowed. Once the reference page is held to
+// the full list it can no longer fail, since the reference page is part of the
+// concatenation - a check that cannot fail is the defect this is fixing, not a
+// second opinion on it.
+test('the syntax reference carries every essential construct', () => {
+  for (const page of REFERENCE_PAGES) {
+    const text = readFileSync(join(root, page), 'utf8')
+    for (const token of ESSENTIAL) {
+      assert.ok(
+        text.includes(token),
+        `essential construct ${JSON.stringify(token)} is missing from ${page}, ` +
+          'the page that teaches the core constructs. A mention on another page ' +
+          'does not stand in for it.',
+      )
+    }
   }
 })

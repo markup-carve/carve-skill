@@ -132,15 +132,20 @@ The private aside stays private. Only an INLINE comment, one that follows
 content on the same line, is published by an unclosed run - which is the rule
 two paragraphs up, and the whole of the difference between the two constructs.
 
-**Status: the spec has added a form for that and no released engine has it.** Spec
-section 21a (markup-carve/carve#1239) takes Djot's `{% … %}` unchanged, so
-`foo {% bar %} baz` is specified to render `<p>foo  baz</p>`. Measured against
-`@markup-carve/carve` 0.1.3 — the newest published engine, and the one this skill
-is tested against — the same line renders `<p>foo {% bar %} baz</p>`, braces and
-all. So **write `%%` today.** Reach for `{% … %}` only once an engine past 0.1.3
-ships, and until then treat a `{%` you did not intend as visible output.
+**Status: shipped, in every released engine.** Spec section 21a
+(markup-carve/carve#1239) takes Djot's `{% … %}` unchanged, so `foo {% bar %} baz`
+renders `<p>foo  baz</p>`. This entry previously said no released engine had it,
+measured against `@markup-carve/carve` 0.1.3; the 2026-08-18 round shipped it in
+all three. Re-measured against the PUBLISHED packages on that date:
+`@markup-carve/carve` 0.1.4 renders `<p>a  b</p>` for `a {% hidden %} b`, and
+carve-php 0.1.5 and carve-rs 0.1.3 each record the same behavior change in the
+CHANGELOG of their released tag.
 
-When it does land: `{%` opens and the **first** `%}` closes, there is no nesting, a
+So **`{% … %}` is safe to write.** `%%` remains correct and is still the right
+choice for a whole-line or end-of-line comment; the delimited form is for the
+middle of a sentence, where `%%` would take the rest of the line with it.
+
+The rules: `{%` opens and the **first** `%}` closes, there is no nesting, a
 comment inside an emphasis run does not break it (`*bo{% c %}ld*` is one
 `<strong>`), the run may cross soft line breaks inside one paragraph but never a
 blank line, an unterminated `a {% oops` stays literal, code spans and raw inlines
@@ -541,7 +546,7 @@ behavior.
 1. `_italic_` → `/italic/`; check every `*…*` (Djot strong stays `*…*`).
 2. `~sub~` → `{,sub,}`, `^sup^` → `{^sup^}`; a `~…~` used for strikethrough is now native.
 3. `+` bullets → `-` or `*`.
-4. `{% comment %}` → `%%`. (Spec section 21a keeps the Djot spelling working, but no released engine implements it yet — trap 6.)
+4. `{% comment %}` needs no change - section 21a keeps the Djot spelling working and every released engine implements it (trap 6). Convert to `%%` only where the comment already occupies its own line.
 5. A marker line directly under prose now starts a block — add a blank line or escape where you relied on Djot keeping it in the paragraph.
 6. A wrapped heading (a plain or same-`#` line under `# Title`) no longer folds in — join it onto the heading line, or accept it as a paragraph.
 7. Definition lists: `: term` (+ indented body) → `:: term` then `:  definition`.

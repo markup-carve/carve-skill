@@ -130,6 +130,11 @@ inner
 
 |= Name |=> Age |=~ City |   (alignment glued to |=: < ~ >)
 | Sum    |< 12   | NYC    |   (a data-cell marker overrides per cell)
+|=<^ Top |=>v Low |          (a VERTICAL second axis, HORIZONTAL FIRST:
+|?v x |                       <^ <~ <v ~^ ~~ ~v >^ >~ >v. `v>` and a lone
+                              ^ or v are ordinary cell content. `?` inherits
+                              the column's horizontal axis. Implemented on
+                              carve-js main, NOT in any release yet.)
 
 | Name  | Age |              (GFM separator row accepted as an alias)
 |-------|----:|
@@ -159,7 +164,7 @@ Inline $`e^{i\pi}+1=0`        Display $$`\int_0^1 x\,dx`
 
 %% line comment
 text %% trailing comment
-before {% delimited %} after      (spec 21a; literal on 0.1.3 - see trap 6)
+before {% delimited %} after      (spec 21a; live in every released engine)
 %%%
 block comment                     (hides its body at any column, including a
 %%%                                definition inside it - trap 6)

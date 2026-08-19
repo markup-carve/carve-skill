@@ -145,6 +145,26 @@ So **`{% … %}` is safe to write.** `%%` remains correct and is still the right
 choice for a whole-line or end-of-line comment; the delimited form is for the
 middle of a sentence, where `%%` would take the rest of the line with it.
 
+**A table cell's VERTICAL alignment is implemented but unreleased.** A cell
+marker may carry a second axis, and the pair is HORIZONTAL FIRST
+(markup-carve/carve#1405, #1407): `<^ <~ <v ~^ ~~ ~v >^ >~ >v` are runs, while
+`v>` and a lone `^` or `v` stay ordinary cell content. `?` takes the column's
+horizontal axis and its own vertical (#1408).
+
+Measured 2026-08-19 on carve-js `main` (1a4c82e), where it WORKS:
+
+    |=<^ A |   ->  <th style="text-align: left; vertical-align: top;">A</th>
+    |?v x  |   ->  <td style="text-align: right; vertical-align: bottom;">x</td>
+
+and on published `@markup-carve/carve` 0.1.4, where it does NOT: the same
+`|=<^ A |` renders `text-align: left` with the caret surviving as the text
+`^ A`. carve-php 0.1.5 and carve-rs 0.1.3 record nothing for it either.
+
+So write it only when you know the consumer runs a build past 0.1.4, and read a
+stray `^` in a cell as output rather than markup until then. The collision worth
+knowing: `^` alone in a DATA cell is the rowspan marker (`| ^ |`), which is
+unaffected and works everywhere today.
+
 The rules: `{%` opens and the **first** `%}` closes, there is no nesting, a
 comment inside an emphasis run does not break it (`*bo{% c %}ld*` is one
 `<strong>`), the run may cross soft line breaks inside one paragraph but never a

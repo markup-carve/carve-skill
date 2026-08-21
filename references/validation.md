@@ -40,7 +40,7 @@ Author a document using several constructs, then:
 carve lint file.crv        # no --from-djot
 ```
 
-must be clean. Run it over every touched `.crv`/`.carve` file, not only the
+must be clean. Run it over every touched `.crv` file, not only the
 smallest example. If it is not clean, fix per the finding and re-run. Common
 fixes map straight to [traps.md](traps.md): `**b**` → `*b*`, `~~s~~` → `~s~`,
 `^x^` → `{^x^}`, `+ item` → `- item`, trailing heading `{#id}` → move it above.

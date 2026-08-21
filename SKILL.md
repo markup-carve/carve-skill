@@ -1,13 +1,13 @@
 ---
 name: carve-authoring
-description: Use when writing or editing Carve markup (`.crv` / `.carve` files), or when the user asks to author Carve. Carve is a post-Markdown lightweight markup language that deliberately diverges from Markdown/Djot — the emphasis delimiters are swapped (`/italic/`, `*bold*`), sup/sub are braced-only, and several Markdown habits produce wrong output. This skill front-loads the correct syntax and the traps so the output is valid Carve the first time.
+description: Use when writing or editing Carve markup (`.crv` files), or when the user asks to author Carve. Carve is a post-Markdown lightweight markup language that deliberately diverges from Markdown/Djot — the emphasis delimiters are swapped (`/italic/`, `*bold*`), sup/sub are braced-only, and several Markdown habits produce wrong output. This skill front-loads the correct syntax and the traps so the output is valid Carve the first time.
 ---
 
 # Authoring Carve
 
 Carve's mnemonic: **the markup looks like its output.** It starts from [Djot](https://djot.net) but breaks source-compatibility in a few places to remove footguns. If you write Carve with Markdown habits, it silently mis-renders — so read the traps below before writing.
 
-Files use the **`.crv`** extension (`.carve` also accepted).
+Files use the **`.crv`** extension, and only that one.
 
 ## Establish the target before writing
 

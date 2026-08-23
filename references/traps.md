@@ -519,6 +519,26 @@ Djot renders `<div class="note">`. An unrecognized type still renders a div.
 Only the element differs - same source, same tree shape - so this is a
 rendering difference rather than a parsing one.
 
+**The landmark is named, and the released engine does not name it yet.** The
+spec gives the `<aside>` an accessible name, because an unnamed landmark is an
+anonymous row in a reader's landmark list, which is the benefit the `<aside>`
+was chosen for. An untitled admonition is named by its type
+(`aria-label="Note"`); one carrying a quoted title is named by that title
+instead, via `aria-labelledby` pointing at the `<p class="admonition-title">`,
+so the visible name and the spoken one are one string.
+
+```
+::: note "Pro tip"      ->  <p class="admonition-title">Pro tip</p>
+body                        is the title, and names the aside
+:::
+```
+
+Measured against `@markup-carve/carve` 0.1.3, the engine this skill is tested
+against: it emits neither attribute yet, so the HTML above is what you get
+today. Write the source either way - this is a renderer detail that changes no
+source and no tree shape - but do not hand-add `aria-label` to Carve output,
+and do not treat its absence as a reason to write raw HTML instead.
+
 ## 21. Footnote labels are matched exactly
 
 The label runs to the closing `]` and is compared byte for byte. Whitespace is

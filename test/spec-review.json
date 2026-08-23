@@ -1,11 +1,11 @@
 {
   "$comment": "Which spec divergence sections the trap list in references/traps.md was last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/divergence-from-djot.md",
-  "spec_rev": "b6917ab7ec0784b08ff775f669026af1fc823b20",
+  "spec_rev": "d0b6c92ed8261e2b6ef12bd4d4d3768097780e27",
   "sections": {
     "1": {
       "title": "Case-preserving heading ids with case-insensitive cross-references",
-      "sha256": "81edbc90458e0b12580845f91fbd35092f32b41c3c87365d858c35cc18e4d0cd"
+      "sha256": "4474e850337b569586ca5bf3e9868cc8b98eb5514b29f58b9ae958ed0955b005"
     },
     "2": {
       "title": "A list marker must have content",
@@ -53,8 +53,7 @@
     },
     "13": {
       "title": "A colon fence closes on an exact length match",
-      "sha256": "2bfc86da596a3c8554369681f2053d5c71a8f8a9ce64bac3cdee63bc2205cdea",
-      "note": "Read and deliberately not adopted: references/traps.md section 13 documents @markup-carve/carve 0.1.2, the only published engine, which still implements the pre-455 rule. It flips when carve-js 0.1.3 ships (markup-carve/carve#499, markup-carve/carve-skill#4)."
+      "sha256": "e9c0c8330075165c3990409411418cab23286053ba8b425869dc996501b94772"
     },
     "14": {
       "title": "Headings are single-line",
@@ -82,7 +81,8 @@
     },
     "20": {
       "title": "A typed container is a native admonition",
-      "sha256": "23c890df7306e6a6b7b5272be2d524b28dacdc5564d9fc05fdc700403ac0fd4b"
+      "sha256": "f2f8aff1b3bc9aef2307038be551448850fb2ac2c375e66caaf71233a51af790",
+      "note": "Read and deliberately not adopted in full: the spec names the admonition landmark (aria-label on an untitled one, aria-labelledby at the admonition-title on a titled one). @markup-carve/carve 0.1.3, the engine this skill is tested against, emits neither yet, so references/traps.md section 20 states the spec rule and then gives the released engine's output as what an author sees today. Re-check when an engine ships the accessible name."
     },
     "21": {
       "title": "Footnote labels are matched exactly",

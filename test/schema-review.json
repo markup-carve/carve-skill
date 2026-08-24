@@ -1,0 +1,271 @@
+{
+  "$comment": "Which AST node definitions of spec/resources/ast-schema.json the skill was last read against. The schema states language rules in prose - block promotion, resolution timing, which fields survive - so a moved description can make a reference page lie. Regenerate with `npm run spec:review` AFTER re-reading the nodes the drift guard names - see README, \"Not drifting\".",
+  "source": "spec/resources/ast-schema.json",
+  "spec_rev": "6044cba06b4699d1b88a88e43fc2fa8da8eaf4e2",
+  "nodes": {
+    "abbreviation": {
+      "title": "abbreviation (inline)",
+      "sha256": "e7a45359ce6006e1bde64c725d1cdb75c8b59940e1b2464d0f2247c6409b9d23"
+    },
+    "link_reference_definition": {
+      "title": "link_reference_definition (block)",
+      "sha256": "9ac2b6930b94827e0359aee2849c61d5516070aeb3b99a7557996cdac1721267"
+    },
+    "abbreviation_def": {
+      "title": "abbreviation_def (block)",
+      "sha256": "70028126eaef8c3f6f4b84874dfa91e8f43333a48e3fb8535dcd9677591a99fc"
+    },
+    "admonition": {
+      "title": "admonition (block)",
+      "sha256": "17a05bcb395c31dd3685bb31748552216e2d40751b3e42397c03f4273427dd72"
+    },
+    "attrs": {
+      "title": "Attribute block",
+      "sha256": "b79446b101acad15f41a84012319e3d115734ab269e6181d984fb942430624a9"
+    },
+    "autolink": {
+      "title": "autolink (inline)",
+      "sha256": "00a7a8a21ec36ce7604d2c3931b842361c4a4cbd7a884af7ef27ddf3eade48d4"
+    },
+    "blockNode": {
+      "title": "Any block node",
+      "sha256": "d210e874af35c967e4ad3b64f5b6e04df8292a1cddbbdcde464f405e8fbd2d57"
+    },
+    "block_quote": {
+      "title": "block_quote (block)",
+      "sha256": "baa5721a55b66477715c5b2f6531bb962fc1698a174cbe07a8e62c61fa84770c"
+    },
+    "caption_number": {
+      "title": "caption_number (inline)",
+      "sha256": "d0b33e7bd11e029f3205a54211b11d5bfbbc28773818889ce00262a2d4d871b5"
+    },
+    "citation": {
+      "title": "Citation item",
+      "sha256": "6da1fc9480f5443ef8d76ec4673d520dc5d90e32dedc264978ceea382369a7cc"
+    },
+    "citation_definition": {
+      "title": "citation_definition (block)",
+      "sha256": "4bcb980b5929c3064f80e0252b083a6e59946dfda201f2af8c3d31af68a3ffd5"
+    },
+    "citation_group": {
+      "title": "citation_group (inline)",
+      "sha256": "88c8734f13646c688c2a8fcea8cf563db77b798faefede5be203559fcff4cbb9"
+    },
+    "code": {
+      "title": "code (inline)",
+      "sha256": "f53fa68d3e7b61ef88d9b6d1c89b9f86b0b60c1a0128689b0512221583b2f2ad"
+    },
+    "code_block": {
+      "title": "code_block (block)",
+      "sha256": "5608747968d88412125c6f1b9bcd2a69004f54bacd5ab8b1ea03cc8a9d332fde"
+    },
+    "comment": {
+      "title": "comment (block or inline)",
+      "sha256": "b565b88e803a4ed74c248cd67a3cd71ae981db5bf2c4e6bd8a9bf2847042311f"
+    },
+    "critic_comment": {
+      "title": "critic_comment (inline)",
+      "sha256": "3e5b93cc4c64b086f5ad2dd84a320a33ea522269f0b031115cb6d3f06c3acfc1"
+    },
+    "definition_description": {
+      "title": "definition_description (block)",
+      "sha256": "3677f95fc1b24adca218db1e70e0605dc42df55a125d26f222ca9b35f71a330b"
+    },
+    "definition_list": {
+      "title": "definition_list (block)",
+      "sha256": "be57d1487f4f8c70d5c6ceef3ae039825f48db31455bbec5472ef4e653de3c87"
+    },
+    "definition_term": {
+      "title": "definition_term (block)",
+      "sha256": "579ccf9cf0d303452a66e2f43fcaded25b0e093d6202b58a7bb74a7ffbd5a0e4"
+    },
+    "delete": {
+      "title": "delete (inline)",
+      "sha256": "6b88fa2b6ce55659de4bc4750753a7078bede1777fbf0a182540d694dcad97b4"
+    },
+    "div": {
+      "title": "div (block)",
+      "sha256": "00236e6e48ccdc190a87fe541ed104757435d50c5cfd6786968f23b337c37167"
+    },
+    "document": {
+      "title": "document (root)",
+      "sha256": "a242233ef192032fb6488b0766fe149434ef8c42995ac6ffbebacbcc0a281fd6"
+    },
+    "emphasis": {
+      "title": "emphasis (inline)",
+      "sha256": "f621c0d9672247440ad8975b36c3c9363912f6cc19ec6839da4f42056f04c327"
+    },
+    "escaped_text": {
+      "title": "escaped_text (inline)",
+      "sha256": "8c5794535c5aa6a194ddf7d2439002c3b526d13d68c65aa5666b8bc78b9538fc"
+    },
+    "figure": {
+      "title": "figure (block)",
+      "sha256": "d6c5b5a66ce920f38fd0fa4b7dd53e04e78d1ba23fbc775bbdbb9483473e6c30"
+    },
+    "figure_group": {
+      "title": "figure_group (block)",
+      "sha256": "6c4154a9fc3eb4c657c37828fabfc0b870b042a629a15228deb89ebd15b2bb9f"
+    },
+    "footnote": {
+      "title": "footnote (block)",
+      "sha256": "7ca8ec9572a24679f3c66cf3d1df27622236c6c730efa2340e6a2697c8b01af7"
+    },
+    "footnote_ref": {
+      "title": "footnote_ref (inline)",
+      "sha256": "1027199d428d9a476289384acca302d6b450e75e3037be1b05cfb68a5ec1fb9e"
+    },
+    "frontmatter": {
+      "title": "frontmatter (block)",
+      "sha256": "5c8e386e76904acbce797fad56edca3610cd0ebbc65d65021f06c8df1aeff656"
+    },
+    "hard_break": {
+      "title": "hard_break (inline)",
+      "sha256": "0f36e153092c5ffffc14255f096b18da9f0efbd68d74be25c16db68b1ba728f5"
+    },
+    "heading": {
+      "title": "heading (block)",
+      "sha256": "0c90d7774819bb7abc3630ab8aa1a20690aef3d89bc897db0e89d636e05bcc7d"
+    },
+    "heading_ref": {
+      "title": "heading_ref (inline)",
+      "sha256": "7529399b79f24d7b6b147561fc41a2041c97718e420ed321524f8e47767a6e28"
+    },
+    "highlight": {
+      "title": "highlight (inline)",
+      "sha256": "c11670eae681652a52132ccd46c17b369c6c15834feafd10d4b080857023ba69"
+    },
+    "image": {
+      "title": "image (block or inline)",
+      "sha256": "e3a476a06afc0719423c7d6ca5c7f8f1886dc7bf3879bd22656fd95f8e9a70ab"
+    },
+    "inlineNode": {
+      "title": "Any inline node",
+      "sha256": "11265ab3c01fd005f05cf5c5b2c392b9cf5579e26ee8bf6bbfe511209888f4e6"
+    },
+    "inline_extension": {
+      "title": "inline_extension (inline)",
+      "sha256": "f0aa370a0519a3b0344227ecf61c621c0b97a0b8d81586da1da3b5dd566c60e1"
+    },
+    "inline_footnote": {
+      "title": "inline_footnote (inline)",
+      "sha256": "e37b47daac18900ec361bb1ca3f60a560114523e64e1385440d45f2e79e52ca8"
+    },
+    "insert": {
+      "title": "insert (inline)",
+      "sha256": "7cb5237bc8fd7f072cc917a2d42f91c3d2ef37516daa203377cbe86184fc3d37"
+    },
+    "line_block": {
+      "title": "line_block (block)",
+      "sha256": "ff251d86fdc530b65334ac2f7fd4a37daa25e2dc8c807371d50a9fe89732f511"
+    },
+    "link": {
+      "title": "link (inline)",
+      "sha256": "4ae3a587b0999d1fb8d8a0d87a24937b52038dcf89d06721b4701b0b8b1906cd"
+    },
+    "list": {
+      "title": "list (block)",
+      "sha256": "c375375ebb91deb11b28f5cb6a29dd647d7fa185c32cd3cc19a7545b456753ab"
+    },
+    "list_item": {
+      "title": "list_item (block)",
+      "sha256": "3c27c7d62ecd93e4ffe79c10f42b00faf7c87efbf00d56cb68d24dfc4688f25f"
+    },
+    "literal_inline": {
+      "title": "literal_inline (inline)",
+      "sha256": "8ed404f2a6eaa5fb029b5d4b157d8133994153a4b5dd9848676a643cee42a0ef"
+    },
+    "math": {
+      "title": "math (inline)",
+      "sha256": "a15008e6adc2b49cdd00f0ee30bd04d38ca43c00442e7eb35c879c24e22e5fc0"
+    },
+    "mention": {
+      "title": "mention (inline)",
+      "sha256": "0ae4bc748ad23868cea877bf29870ee1c8ef33becafc8e0506f01b1c93aa5d8a"
+    },
+    "paragraph": {
+      "title": "paragraph (block)",
+      "sha256": "0c4f7d7cf93d406abaf3f3a7ad553fe4337c03a525d580d5ab4e5ae6ddf1fa33"
+    },
+    "pos": {
+      "title": "Source span",
+      "sha256": "b6fe609d3373712433da1991c18894a442452ad6e5f0aa6bdceae9c9cecba457"
+    },
+    "raw_block": {
+      "title": "raw_block (block)",
+      "sha256": "4b6bb8c8502287f0c86c6a42937b28614e5f30aa5f24d94a1b359cf35a2fafea"
+    },
+    "raw_inline": {
+      "title": "raw_inline (inline)",
+      "sha256": "495db88ba65c466e18840bfe334d10d66a2cf33776baf5a3b3dbf5f9fb233aad"
+    },
+    "smart_punctuation": {
+      "title": "smart_punctuation (inline)",
+      "sha256": "597fc27759326bbb5716dfadd8712b51e26ce0ea4f883277980c70bfd189934a"
+    },
+    "soft_break": {
+      "title": "soft_break (inline)",
+      "sha256": "14a6ead447a97bbf1b21477e8b602ca3cda8ab4b5afa01bdc7cea8e4236a7afb"
+    },
+    "span": {
+      "title": "span (inline)",
+      "sha256": "b5ba844f274ec47a7fdd9ef53f9e0b51cd08757dc68a26a73e9a5c3e4176380a"
+    },
+    "strike": {
+      "title": "strike (inline)",
+      "sha256": "ce3b65dab1e1e030434c91d7569a94a7ca68b6b86c2ef0f702d62c4fc245c9e0"
+    },
+    "strong": {
+      "title": "strong (inline)",
+      "sha256": "80d5a80f24fa9422e2d7fe9c97ebe39200343d535df8df632b0f2ba0ea4ba98d"
+    },
+    "subscript": {
+      "title": "subscript (inline)",
+      "sha256": "dab797ea1e024d52ce6e2b507a36db79d446acee47550388290208405bbcd71b"
+    },
+    "substitution": {
+      "title": "substitution (inline)",
+      "sha256": "ab081a192ea885081194bd9ecda6462073bb92d198de43a2af1a57ecc1d31673"
+    },
+    "superscript": {
+      "title": "superscript (inline)",
+      "sha256": "b495bce6aa659205fca81e62a6364ba3f83787b92f240df67cddb227fe2e8f0c"
+    },
+    "symbol": {
+      "title": "symbol (inline)",
+      "sha256": "b261dc376c49c8db2310aec73e13e21b77569a72ae2160b549b181f4546e6751"
+    },
+    "table": {
+      "title": "table (block)",
+      "sha256": "57933fe19a04de2ac98a24b74a6b175050b25d72098336fb320ac9f220a7c140"
+    },
+    "table_cell": {
+      "title": "table_cell (block)",
+      "sha256": "c7adde5c75b0f08d1b6f9f09651744405db20c9e03615d12accb59f62fc6feb8"
+    },
+    "table_row": {
+      "title": "table_row (block)",
+      "sha256": "3478ded401431f4eee8bb8040a4228a23b36127f1e49843a233224884b692c71"
+    },
+    "tag": {
+      "title": "tag (inline)",
+      "sha256": "06fba893170b5dda7ccad7f632c083f2e901052d2da822b25bc247f8c9d5d03f"
+    },
+    "text": {
+      "title": "text (inline)",
+      "sha256": "e4b64d2323ac0953c2d2f137e822f76b8a7439e9836124754c90c3c46137a87c"
+    },
+    "thematic_break": {
+      "title": "thematic_break (block)",
+      "sha256": "4e2f84f7eda7c896a3258b3d959efced087d9dfb15b8c75c47243bb8f4f0ff11"
+    },
+    "underline": {
+      "title": "underline (inline)",
+      "sha256": "340f60e0d3418d423d44b42193e07310b0fb000bf371abff78c0b8364162ce88"
+    },
+    "$envelope": {
+      "title": "Carve AST exchange format",
+      "sha256": "d3f591474acfe9e83783206230661b048e19711e52f37a43129691cc1d318d7f"
+    }
+  }
+}

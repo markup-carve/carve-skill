@@ -97,9 +97,15 @@ export function compareSections(recorded, current) {
   return findings.sort((a, b) => collate(a.section, b.section))
 }
 
+// Numbered labels sort numerically ("2" before "13"), everything else sorts as
+// text. compareSections is shared with the AST schema ledger, whose labels are
+// node NAMES; parseInt of one is NaN, and a comparator that returns NaN leaves
+// the order to the engine rather than sorting at all.
 function collate(a, b) {
   const na = parseInt(a, 10)
   const nb = parseInt(b, 10)
+  const numeric = Number.isNaN(na) === false && Number.isNaN(nb) === false
+  if (!numeric) return a.localeCompare(b)
   return na === nb ? a.localeCompare(b) : na - nb
 }
 
@@ -107,12 +113,14 @@ function collate(a, b) {
  * One human-readable line per finding, for a test message or a CI log.
  *
  * @param {ReturnType<typeof compareSections>} findings
+ * @param {string} [kind] what the labels name - "section" for the divergence
+ *   document, "node" for the AST schema
  * @returns {string}
  */
-export function describeFindings(findings) {
+export function describeFindings(findings, kind = 'section') {
   return findings
     .map((f) => {
-      const head = `  section ${f.section} ${f.status}: ${f.title}`
+      const head = `  ${kind} ${f.section} ${f.status}: ${f.title}`
       return f.note ? `${head}\n    recorded note: ${f.note}` : head
     })
     .join('\n')

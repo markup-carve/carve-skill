@@ -12,16 +12,20 @@ name: Spec drift
 #   engine have to move together, and the engine cannot move past a published
 #   carve-js. Failing on lag alone would go red for something this repo cannot
 #   fix by itself.
-# - A CHANGED DIVERGENCE SECTION fails. test/spec-review.json records which text
-#   of each numbered section in docs/divergence-from-djot.md the trap list was
-#   last read against; when one of those sections moves at carve main, the
+# - A CHANGED WATCHED ENTRY fails. test/spec-review.json records which text of
+#   each numbered section in docs/divergence-from-djot.md the trap list was last
+#   read against, and test/schema-review.json does the same per node definition
+#   of resources/ast-schema.json; when one of those moves at carve main, the
 #   offline guard's green stops meaning anything, and no other check in this repo
-#   can tell. That is fixable here: bump the pin, re-read the named sections
-#   against references/traps.md, and record the review.
+#   can tell. That is fixable here: bump the pin, re-read what is named against
+#   the reference pages, and record the review.
 #
-# Not hypothetical. carve#455 inverted the whole container rule inside section 13
-# without changing a heading number, the pin bump carried it in (#6), and every
-# check stayed green while references/traps.md kept describing the old rule.
+# Not hypothetical, twice. carve#455 inverted the whole container rule inside
+# section 13 without changing a heading number, the pin bump carried it in (#6),
+# and every check stayed green while references/traps.md kept describing the old
+# rule. Then the `image` node's block-position rule was rewritten in
+# resources/ast-schema.json across pin be6e7cc6 -> cc06bb5 and every check stayed
+# green again, because the guard named prose documents only (#84).
 
 on:
   schedule:
@@ -68,12 +72,14 @@ jobs:
           fi
 
       # The same comparison `npm test` runs against the pinned copy, pointed at
-      # carve main instead. Deliberately NOT `continue-on-error`: this is the one
-      # condition nothing else in this repo can observe.
-      - name: Has a divergence section moved since the trap list was read?
+      # carve main instead. It takes the CHECKOUT, not one document, so it covers
+      # every ledger in scripts/review-ledgers.mjs - adding a watched document
+      # does not need this step edited. Deliberately NOT `continue-on-error`:
+      # this is the one condition nothing else in this repo can observe.
+      - name: Has a watched spec document moved since the skill was read?
         run: |
           set -euo pipefail
-          node scripts/check-spec-review.mjs carve-spec/docs/divergence-from-djot.md || {
-            echo "::error::a divergence section changed at carve main; the trap list has not been read against it"
+          node scripts/check-spec-review.mjs carve-spec || {
+            echo "::error::a watched spec document changed at carve main; the skill has not been read against it"
             exit 1
           }

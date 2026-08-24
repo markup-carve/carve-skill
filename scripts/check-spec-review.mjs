@@ -1,55 +1,112 @@
-// Compare a divergence document against the recorded review and exit nonzero if
-// any numbered section moved:
+// Compare a spec checkout against the recorded reviews and exit nonzero if any
+// watched entry moved:
 //
-//   node scripts/check-spec-review.mjs [path/to/divergence-from-djot.md]
+//   node scripts/check-spec-review.mjs [path/to/spec/checkout]
 //
-// Defaults to the PINNED copy, which is what `npm test` asserts. The scheduled
-// spec-drift workflow points it at a fresh clone of carve main instead - the
-// pinned copy cannot report that the pin itself has fallen behind, which is the
-// blindness that made #4 possible.
+// Defaults to the PINNED submodule, which is what `npm test` asserts. The
+// scheduled spec-drift workflow points it at a fresh clone of carve main
+// instead - the pinned copy cannot report that the pin itself has fallen
+// behind, which is the blindness that made #4 possible.
+//
+// Every document in scripts/review-ledgers.mjs is checked, not just the
+// divergence prose: naming inputs one at a time is what left the AST schema
+// unwatched (#84).
 
 import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { sectionFingerprints, compareSections, describeFindings } from './spec-sections.mjs'
+import { LEDGERS, specRoot } from './review-ledgers.mjs'
+import { compareSections, describeFindings } from './spec-sections.mjs'
 import { shortfall } from './participants.mjs'
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)))
-const specDoc = process.argv[2] ?? join(root, 'spec', 'docs', 'divergence-from-djot.md')
-const review = JSON.parse(readFileSync(join(root, 'test', 'spec-review.json'), 'utf8'))
+const argument = process.argv[2]
 
-const current = sectionFingerprints(readFileSync(specDoc, 'utf8'))
-
-// The comparison below only reports on a document it could parse. A restructured
-// or truncated one produces no sections at all, and the recorded review is what
-// turns that into "16 removed" rather than a clean run - which is a gate leaning
-// on its ledger being non-empty (markup-carve/carve#755). Said directly here, so
-// the message names the cause instead of listing every section as deleted. This
-// runs against a FRESH CLONE of carve main in the scheduled workflow, where a
-// half-fetched checkout is a real way to arrive at zero.
-const thin = shortfall({
-  label: 'DIVERGENCES',
-  actual: Object.keys(current).length,
-  atLeast: 10,
-  of: `numbered section(s) parsed from ${specDoc}`,
-  hint: 'the document is missing, truncated, or no longer uses "## N. Title" headings.',
-})
-if (thin) {
-  process.stdout.write(`${thin}\n`)
-  process.exit(1)
+// This script used to take the divergence DOCUMENT; it now takes the checkout
+// that holds every watched document. Say so, rather than letting a stale caller
+// fail on a path with `docs/divergence-from-djot.md` in it twice.
+if (argument && /\.(md|json)$/.test(argument)) {
+  process.stdout.write(
+    `${argument}: this checker takes the SPEC CHECKOUT directory, not a single document ` +
+      '- it compares every ledger in scripts/review-ledgers.mjs.\n',
+  )
+  process.exit(2)
 }
 
-const findings = compareSections(review.sections, current)
+const checkout = argument ?? specRoot(root)
+let failed = false
 
-if (findings.length === 0) {
-  process.stdout.write(`${specDoc}: all ${Object.keys(review.sections).length} sections match the recorded review\n`)
-  process.exit(0)
+for (const ledger of LEDGERS) {
+  if (!check(ledger)) failed = true
 }
 
-process.stdout.write(
-  `${specDoc}: ${findings.length} divergence section(s) moved since the trap list was last read against them:\n` +
-    `${describeFindings(findings)}\n\n` +
-    'Re-read those sections, check references/traps.md still tells the truth about each,\n' +
-    'then record the review with `npm run spec:review`.\n',
-)
-process.exit(1)
+process.exit(failed ? 1 : 0)
+
+/**
+ * @param {(typeof LEDGERS)[number]} ledger
+ * @returns {boolean} true when the recorded review is still current
+ */
+function check(ledger) {
+  const document = join(checkout, ledger.source)
+  const recorded = JSON.parse(readFileSync(join(root, 'test', ledger.reviewFile), 'utf8'))[
+    ledger.entries
+  ]
+
+  // The RECORDED side is counted first. An empty ledger reports every entry as
+  // "added" and exits nonzero, so it does not pass - but it says the spec moved
+  // when what actually happened is that this repository has no review on file.
+  const empty = shortfall({
+    label: `${ledger.label} (recorded)`,
+    actual: Object.keys(recorded ?? {}).length,
+    atLeast: ledger.atLeast,
+    of: `${ledger.of} in test/${ledger.reviewFile}`,
+    hint: 'the ledger is missing or empty - run `npm run spec:review`.',
+  })
+  if (empty) {
+    process.stdout.write(`${empty}\n`)
+    return false
+  }
+
+  let current
+  try {
+    current = ledger.fingerprint(readFileSync(document, 'utf8'))
+  } catch (error) {
+    process.stdout.write(`${document}: ${error.message}\n`)
+    return false
+  }
+
+  // The comparison below only reports on a document it could parse. A
+  // restructured or truncated one produces no entries at all, and the recorded
+  // review is what turns that into "16 removed" rather than a clean run - which
+  // is a gate leaning on its ledger being non-empty (markup-carve/carve#755).
+  // Said directly here, so the message names the cause instead of listing every
+  // entry as deleted. This runs against a FRESH CLONE of carve main in the
+  // scheduled workflow, where a half-fetched checkout is a real way to arrive
+  // at zero.
+  const thin = shortfall({
+    label: ledger.label,
+    actual: Object.keys(current).length,
+    atLeast: ledger.atLeast,
+    of: `${ledger.of} parsed from ${document}`,
+    hint: ledger.hint,
+  })
+  if (thin) {
+    process.stdout.write(`${thin}\n`)
+    return false
+  }
+
+  const findings = compareSections(recorded, current)
+
+  if (findings.length === 0) {
+    process.stdout.write(
+      `${document}: all ${Object.keys(recorded).length} ${ledger.kind}s match the recorded review\n`,
+    )
+    return true
+  }
+
+  process.stdout.write(
+    `${document}: ${findings.length} ${ledger.kind}(s) moved since the skill was last read against them:\n` +
+      `${describeFindings(findings, ledger.kind)}\n\n${ledger.reread}\n`,
+  )
+  return false
+}

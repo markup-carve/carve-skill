@@ -13,6 +13,7 @@ import {
   compareSections,
   describeFindings,
 } from '../scripts/spec-sections.mjs'
+import { LEDGERS, specRoot } from '../scripts/review-ledgers.mjs'
 import { shortfall } from '../scripts/participants.mjs'
 
 const here = dirname(fileURLToPath(import.meta.url))
@@ -24,9 +25,16 @@ const specCheatsheet = join(root, 'spec', 'docs', 'cheatsheet.md')
 const traps = readFileSync(join(root, 'references', 'traps.md'), 'utf8')
 
 test('spec submodule is checked out', () => {
-  assert.ok(
-    existsSync(specDivergence) && existsSync(specCheatsheet),
-    'spec/docs not found — run `git submodule update --init`',
+  const watched = [
+    specDivergence,
+    specCheatsheet,
+    ...LEDGERS.map((ledger) => join(specRoot(root), ledger.source)),
+  ]
+  const absent = watched.filter((path) => !existsSync(path))
+  assert.deepEqual(
+    absent,
+    [],
+    'watched spec document(s) not found — run `git submodule update --init`',
   )
 })
 
@@ -82,28 +90,52 @@ test('trap list covers every divergence section in the spec', () => {
 // the pin bump that carried the change in (#6), while references/traps.md
 // section 13 kept describing the pre-455 rule.
 //
-// So the guard also records WHICH TEXT the trap list was last read against, per
-// section. When a pin bump moves a section, this fails and names it; a human
-// re-reads that section, fixes references/traps.md if it now lies, and records
-// the review with `npm run spec:review`.
-test('every divergence section still matches the recorded review', () => {
-  const review = JSON.parse(readFileSync(join(here, 'spec-review.json'), 'utf8'))
-  const current = sectionFingerprints(readFileSync(specDivergence, 'utf8'))
+// So the guard also records WHICH TEXT the skill was last read against, per
+// entry. When a pin bump moves one, this fails and names it; a human re-reads
+// it, fixes the reference page if it now lies, and records the review with
+// `npm run spec:review`.
+//
+// One arm per watched document, driven by scripts/review-ledgers.mjs rather than
+// by a path spelled here. Spelling the paths here is what left
+// resources/ast-schema.json unwatched: the schema states language rules in prose
+// - block promotion, resolution timing, which fields survive a round trip - and
+// pin be6e7cc6 -> cc06bb5 rewrote the `image` node's block-position rule with
+// every gate in this repository green (markup-carve/carve-skill#84).
+for (const ledger of LEDGERS) {
+  test(`every ${ledger.kind} of ${ledger.source} still matches the recorded review`, () => {
+    const recorded = JSON.parse(readFileSync(join(here, ledger.reviewFile), 'utf8'))[
+      ledger.entries
+    ]
+    const current = ledger.fingerprint(
+      readFileSync(join(specRoot(root), ledger.source), 'utf8'),
+    )
 
-  assert.ok(
-    Object.keys(review.sections).length > 0,
-    'test/spec-review.json records no sections — run `npm run spec:review`',
-  )
+    // Both halves have to be counted. An empty RECORDED ledger compares clean
+    // against anything, and an empty CURRENT one reports every entry as removed
+    // only because the recorded side happened to be full - neither is a pass
+    // (markup-carve/carve#755).
+    for (const [side, entries] of [['recorded', recorded], ['current', current]]) {
+      const thin = shortfall({
+        label: `${ledger.label} (${side})`,
+        actual: Object.keys(entries ?? {}).length,
+        atLeast: ledger.atLeast,
+        of: `${ledger.of} in ${side === 'recorded' ? `test/${ledger.reviewFile}` : `spec/${ledger.source}`}`,
+        hint: side === 'recorded'
+          ? 'the ledger is missing or empty — run `npm run spec:review`.'
+          : ledger.hint,
+      })
+      assert.equal(thin, null, thin ?? '')
+    }
 
-  const findings = compareSections(review.sections, current)
-  assert.deepEqual(
-    findings,
-    [],
-    `the pinned spec has moved since the trap list was read against it:\n${describeFindings(findings)}\n\n` +
-      'Re-read those sections of spec/docs/divergence-from-djot.md, check the matching\n' +
-      'section of references/traps.md still tells the truth, then run `npm run spec:review`.',
-  )
-})
+    const findings = compareSections(recorded, current)
+    assert.deepEqual(
+      findings,
+      [],
+      `the pinned spec has moved since the skill was read against it:\n` +
+        `${describeFindings(findings, ledger.kind)}\n\n${ledger.reread}`,
+    )
+  })
+}
 
 // Essential constructs that MUST appear in both the spec cheatsheet and the
 // skill. Verifying against the cheatsheet keeps this list honest: if the spec

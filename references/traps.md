@@ -71,7 +71,7 @@ a `b %% secret
 ````
 
 Those are two percent signs inside a code span, not a comment. No container is
-involved and 0.1.3 renders it the same way, so this is the rule rather than a
+involved and 0.1.4 renders it the same way, so this is the rule rather than a
 version note. The author who hits it is writing a private aside next to a code
 span whose backtick they never closed. A comment on its own line is settled
 before any run exists and cannot be reached this way, which is the whole of the
@@ -109,8 +109,11 @@ publish the very text the comment exists to hide.
 **A comment on its OWN LINE is hidden even under an unclosed run.** The two
 rules above meet in one document, and the spec settles it at the block layer
 (markup-carve/carve#1333, shipped as markup-carve/carve#1339): the comment is
-gone before the run exists, and the run carries the emptied line as a newline.
-`@markup-carve/carve` 0.1.3 carries it.
+gone before the run exists, and the run carries the emptied line as a newline -
+so the run STAYS OPEN across it. `@markup-carve/carve` 0.1.4 carries it, and so
+does the build the spec pins. 0.1.3 hid the comment but closed the run at the
+end of its line, which is why this entry claimed a different rendering until it
+was re-measured.
 
 ````
 ::: |
@@ -122,9 +125,7 @@ c
 
 ````html
 <div class="line-block">
-  <p>a <code>b</code><br>
-<br>
-c</p>
+  <p>a <code>b c</code></p>
 </div>
 ````
 
@@ -188,7 +189,7 @@ This is not an exception to traps 11 and 15 - the fence still has to reach its
 container's content column to be a fence at all.
 
 The rule is pinned by corpus documents `335` to `341`
-(markup-carve/carve#1311), and `@markup-carve/carve` 0.1.3 carries it: a
+(markup-carve/carve#1311), and `@markup-carve/carve` 0.1.4 carries it: a
 definition inside a comment fence is not collected, so a reference to it stays
 literal.
 
@@ -274,17 +275,36 @@ ANSI renderers still emit the glyph in all three (spec markup-carve/carve#560).
 Heading ids are identical either way: the id pass normalizes the glyphs back to
 ASCII before slugging.
 
-The arrow family is where the spec is currently AHEAD of every released engine.
-markup-carve/carve#1442 makes the doubled run canonical (`-->` `<--` `<-->`, `==>` `<==`
-`<=>`), deprecates `->` `<-` `<->` without removing them, removes `=>` because
-`key => value` is prose about code, and pairs a guard that keeps a bare hyphen
-run literal in the flag position (`x --next`) with `{--}` as the braced en dash
-that still converts there. None of that is in a shipped engine: measured on
-carve 0.1.3, `a --> b` renders as an en dash followed by a literal `>`, `x
---next` turns the flag into an en dash, `a <=> b` renders as the `<=` comparison glyph followed by a literal `>`, and
-`{--}` parses as an empty CriticMarkup delete. So the spellings above are the
-ones to write today; the doubled forms arrive with the engines, not with the
-spec.
+**The arrow family is where the spec is ahead of the published engine, and the
+two builds are easy to confuse.** markup-carve/carve#1442 makes the doubled run
+canonical (`-->` `<--` `<-->`, `==>` `<==` `<=>`), deprecates `->` `<-` `<->`
+without removing them, removes `=>` because `key => value` is prose about code,
+and pairs a guard that keeps a bare hyphen run literal in the flag position
+(`x --next`) with `{--}` as the braced en dash that still converts there.
+
+Measured on both builds with one probe:
+
+| source | published 0.1.4 | the build the spec pins |
+| --- | --- | --- |
+| `a --> b` | en dash then a literal `>` | → |
+| `a ==> b` | `=` then ⇒ | ⇒ |
+| `a => b` | ⇒ | literal `=>` |
+| `a <=> b` | ≤ then `>` | ⇔ |
+| `{--}` | empty CriticMarkup delete | – |
+| `x --next` | en dash | `--next`, left alone |
+
+So write `->`, `<-`, `<->` and `=>` today: that is what a consumer who installs
+`@markup-carve/carve` gets, and the deprecated spellings keep rendering after
+the doubled family lands. Treat this row as dated, and re-measure before
+relying on it.
+
+**Do not identify the build by its version field.** The published release and a
+git install of carve-js `main` BOTH report `0.1.4` in `package.json`, because
+that field only moves at a release cut - so "confirmed via package.json" cannot
+tell them apart, and the spec repository pins a git SHA rather than the npm
+package. The exported `SMART_PUNCTUATION_GLYPHS` map does tell them apart: the
+release has four arrow glyphs, the pinned build has six, and the two missing
+from the release are `leftwards_double_arrow` and `left_right_double_arrow`.
 
 ## 13. Containers nest, and an unclosed one closes at the end
 
@@ -308,7 +328,7 @@ a `::: tip`, holds a `:::: tip`, and an opener with no closer ends at end of
 input instead of degrading to paragraph text. A bare closer still closes **one**
 container, not every one open above it.
 
-Measured against `@markup-carve/carve` 0.1.3, the engine this skill is tested
+Measured against `@markup-carve/carve` 0.1.4, the engine this skill is tested
 against:
 
 ```
@@ -431,7 +451,7 @@ between them. Both say widen outward; markup-carve/carve#455 moved the
 `>=`, "because their length axis really is quoting: opaque content that never
 nests, which must be able to hold a shorter fence". That has shipped, so an
 equal-length container nests and an equal-length code fence still closes early.
-The spec and `@markup-carve/carve` 0.1.3 agree here, measured.
+The spec and `@markup-carve/carve` 0.1.4 agree here, measured.
 
 ## 14. Headings are single-line
 
@@ -545,7 +565,7 @@ body                        is the title, and names the aside
 :::
 ```
 
-Measured against `@markup-carve/carve` 0.1.3, the engine this skill is tested
+Measured against `@markup-carve/carve` 0.1.4, the engine this skill is tested
 against: it emits neither attribute yet, so the HTML above is what you get
 today. Write the source either way - this is a renderer detail that changes no
 source and no tree shape - but do not hand-add `aria-label` to Carve output,

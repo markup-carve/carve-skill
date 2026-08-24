@@ -1,32 +1,41 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "testedEngine": "@markup-carve/carve@0.1.3",
+  "$comment": "Measured, not asserted: test/behavior.test.mjs runs a probe per feature against the engine in testedEngine and fails when a recorded value disagrees. Two values here were stale falses until that probe existed.",
+  "testedEngine": "@markup-carve/carve@0.1.4",
   "policy": "Prefer released-engine behavior. A spec-only construct must not be authored unless the target explicitly supports it.",
   "features": {
-    "trailing_comment": { "syntax": "%%", "spec": true, "carveJs_0_1_3": true },
-    "fenced_comment": { "syntax": "%%%", "spec": true, "carveJs_0_1_3": true },
+    "trailing_comment": {
+      "syntax": "%%",
+      "spec": true,
+      "inTestedEngine": true
+    },
+    "fenced_comment": {
+      "syntax": "%%%",
+      "spec": true,
+      "inTestedEngine": true
+    },
     "delimited_comment": {
       "syntax": "{% comment %}",
       "spec": true,
-      "carveJs_0_1_3": false,
-      "guidance": "Use %% until the target engine explicitly advertises support."
+      "inTestedEngine": true,
+      "guidance": "Shipped in 0.1.4. Older engines need %% instead."
     },
     "container_exact_closer": {
       "syntax": "equal-width nested ::: fences",
       "spec": true,
-      "carveJs_0_1_3": false,
-      "guidance": "Widen outer fences for released engines and portable samples."
+      "inTestedEngine": true,
+      "guidance": "Shipped in 0.1.4: an equal-width nested container nests. An equal-width CODE fence still closes early."
     },
     "raw_html": {
       "syntax": "`x`{=html} or ```=html",
       "spec": true,
-      "carveJs_0_1_3": true,
+      "inTestedEngine": true,
       "renderer": "html only"
     },
     "tier3_renderers": {
       "syntax": "mermaid, chart, rendered math, host directives",
       "spec": true,
-      "carveJs_0_1_3": "host-dependent"
+      "inTestedEngine": "host-dependent"
     }
   }
 }

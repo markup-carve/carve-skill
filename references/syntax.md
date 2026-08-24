@@ -134,7 +134,8 @@ inner
 |?v x |                       <^ <~ <v ~^ ~~ ~v >^ >~ >v. `v>` and a lone
                               ^ or v are ordinary cell content. `?` inherits
                               the column's horizontal axis. Implemented on
-                              carve-js main, NOT in any release yet.)
+                              carve-js main, NOT in published 0.1.4, where
+                              the markers stay literal cell text.)
 
 | Name  | Age |              (GFM separator row accepted as an alias)
 |-------|----:|

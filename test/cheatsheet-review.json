@@ -110,12 +110,12 @@
     "Inline / row: `--` `---` `...` `-->` `==>` `(c)`": {
       "title": "`--` `---` `...` `-->` `==>` `(c)` | – — … → ⇒ © | smart typography; a bare HYPHEN RUN with a space before it and a non-space after it is a CLI flag and stays literal (`x --next`) - the arrows are matched before that guard and still convert there (`x -->next` is `x →next`)",
       "sha256": "93360d1042eedddf2e56a528f4784b5aef734cf0d974bc80387ad0065687d80c",
-      "note": "The skill teaches the RELEASED engine here, deliberately. This row spells the canonical arrows `-->` and `==>` and states the CLI-flag guard (markup-carve/carve#1442); carve 0.1.3 has neither, so references/syntax.md keeps `->` and references/traps.md 12 records the gap. Re-check when an engine ships markup-carve/carve#1442."
+      "note": "The skill teaches the PUBLISHED engine here, deliberately. This row spells the canonical arrows `-->` and `==>` and states the CLI-flag guard (markup-carve/carve#1442); published `@markup-carve/carve` 0.1.4 has neither, though the git build the spec pins does - and both report version 0.1.4, so check `SMART_PUNCTUATION_GLYPHS` (four arrow glyphs in the release, six in the pinned build) rather than the version field. references/syntax.md keeps `->` and references/traps.md 12 carries the measurement. Re-measure when the doubled family reaches a release."
     },
     "Inline / row: `{--}`": {
       "title": "`{--}` | – | braced en dash — converts in the flag position the bare run refuses",
       "sha256": "e050608b3f3df92de4e21b2967d6ef7bb8fd67f61f20641213728b5b0952aec5",
-      "note": "Deliberately absent from the skill: carve 0.1.3 parses `{--}` as an empty CriticMarkup delete, not as the braced en dash this row describes. Teach it once an engine renders it."
+      "note": "Deliberately absent from the skill: published `@markup-carve/carve` 0.1.4 parses `{--}` as an empty CriticMarkup delete, not as the braced en dash this row describes. The git build the spec pins renders the en dash. Teach it once a release does."
     },
     "Inline / row: `\\` at end of line": {
       "title": "`\\` at end of line | hard break | `\\ ` is a hard break here too — the trailing space is stripped before the escape is read",

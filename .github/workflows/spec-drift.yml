@@ -86,3 +86,30 @@ jobs:
             echo "::error::a watched spec document changed at carve main; the skill has not been read against it"
             exit 1
           }
+
+      # The spec pin and the ENGINE are two different pins, and both can fall
+      # behind. Nothing in this repository could observe the second one: the
+      # lockfile held `@markup-carve/carve` 0.1.3 while package.json allowed
+      # 0.1.4, references/capabilities.json named 0.1.3 as "the engine this
+      # skill is tested against", and every version-dated claim in
+      # references/traps.md was therefore measured against a release that was
+      # no longer the newest. One of them - the arrow family - was then written
+      # up as a gap the newest release does not have.
+      #
+      # A dated status note is only evidence while its premise holds, so the
+      # premise is checked here rather than trusted. FAILS rather than warns:
+      # unlike the spec pin, this repository can fix it on its own with one
+      # `npm install`.
+      - name: Is the tested engine the newest published release?
+        run: |
+          set -euo pipefail
+          # Read the LOCKFILE, not node_modules: the lockfile is the pin, and
+          # an installed artifact is exactly the thing that turned out not to
+          # be what it claimed. No `npm ci` step is needed either way.
+          installed="$(node -p "require('./package-lock.json').packages['node_modules/@markup-carve/carve'].version")"
+          latest="$(npm view @markup-carve/carve version)"
+          echo "tested engine: ${installed}; newest published: ${latest}"
+          if [ "${installed}" != "${latest}" ]; then
+            echo "::error::the skill is tested against ${installed} but ${latest} is published; re-measure every version-dated claim in references/ before bumping the pin"
+            exit 1
+          fi

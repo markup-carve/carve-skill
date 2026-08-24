@@ -1,0 +1,261 @@
+{
+  "$comment": "Which rows of spec/docs/cheatsheet.md the syntax card in references/syntax.md was last read against. The card is the source that page is derived from, and a row keeps its construct token while its meaning is rewritten - so presence of the token proves nothing and the row is fingerprinted instead. Regenerate with `npm run spec:review` AFTER re-reading the rows the drift guard names - see README, \"Not drifting\".",
+  "source": "spec/docs/cheatsheet.md",
+  "spec_rev": "a58560e378da7665fb07e2cd02d178d09fbf4f0e",
+  "rows": {
+    "#preamble / prose 1": {
+      "title": "---",
+      "sha256": "116eec891721dcb9fb8dfba657487d541054dd99a13f205966f3e728f04d3693"
+    },
+    "#preamble / prose 2": {
+      "title": "# Cheat Sheet",
+      "sha256": "aca4ccd0c20a9125a27b2a0f4e9a1da145808542da11afda4077144f6bf38906"
+    },
+    "Inline / heading": {
+      "title": "Inline",
+      "sha256": "7e0276aa74fc501cebcc3031eb973012b786fdbc4702f9ca59002d403331377f"
+    },
+    "Inline / row: Write": {
+      "title": "Write | Get | Mnemonic",
+      "sha256": "8ce083e232a006affcc6b2cc6f95c29b4747fed99c062afae569492087032fdd"
+    },
+    "Inline / delimiter 1": {
+      "title": "default | default | default",
+      "sha256": "d17fa344017c599657ee878434fd1c7cc356a8bcbc9a1811ab233902aa9e1dc4"
+    },
+    "Inline / row: `/italic/`": {
+      "title": "`/italic/` | *italic* | slashes lean like italics",
+      "sha256": "80f05b2841db8b5f36cdadd56a54f2288c52e661e0b2d03e6cc3af3ada08a270"
+    },
+    "Inline / row: `*bold*`": {
+      "title": "`*bold*` | **bold** | asterisks are heavy",
+      "sha256": "7fe78db645f6548064eed6c2677669fc8433cde7609b57289e227fa7d9ac9ab0"
+    },
+    "Inline / row: `/*bold italic*/`": {
+      "title": "`/*bold italic*/` | ***both*** | combined",
+      "sha256": "2906a56654a70b3665f7bb8256a9790aeaf2dfa66a52c1ac7454c2a4cfae84f7"
+    },
+    "Inline / row: `_underline_`": {
+      "title": "`_underline_` | underline | the line sits below",
+      "sha256": "afd5d2e60021d07445c4a2a215be3ba812385ccad18ba3ebb0ef709876f890a1"
+    },
+    "Inline / row: `~strike~`": {
+      "title": "`~strike~` | ~~strike~~ | tilde runs through",
+      "sha256": "1f748441857d4ed3ca141f985c4a91ca04824be8bca1f900d803cbcfe85b8e15"
+    },
+    "Inline / row: `{^super^}`": {
+      "title": "`{^super^}` | super­script | caret points up",
+      "sha256": "f5914199baa3735e25ee7419382c78eb97fa44e46dcd2cd9a8d90e88d71f359e"
+    },
+    "Inline / row: `{,sub,}`": {
+      "title": "`{,sub,}` | sub­script | commas pull down",
+      "sha256": "633cfbe77f91b4e205ca13de366886d73d60aa5695cb6f08cc2366bb97889ef3"
+    },
+    "Inline / row: `=highlight=`": {
+      "title": "`=highlight=` | highlight | like a highlighter pen",
+      "sha256": "fbbed7ac7668db45224b2ff9798304f54a0c68183fcd071c8e6a634c410428fe"
+    },
+    "Inline / row: `` `code` ``": {
+      "title": "`` `code` `` | `code` | backticks",
+      "sha256": "65fb0499deab9fdac995130a710a6db15d8d75870bbe9957ced8f85f393808ba"
+    },
+    "Inline / row: `` !`/kaet/` ``": {
+      "title": "`` !`/kaet/` `` | /kaet/ | inline literal — verbatim prose, no `code` styling; `!` mirrors `$`-math",
+      "sha256": "6aef5e395de082552b95a720381914a195904ab3d452607dd1190dc1aedff16b"
+    },
+    "Inline / row: `[text](url)`": {
+      "title": "`[text](url)` | link | ",
+      "sha256": "1d109b7520189bf6cb04c8f9542fdf4685ad69d352a97c0811dd69349c887640"
+    },
+    "Inline / row: `[text][ref]`": {
+      "title": "`[text][ref]` | reference link | `[ref]: https://url` on its own line, anywhere",
+      "sha256": "68000164de4cab4b3c0b4b81f75dcf55df342e91631f2095c1b1e80c9cb4faa2"
+    },
+    "Inline / row: `[Page Name][]`": {
+      "title": "`[Page Name][]` | wiki-style link | resolves to a heading",
+      "sha256": "9f0bc57d67f08660a708d0fd0d8f3af6daeebc5aa937654c9d8be56188abb862"
+    },
+    "Inline / row: `<https://url>`": {
+      "title": "`<https://url>` | autolink | bare URLs stay literal (autolinking them is Tier-2 opt-in)",
+      "sha256": "f8bcea794d2b457ac4bb4c3254bfb1352358b2acc70bdfa42255e51a7f96f5c9"
+    },
+    "Inline / row: `</#section-id>`": {
+      "title": "`</#section-id>` | cross-reference | link text cloned from the target",
+      "sha256": "b1c3b93ccb5a96939ceb7969df1478fedb42d5182bc775761a2ee4eb714e3a9e"
+    },
+    "Inline / row: `![alt](img.jpg)`": {
+      "title": "`![alt](img.jpg)` | image | ",
+      "sha256": "0b0c4efb86e67292dd4d19b8ae243e5d5701ed0efad736b2bd3a2edef197e8a7"
+    },
+    "Inline / row: `[^1]` / `^[inline note]`": {
+      "title": "`[^1]` / `^[inline note]` | footnote | reference / inline form",
+      "sha256": "dcc33c5464f220245cbb197ea4ee6bb149aae72761a9bc22abc82e1581b37279"
+    },
+    "Inline / row: `[span]{.class}`": {
+      "title": "`[span]{.class}` | span | `{…}` adds class, id, or attributes",
+      "sha256": "73d8ca0845d1c3037701ca2f83c4de1f0aa4dec105650595360e2c1ae5f0128e"
+    },
+    "Inline / row: `:youtube[ID]` ✦": {
+      "title": "`:youtube[ID]` ✦ | extension | `:type[content]{attrs}` — syntax is core; the handler is opt-in",
+      "sha256": "6a87bb4a108d9533ef5f3dca53a0800291ac1ec2fb1b316250901e9908714032"
+    },
+    "Inline / row: `@user` `#tag`": {
+      "title": "`@user` `#tag` | mention / tag | social conventions",
+      "sha256": "d451596fcd33947b89df08adf3e5ba7f471864085a3b185f12217c98184c939a"
+    },
+    "Inline / row: `\\*literal\\*`": {
+      "title": "`\\*literal\\*` | escape | backslash + any ASCII punctuation",
+      "sha256": "94e317fa7cc519d52f1835ecc682752fb923341f87e390b070116e4516eeafa2"
+    },
+    "Inline / row: `--` `---` `...` `-->` `==>` `(c)`": {
+      "title": "`--` `---` `...` `-->` `==>` `(c)` | – — … → ⇒ © | smart typography; a bare HYPHEN RUN with a space before it and a non-space after it is a CLI flag and stays literal (`x --next`) - the arrows are matched before that guard and still convert there (`x -->next` is `x →next`)",
+      "sha256": "93360d1042eedddf2e56a528f4784b5aef734cf0d974bc80387ad0065687d80c",
+      "note": "The skill teaches the RELEASED engine here, deliberately. This row spells the canonical arrows `-->` and `==>` and states the CLI-flag guard (markup-carve/carve#1442); carve 0.1.3 has neither, so references/syntax.md keeps `->` and references/traps.md 12 records the gap. Re-check when an engine ships markup-carve/carve#1442."
+    },
+    "Inline / row: `{--}`": {
+      "title": "`{--}` | – | braced en dash — converts in the flag position the bare run refuses",
+      "sha256": "e050608b3f3df92de4e21b2967d6ef7bb8fd67f61f20641213728b5b0952aec5",
+      "note": "Deliberately absent from the skill: carve 0.1.3 parses `{--}` as an empty CriticMarkup delete, not as the braced en dash this row describes. Teach it once an engine renders it."
+    },
+    "Inline / row: `\\` at end of line": {
+      "title": "`\\` at end of line | hard break | `\\ ` is a hard break here too — the trailing space is stripped before the escape is read",
+      "sha256": "046d28519bf586f408185b57eae4e774540cf788aefc0ff901fea30a399883b0"
+    },
+    "Inline / row: `\\ ` mid-line": {
+      "title": "`\\ ` mid-line | no-break space | backslash-space; in the last column it is the hard break above",
+      "sha256": "efa3109e29edc9d5b843912bd67d4b380ecddaf6b8ab09467eb38da1ed4974e9"
+    },
+    "Inline / row: `` `<br>`{=html} ``": {
+      "title": "`` `<br>`{=html} `` | raw inline | target-routed; Carve renderers emit only `=html`, others feed external writers ([why](/divergence-from-djot#_10-raw-passthrough-is-target-routed-and-the-pandoc-boundary))",
+      "sha256": "e89e3f8e7eab421de41e7985f4aa9973c9a860e38de03e2cd367913fe88dc3f1"
+    },
+    "Inline / prose 1": {
+      "title": "Bare delimiters work only at word boundaries; force one intraword wit...",
+      "sha256": "da0f1e1a6d75247f8026c2395778b320b7d97a44ac42c1a0789148484a5c4de0"
+    },
+    "Blocks / heading": {
+      "title": "Blocks",
+      "sha256": "954c09420da81b314755eea17c726b455a72703b6985bc77d90d2ba5c0189e6e"
+    },
+    "Blocks / fence 1 (text)": {
+      "title": "text block",
+      "sha256": "cb7c5ca3cdb35d8c283721732043e5d2742124843c1166663c43e7ee41a994a1"
+    },
+    "Blocks / prose 1": {
+      "title": "> Block markers must start at column 0 (or, inside a list, at the ite...",
+      "sha256": "5235ca6e3405634a17e7dda35a2cfb5775ac4f0e0a529bc4aa93d46446e673e6"
+    },
+    "Tables / heading": {
+      "title": "Tables",
+      "sha256": "7f8691e06988982bc663650b1b7e437b0260ac5f2dbaea2e5d7d497200be2c08"
+    },
+    "Tables / prose 1": {
+      "title": "`|=` marks a header cell: in the first row it heads a column, in a bo...",
+      "sha256": "c2282488f2ef1c070e51bd66d252df48c7b412962ceb5ee503569b26e310bdd0"
+    },
+    "Tables / fence 1 (carve)": {
+      "title": "carve block",
+      "sha256": "9fda1d5c14b4e8e3442306fcb97b330adac11e3b52d964d3f7a82af6f276c83e"
+    },
+    "Tables / prose 2": {
+      "title": "A cell holding only `^` merges upward (rowspan) and one holding only ...",
+      "sha256": "df9ab58b03276d79267afc69c999e5020fdc70ed8284e2e6d543e8dd2a81de67"
+    },
+    "Tables / fence 2 (carve)": {
+      "title": "carve block",
+      "sha256": "be6a818c812f8e455a3e06a122e81cf463f0def8197fcd60cabe1b7526b31d6c"
+    },
+    "Tables / prose 3": {
+      "title": "### Alignment",
+      "sha256": "654ac29582313e022af49fa9ec4fce62fd12e6694afcc62289f2254d00771862"
+    },
+    "Tables / fence 3 (carve)": {
+      "title": "carve block",
+      "sha256": "19a3d8e540bf2a4603c2211ae3372ad65d131cf7dfcfc12f2ce97082e4b0f55f"
+    },
+    "Tables / prose 4": {
+      "title": "`<v` overrides both axes for that cell; `?v` moves only the vertical ...",
+      "sha256": "3239c137735e928f5fc338e9b9cb174b11945df37341ddc366efe6621615fe6a"
+    },
+    "Captions (images, quotes, tables, code listings, equations, figure groups) / heading": {
+      "title": "Captions (images, quotes, tables, code listings, equations, figure groups)",
+      "sha256": "42f5b58fb417b5c256b568843ddafe0bd20228653891cb81348c5775b08ac6a1"
+    },
+    "Captions (images, quotes, tables, code listings, equations, figure groups) / prose 1": {
+      "title": "One `^` line after the block adds a semantic `<figcaption>`:",
+      "sha256": "15ac3348c582d393098f8a19ffd9b495c7d3f66fc11b2b8b03cd892d844ae5b4"
+    },
+    "Captions (images, quotes, tables, code listings, equations, figure groups) / fence 1 (carve)": {
+      "title": "carve block",
+      "sha256": "661b8f870e68acf6934c8ab0b6ce0d9883ff0fcf5db74dc929b25e46063fbba3"
+    },
+    "Captions (images, quotes, tables, code listings, equations, figure groups) / prose 2": {
+      "title": "A `#` in the caption is the auto number, so a cross-reference to the ...",
+      "sha256": "96d4ad4f55eaea6c2b8b1661631ff883f347d43b0065ef3c8eda7fc432a52043"
+    },
+    "Captions (images, quotes, tables, code listings, equations, figure groups) / fence 2 (carve)": {
+      "title": "carve block",
+      "sha256": "91da6736113109f9257198414e1230c1bb36d8de63e18bbba5a6156a02af3528"
+    },
+    "Captions (images, quotes, tables, code listings, equations, figure groups) / prose 3": {
+      "title": "A `^` caption after a fenced code block makes a numbered *listing*; a...",
+      "sha256": "f5d2b39e518ecb4247432efc35d8fdfdd40fb7438ce7375cf97e3da9ec068e42"
+    },
+    "Captions (images, quotes, tables, code listings, equations, figure groups) / fence 3 (carve)": {
+      "title": "carve block",
+      "sha256": "44e143889285996cfb2995fb858d036ea9dfe8a2edca329f1a3a766f092665c0"
+    },
+    "Captions (images, quotes, tables, code listings, equations, figure groups) / prose 4": {
+      "title": "A caption spans multiple lines like a paragraph — following lines fol...",
+      "sha256": "ab67da9c69119d43ecfb86d20342246a10080aa435f0687ba87365993e8e56ab"
+    },
+    "Captions (images, quotes, tables, code listings, equations, figure groups) / fence 4 (carve)": {
+      "title": "carve block",
+      "sha256": "b83c0b8b1d08da89c5f608cc885221eb98cf354ef858ae4581a8e3c04c0ab42c"
+    },
+    "Attributes & metadata / heading": {
+      "title": "Attributes & metadata",
+      "sha256": "d587a21ee3c542f5b7a41c5ee0b5640ab422f7fc4f93632ae38f046df8d932cb"
+    },
+    "Attributes & metadata / fence 1 (text)": {
+      "title": "text block",
+      "sha256": "8f350ebd0ab5182d3449674df62e3f8d0a075dfc0c00ec0573bfb048c614213f"
+    },
+    "Math, comments, editorial / heading": {
+      "title": "Math, comments, editorial",
+      "sha256": "d29df471b3fb5debd8182d5280586849cb875bfa53e93dbc308c847657037851"
+    },
+    "Math, comments, editorial / fence 1 (carve)": {
+      "title": "carve block",
+      "sha256": "a76a96455b65911d6e3be06d433f0dc32e47547f50b280562fd5cbc28c95624d"
+    },
+    "Math, comments, editorial / prose 1": {
+      "title": "The last line is CriticMarkup: insert, delete, substitute, comment. I...",
+      "sha256": "4e3e4a7fadf287b8cfb4c66d4c5b29c90b78bbf68ac6e94270a19680692a3663"
+    },
+    "Diagrams & charts / heading": {
+      "title": "Diagrams & charts",
+      "sha256": "aade82ed76b200a1f25c0473418e828179444b4f0003177dba5187ff6afebc84"
+    },
+    "Diagrams & charts / prose 1": {
+      "title": "Fenced blocks drawn by a client library or a build step. Fence words:...",
+      "sha256": "c9a1b9bfe46d09f5de450507c904ab2002b170ca0bcde131c9172356bedec9f3"
+    },
+    "Diagrams & charts / fence 1 (carve)": {
+      "title": "carve block",
+      "sha256": "83322b50edbc0d45c76654aec89099f204fe2692fe9c58d65ffb3b92419b145b"
+    },
+    "Diagrams & charts / prose 2": {
+      "title": "Extension, off by default; falls back to a code block when unrendered...",
+      "sha256": "de0ad8e1db32cefc86ac7717894403e346b4177910f273736759923553acee00"
+    },
+    "Next / heading": {
+      "title": "Next",
+      "sha256": "54dbf6cbdabffa1a983170cac6f89a67cd1645d619a4380feb0711b4c3ea4512"
+    },
+    "Next / prose 1": {
+      "title": "- **[Examples](/examples)** — each construct next to its rendered HTML.",
+      "sha256": "96c6cbc22548469d94ad3f4ca973030a6a2b38c499f8352fd99b9ce6037ea92f"
+    }
+  }
+}

@@ -7,11 +7,18 @@
 // where the AST node rules live - was not one of them. A pin bump rewrote the
 // `image` node's block-position rule and every gate stayed green.
 //
+// Being on the list is not by itself enough, either. docs/cheatsheet.md WAS one
+// of the two named paths, and was still read only for whether thirteen tokens
+// were PRESENT - so a row could have its meaning rewritten around a surviving
+// token and pass every gate (#89). A watched document needs an entry here, with
+// a fingerprint fine-grained enough to notice what the document is for.
+//
 // So the list lives here, once, and the test, the offline checker and the
 // scheduled workflow all read it. Adding a document to the guard is adding an
 // entry here; the failure of omission is at least visible in one place.
 
 import { join } from 'node:path'
+import { rowFingerprints } from './cheatsheet-rows.mjs'
 import { nodeFingerprints } from './schema-nodes.mjs'
 import { sectionFingerprints } from './spec-sections.mjs'
 
@@ -48,6 +55,26 @@ export const LEDGERS = [
       'Which spec divergence sections the trap list in references/traps.md was last read ' +
       'against. Regenerate with `npm run spec:review` AFTER re-reading the sections the ' +
       'drift guard names - see README, "Not drifting".',
+  },
+  {
+    id: 'cheatsheet',
+    source: 'docs/cheatsheet.md',
+    reviewFile: 'cheatsheet-review.json',
+    entries: 'rows',
+    kind: 'row',
+    label: 'CHEATSHEET ROWS',
+    atLeast: 40,
+    of: 'row(s)',
+    hint: 'the document is missing, truncated, or no longer lays the card out as "## " sections of tables and fenced notation.',
+    fingerprint: rowFingerprints,
+    reread: 'Re-read those rows of spec/docs/cheatsheet.md, check that references/syntax.md still\n' +
+      'teaches what the row now says, then run `npm run spec:review`.',
+    comment:
+      'Which rows of spec/docs/cheatsheet.md the syntax card in references/syntax.md was last ' +
+      'read against. The card is the source that page is derived from, and a row keeps its ' +
+      'construct token while its meaning is rewritten - so presence of the token proves ' +
+      'nothing and the row is fingerprinted instead. Regenerate with `npm run spec:review` ' +
+      'AFTER re-reading the rows the drift guard names - see README, "Not drifting".',
   },
   {
     id: 'ast-schema',

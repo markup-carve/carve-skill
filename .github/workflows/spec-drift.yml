@@ -12,10 +12,10 @@ name: Spec drift
 #   engine have to move together, and the engine cannot move past a published
 #   carve-js. Failing on lag alone would go red for something this repo cannot
 #   fix by itself.
-# - A CHANGED WATCHED ENTRY fails. test/spec-review.json records which text of
-#   each numbered section in docs/divergence-from-djot.md the trap list was last
-#   read against, and test/schema-review.json does the same per node definition
-#   of resources/ast-schema.json; when one of those moves at carve main, the
+# - A CHANGED WATCHED ENTRY fails. One ledger per watched document records which
+#   text the skill was last read against - per numbered section of
+#   docs/divergence-from-djot.md, per node definition of resources/ast-schema.json,
+#   per row of docs/cheatsheet.md; when one of those moves at carve main, the
 #   offline guard's green stops meaning anything, and no other check in this repo
 #   can tell. That is fixable here: bump the pin, re-read what is named against
 #   the reference pages, and record the review.
@@ -25,7 +25,10 @@ name: Spec drift
 # and every check stayed green while references/traps.md kept describing the old
 # rule. Then the `image` node's block-position rule was rewritten in
 # resources/ast-schema.json across pin be6e7cc6 -> cc06bb5 and every check stayed
-# green again, because the guard named prose documents only (#84).
+# green again, because the guard named prose documents only (#84). And
+# docs/cheatsheet.md, which the guard DID name, was read only for whether certain
+# tokens were present, so a row could be rewritten around a surviving token with
+# nothing to report it (#89).
 
 on:
   schedule:

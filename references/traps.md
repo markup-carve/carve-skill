@@ -250,7 +250,7 @@ A **blank line ends the definition** — there is no multi-paragraph (loose) `<d
 
 ## 11. List continuation requires the content column
 
-A block belongs to a list item only if it reaches the item's content column, the column where the item's own text starts (`- ` is 2, `1. ` is 3, `10. ` is 4). A block below that column detaches to document level (or lazily continues the paragraph); a block indented past it keeps its residual spaces and is paragraph text. The blank line before the block only decides tight vs loose, not attachment. This is the same rule Carve applies everywhere: a block opener fires only at column 0 of its context, so at the top level a leading-indented ` # h`, ` > q`, `` ` ``` ` ``, or ` :::` is literal paragraph text, not a block (Djot attaches at any indent). The `+` continuation marker (trap 3) still attaches a flush-left block regardless.
+A block belongs to a list item only if it reaches the item's content column, the column the BARE marker and its separator end at (`- ` is 2, `1. ` is 3, `10. ` is 4). Bare is the operative word: a marker-attached attribute block and a task checkbox are both worth zero columns, so `-{.averylongclass} x` and `- [x] x` keep the column at 2 even though their text starts further right (see trap 17). A block below that column detaches to document level (or lazily continues the paragraph); a block indented past it keeps its residual spaces and is paragraph text. The blank line before the block only decides tight vs loose, not attachment. This is the same rule Carve applies everywhere: a block opener fires only at column 0 of its context, so at the top level a leading-indented ` # h`, ` > q`, `` ` ``` ` ``, or ` :::` is literal paragraph text, not a block (Djot attaches at any indent). The `+` continuation marker (trap 3) still attaches a flush-left block regardless.
 
 ## 12. Smart typography always runs, and keeps your source
 
@@ -273,6 +273,18 @@ line, and reject an unknown mode rather than ignoring it. The plain-text and
 ANSI renderers still emit the glyph in all three (spec markup-carve/carve#560).
 Heading ids are identical either way: the id pass normalizes the glyphs back to
 ASCII before slugging.
+
+The arrow family is where the spec is currently AHEAD of every released engine.
+markup-carve/carve#1442 makes the doubled run canonical (`-->` `<--` `<-->`, `==>` `<==`
+`<=>`), deprecates `->` `<-` `<->` without removing them, removes `=>` because
+`key => value` is prose about code, and pairs a guard that keeps a bare hyphen
+run literal in the flag position (`x --next`) with `{--}` as the braced en dash
+that still converts there. None of that is in a shipped engine: measured on
+carve 0.1.3, `a --> b` renders as an en dash followed by a literal `>`, `x
+--next` turns the flag into an en dash, `a <=> b` renders as the `<=` comparison glyph followed by a literal `>`, and
+`{--}` parses as an empty CriticMarkup delete. So the spellings above are the
+ones to write today; the doubled forms arrive with the engines, not with the
+spec.
 
 ## 13. Containers nest, and an unclosed one closes at the end
 
@@ -470,7 +482,7 @@ The failure is loud rather than silent: you see the braces in the output.
 
 ## 17. A list marker takes attributes
 
-An attribute block right after the marker binds to the ITEM.
+An attribute block right after the marker binds to the ITEM. It is item metadata, not marker width, so it contributes nothing to the item's content column: a continuation under `-{.c} x` still has to reach column 2, the same as under `- x`.
 
 ```
 -{.c} x        ->  <ul><li class="c">x</li></ul>

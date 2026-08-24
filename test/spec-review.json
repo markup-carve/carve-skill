@@ -1,7 +1,7 @@
 {
   "$comment": "Which spec divergence sections the trap list in references/traps.md was last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/divergence-from-djot.md",
-  "spec_rev": "6044cba06b4699d1b88a88e43fc2fa8da8eaf4e2",
+  "spec_rev": "a58560e378da7665fb07e2cd02d178d09fbf4f0e",
   "sections": {
     "1": {
       "title": "Case-preserving heading ids with case-insensitive cross-references",
@@ -69,7 +69,7 @@
     },
     "17": {
       "title": "A list marker takes attributes",
-      "sha256": "bacba9f8e42822a421af68b73dc2f88063c1ce35a1e460c52bbadaba7a198012"
+      "sha256": "2d1853b998a012d99b78a5ed733ad7ade455aad39e3fb52f4b277bfa4f42fd56"
     },
     "18": {
       "title": "An attribute line in inline position is preserved, not consumed",

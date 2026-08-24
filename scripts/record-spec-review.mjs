@@ -1,17 +1,22 @@
 // Record that the skill has been read against the spec as it stands right now:
 // `npm run spec:review`.
 //
-// Run this AFTER re-reading whichever divergence sections and AST schema nodes
-// the guard reported, and after updating references/ if they moved. Recording
-// without reading is how the guard goes back to being decorative.
+// Run this AFTER re-reading whichever entries the guard reported - divergence
+// sections, AST schema nodes, cheat-sheet rows - and after updating references/
+// if they moved. Recording without reading is how the guard goes back to being
+// decorative.
 //
-// Two ledgers are written, one per document the guard watches:
+// One ledger is written per document the guard watches:
 //
-//   test/spec-review.json    docs/divergence-from-djot.md, per numbered section
-//   test/schema-review.json  resources/ast-schema.json, per node definition
+//   test/spec-review.json       docs/divergence-from-djot.md, per numbered section
+//   test/schema-review.json     resources/ast-schema.json, per node definition
+//   test/cheatsheet-review.json docs/cheatsheet.md, per row
 //
 // The second exists because the guard used to name only prose documents, so a
-// rule stated in the schema could move without failing anything (#84).
+// rule stated in the schema could move without failing anything (#84). The third
+// because naming a document is not the same as reading it: the cheat sheet was
+// named and checked for token PRESENCE, so a row's meaning could be rewritten
+// around a surviving token and nothing failed (#89).
 
 import { execFileSync } from 'node:child_process'
 import { readFileSync, writeFileSync } from 'node:fs'

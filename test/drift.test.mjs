@@ -14,6 +14,7 @@ import {
   describeFindings,
 } from '../scripts/spec-sections.mjs'
 import { LEDGERS, specRoot } from '../scripts/review-ledgers.mjs'
+import { parseRows, rowFingerprints, splitRow } from '../scripts/cheatsheet-rows.mjs'
 import { shortfall } from '../scripts/participants.mjs'
 
 const here = dirname(fileURLToPath(import.meta.url))
@@ -25,11 +26,7 @@ const specCheatsheet = join(root, 'spec', 'docs', 'cheatsheet.md')
 const traps = readFileSync(join(root, 'references', 'traps.md'), 'utf8')
 
 test('spec submodule is checked out', () => {
-  const watched = [
-    specDivergence,
-    specCheatsheet,
-    ...LEDGERS.map((ledger) => join(specRoot(root), ledger.source)),
-  ]
+  const watched = LEDGERS.map((ledger) => join(specRoot(root), ledger.source))
   const absent = watched.filter((path) => !existsSync(path))
   assert.deepEqual(
     absent,
@@ -137,10 +134,94 @@ for (const ledger of LEDGERS) {
   })
 }
 
+// The cheat-sheet ledger above only reports on the rows it parsed, so what it
+// does NOT parse is invisible to it - the same blind spot as a guard that names
+// its documents, one level down. scripts/cheatsheet-rows.mjs therefore claims a
+// TOTAL parse: every line of the card lands in exactly one entry. This is that
+// claim, checked, rather than a comment asserting it.
+//
+// Without this, a spec revision that introduced a construct in a shape the
+// parser skips - an HTML table, a definition list, an indented block - would
+// leave those lines fingerprinted by nothing and the ledger would still report
+// all 63 entries matching.
+test('every line of the cheat sheet belongs to exactly one ledger row', () => {
+  const lines = readFileSync(specCheatsheet, 'utf8').replace(/\r\n/g, '\n').split('\n')
+  const rows = parseRows(lines.join('\n'))
+
+  const covered = new Map()
+  for (const row of rows) {
+    for (const index of row.lines) covered.set(index, (covered.get(index) ?? 0) + 1)
+  }
+
+  // A blank line carries nothing and is allowed to fall between entries; a line
+  // with content is not.
+  const uncovered = []
+  const doubled = []
+  lines.forEach((line, index) => {
+    const times = covered.get(index) ?? 0
+    if (times > 1) doubled.push(`${index + 1}: ${line}`)
+    else if (times === 0 && line.trim() !== '') uncovered.push(`${index + 1}: ${line}`)
+  })
+
+  assert.deepEqual(
+    uncovered,
+    [],
+    'line(s) of spec/docs/cheatsheet.md are fingerprinted by no ledger row, so the spec\n' +
+      'can rewrite them with the guard green. Teach scripts/cheatsheet-rows.mjs the shape\n' +
+      'they are written in, then run `npm run spec:review`.',
+  )
+  assert.deepEqual(
+    doubled,
+    [],
+    'line(s) of spec/docs/cheatsheet.md land in two ledger rows, so one edit reports as two\n' +
+      'findings and the row labels no longer name a place in the document.',
+  )
+})
+
+// Normalizing a row is what keeps the ledger from demanding a re-review over a
+// re-padded column, and it is also the one place the ledger can be made blind
+// again by accident: collapse a blank run INSIDE a code span and the card can
+// change the sample it teaches with the fingerprint unmoved. In Carve the width
+// of a run is routinely the whole rule - `1. ` puts the content column at 3 and
+// `1.  ` does not - so the two kinds of blank are pinned apart here.
+test('row normalization collapses layout and preserves samples', () => {
+  assert.deepEqual(splitRow('|  a   b |   c |'), ['a b', 'c'])
+  assert.deepEqual(splitRow('| `1.  x` | ordered |'), ['`1.  x`', 'ordered'])
+  assert.deepEqual(splitRow('| `` `a|b` `` | a pipe inside a span |'), [
+    '`` `a|b` ``',
+    'a pipe inside a span',
+  ])
+
+  const card = (sample) => `## Inline\n\n| Write | Get |\n|---|---|\n| ${sample} | ordered |\n`
+  const tight = rowFingerprints(card('`1. x`'))
+  const wide = rowFingerprints(card('`1.  x`'))
+  assert.notEqual(
+    Object.values(tight).at(-1).sha256,
+    Object.values(wide).at(-1).sha256,
+    'a blank run inside a code span is the sample, not layout - collapsing it lets the ' +
+      'card teach a different content column with the ledger green',
+  )
+
+  const padded = rowFingerprints(card('`1. x`').replace('| ordered |', '|   ordered   |'))
+  assert.deepEqual(
+    Object.values(padded).map((entry) => entry.sha256),
+    Object.values(tight).map((entry) => entry.sha256),
+    'padding outside a code span is layout - re-padding a column must not demand a re-review',
+  )
+})
+
 // Essential constructs that MUST appear in both the spec cheatsheet and the
 // skill. Verifying against the cheatsheet keeps this list honest: if the spec
 // renames a token, the cheatsheet check fails; if the skill drops it, the skill
 // check fails.
+//
+// PRESENCE is all this proves, and presence is not meaning. It was the only
+// thing this repository ever asked of the cheat sheet, so a row could keep its
+// token while its Get and Mnemonic columns were rewritten into the opposite
+// rule and every gate stayed green (#89). What closes that is the per-row
+// ledger above, not a longer token list here: this test answers "is the
+// construct still called that", and the ledger answers "does the row still say
+// what references/syntax.md was written from".
 const ESSENTIAL = [
   '/italic/',
   '*bold*',

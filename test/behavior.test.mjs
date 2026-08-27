@@ -46,6 +46,15 @@ const PROBES = {
     presentBefore: ['admonition tip', '</aside>'],
   },
   raw_html: { source: 'a `<br>`{=html} b', present: '<br>' },
+  // The vertical axis rides on the SAME marker as the horizontal one, so a
+  // present-check for `text-align` cannot tell support from its absence: the
+  // engine emitted that before the second axis existed. `vertical-align` is the
+  // half that only appears once the feature does.
+  vertical_cell_alignment: { source: '|=<^ A |\n| x |', present: 'vertical-align: top' },
+  // `==>` rather than `=>`: the doubled family arriving and `=>` ceasing to
+  // convert were ONE release, so probing `=>` would now measure the opposite of
+  // this entry and read as a regression rather than the feature.
+  doubled_arrows: { source: 'a ==> b', present: '⇒' },
 }
 
 test('every capability the matrix records is true of the engine', () => {

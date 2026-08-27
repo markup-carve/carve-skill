@@ -32,6 +32,6 @@
     "spec:review": "node scripts/record-spec-review.mjs"
   },
   "devDependencies": {
-    "@markup-carve/carve": "^0.1.4"
+    "@markup-carve/carve": "^0.1.5"
   }
 }

@@ -133,9 +133,8 @@ inner
 |=<^ Top |=>v Low |          (a VERTICAL second axis, HORIZONTAL FIRST:
 |?v x |                       <^ <~ <v ~^ ~~ ~v >^ >~ >v. `v>` and a lone
                               ^ or v are ordinary cell content. `?` inherits
-                              the column's horizontal axis. Implemented on
-                              carve-js main, NOT in published 0.1.4, where
-                              the markers stay literal cell text.)
+                              the column's horizontal axis. Shipped in
+                              published 0.1.5.)
 
 | Name  | Age |              (GFM separator row accepted as an alias)
 |-------|----:|

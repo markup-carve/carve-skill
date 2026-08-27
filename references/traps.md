@@ -71,7 +71,7 @@ a `b %% secret
 ````
 
 Those are two percent signs inside a code span, not a comment. No container is
-involved and 0.1.4 renders it the same way, so this is the rule rather than a
+involved and 0.1.5 renders it the same way, so this is the rule rather than a
 version note. The author who hits it is writing a private aside next to a code
 span whose backtick they never closed. A comment on its own line is settled
 before any run exists and cannot be reached this way, which is the whole of the
@@ -110,7 +110,7 @@ publish the very text the comment exists to hide.
 rules above meet in one document, and the spec settles it at the block layer
 (markup-carve/carve#1333, shipped as markup-carve/carve#1339): the comment is
 gone before the run exists, and the run carries the emptied line as a newline -
-so the run STAYS OPEN across it. `@markup-carve/carve` 0.1.4 carries it, and so
+so the run STAYS OPEN across it. `@markup-carve/carve` 0.1.5 carries it, and so
 does the build the spec pins. 0.1.3 hid the comment but closed the run at the
 end of its line, which is why this entry claimed a different rendering until it
 was re-measured.
@@ -138,7 +138,7 @@ two paragraphs up, and the whole of the difference between the two constructs.
 renders `<p>foo  baz</p>`. This entry previously said no released engine had it,
 measured against `@markup-carve/carve` 0.1.3; the 2026-08-18 round shipped it in
 all three. Re-measured against the PUBLISHED packages on that date:
-`@markup-carve/carve` 0.1.4 renders `<p>a  b</p>` for `a {% hidden %} b`, and
+`@markup-carve/carve` 0.1.5 renders `<p>a  b</p>` for `a {% hidden %} b`, and
 carve-php 0.1.5 and carve-rs 0.1.3 each record the same behavior change in the
 CHANGELOG of their released tag.
 
@@ -146,25 +146,27 @@ So **`{% … %}` is safe to write.** `%%` remains correct and is still the right
 choice for a whole-line or end-of-line comment; the delimited form is for the
 middle of a sentence, where `%%` would take the rest of the line with it.
 
-**A table cell's VERTICAL alignment is implemented but unreleased.** A cell
+**A table cell may carry a VERTICAL alignment too.** A cell
 marker may carry a second axis, and the pair is HORIZONTAL FIRST
 (markup-carve/carve#1405, #1407): `<^ <~ <v ~^ ~~ ~v >^ >~ >v` are runs, while
 `v>` and a lone `^` or `v` stay ordinary cell content. `?` takes the column's
 horizontal axis and its own vertical (#1408).
 
-Measured 2026-08-19 on carve-js `main` (1a4c82e), where it WORKS:
+Re-measured 2026-08-28 on published `@markup-carve/carve` 0.1.5, where it WORKS:
 
     |=<^ A |   ->  <th style="text-align: left; vertical-align: top;">A</th>
     |?v x  |   ->  <td style="text-align: right; vertical-align: bottom;">x</td>
 
-and on published `@markup-carve/carve` 0.1.4, where it does NOT: the same
-`|=<^ A |` renders `text-align: left` with the caret surviving as the text
-`^ A`. carve-php 0.1.5 and carve-rs 0.1.3 record nothing for it either.
+This paragraph used to say the opposite, and said it for a release after it
+stopped being true: it recorded 0.1.4 leaving the markers as literal cell text
+and told the reader to avoid the syntax. Nothing could catch that, because the
+claim lived HERE, in prose, while the probes only read
+`references/capabilities.json`. It is recorded there now as
+`vertical_cell_alignment`, so the next release re-measures it instead of
+trusting this sentence.
 
-So write it only when you know the consumer runs a build past 0.1.4, and read a
-stray `^` in a cell as output rather than markup until then. The collision worth
-knowing: `^` alone in a DATA cell is the rowspan marker (`| ^ |`), which is
-unaffected and works everywhere today.
+The collision worth knowing is unchanged: `^` alone in a DATA cell is the
+rowspan marker (`| ^ |`), which is a different thing and works everywhere.
 
 The rules: `{%` opens and the **first** `%}` closes, there is no nesting, a
 comment inside an emphasis run does not break it (`*bo{% c %}ld*` is one
@@ -189,7 +191,7 @@ This is not an exception to traps 11 and 15 - the fence still has to reach its
 container's content column to be a fence at all.
 
 The rule is pinned by corpus documents `335` to `341`
-(markup-carve/carve#1311), and `@markup-carve/carve` 0.1.4 carries it: a
+(markup-carve/carve#1311), and `@markup-carve/carve` 0.1.5 carries it: a
 definition inside a comment fence is not collected, so a reference to it stays
 literal.
 
@@ -275,31 +277,40 @@ ANSI renderers still emit the glyph in all three (spec markup-carve/carve#560).
 Heading ids are identical either way: the id pass normalizes the glyphs back to
 ASCII before slugging.
 
-**The arrow family is where the spec is ahead of the published engine, and the
-two builds are easy to confuse.** markup-carve/carve#1442 makes the doubled run
+**The arrow family CHANGED in 0.1.5, and one spelling this file used to
+recommend stopped working.** markup-carve/carve#1442 made the doubled run
 canonical (`-->` `<--` `<-->`, `==>` `<==` `<=>`), deprecates `->` `<-` `<->`
 without removing them, removes `=>` because `key => value` is prose about code,
 and pairs a guard that keeps a bare hyphen run literal in the flag position
 (`x --next`) with `{--}` as the braced en dash that still converts there.
 
-Measured on both builds with one probe:
+Re-measured 2026-08-28 on published `@markup-carve/carve` 0.1.5, which now
+behaves the way only the pinned build used to:
 
-| source | published 0.1.4 | the build the spec pins |
+| source | published 0.1.4 | published 0.1.5 |
 | --- | --- | --- |
 | `a --> b` | en dash then a literal `>` | → |
 | `a ==> b` | `=` then ⇒ | ⇒ |
-| `a => b` | ⇒ | literal `=>` |
+| `a => b` | ⇒ | **literal `=>`** |
 | `a <=> b` | ≤ then `>` | ⇔ |
 | `{--}` | empty CriticMarkup delete | – |
 | `x --next` | en dash | `--next`, left alone |
 
-So write `->`, `<-`, `<->` and `=>` today: that is what a consumer who installs
-`@markup-carve/carve` gets, and the deprecated spellings keep rendering after
-the doubled family lands. Treat this row as dated, and re-measure before
-relying on it.
+**So do NOT write `=>`.** It converted in 0.1.4, this file recommended it on that
+basis, and 0.1.5 removed it because `key => value` is prose about code. It is
+literal text now. The single-dash family is deprecated but still converts, so
+the spellings that are safe in both releases are `->`, `<-` and `<->`; add
+`==>`, `<==` and `<=>` when the consumer is on 0.1.5 or later.
 
-**Do not identify the build by its version field.** The published release and a
-git install of carve-js `main` BOTH report `0.1.4` in `package.json`, because
+One shape to know: `<==>` is NOT a spelling. It renders `⇐` followed by a
+literal `>`, because `<==` matches first.
+
+Recorded as `doubled_arrows` in `references/capabilities.json` so a probe checks
+it, rather than this table being re-read by hand every release.
+
+**Do not identify the build by its version field.** A published release and a
+git install of carve-js `main` can BOTH report the same string in `package.json`,
+because
 that field only moves at a release cut - so "confirmed via package.json" cannot
 tell them apart, and the spec repository pins a git SHA rather than the npm
 package. The exported `SMART_PUNCTUATION_GLYPHS` map does tell them apart: the
@@ -328,7 +339,7 @@ a `::: tip`, holds a `:::: tip`, and an opener with no closer ends at end of
 input instead of degrading to paragraph text. A bare closer still closes **one**
 container, not every one open above it.
 
-Measured against `@markup-carve/carve` 0.1.4, the engine this skill is tested
+Measured against `@markup-carve/carve` 0.1.5, the engine this skill is tested
 against:
 
 ```
@@ -451,7 +462,7 @@ between them. Both say widen outward; markup-carve/carve#455 moved the
 `>=`, "because their length axis really is quoting: opaque content that never
 nests, which must be able to hold a shorter fence". That has shipped, so an
 equal-length container nests and an equal-length code fence still closes early.
-The spec and `@markup-carve/carve` 0.1.4 agree here, measured.
+The spec and `@markup-carve/carve` 0.1.5 agree here, re-measured 2026-08-28.
 
 ## 14. Headings are single-line
 
@@ -565,7 +576,7 @@ body                        is the title, and names the aside
 :::
 ```
 
-Measured against `@markup-carve/carve` 0.1.4, the engine this skill is tested
+Measured against `@markup-carve/carve` 0.1.5, the engine this skill is tested
 against: it emits neither attribute yet, so the HTML above is what you get
 today. Write the source either way - this is a renderer detail that changes no
 source and no tree shape - but do not hand-add `aria-label` to Carve output,

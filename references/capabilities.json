@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$comment": "Measured, not asserted: test/behavior.test.mjs runs a probe per feature against the engine in testedEngine and fails when a recorded value disagrees. Two values here were stale falses until that probe existed.",
-  "testedEngine": "@markup-carve/carve@0.1.4",
+  "testedEngine": "@markup-carve/carve@0.1.5",
   "policy": "Prefer released-engine behavior. A spec-only construct must not be authored unless the target explicitly supports it.",
   "features": {
     "trailing_comment": {
@@ -36,6 +36,18 @@
       "syntax": "mermaid, chart, rendered math, host directives",
       "spec": true,
       "inTestedEngine": "host-dependent"
+    },
+    "vertical_cell_alignment": {
+      "syntax": "|=<^ and |=>v, a second table alignment axis",
+      "spec": true,
+      "inTestedEngine": true,
+      "guidance": "Shipped in 0.1.5. Was prose-only guidance saying 0.1.4 left the markers as literal cell text, which stayed in the skill for a release after it stopped being true."
+    },
+    "doubled_arrows": {
+      "syntax": "==> <== <=> smart-punctuation arrows",
+      "spec": true,
+      "inTestedEngine": true,
+      "guidance": "Shipped in 0.1.5, and `=>` STOPPED converting in the same release. Write ->, <-, <->, ==>, <== or <=>; `=>` is literal text now."
     }
   }
 }

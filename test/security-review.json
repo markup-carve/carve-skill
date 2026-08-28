@@ -1,0 +1,67 @@
+{
+  "$comment": "Which preamble/H2/H3 sections of spec/docs/security.md references/quality-and-safety.md was last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
+  "source": "spec/docs/security.md",
+  "spec_rev": "b5b603d295df915c2ffb150925b6108888eb848a",
+  "sections": {
+    "Preamble": {
+      "title": "Preamble",
+      "sha256": "4888d30fdde3aef6f32fb509cc3dd191ce9fde6ea967c1d44e51c94341b27776"
+    },
+    "HTML is text, not markup": {
+      "title": "HTML is text, not markup",
+      "sha256": "d2f911d2ec5412826f3eaab12439d1c081deb25edd920ca625bbf644ec2292bd"
+    },
+    "URL scheme sanitization (always on)": {
+      "title": "URL scheme sanitization (always on)",
+      "sha256": "68e6e2ad3f820eb5efb7bcc9814a87ce35ffc5018bd249fc0b24396ba084c6ec"
+    },
+    "URL scheme sanitization (always on) / Configuration": {
+      "title": "Configuration",
+      "sha256": "cd5205e084b3bc31514d87eec8ef7bac6e30edabed15b657dc04cac6407ffc3a"
+    },
+    "Attribute hardening (always on)": {
+      "title": "Attribute hardening (always on)",
+      "sha256": "e7c98473b4b2daaba5f53f5b658a4e56d742877f8cf76e985f614a15c1050165"
+    },
+    "Invisible Unicode and Trojan Source (always on)": {
+      "title": "Invisible Unicode and Trojan Source (always on)",
+      "sha256": "4d058dd5b7e8120fd645fbaaf6fb9dee2d840101a653bb844a2286a455f0663d"
+    },
+    "Resource limits (denial-of-service)": {
+      "title": "Resource limits (denial-of-service)",
+      "sha256": "9acccdf9867484f525f6f96d9cd29dbd463a51c09e75c188910d3ac2cf99f9e0"
+    },
+    "Non-HTML render targets": {
+      "title": "Non-HTML render targets",
+      "sha256": "cd70cb4f985592b30c21b0cef5fe1c059c8365d37b615ebe4ceb153ae3b20612"
+    },
+    "What you still own": {
+      "title": "What you still own",
+      "sha256": "86fdc24156a203c86477b35a87c1b9b203b2f7a07cdf49c211a5b2674e504e2a"
+    },
+    "How Carve compares on security": {
+      "title": "How Carve compares on security",
+      "sha256": "809ff7a0b06cdd8a972419101990f5615e93b6901e72499a781ec33cba260c8d"
+    },
+    "How Carve compares on security / Worked examples: same input, Carve vs Markdown": {
+      "title": "Worked examples: same input, Carve vs Markdown",
+      "sha256": "48c2856ba6b347090cbb204e2183d3d2fbf3ef05fce0ee974b0d865e06eebee8"
+    },
+    "Real-world Markdown CVEs, and where Carve stands": {
+      "title": "Real-world Markdown CVEs, and where Carve stands",
+      "sha256": "779f7b3e35c7b02cd9a178f18f0fb1b4bd06ab05924aa1e988af980c95e978b7"
+    },
+    "Real-world Markdown CVEs, and where Carve stands / Embedded HTML → script execution (CVE-2025-65716, Markdown Preview Enhanced)": {
+      "title": "Embedded HTML → script execution (CVE-2025-65716, Markdown Preview Enhanced)",
+      "sha256": "41a88cb14755b5d037b9edd25effaca77a8c1bd7ea8701385d212d6e9d57d35c"
+    },
+    "Real-world Markdown CVEs, and where Carve stands / Dangerous URI scheme in a link → OS command (CVE-2026-20841, Windows Notepad)": {
+      "title": "Dangerous URI scheme in a link → OS command (CVE-2026-20841, Windows Notepad)",
+      "sha256": "18e18f8033508f15886caaf18cd49b55d9979cbf579e42b2be1bc7837d549b33"
+    },
+    "Beyond the baseline: SafeMode and Profiles": {
+      "title": "Beyond the baseline: SafeMode and Profiles",
+      "sha256": "c16c5955d4cf2b4a87e0cda6e554f0d2c198e33378df0278117b59b3fbf3a0e1"
+    }
+  }
+}

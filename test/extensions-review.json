@@ -1,0 +1,319 @@
+{
+  "$comment": "Which preamble/H2/H3 sections of spec/docs/extensions.md references/extensions.md was last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
+  "source": "spec/docs/extensions.md",
+  "spec_rev": "b5b603d295df915c2ffb150925b6108888eb848a",
+  "sections": {
+    "Preamble": {
+      "title": "Preamble",
+      "sha256": "25c39204589631db5ca9d71a3136b1f9fb14df02d48dd23905fb6d17c85d1d90"
+    },
+    "Feature taxonomy": {
+      "title": "1. Feature taxonomy",
+      "sha256": "8e25d6b191a8bc4030e66d31d2dbce4954a969ba3c446fbb1e9a6dd304e47fff"
+    },
+    "Feature taxonomy / Feature tiers (quick reference)": {
+      "title": "Feature tiers (quick reference)",
+      "sha256": "e9c204e062350066cc45b492c7eeb6a98b29087b8098f52ce74ae7e35862b5a5"
+    },
+    "Feature taxonomy / The strings an extension writes itself": {
+      "title": "1.5 The strings an extension writes itself",
+      "sha256": "d8901c34502c0436af8da7fa0f4a3d3a710664a551810e1bcd98f7af6e9096ca"
+    },
+    "Extension system": {
+      "title": "2. Extension system",
+      "sha256": "f6898e3051efc751c0e806e5f73c3238661571c86e1c3b821c2e5bb6d5fa415f"
+    },
+    "Extension system / Matchers (parse stage) — scanner-function contract": {
+      "title": "2.1 Matchers (parse stage) — scanner-function contract",
+      "sha256": "26febae58caf1c18e166b84bccea87e2149b3fb289c4bffffb1b2576aec944b3"
+    },
+    "Extension system / Transforms": {
+      "title": "2.2 Transforms",
+      "sha256": "3af1318af8a291379b6170ea04280982d179822a160092bb4f91c878e5ae8052"
+    },
+    "Extension system / Renderers": {
+      "title": "2.3 Renderers",
+      "sha256": "13ce227a2f852ab40b91c594f3891b8444d7ca9ef1dd37045fdaf250c1acda11"
+    },
+    "Extension system / Registration & config": {
+      "title": "2.4 Registration & config",
+      "sha256": "8b94710bd818e66ebc098752cf8544702752ce2a1815416b454b6faa7da1493e"
+    },
+    "Extension system / Static rendering mode (`renderStatic`)": {
+      "title": "2.5 Static rendering mode (`renderStatic`)",
+      "sha256": "d70345d51d981f304e5e2fef906a5f2bdd40650b9c0fa545030dcc83addfb4af"
+    },
+    "Extension system / Generated ids share the document id namespace": {
+      "title": "2.6 Generated ids share the document id namespace",
+      "sha256": "808da8a864cb4296b03f86dcf18022aa9eec7f57c4c4a1eb161498932423d51c"
+    },
+    "Home, conformance, per-impl": {
+      "title": "3. Home, conformance, per-impl",
+      "sha256": "4ce06d5a8e6802195553644cbd16d5d887f118537aeaecc85de1f97cefd5cba8"
+    },
+    "Citations (Tier-2)": {
+      "title": "4. Citations (Tier-2)",
+      "sha256": "ce980b23e82c6d039c07f56f39a4537351f1b889be6e871447fb1be8154170e1"
+    },
+    "Citations (Tier-2) / Syntax": {
+      "title": "4.1 Syntax",
+      "sha256": "74d99f8e2c29b40b74ff1f35a4f3e16b69c921a156e6dde418552d9d7df12757"
+    },
+    "Citations (Tier-2) / Typed Locators": {
+      "title": "4.2 Typed Locators",
+      "sha256": "b227528f1942813169e5146f73410ddf69057f5e78cd3bc6f73d8702f6583d21"
+    },
+    "Citations (Tier-2) / Lifecycle": {
+      "title": "4.3 Lifecycle",
+      "sha256": "e9d6ac3ac7ce03b1fb0d0e6978333f384d9ca7531c09602696f3fbec3feda118"
+    },
+    "Citations (Tier-2) / HTML data-\\* contract": {
+      "title": "4.4 HTML data-\\* contract",
+      "sha256": "12227053023860727743d5b03f0540b06a91cb12f8f78fb142d07d1e3d90c191"
+    },
+    "Citations (Tier-2) / Conformance (pinned in `tests/corpus-optional`)": {
+      "title": "4.5 Conformance (pinned in `tests/corpus-optional`)",
+      "sha256": "5685d242fe10cdaa8fbdc07dfa785186719b9edc2ff2923021e51c20cb1e3c49"
+    },
+    "Citations (Tier-2) / Undefined (impls MAY differ; NOT corpus-pinned)": {
+      "title": "4.6 Undefined (impls MAY differ; NOT corpus-pinned)",
+      "sha256": "09d26887d435630ef248d3cb9b2f3a3786d9d0ffdb6b561657a72ad131e6c6d7"
+    },
+    "ListTable (Tier-2)": {
+      "title": "5. ListTable (Tier-2)",
+      "sha256": "623fb2bae48eefbf9abf5993639978323786d17f1a6e513968bb501eff4cde73"
+    },
+    "ListTable (Tier-2) / Syntax": {
+      "title": "5.1 Syntax",
+      "sha256": "c5754b0c535ebd70bd539737fa3cb3766b2ea5a7186246a3e4c2e19f2fcc415a"
+    },
+    "ListTable (Tier-2) / Rendering": {
+      "title": "5.2 Rendering",
+      "sha256": "228487d8d457176e42a55ff91da20963bf908b882739c8ce3243a2217bdcf80c"
+    },
+    "ListTable (Tier-2) / Degradation": {
+      "title": "5.3 Degradation",
+      "sha256": "c2feedee0b48fbfde1e7611e9b377d911b8b974f2670b8bf5d431b356b5700fc"
+    },
+    "ListTable (Tier-2) / Conformance (`tests/corpus-optional`)": {
+      "title": "5.4 Conformance (`tests/corpus-optional`)",
+      "sha256": "dacb25bd46b6677bd87aca0012b61a06f6fc5dd4a4ce8f663dbe20872c0a6ff0"
+    },
+    "ListTable (Tier-2) / Out of scope (impls MAY differ)": {
+      "title": "5.5 Out of scope (impls MAY differ)",
+      "sha256": "8b593f89d002885a992a756d5f03e08ad8dfe9cffbfc279c175fa57edcf56228"
+    },
+    "Bibliography (Tier-3)": {
+      "title": "6. Bibliography (Tier-3)",
+      "sha256": "5f46af388eeee3a67bc792900ae5a104cd108c8a0e0cf15050abed44bc27a879"
+    },
+    "Bibliography (Tier-3) / Data source": {
+      "title": "6.1 Data source",
+      "sha256": "199bb1b7404da82c872d2378d553585a918662289958f1105be4c8d2ed362e0c"
+    },
+    "Bibliography (Tier-3) / Resolution": {
+      "title": "6.2 Resolution",
+      "sha256": "d4f4c62592343f1807b1aedee3715874c1fc80a43f4d030c1f7bab2422ac4dbb"
+    },
+    "Bibliography (Tier-3) / Rendering": {
+      "title": "6.3 Rendering",
+      "sha256": "33ac48815e17481afd024541bcf078415a958aa577edec10fa6067d48b0297be"
+    },
+    "Bibliography (Tier-3) / Degradation": {
+      "title": "6.4 Degradation",
+      "sha256": "4276cf55ce5b37de1eb0fe43233c63f565d811442e87bb547759801f6a31cef8"
+    },
+    "Bibliography (Tier-3) / Conformance (NOT corpus-pinned)": {
+      "title": "6.5 Conformance (NOT corpus-pinned)",
+      "sha256": "8eb2b777617ad6db2b71876bbcc0199c8fa6b80defe7e9f082b6c34fcd4b055d"
+    },
+    "Bibliography (Tier-3) / Out of scope (impls MAY differ)": {
+      "title": "6.6 Out of scope (impls MAY differ)",
+      "sha256": "052e44557d783428faf239a7d72e938c0c02407548e2176306a97c0bf2dfe95d"
+    },
+    "Glossary (Tier-3)": {
+      "title": "7. Glossary (Tier-3)",
+      "sha256": "7d67638b26cf84a6f50c78f12bb59ca317346ea44ef3a6f66957027446848364"
+    },
+    "Glossary (Tier-3) / Syntax": {
+      "title": "7.1 Syntax",
+      "sha256": "3735c81e0360cd472a9856e978cc552fbc9dc177c7a07d1cfb84f25c76358940"
+    },
+    "Glossary (Tier-3) / Slug": {
+      "title": "7.2 Slug",
+      "sha256": "0f35ef6dc74575c7688059670fb296b6ff8f3b8614036013d820d7b419967c26"
+    },
+    "Glossary (Tier-3) / Rendering": {
+      "title": "7.3 Rendering",
+      "sha256": "54b02df11be152e1c352b9b2226f451166f89e4eccd345c1543710e7c0dd3f18"
+    },
+    "Glossary (Tier-3) / Degradation": {
+      "title": "7.4 Degradation",
+      "sha256": "923d79bcb751c4a9e0405a7c076fb3b0bf18708577f5f7b59d4689a56ad024ac"
+    },
+    "Glossary (Tier-3) / Conformance (NOT corpus-pinned)": {
+      "title": "7.5 Conformance (NOT corpus-pinned)",
+      "sha256": "8acb16295b1d28eef5f6b75723b39eaac43c30ae826a3735c1e9f99b05fdb9fb"
+    },
+    "Index (Tier-3)": {
+      "title": "8. Index (Tier-3)",
+      "sha256": "cec643dd880c2e3244cfe9d124882c4bcdb8575a0bfcffa3bbacb59342a491c5"
+    },
+    "Index (Tier-3) / Syntax": {
+      "title": "8.1 Syntax",
+      "sha256": "c434a570f94a94daf6a30d5f39fcc49fc1d9474968acb09fb06c84d1a89c18e1"
+    },
+    "Index (Tier-3) / Rendering": {
+      "title": "8.2 Rendering",
+      "sha256": "70fe67a060ff7a52170c8d9bb7f51701b64f96e641f9d43672d1ba1d0c22a807"
+    },
+    "Index (Tier-3) / Degradation": {
+      "title": "8.3 Degradation",
+      "sha256": "7f4274c8e12606f64c963c56fe8117178f6ef75727aa05b844da13281df0cbca"
+    },
+    "Index (Tier-3) / Conformance (NOT corpus-pinned)": {
+      "title": "8.4 Conformance (NOT corpus-pinned)",
+      "sha256": "2d2018c269eb8d52b774733b7a0b5987d1983048c9f40ac5bdb30f697fd8a789"
+    },
+    "Placement directives: TOC & footnotes (Tier-3)": {
+      "title": "8b. Placement directives: TOC & footnotes (Tier-3)",
+      "sha256": "5dec40e0b7fd2443c47cf8f5b80500f43e3a11f2d47179977a39d2155a15c36b"
+    },
+    "Placement directives: TOC & footnotes (Tier-3) / `::: toc` — table of contents": {
+      "title": "8b.1 `::: toc` — table of contents",
+      "sha256": "dc870a29a8df474200bdabd2ff7eba4991244af890a4401d0940619df21a7cfa"
+    },
+    "Placement directives: TOC & footnotes (Tier-3) / `::: footnotes` — endnotes placement": {
+      "title": "8b.2 `::: footnotes` — endnotes placement",
+      "sha256": "56caaa9ac69e6376bdbcb01f6f6ff4325ca62cc5b2937d80332bb71b4bc77331"
+    },
+    "Placement directives: TOC & footnotes (Tier-3) / Degradation & conformance": {
+      "title": "8b.3 Degradation & conformance",
+      "sha256": "a461916e725858a5928ef51be7585671765b97f2ad55118173d12202a08baff9"
+    },
+    "HeadingNumbers (Tier-3)": {
+      "title": "9. HeadingNumbers (Tier-3)",
+      "sha256": "1f7b13eb6782830876ebeac1095bf248c2d2902d6dc97b3329c1384c1765211d"
+    },
+    "HeadingNumbers (Tier-3) / Numbering": {
+      "title": "9.1 Numbering",
+      "sha256": "1d1d787ab5f9fe8cb5b05e7ce6ae08e80a3209ac4bb12a57528a4e300a6c3c7e"
+    },
+    "HeadingNumbers (Tier-3) / Heading rendering": {
+      "title": "9.2 Heading rendering",
+      "sha256": "1ae79068a87fb397938254490f3e07027e5497ed497cb202b6d5d4225344a70d"
+    },
+    "HeadingNumbers (Tier-3) / Numbered cross-references": {
+      "title": "9.3 Numbered cross-references",
+      "sha256": "64c8da8de03902b55e8b21cdafa74ccbc0f1aec4e29e8543fc40206ecbfb4db0"
+    },
+    "HeadingNumbers (Tier-3) / Interaction with HeadingLevelShift": {
+      "title": "9.4 Interaction with HeadingLevelShift",
+      "sha256": "1a2771d852bde356b6ea5e7817171072a9bce353860334000b844a1b02b1115e"
+    },
+    "HeadingNumbers (Tier-3) / Degradation": {
+      "title": "9.5 Degradation",
+      "sha256": "7108f29107c65cbd0e9f7e3a76092e5b65bba719f5975df292611825885386d4"
+    },
+    "HeadingNumbers (Tier-3) / Conformance (NOT corpus-pinned)": {
+      "title": "9.6 Conformance (NOT corpus-pinned)",
+      "sha256": "6b4ee1c5e0b57ce4fc6b1c3d0ad06beb1ba55136855819de5c0d077bc769587d"
+    },
+    "HeadingNumbers (Tier-3) / Out of scope (impls MAY differ / future)": {
+      "title": "9.7 Out of scope (impls MAY differ / future)",
+      "sha256": "d7fd1a0cfb0e90b53a4ff493e9fe2bdc0f375a514f418759bb8ba097710991c4"
+    },
+    "CodeCallouts (Tier-2)": {
+      "title": "10. CodeCallouts (Tier-2)",
+      "sha256": "0c3c0d26286843f8a1a127b65582848f8467d888d6b2df9e6d6e021a3f4fb731"
+    },
+    "CodeCallouts (Tier-2) / Syntax": {
+      "title": "10.1 Syntax",
+      "sha256": "4a988f45dfa84219d38a3a09b16c274a668c197b4d7bd0f392cfd4051afeab80"
+    },
+    "CodeCallouts (Tier-2) / Rendering": {
+      "title": "10.2 Rendering",
+      "sha256": "fca46e7e74a0f2e0ae328bb4ccd3b2c68160afeac49c239212d1fd5b60ba8553"
+    },
+    "CodeCallouts (Tier-2) / Degradation": {
+      "title": "10.3 Degradation",
+      "sha256": "f02fa318e235af83a55bb15aa2cc884d501433cc46004aceb4bcb68abcd3b4c0"
+    },
+    "CodeCallouts (Tier-2) / Conformance (`tests/corpus-optional`)": {
+      "title": "10.4 Conformance (`tests/corpus-optional`)",
+      "sha256": "19211269dac38f482503cccf8339c822bcff5f80f1ff214974ec0b114fffb147"
+    },
+    "CodeCallouts (Tier-2) / Out of scope (impls MAY differ / future)": {
+      "title": "10.5 Out of scope (impls MAY differ / future)",
+      "sha256": "a46e97e8891e8debbf5950c2c0ddff8a4d8f6abafd48f957783d9ca6f36f91ae"
+    },
+    "SemanticSpan (Tier-2)": {
+      "title": "11. SemanticSpan (Tier-2)",
+      "sha256": "064085378f0ecb34e2a47ed1690f96a8deeaf2987dd380ae35753cdabd36e992"
+    },
+    "SemanticSpan (Tier-2) / Syntax": {
+      "title": "11.1 Syntax",
+      "sha256": "300592c6b0a0ed6799393097227e4210b83cbf8d3d13dcb8005f420a0fb8f716"
+    },
+    "SemanticSpan (Tier-2) / The `:name[…]` spelling is soft-deprecated": {
+      "title": "11.2 The `:name[…]` spelling is soft-deprecated",
+      "sha256": "c2b8660c2c71d738c09d75efe71c5866c11d3fbaad3e1f02b55a5cf1c53be141"
+    },
+    "SemanticSpan (Tier-2) / What is NOT here": {
+      "title": "11.3 What is NOT here",
+      "sha256": "31cfa94322d621cfd960c8479908b0a212dd761d7365c914caca57b141a7f110"
+    },
+    "SemanticSpan (Tier-2) / Conformance (`tests/corpus-optional`)": {
+      "title": "11.4 Conformance (`tests/corpus-optional`)",
+      "sha256": "4ac075fc92440e9d34600f44c9e5e4eda57831888ce33f812d1bdee6f49af59a"
+    },
+    "Wikilinks and HeadingReference (Tier-2)": {
+      "title": "12. Wikilinks and HeadingReference (Tier-2)",
+      "sha256": "74f89c1423069455acef2c81fa08096a8483a97a01d2a865bf658ccc7c2459a6"
+    },
+    "Wikilinks and HeadingReference (Tier-2) / Wikilinks: a link to another page": {
+      "title": "12.1 Wikilinks: a link to another page",
+      "sha256": "2a3cebec47491786e68d3a03c2143269bf472876dc661e6a065ddc9fef4c64db"
+    },
+    "Wikilinks and HeadingReference (Tier-2) / HeadingReference: a link to a heading in THIS document": {
+      "title": "12.2 HeadingReference: a link to a heading in THIS document",
+      "sha256": "efe62c333a9b2c49db9b875740b070649a2b503668695a2ea0824d418318cddd"
+    },
+    "Wikilinks and HeadingReference (Tier-2) / Enable one or the other, never both": {
+      "title": "12.3 Enable one or the other, never both",
+      "sha256": "2eebbca0156e8b3604a77a75c8636c6243caa03ea4b74011a3e49bf932644bd7"
+    },
+    "Wikilinks and HeadingReference (Tier-2) / An unresolved reference survives for the host to resolve": {
+      "title": "12.4 An unresolved reference survives for the host to resolve",
+      "sha256": "65840585453c67e5046aa2bd598593ef640d3b764dd367ff23a268cb822aa6d1"
+    },
+    "Tabs (Tier-2) and CodeGroup (Tier-3)": {
+      "title": "13. Tabs (Tier-2) and CodeGroup (Tier-3)",
+      "sha256": "ab36d73705e541ddbd1c56b054262b0d6cdb89779171d796a028ebc7ca967b91"
+    },
+    "Tabs (Tier-2) and CodeGroup (Tier-3) / Two modes, and why `css` is the default": {
+      "title": "13.1 Two modes, and why `css` is the default",
+      "sha256": "4239d113553697e081a82d48475a0ffeb938ff72dd1fb9e2ffdff91f89fb6c36"
+    },
+    "Tabs (Tier-2) and CodeGroup (Tier-3) / A `css`-mode panel carries its tab's name": {
+      "title": "13.2 A `css`-mode panel carries its tab's name",
+      "sha256": "acff29e80c07b05a4f8a909012b43363c34bd75a7e597982c09de172736355b5"
+    },
+    "Tabs (Tier-2) and CodeGroup (Tier-3) / An `aria`-mode panel is bound, not named": {
+      "title": "13.3 An `aria`-mode panel is bound, not named",
+      "sha256": "f6ce3119736551c26113b97a3ba7899e033e39cc856eb63737b6bedc5ea04b7f"
+    },
+    "Tabs (Tier-2) and CodeGroup (Tier-3) / The set's own name": {
+      "title": "13.4 The set's own name",
+      "sha256": "657885fdf07dd719d53f513cebf151a6ced78a41bb20fc81af44bfb7ca8f4765"
+    },
+    "Tabs (Tier-2) and CodeGroup (Tier-3) / Exactly one item is selected, and the first mark wins": {
+      "title": "13.5 Exactly one item is selected, and the first mark wins",
+      "sha256": "d0598c7040d2104fe0b8f475242653bfe1a317505ca359d4595d57cae4e48cfc"
+    },
+    "Tabs (Tier-2) and CodeGroup (Tier-3) / Conformance": {
+      "title": "13.6 Conformance",
+      "sha256": "3dc55c70d169f6e051453b44016450521482d1e6ce7f77f106ca550abb708060"
+    }
+  }
+}

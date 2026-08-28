@@ -256,8 +256,9 @@ test('essential constructs are present in the spec cheatsheet', () => {
 // paraphrase. Exactly one page in this repository makes that claim:
 // references/syntax.md opens with "The whole core syntax" and "Sourced from the
 // spec's `docs/cheatsheet.md`" - the same document ESSENTIAL is checked against
-// in the test above. The other three references are topic pages (traps.md is
-// the divergence list, extensions.md is Tier-2/3, validation.md is the linter)
+// in the test above. The other references are topic pages (traps.md is the
+// divergence list, extensions.md is Tier-2/3, validation.md is the linter, and
+// quality-and-safety.md is a checklist)
 // and none of them undertakes to name every core construct.
 //
 // SKILL.md is deliberately NOT on this list. It is a front page that paraphrases

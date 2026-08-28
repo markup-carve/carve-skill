@@ -11,6 +11,9 @@
 //   test/spec-review.json       docs/divergence-from-djot.md, per numbered section
 //   test/schema-review.json     resources/ast-schema.json, per node definition
 //   test/cheatsheet-review.json docs/cheatsheet.md, per row
+//   test/extensions-review.json docs/extensions.md, per preamble/H2/H3 section
+//   test/validation-review.json docs/validation.md, per preamble/H2/H3 section
+//   test/security-review.json   docs/security.md, per preamble/H2/H3 section
 //
 // The second exists because the guard used to name only prose documents, so a
 // rule stated in the schema could move without failing anything (#84). The third

@@ -19,6 +19,7 @@
 
 import { join } from 'node:path'
 import { rowFingerprints } from './cheatsheet-rows.mjs'
+import { documentSectionFingerprints } from './document-sections.mjs'
 import { nodeFingerprints } from './schema-nodes.mjs'
 import { sectionFingerprints } from './spec-sections.mjs'
 
@@ -35,6 +36,7 @@ export function specRoot(repoRoot) {
 export const LEDGERS = [
   {
     id: 'divergences',
+    reference: 'references/traps.md',
     source: 'docs/divergence-from-djot.md',
     reviewFile: 'spec-review.json',
     entries: 'sections',
@@ -58,6 +60,7 @@ export const LEDGERS = [
   },
   {
     id: 'cheatsheet',
+    reference: 'references/syntax.md',
     source: 'docs/cheatsheet.md',
     reviewFile: 'cheatsheet-review.json',
     entries: 'rows',
@@ -95,5 +98,62 @@ export const LEDGERS = [
       'timing, which fields survive - so a moved description can make a reference page lie. ' +
       'Regenerate with `npm run spec:review` AFTER re-reading the nodes the drift guard ' +
       'names - see README, "Not drifting".',
+  },
+  {
+    id: 'extensions',
+    reference: 'references/extensions.md',
+    source: 'docs/extensions.md',
+    reviewFile: 'extensions-review.json',
+    entries: 'sections',
+    kind: 'section',
+    label: 'EXTENSION SECTIONS',
+    atLeast: 45,
+    of: 'preamble/H2/H3 section(s)',
+    hint: 'the document is missing, truncated, or no longer uses H2/H3 sections.',
+    fingerprint: documentSectionFingerprints,
+    reread: 'Re-read those sections of spec/docs/extensions.md, check that\n' +
+      'references/extensions.md still tells the truth, then run `npm run spec:review`.',
+    comment:
+      'Which preamble/H2/H3 sections of spec/docs/extensions.md references/extensions.md was last ' +
+      'read against. Regenerate with `npm run spec:review` AFTER re-reading the sections ' +
+      'the drift guard names - see README, "Not drifting".',
+  },
+  {
+    id: 'validation',
+    reference: 'references/validation.md',
+    source: 'docs/validation.md',
+    reviewFile: 'validation-review.json',
+    entries: 'sections',
+    kind: 'section',
+    label: 'VALIDATION SECTIONS',
+    atLeast: 6,
+    of: 'preamble/H2/H3 section(s)',
+    hint: 'the document is missing, truncated, or no longer uses H2/H3 sections.',
+    fingerprint: documentSectionFingerprints,
+    reread: 'Re-read those sections of spec/docs/validation.md, check that\n' +
+      'references/validation.md still tells the truth, then run `npm run spec:review`.',
+    comment:
+      'Which preamble/H2/H3 sections of spec/docs/validation.md references/validation.md was last ' +
+      'read against. Regenerate with `npm run spec:review` AFTER re-reading the sections ' +
+      'the drift guard names - see README, "Not drifting".',
+  },
+  {
+    id: 'security',
+    reference: 'references/quality-and-safety.md',
+    source: 'docs/security.md',
+    reviewFile: 'security-review.json',
+    entries: 'sections',
+    kind: 'section',
+    label: 'SECURITY SECTIONS',
+    atLeast: 8,
+    of: 'preamble/H2/H3 section(s)',
+    hint: 'the document is missing, truncated, or no longer uses H2/H3 sections.',
+    fingerprint: documentSectionFingerprints,
+    reread: 'Re-read those sections of spec/docs/security.md, check that\n' +
+      'references/quality-and-safety.md still tells the truth, then run `npm run spec:review`.',
+    comment:
+      'Which preamble/H2/H3 sections of spec/docs/security.md references/quality-and-safety.md was ' +
+      'last read against. Regenerate with `npm run spec:review` AFTER re-reading the ' +
+      'sections the drift guard names - see README, "Not drifting".',
   },
 ]

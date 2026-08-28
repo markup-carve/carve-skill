@@ -1,6 +1,6 @@
 # Validation loop
 
-Carve parses tolerantly, so many mistakes render as the wrong thing instead of erroring. The linter catches those silent failures. **Always run it after authoring or editing a `.crv` and fix every finding before you finish.**
+Carve parses tolerantly, so many mistakes render as the wrong thing instead of erroring. The linter catches those silent failures. **Always run it after authoring or editing a `.crv`; resolve each finding or explicitly confirm why the authored form is intentional before you finish.**
 
 ## Find the project validator without changing dependencies
 
@@ -26,11 +26,16 @@ carve lint < file.crv
 ```
 
 Exit `0` = clean, `1` = findings, `2` = command/read error. One finding per line: `file:line:col rule — message`.
+Use `carve lint --json` when tooling needs stable rule ids, source ranges, and
+rule-specific details instead of display text.
 
-## Default vs `--from-djot`
+## Modes and host checks
 
-- **Default** targets hand-written Carve. It flags constructs that mis-render: `**bold**`, `~~strike~~`, `^sup^`, `+` bullets, broken `</#id>` cross-references, duplicate heading ids, unresolved reference links, missing/duplicate/unused footnotes, trailing `{…}` attributes on a heading line, and legacy `` ```raw FORMAT `` fences.
+- **Default** targets hand-written Carve. Its checks include constructs that mis-render: `**bold**`, `~~strike~~`, `^sup^`, `+` bullets, broken `</#id>` cross-references, duplicate heading ids, unresolved reference links, missing/duplicate/unused footnotes, trailing `{…}` attributes on a heading line, and legacy `` ```raw FORMAT `` fences.
 - **`--from-djot`** additionally flags valid Carve whose meaning merely *differs* from Djot — `_x_` (underline), `~x~` (strikethrough), `{=x=}` (highlight). Use it **only** when checking a document migrated from Djot; on hand-written Carve those are intentional and flagging them is noise.
+- **`--platform github`** enables host-specific checks for bare `@mention` and
+  `#123` tokens that GitHub may relinkify after rendering. It is repeatable and
+  these checks are off unless a platform is named.
 
 ## The round-trip you are aiming for
 

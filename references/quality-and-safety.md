@@ -6,8 +6,11 @@
 - Give data tables header cells and add captions when context is not obvious.
 - Do not place secrets, private notes, or security-sensitive material in comments:
   parser and renderer versions differ in how unclosed or fenced comments behave.
-- Treat raw HTML as executable output in an HTML host. Use it only when requested
-  and when the host sanitization policy is known.
+- Bare HTML is escaped as text, but explicit `` ```=html `` blocks and
+  `` `…`{=html} `` inline raw emit executable output in an HTML host by default.
+  Use them only when requested and when the host sanitization policy is known.
+  For untrusted input use `allowRawHtml: false` (carve-js),
+  `Options::with_raw_html(false)` (carve-rs), or `SafeMode` (carve-php).
 - Validate remote media/embed schemes and domains against the host policy.
 - Treat Mermaid, chart, math, template, Liquid, and Nunjucks processing as code or
   template execution controlled by the host, not as harmless core markup.

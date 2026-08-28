@@ -1,7 +1,7 @@
 {
   "$comment": "Which AST node definitions of spec/resources/ast-schema.json the skill was last read against. The schema states language rules in prose - block promotion, resolution timing, which fields survive - so a moved description can make a reference page lie. Regenerate with `npm run spec:review` AFTER re-reading the nodes the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/ast-schema.json",
-  "spec_rev": "a58560e378da7665fb07e2cd02d178d09fbf4f0e",
+  "spec_rev": "b5b603d295df915c2ffb150925b6108888eb848a",
   "nodes": {
     "abbreviation": {
       "title": "abbreviation (inline)",
@@ -33,15 +33,15 @@
     },
     "block_quote": {
       "title": "block_quote (block)",
-      "sha256": "baa5721a55b66477715c5b2f6531bb962fc1698a174cbe07a8e62c61fa84770c"
+      "sha256": "494bcc2574611d16ab7a9a8d5707e8d35d9cb1e1bfd17a4f5fcb8ea7a2dfa156"
     },
     "caption_number": {
       "title": "caption_number (inline)",
       "sha256": "d0b33e7bd11e029f3205a54211b11d5bfbbc28773818889ce00262a2d4d871b5"
     },
     "citation": {
-      "title": "Citation item",
-      "sha256": "6da1fc9480f5443ef8d76ec4673d520dc5d90e32dedc264978ceea382369a7cc"
+      "title": "citation (inline)",
+      "sha256": "46fc983c1b94fe154ce1613ab6cbf4bd25f18d1954c53ec48bc9274b5a4827ef"
     },
     "citation_definition": {
       "title": "citation_definition (block)",
@@ -137,11 +137,11 @@
     },
     "image": {
       "title": "image (block or inline)",
-      "sha256": "e3a476a06afc0719423c7d6ca5c7f8f1886dc7bf3879bd22656fd95f8e9a70ab"
+      "sha256": "545506355f1a0c912505be26d916a31d25217b8f6c0403be1e52deec8aac3261"
     },
     "inlineNode": {
       "title": "Any inline node",
-      "sha256": "11265ab3c01fd005f05cf5c5b2c392b9cf5579e26ee8bf6bbfe511209888f4e6"
+      "sha256": "d412ecca583d06649f81ab4aa9ca0626d036165ba7f8e337031314b919ce3cf8"
     },
     "inline_extension": {
       "title": "inline_extension (inline)",
@@ -185,7 +185,7 @@
     },
     "paragraph": {
       "title": "paragraph (block)",
-      "sha256": "0c4f7d7cf93d406abaf3f3a7ad553fe4337c03a525d580d5ab4e5ae6ddf1fa33"
+      "sha256": "b0c4fc97f5ae53f6878ce600ead025de2108fe8079a97b6c05d7156568fb04e6"
     },
     "pos": {
       "title": "Source span",

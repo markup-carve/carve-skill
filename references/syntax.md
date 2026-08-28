@@ -52,6 +52,11 @@ ATX `#`..`######`. Attributes go on the line **above**:
 - [ ] task         - [x] done            a. A. i. I. dialects
                    (more task states: [-] [_] [>] [?])
 -{.c} styled item  (attributes abutting the marker target the <li>)
+
+. auto-numbered    (the preferred native form: a bare dot counts from 1 and
+. and again         keeps nested indentation stable at 10, 100, ... because
+. and again         the marker never widens. The `1.` form is the one that
+                    ports to Markdown and Djot.)
 ```
 
 `+` on its own line continues an item (attaches the next flush-left block, no deep indent):
@@ -81,6 +86,18 @@ Definition list:
 > quoted
 +                       (+ at column 0 attaches the next flush-left block to the quote)
 - a list now inside the quote
+```
+
+A colon fence whose separator is followed by `>` builds the same quote with
+no marker on any line - the third member of the sigil family beside the line
+block's `|` and the local hard-break block's backslash:
+
+```
+::: >
+A quote written as a fence.
+
+It needs no marker per line, and holds any block.
+:::
 ```
 
 ## Code fences

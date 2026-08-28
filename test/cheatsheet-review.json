@@ -1,7 +1,7 @@
 {
   "$comment": "Which rows of spec/docs/cheatsheet.md the syntax card in references/syntax.md was last read against. The card is the source that page is derived from, and a row keeps its construct token while its meaning is rewritten - so presence of the token proves nothing and the row is fingerprinted instead. Regenerate with `npm run spec:review` AFTER re-reading the rows the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/cheatsheet.md",
-  "spec_rev": "a58560e378da7665fb07e2cd02d178d09fbf4f0e",
+  "spec_rev": "b5b603d295df915c2ffb150925b6108888eb848a",
   "rows": {
     "#preamble / prose 1": {
       "title": "---",
@@ -139,7 +139,7 @@
     },
     "Blocks / fence 1 (text)": {
       "title": "text block",
-      "sha256": "cb7c5ca3cdb35d8c283721732043e5d2742124843c1166663c43e7ee41a994a1"
+      "sha256": "4b19ae69a4db6c4b676df5dade7325acdc6218aca6f2190c65c9803470c57740"
     },
     "Blocks / prose 1": {
       "title": "> Block markers must start at column 0 (or, inside a list, at the ite...",

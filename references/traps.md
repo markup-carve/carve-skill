@@ -12,7 +12,9 @@ A marker is a list item **only when followed by a space and non-empty content**.
 
 ## 3. `+` is the continuation marker, not a bullet
 
-Bullets are `-` and `*` only. `+` is reserved as the **list-continuation marker**: a lone `+` on its own line attaches the next flush-left block to the current list item (a note, quote, or code fence) without deep indentation. `+ text` is just paragraph text.
+Bullets are `-` and `*` only. `+` is reserved as the **continuation marker**: a lone `+` on its own line transfers the next flush-left block to the container whose marker column it sits at, without deep indentation. `+ text` is just paragraph text.
+
+It is ONE block, and the same operation in every container that takes the marker - a list item, a block quote, a footnote body and a definition description. The attached block is written at COLUMN 0, not indented under the marker.
 
 ```
 - step one
@@ -253,9 +255,9 @@ A **blank line ends the definition** — there is no multi-paragraph (loose) `<d
 
 `` `x`{=format} `` inline and a ```` ```=format ```` block emit `x` verbatim, but only to the renderer whose target is `format`. Carve ships an HTML renderer that owns `html`, so `` `x`{=html} `` passes through in HTML output (and is escaped to text / dropped by the Markdown, ANSI, and plain renderers). Every other format (`{=latex}`, `{=typst}`, `{=markdown}`) is inert in Carve's own renderers: it survives in the AST as a `raw_inline` / `raw_block` node tagged with its format, for a custom consumer or pandoc (whose Djot reader routes it per writer), but no built-in renderer emits it. Do not expect `` `\alpha`{=latex} `` to render anything in Carve itself.
 
-## 11. List continuation requires the content column
+## 11. List continuation has Carve's minimum content column
 
-A block belongs to a list item only if it reaches the item's content column, the column the BARE marker and its separator end at (`- ` is 2, `1. ` is 3, `10. ` is 4). Bare is the operative word: a marker-attached attribute block and a task checkbox are both worth zero columns, so `-{.averylongclass} x` and `- [x] x` keep the column at 2 even though their text starts further right (see trap 17). A block below that column detaches to document level (or lazily continues the paragraph); a block indented past it keeps its residual spaces and is paragraph text. The blank line before the block only decides tight vs loose, not attachment. This is the same rule Carve applies everywhere: a block opener fires only at column 0 of its context, so at the top level a leading-indented ` # h`, ` > q`, `` ` ``` ` ``, or ` :::` is literal paragraph text, not a block (Djot attaches at any indent). The `+` continuation marker (trap 3) still attaches a flush-left block regardless.
+A block belongs to a list item only if it reaches the item's content column, the column the BARE marker and its separator end at (`- ` is 2, `1. ` is 3, `10. ` is 4). Bare is the operative word: a marker-attached attribute block and a task checkbox are both worth zero columns, so `-{.averylongclass} x` and `- [x] x` keep the column at 2 even though their text starts further right (see trap 17). A block below that column detaches to document level (or lazily continues the paragraph). A block indented PAST the column still nests: like Djot, Carve accepts a recognized opener at any deeper indent and treats its authored column as that block's temporary base. The column is a MINIMUM, not an exact match. The blank line before the block only decides tight vs loose, not attachment. TOP-LEVEL OPENERS STAY COLUMN-STRICT, which is the part that is not a minimum: at the top level a leading-indented ` # h`, ` > q`, `` ` ``` ` ``, or ` :::` is literal paragraph text, not a block. The `+` continuation marker (trap 3) still attaches a flush-left block regardless.
 
 ## 12. Smart typography always runs, and keeps your source
 
@@ -502,16 +504,22 @@ literal space that a tab does not satisfy.
 Both are invisible in a diff and in most editors, so search for them rather than
 reading for them. Trap 11 is the same rule seen from the list-item side.
 
-## 16. Attribute identifiers are strict
+## 16. Attribute names are strict, but class and id values are not
 
-A class or id may not start with a digit, and an attribute block that fails the
-shape is not an attribute block - it stays literal text.
+An explicit class or id may start with a digit - HTML permits those values, so
+Carve preserves them. What stays strict is every NAME: an attribute key, a
+boolean name and an inline-extension name each have to begin with an ASCII
+letter or underscore, and a block that fails the shape is not an attribute
+block at all - it stays literal text.
 
 ```
-[x]{.123}      ->  <p>[x]{.123}</p>    (Djot: <span class="123">)
+[x]{.123}      ->  <p><span class="123">x</span></p>   (accepted)
+[x]{12=v}      ->  <p>[x]{12=v}</p>                    (a digit-leading KEY)
 ```
 
 The failure is loud rather than silent: you see the braces in the output.
+GENERATED heading ids stay conservative either way - a digit-leading slug still
+takes the `s-` prefix.
 
 ## 17. A list marker takes attributes
 
@@ -584,21 +592,24 @@ today. Write the source either way - this is a renderer detail that changes no
 source and no tree shape - but do not hand-add `aria-label` to Carve output,
 and do not treat its absence as a reason to write raw HTML instead.
 
-## 21. Footnote labels are matched exactly
+## 21. Footnote labels normalize ASCII whitespace
 
-The label runs to the closing `]` and is compared byte for byte. Whitespace is
-not collapsed, the ends are not trimmed, and a reference may not contain a
-newline at all. Only a reference written the way the definition was written
-binds.
+Djot and Carve both trim a label's ends and collapse its internal whitespace
+runs before lookup. Carve defines that operation over ASCII whitespace and
+keeps matching CASE-SENSITIVE. The authored spelling stays available in source
+layout data, and colliding definitions are diagnosed.
 
 Given the definition `[^a b]: foo`:
 
 ```
 [^a b]         ->  binds
-[^a  b]        ->  literal text        (two spaces; Djot binds)
-[^a	b]        ->  literal text        (a tab; Djot binds)
-[^ a b ]       ->  literal text        (padded ends; Djot binds)
+[^a  b]        ->  binds               (two spaces collapse)
+[^a	b]        ->  binds               (a tab collapses)
+[^ a b ]       ->  binds               (the ends are trimmed)
+[^A b]         ->  literal text        (case is not normalized)
 ```
+
+What Carve does NOT do is fold a newline: a reference may not be wrapped.
 
 A reference cannot be wrapped, so a long label has to stay on one line:
 

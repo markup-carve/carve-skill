@@ -1,7 +1,7 @@
 {
   "$comment": "Which spec divergence sections the trap list in references/traps.md was last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/divergence-from-djot.md",
-  "spec_rev": "a58560e378da7665fb07e2cd02d178d09fbf4f0e",
+  "spec_rev": "b5b603d295df915c2ffb150925b6108888eb848a",
   "sections": {
     "1": {
       "title": "Case-preserving heading ids with case-insensitive cross-references",
@@ -13,7 +13,7 @@
     },
     "3": {
       "title": "`+` is the continuation marker, not a bullet",
-      "sha256": "fe302d9acd29b76b055b8de9903185fdeff7295c808fa43f75c429689be98dcb"
+      "sha256": "666ced4e07dfb83dd296df0b53bd9ab85c6f16924aee339216e5322b50dc242b"
     },
     "4": {
       "title": "Visual-mnemonic emphasis",
@@ -37,15 +37,15 @@
     },
     "9": {
       "title": "Definition lists use explicit markers",
-      "sha256": "be5444e3e3aeb83919722eb51670845fc4b07a28aa2d52db24732aa74964b428"
+      "sha256": "c495ed3e6f28429adb7d84195033028a9698d81cc0e201c173dd30f20c58e538"
     },
     "10": {
       "title": "Raw passthrough is target-routed (and the pandoc boundary)",
       "sha256": "6a1e9232b4ce07b70133c8307cab611632d48afe0f430307415328cea783fd88"
     },
     "11": {
-      "title": "List continuation requires the content column",
-      "sha256": "5c97fb5fb146fd2f444c0efd6756c45486ce04e74ed061a6b79cc1858884ac4d"
+      "title": "List continuation has Carve's minimum content column",
+      "sha256": "167a032700683fd16f0cd7752372f9aaf4ba5c2472e8f3fffa7b507c9850d8ee"
     },
     "12": {
       "title": "Smart punctuation is one leaf node, not three container types",
@@ -64,8 +64,8 @@
       "sha256": "3dd1a460906af8fd60941d0e862e3cd28c447f15fb2c7dffe94730e199c54ef0"
     },
     "16": {
-      "title": "Attribute identifiers are strict",
-      "sha256": "b8706c81f302a044110e6be040824cd0328d979282d0cffc2b08e8c6031ffbc0"
+      "title": "Attribute names are strict",
+      "sha256": "cd83f4dd07ce7a05d027f173f7477f82b367db09051af34ae8c0757c6de0b983"
     },
     "17": {
       "title": "A list marker takes attributes",
@@ -85,8 +85,8 @@
       "note": "Read and deliberately not adopted in full: the spec names the admonition landmark (aria-label on an untitled one, aria-labelledby at the admonition-title on a titled one). @markup-carve/carve 0.1.3, the engine this skill is tested against, emits neither yet, so references/traps.md section 20 states the spec rule and then gives the released engine's output as what an author sees today. Re-check when an engine ships the accessible name."
     },
     "21": {
-      "title": "Footnote labels are matched exactly",
-      "sha256": "6241ad58d122626f2df9d1c4646a1fcb82a3990a0db26390f40f34772061c11d"
+      "title": "Footnote labels normalize ASCII whitespace",
+      "sha256": "803bb0fb694c8a49b3cb397bb6054c9b36bce8960139e881f8e0ab9e2148e159"
     },
     "1b": {
       "title": "Heading-id punctuation model",

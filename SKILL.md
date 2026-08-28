@@ -33,7 +33,7 @@ These are the Markdown/Djot habits that break in Carve. Full list with rationale
 3. **Superscript/subscript are braced-only.** `{^text^}` and `{,text,}`. Bare `^x^` and `,x,` are literal text. (`~x~` is strikethrough here, not subscript.)
 4. **Highlight is `=text=`** (single equals).
 5. **Heading attributes go on the line ABOVE**, not trailing: write `{#id .class}` then `# Heading`. A trailing `{#id}` on a heading line is literal text.
-6. **`+` is the list-continuation marker, not a bullet.** Bullets are `-` and `*` only. A lone `+` on its own line attaches the next flush-left block to the current item. `+ text` is a paragraph.
+6. **`+` is the continuation marker, not a bullet.** Bullets are `-` and `*` only. A lone `+` on its own line attaches the next flush-left block (written at column 0) to the container whose marker column it sits at - a list item, a block quote, a footnote body or a definition description. `+ text` is a paragraph.
 7. **A list marker needs content.** A lone `-` (or `- `) is paragraph text, not an empty list item.
 8. **Cross-references are `</#id>`** — the link text is auto-filled from the target heading. Implicit heading links: `[Heading][]`.
 9. **Block markers interrupt paragraphs** (Markdown-like): a `#`/`>`/fence/table line directly under prose starts a block. Exception: list markers do NOT interrupt (a list still needs a blank line before it).
@@ -47,11 +47,11 @@ Full card in [references/syntax.md](references/syntax.md).
 
 - **Inline:** `/italic/` `*bold*` `_underline_` `~strike~` `=highlight=` `` `code` `` `{^sup^}` `{,sub,}` `[text](url)` `<https://auto>` `</#section-id>` `![alt](img.jpg)` `[^1]` reference footnote / `^[inline note]` `[span]{.class}` `@user` `#tag`. Escape with `\`. Force an intraword delimiter with the brace form: `H{,2,}O`, `mc{^2^}`.
 - **Headings:** `#`..`######`; attributes on the line above (`{#id .class}`).
-- **Lists:** `-`/`*` unordered, `1.`/`1)` ordered (also `a.` `A.` `i.` `I.`), `- [ ]`/`- [x]` tasks. `+` continues an item.
+- **Lists:** `-`/`*` unordered, `.` auto-numbered (the preferred native form; `1.`/`1)` is the Markdown/Djot-portable one, also `a.` `A.` `i.` `I.`), `- [ ]`/`- [x]` tasks. `+` continues an item.
 - **Tables:** `|= Header |` header cells, `|=>`/`|=<`/`|=~` alignment, `^` rowspan, `<` colspan, `+ cell` multi-line, `^ Caption` after the table. A GFM `|---|` separator row is accepted as an alias.
 - **Code:** ` ```language "Header" [Label] ` (no space after the backticks; `"Header"`→`<pre title>`, `[Label]`→code-group tab). Raw pass-through: ` ```=html `.
 - **Divs / admonitions:** `::: note "Title"` … `:::` (types: note tip warning danger info success example quote; any other word → generic `<div>`). Longer fences (`::::`) nest shorter ones. Titles must be straight-quoted.
-- **Blockquotes:** `>`; `^ Attribution` caption; a lone `+` at column 0 attaches the next block.
+- **Blockquotes:** `>`, or `::: >` as a fence with no marker per line; `^ Attribution` caption; a lone `+` at column 0 attaches the next block.
 - **Math:** inline `` $`e^{i\pi}+1=0` ``, display `` $$`\int_0^1 x\,dx` ``.
 - **Captions:** a `^ Caption` line after an image/table/code/`$$`-math block; `^ Figure #:` auto-numbers, referenced by `</#id>`.
 - **Attributes:** `{#id .class key=value}` on the line above/below the target; bare words are boolean attributes (`{.note open}`).

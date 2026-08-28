@@ -241,9 +241,11 @@ An attribute line between the prose and the block is the one place the two diffe
 ```
 :: term            (double colon = term; multiple terms allowed)
 :: colour
-:  definition      (single colon + two spaces = definition)
-:  another sense
+: definition       (single colon + a space run = definition)
+: another sense
 ```
+
+The separator is a run of ONE OR MORE spaces, and its width sets the body's content column (`: x` establishes column 2, `:  x` column 3). **One space is canonical** - a wider separator parses and means the same thing, and `carve fmt` narrows it, carrying every continuation line inside that body down by the same amount.
 
 A **blank line ends the definition** — there is no multi-paragraph (loose) `<dd>`. Djot's `: term` + indented body parses as a plain paragraph in Carve, and vice versa. For rich block content in a definition, use a fenced div per entry instead.
 

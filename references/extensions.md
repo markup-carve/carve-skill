@@ -2,8 +2,8 @@
 
 Beyond the core (Tier-1) syntax, Carve has opt-in extensions. **The syntax is stable, but whether a construct renders depends on the processor and host** — do not assume these work everywhere. Check the target's [feature → tier table](https://github.com/markup-carve/carve/blob/main/docs/extensions.md).
 
-- **Tier-2** — standard extensions most full processors enable (citations, code callouts, list-tables).
-- **Tier-3** — host-dependent renderers (mermaid, charts, KaTeX math rendering, TOC, glossary/index/bibliography). The syntax always parses; the rich output only appears where the host wires the renderer. With no renderer, they degrade to clean semantic HTML (a mermaid fence shows its source; `<details>` stays native).
+- **Tier-2** — standard, cross-implementation extensions with output pinned in the optional corpus (citations, code callouts, list-tables, Details, Spoiler, Tabs).
+- **Tier-3** — optional transforms and host-dependent renderers (mermaid, charts, MathBlock, TOC, glossary/index/bibliography). Their underlying inline, div, or fence syntax still parses when the extension is absent; each feature defines its own fallback. For example, an unhandled mermaid fence remains source code.
 
 ## Common extension constructs
 
@@ -18,7 +18,7 @@ Beyond the core (Tier-1) syntax, Carve has opt-in extensions. **The syntax is st
 | Footnotes relocation | `::: footnotes` | core |
 | Glossary / Index / Bibliography | `::: glossary`, `:index[term]` / `::: index`, `bibliography` option | Tier-3 |
 | Heading numbers | opt-in section auto-numbering (`1.1`) | Tier-3 |
-| Mermaid / chart / math fences | ` ```mermaid `, ` ```chart `, `$$…$$` | Tier-3 (renderer) |
+| Mermaid / chart / MathBlock fences | ` ```mermaid `, ` ```chart `, ` ```math ` | Tier-3 (renderer); core `$$…$$` display math needs no extension |
 
 ## Guidance for agents
 

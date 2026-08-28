@@ -15,7 +15,8 @@ name: Spec drift
 # - A CHANGED WATCHED ENTRY fails. One ledger per watched document records which
 #   text the skill was last read against - per numbered section of
 #   docs/divergence-from-djot.md, per node definition of resources/ast-schema.json,
-#   per row of docs/cheatsheet.md; when one of those moves at carve main, the
+#   per row of docs/cheatsheet.md, or per preamble/H2/H3 section of a topic
+#   source; when one of those moves at carve main, the
 #   offline guard's green stops meaning anything, and no other check in this repo
 #   can tell. That is fixable here: bump the pin, re-read what is named against
 #   the reference pages, and record the review.

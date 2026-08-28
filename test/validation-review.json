@@ -1,0 +1,51 @@
+{
+  "$comment": "Which preamble/H2/H3 sections of spec/docs/validation.md references/validation.md was last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
+  "source": "spec/docs/validation.md",
+  "spec_rev": "b5b603d295df915c2ffb150925b6108888eb848a",
+  "sections": {
+    "Preamble": {
+      "title": "Preamble",
+      "sha256": "938180d34164730e8ec3d1be766fc164cd348a5715fec0b0c6c230833be13ffd"
+    },
+    "Command Line": {
+      "title": "Command Line",
+      "sha256": "1476fe1f475b8dd4f94198477084ce6d1c4950433200d204d2b6615f51d0f3c5"
+    },
+    "Programmatic API": {
+      "title": "Programmatic API",
+      "sha256": "183baee3de4608fa499f260ade77d1bf034266c92d58861918424d55ff36cd71"
+    },
+    "Editor Diagnostics": {
+      "title": "Editor Diagnostics",
+      "sha256": "59b9818f9d981c49541b48b853a878f24fec6336ffc1ff452cce92a4ebf7bb3b"
+    },
+    "Rules": {
+      "title": "Rules",
+      "sha256": "39f6061f5bea8c8e7a7d41b48386847340e315e779d6a16f97e3f30926c70aa9"
+    },
+    "Rules / Declaring a target version": {
+      "title": "Declaring a target version",
+      "sha256": "aada42f07cde36658764985f47ba7934a49b1a4bc55a42b55f10503265c2b012"
+    },
+    "Rules / Semantic span attribute rules": {
+      "title": "Semantic span attribute rules",
+      "sha256": "7a09a4a419a9203650686c8ed90df598fd2e69735e207e771fea8d2cbfe9578e"
+    },
+    "Rules / Platform autolink rules": {
+      "title": "Platform autolink rules",
+      "sha256": "39360e7f25dabad3a78dca8247b86b9d6c175282227fc480e3958bb2e6b30ff5"
+    },
+    "Rules / Which implementations provide these rules": {
+      "title": "Which implementations provide these rules",
+      "sha256": "8944822cd10f851a0845ba9e54218cf802fb16af03da0dbbbcaf6862540b1727"
+    },
+    "Rules / A rule id is a contract": {
+      "title": "A rule id is a contract",
+      "sha256": "b6215f1613739dc84a5fbc3a4802f0dd7025ef7d7575f2bedc9adf3dd6a586d3"
+    },
+    "Rules / Accessibility checks": {
+      "title": "Accessibility checks",
+      "sha256": "e9f6ed23b801e2b548d679fe9369527673dd963a577311a39d4d38666f5ec851"
+    }
+  }
+}

@@ -28,11 +28,11 @@
 // (#98), and the grammar's clause TEXT with it, because the registry carries
 // titles only.
 
-import { execFileSync } from 'node:child_process'
 import { readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { LEDGERS, specRoot } from './review-ledgers.mjs'
+import { dirtyStateOf, revisionOf } from './review-revision.mjs'
 import { compareSections, describeFindings } from './spec-sections.mjs'
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)))
@@ -94,12 +94,38 @@ function record(ledger) {
   }
 }
 
+/**
+ * The revision every ledger is about to be stamped with - or a refusal.
+ *
+ * A ledger fingerprints the documents in the checkout, so the revision it names
+ * has to describe those exact bytes. This used to fall back to the string
+ * `unknown` and write it into all eight files, which is the recorded claim
+ * markup-carve/carve-skill#101 is about, one step earlier: the guard now READS
+ * this field, so a value that describes nothing is worse than no ledger at all.
+ *
+ * @returns {string} the pinned spec's revision
+ */
 function specRev() {
-  try {
-    return execFileSync('git', ['-C', join(root, 'spec'), 'rev-parse', 'HEAD'], {
-      encoding: 'utf8',
-    }).trim()
-  } catch {
-    return 'unknown'
+  const checkout = specRoot(root)
+  const revision = revisionOf(checkout)
+  if (revision === null) {
+    process.stdout.write(
+      `${checkout}: the spec revision cannot be read from git, so a ledger recorded now ` +
+        'could not say what it was read against - run `git submodule update --init`.\n',
+    )
+    process.exit(1)
   }
+
+  const dirty = dirtyStateOf(checkout)
+  if (dirty) {
+    process.stdout.write(
+      `${checkout}: the spec checkout has uncommitted changes, so no revision describes the ` +
+        'documents about to be fingerprinted:\n' +
+        `${dirty}\n` +
+        'Reset or commit them, then record the review.\n',
+    )
+    process.exit(1)
+  }
+
+  return revision
 }

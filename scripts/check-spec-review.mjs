@@ -17,6 +17,7 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { coverageFindings } from './normative-coverage.mjs'
 import { LEDGERS, specRoot } from './review-ledgers.mjs'
+import { REREAD, revisionFindings } from './review-revision.mjs'
 import { compareSections, describeFindings } from './spec-sections.mjs'
 import { shortfall } from './participants.mjs'
 
@@ -47,7 +48,31 @@ for (const ledger of LEDGERS) {
 // unmoved, and `npm test` reads the pinned copy only.
 if (!coverage(checkout)) failed = true
 
+// And whether each ledger names the revision it was read against is a question
+// about the PIN, so it is asked only when the pin is what is being read. Given
+// an explicit checkout - the scheduled workflow's fresh clone of carve main -
+// the ledgers naming the older pinned revision is the normal state, and that lag
+// is what the workflow's own step reports.
+if (argument === undefined && !revisions()) failed = true
+
 process.exit(failed ? 1 : 0)
+
+/**
+ * @returns {boolean} true when every ledger names the pinned spec revision
+ */
+function revisions() {
+  const findings = revisionFindings(root)
+  if (findings.length === 0) {
+    process.stdout.write(
+      `recorded revision: all ${LEDGERS.length} ledgers were read against the pinned spec\n`,
+    )
+    return true
+  }
+  process.stdout.write(`recorded revision: ${findings.length} finding(s):\n`)
+  for (const finding of findings) process.stdout.write(`  ${finding}\n`)
+  process.stdout.write(`${REREAD}\n`)
+  return false
+}
 
 /**
  * @param {string} root a spec checkout

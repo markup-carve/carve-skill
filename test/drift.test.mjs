@@ -14,6 +14,7 @@ import {
   describeFindings,
 } from '../scripts/spec-sections.mjs'
 import { LEDGERS, specRoot } from '../scripts/review-ledgers.mjs'
+import { REREAD, revisionFindings } from '../scripts/review-revision.mjs'
 import { parseRows, rowFingerprints, splitRow } from '../scripts/cheatsheet-rows.mjs'
 import { clauseFingerprints } from '../scripts/normative-clauses.mjs'
 import { coverageFindings } from '../scripts/normative-coverage.mjs'
@@ -192,6 +193,23 @@ test('every line of the cheat sheet belongs to exactly one ledger row', () => {
 test('the normative rule surface is covered by the ledgers that watch it', () => {
   const findings = coverageFindings(specRoot(root))
   assert.deepEqual(findings, [], findings.join('\n'))
+})
+
+// EVERY LEDGER SAYS WHICH REVISION IT WAS READ AGAINST, AND THAT IS TRUE OF THE
+// PIN IN HAND.
+//
+// The fingerprints above answer "did the watched text change" and nothing more:
+// they compare a recorded hash against whatever is checked out, so a review
+// recorded from a stale working copy or a half-applied bump reads exactly like a
+// current one for as long as the two revisions agree on every watched surface.
+// `spec_rev` is the field that would name that mismatch, and until
+// markup-carve/carve-skill#101 it had one write and no reads - so it drifted:
+// six of the eight ledgers on main said f59cc880 under a pin of 2775b6df,
+// because #97 recorded the review and then moved the pin again in a later commit
+// of the same pull request, and no gate could say so.
+test('every ledger records the revision of the pinned spec', () => {
+  const findings = revisionFindings(root)
+  assert.deepEqual(findings, [], `${findings.join('\n')}\n\n${REREAD}`)
 })
 
 // What the rules ledger is sensitive to is the whole design of it: too little

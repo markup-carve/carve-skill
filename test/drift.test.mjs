@@ -5,7 +5,7 @@
 
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { readFileSync, readdirSync, existsSync } from 'node:fs'
+import { readFileSync, existsSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import {
@@ -15,6 +15,8 @@ import {
 } from '../scripts/spec-sections.mjs'
 import { LEDGERS, specRoot } from '../scripts/review-ledgers.mjs'
 import { parseRows, rowFingerprints, splitRow } from '../scripts/cheatsheet-rows.mjs'
+import { clauseFingerprints } from '../scripts/normative-clauses.mjs'
+import { coverageFindings } from '../scripts/normative-coverage.mjs'
 import { ruleFingerprints } from '../scripts/normative-rules.mjs'
 import { shortfall } from '../scripts/participants.mjs'
 
@@ -23,9 +25,6 @@ const root = dirname(here)
 
 const specDivergence = join(root, 'spec', 'docs', 'divergence-from-djot.md')
 const specCheatsheet = join(root, 'spec', 'docs', 'cheatsheet.md')
-const specRules = join(root, 'spec', 'resources', 'spec', 'rules.json')
-const specClauses = join(root, 'spec', 'resources', 'normative-clauses.txt')
-const specRuleViews = join(root, 'spec', 'docs', 'rules')
 
 const traps = readFileSync(join(root, 'references', 'traps.md'), 'utf8')
 
@@ -182,107 +181,17 @@ test('every line of the cheat sheet belongs to exactly one ledger row', () => {
   )
 })
 
-// THE NORMATIVE RULE SURFACE IS THREE FILES AND ONE LEDGER, AND THAT IS A
-// MEASUREMENT, NOT AN ASSUMPTION.
+// THE NORMATIVE RULE SURFACE IS FOUR FILES AND TWO LEDGERS, AND THE REST IS A
+// MEASUREMENT RATHER THAN AN ASSUMPTION.
 //
-// The rules ledger watches resources/spec/rules.json alone. Two documents make
-// that sufficient rather than partial: resources/normative-clauses.txt is the
-// registry's title set, generated from the grammar, and docs/rules/ is generated
-// from the registry. A second ledger over either would be a second spelling of
-// one rule, which is the defect markup-carve/carve#755 keeps recording - so the
-// sufficiency is asserted here instead, and stops being true out loud if the
-// spec ever lets those surfaces diverge.
+// scripts/normative-coverage.mjs holds the comparison, because the scheduled
+// workflow needs it too: it reads a FRESH clone of carve main, where the spec
+// can restructure a surface without the pin here moving at all, and a check that
+// only ever runs against the pinned copy could not see that.
 
-test('the clause inventory and the rules registry hold the same clauses', () => {
-  const registry = JSON.parse(readFileSync(specRules, 'utf8'))
-  const inventory = readFileSync(specClauses, 'utf8')
-    .replace(/\r\n/g, '\n')
-    .split('\n')
-    .filter((line) => line.trim() !== '' && !line.startsWith('#'))
-    .map((line) => /^(\d+)\s+(.+)$/.exec(line.trimEnd()))
-
-  const malformed = inventory.filter((match) => match === null).length
-  assert.equal(
-    malformed,
-    0,
-    `${malformed} line(s) of spec/resources/normative-clauses.txt are not "<count> TITLE" - ` +
-      'the inventory changed shape, and the comparison below no longer reads it.',
-  )
-
-  // A multiset, not a set: three titles are carried by two clauses each, in
-  // different PARTs, and the inventory states that in its count column.
-  const tally = (pairs) => {
-    const counts = new Map()
-    for (const [title, times] of pairs) counts.set(title, (counts.get(title) ?? 0) + times)
-    return [...counts].sort(([a], [b]) => a.localeCompare(b))
-  }
-  const claimed = tally(inventory.map((match) => [match[2].trim(), Number(match[1])]))
-  const held = tally(registry.rules.map((rule) => [rule.title, 1]))
-
-  const thin = shortfall({
-    label: 'CLAUSE INVENTORY',
-    actual: claimed.length,
-    atLeast: 200,
-    of: 'clause heading(s) in spec/resources/normative-clauses.txt',
-    hint: 'the inventory is missing or truncated - over an empty list the equality below ' +
-      'says nothing about what the registry watches.',
-  })
-  assert.equal(thin, null, thin ?? '')
-
-  assert.deepEqual(
-    claimed,
-    held,
-    'spec/resources/normative-clauses.txt and spec/resources/spec/rules.json no longer hold\n' +
-      'the same clauses, so watching the registry no longer watches the inventory. Give the\n' +
-      'inventory its own ledger in scripts/review-ledgers.mjs.',
-  )
-})
-
-test('the generated rule views and the rules registry hold the same rule ids', () => {
-  const registry = JSON.parse(readFileSync(specRules, 'utf8'))
-  const active = registry.rules.map((rule) => rule.id).sort()
-  const known = new Set([...active, ...(registry.retired ?? []).map((rule) => rule.id)])
-
-  const views = readdirSync(specRuleViews).filter((name) => name.endsWith('.md'))
-  assert.ok(views.length >= 5, `spec/docs/rules/ holds ${views.length} view(s), expected at least 5`)
-
-  const seen = new Set()
-  const unknown = []
-  for (const view of views) {
-    const text = readFileSync(join(specRuleViews, view), 'utf8')
-    for (const match of text.matchAll(/`(CARVE-[A-Z0-9]+-\d{3})`/g)) {
-      seen.add(match[1])
-      if (!known.has(match[1])) unknown.push(`${view}: ${match[1]}`)
-    }
-  }
-
-  const thin = shortfall({
-    label: 'RULE VIEWS',
-    actual: seen.size,
-    atLeast: 200,
-    of: 'rule id(s) cited across spec/docs/rules/',
-    hint: 'the views are missing, truncated, or no longer cite rule ids in code spans.',
-  })
-  assert.equal(thin, null, thin ?? '')
-
-  // Both directions. An id the registry does not carry means the views are no
-  // longer generated from it; an active id no VIEW carries means the same thing
-  // from the other side, and a floor cannot see either - the index claims the
-  // views cover all active rules exactly once.
-  assert.deepEqual(
-    unknown,
-    [],
-    'spec/docs/rules/ cites rule id(s) the registry does not carry, so the views are no\n' +
-      'longer generated from spec/resources/spec/rules.json and the rules ledger does not\n' +
-      'watch them. Give them their own ledger in scripts/review-ledgers.mjs.',
-  )
-  assert.deepEqual(
-    active.filter((id) => !seen.has(id)),
-    [],
-    'active rule id(s) appear in spec/resources/spec/rules.json but in no view under\n' +
-      'spec/docs/rules/, so the views no longer present the whole registry and reading the\n' +
-      'registry is no longer reading them.',
-  )
+test('the normative rule surface is covered by the ledgers that watch it', () => {
+  const findings = coverageFindings(specRoot(root))
+  assert.deepEqual(findings, [], findings.join('\n'))
 })
 
 // What the rules ledger is sensitive to is the whole design of it: too little
@@ -333,6 +242,40 @@ test('rule fingerprints follow rule identity, not registry presentation', () => 
     () => ruleFingerprints(JSON.stringify({ version: 1 })),
     /`rules` array/,
     'a registry with no rules array is a restructured document, not an empty one',
+  )
+})
+
+// And the clause ledger next to it answers the other half - not "which rules
+// exist" but "does this one still say what it said". Its normalization is the
+// one place it can be made blind by accident: the grammar is flattened, so a
+// re-wrapped paragraph must not demand a re-review, and a changed WORD must.
+test('clause fingerprints follow the rule text, not the grammar layout', () => {
+  const clause = (body) =>
+    'PART 0: LAYOUT\n\n        Preceding prose that ends in a period.\n\n' +
+    `        A RULE ABOUT COLUMNS -- NORMATIVE\n        ${body}\n`
+  const tight = clauseFingerprints(clause('The deepest column the line reaches.'))
+  const wrapped = clauseFingerprints(clause('The deepest column\n        the line reaches.'))
+  assert.deepEqual(Object.keys(tight), ['A RULE ABOUT COLUMNS'])
+  assert.deepEqual(
+    wrapped,
+    tight,
+    're-wrapping a clause is layout - it must not demand a re-review of the rule',
+  )
+
+  const inverted = clauseFingerprints(clause('The shallowest column the line reaches.'))
+  assert.notEqual(
+    inverted['A RULE ABOUT COLUMNS'].sha256,
+    tight['A RULE ABOUT COLUMNS'].sha256,
+    'a clause rewritten under an unchanged title is the failure this ledger exists for',
+  )
+
+  const twice = clauseFingerprints(
+    `${clause('First.')}\n        A RULE ABOUT COLUMNS -- NORMATIVE\n        Second.\n`,
+  )
+  assert.deepEqual(
+    Object.keys(twice),
+    ['A RULE ABOUT COLUMNS', 'A RULE ABOUT COLUMNS #2'],
+    'three titles are carried by two clauses each - keeping only one would hide a rule',
   )
 })
 

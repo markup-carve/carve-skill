@@ -15,6 +15,7 @@
 import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { coverageFindings } from './normative-coverage.mjs'
 import { LEDGERS, specRoot } from './review-ledgers.mjs'
 import { compareSections, describeFindings } from './spec-sections.mjs'
 import { shortfall } from './participants.mjs'
@@ -40,7 +41,37 @@ for (const ledger of LEDGERS) {
   if (!check(ledger)) failed = true
 }
 
+// Whether the ledgers still COVER the normative surface is a question about the
+// checkout in hand, not about this repository's pin - the spec can restructure
+// resources/normative-clauses.txt or docs/rules/ at main with the pin here
+// unmoved, and `npm test` reads the pinned copy only.
+if (!coverage(checkout)) failed = true
+
 process.exit(failed ? 1 : 0)
+
+/**
+ * @param {string} root a spec checkout
+ * @returns {boolean} true when the ledgers still cover the normative surface
+ */
+function coverage(root) {
+  let findings
+  try {
+    findings = coverageFindings(root)
+  } catch (error) {
+    process.stdout.write(`normative rule surface: ${error.message}\n`)
+    return false
+  }
+  if (findings.length === 0) {
+    process.stdout.write(
+      'normative rule surface: the clause inventory, the grammar and the generated views all ' +
+        'agree with the rules registry\n',
+    )
+    return true
+  }
+  process.stdout.write(`normative rule surface: ${findings.length} finding(s):\n`)
+  for (const finding of findings) process.stdout.write(`  ${finding}\n`)
+  return false
+}
 
 /**
  * @param {(typeof LEDGERS)[number]} ledger

@@ -15,6 +15,7 @@
 //   test/validation-review.json docs/validation.md, per preamble/H2/H3 section
 //   test/security-review.json   docs/security.md, per preamble/H2/H3 section
 //   test/rules-review.json      resources/spec/rules.json, per active rule id
+//   test/clauses-review.json    resources/grammar.ebnf, per normative clause text
 //
 // The second exists because the guard used to name only prose documents, so a
 // rule stated in the schema could move without failing anything (#84). The third
@@ -24,7 +25,8 @@
 // was all prose and schema: the spec's normative rule registry was on none of
 // it, and a clause that changed an answer - CARVE-P0-020, content-column reach,
 // which references/traps.md trap 17 teaches - landed with every gate green
-// (#98).
+// (#98), and the grammar's clause TEXT with it, because the registry carries
+// titles only.
 
 import { execFileSync } from 'node:child_process'
 import { readFileSync, writeFileSync } from 'node:fs'

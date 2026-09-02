@@ -18,11 +18,19 @@
 // NORMATIVE RULE SURFACE - resources/spec/rules.json, the clause inventory it
 // covers and the generated views under docs/rules/ - was on none of them. Across
 // pin b5b603d2 -> f59cc880 that surface gained CARVE-P0-020, "AT OR PAST MEANS
-// THE DEEPEST COLUMN THE LINE REACHES", the rule references/traps.md trap 17
+// THE DEEPEST COLUMN THE LINE REACHES", the rule trap 11 of references/traps.md
 // teaches, and every gate here stayed green (#98). Measured on this branch
-// before the seventh entry was added: inverting that clause's title into its
+// before the last two entries were added: inverting that clause's title into its
 // losing reading across all three files left `npm test` at 39 passing, and
 // emptying rules.json to zero rules did too.
+//
+// Two entries, not one, because they answer different questions. The registry
+// says which rules EXIST and carries no rule text; the grammar carries the text
+// and no stable id. Watching only the first would repeat carve#455 one document
+// over - a clause rewritten into the opposite rule under an unchanged title.
+// The two surfaces the ledgers do NOT name, resources/normative-clauses.txt and
+// docs/rules/, are generated from these; scripts/normative-coverage.mjs checks
+// that rather than trusting it.
 //
 // So the list lives here, once, and the test, the offline checker and the
 // scheduled workflow all read it. Adding a document to the guard is adding an
@@ -31,6 +39,7 @@
 import { join } from 'node:path'
 import { rowFingerprints } from './cheatsheet-rows.mjs'
 import { documentSectionFingerprints } from './document-sections.mjs'
+import { clauseFingerprints } from './normative-clauses.mjs'
 import { ruleFingerprints } from './normative-rules.mjs'
 import { nodeFingerprints } from './schema-nodes.mjs'
 import { sectionFingerprints } from './spec-sections.mjs'
@@ -191,5 +200,26 @@ export const LEDGERS = [
       'views are navigation, and hashing it made a one-off metadata addition read as 242 ' +
       'moved rules. Regenerate with `npm run spec:review` AFTER re-reading the rules the ' +
       'drift guard names - see README, "Not drifting".',
+  },
+  {
+    id: 'normative-clauses',
+    source: 'resources/grammar.ebnf',
+    reviewFile: 'clauses-review.json',
+    entries: 'clauses',
+    kind: 'clause',
+    label: 'NORMATIVE CLAUSES',
+    atLeast: 200,
+    of: 'normative clause(s)',
+    hint: 'the grammar is missing, truncated, or no longer marks its clauses with "-- NORMATIVE".',
+    fingerprint: clauseFingerprints,
+    reread: 'Re-read those clauses of spec/resources/grammar.ebnf, check that no reference page\n' +
+      'now states the old rule, then run `npm run spec:review`.',
+    comment:
+      'Which normative clause TEXTS of spec/resources/grammar.ebnf the skill was last read ' +
+      'against, keyed by clause title. The rules ledger next to this one watches what the ' +
+      'rules are - id, part, title - and carries no rule text, so on its own a clause can be ' +
+      'rewritten into the opposite rule under an unchanged title, which is what happened to ' +
+      'divergence section 13 in markup-carve/carve#455. Regenerate with `npm run spec:review` ' +
+      'AFTER re-reading the clauses the drift guard names - see README, "Not drifting".',
   },
 ]

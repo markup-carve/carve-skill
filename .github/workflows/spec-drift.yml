@@ -32,7 +32,12 @@ name: Spec drift
 # nothing to report it (#89). Then the spec grew a normative rule registry and
 # six generated views over it, none of them named, and CARVE-P0-020 - the rule
 # deciding which container owns a line between two open content columns, which
-# references/traps.md trap 17 teaches - arrived with every gate green (#98).
+# references/traps.md trap 11 teaches - arrived with every gate green (#98).
+#
+# check-spec-review.mjs also re-checks, against THIS fresh checkout, that the
+# clause inventory and the generated views still hold what the rules registry
+# holds. That question is about the spec as it stands, not about the pin, so the
+# offline run over the pinned copy cannot answer it.
 
 on:
   schedule:

@@ -193,43 +193,55 @@ test('every line of the cheat sheet belongs to exactly one ledger row', () => {
 // sufficiency is asserted here instead, and stops being true out loud if the
 // spec ever lets those surfaces diverge.
 
-test('the clause inventory names no normative rule the registry lacks', () => {
+test('the clause inventory and the rules registry hold the same clauses', () => {
   const registry = JSON.parse(readFileSync(specRules, 'utf8'))
-  const titles = new Set(registry.rules.map((rule) => rule.title))
   const inventory = readFileSync(specClauses, 'utf8')
     .replace(/\r\n/g, '\n')
     .split('\n')
     .filter((line) => line.trim() !== '' && !line.startsWith('#'))
-    .map((line) => line.replace(/^\d+\s+/, '').trim())
+    .map((line) => /^(\d+)\s+(.+)$/.exec(line.trimEnd()))
+
+  const malformed = inventory.filter((match) => match === null).length
+  assert.equal(
+    malformed,
+    0,
+    `${malformed} line(s) of spec/resources/normative-clauses.txt are not "<count> TITLE" - ` +
+      'the inventory changed shape, and the comparison below no longer reads it.',
+  )
+
+  // A multiset, not a set: three titles are carried by two clauses each, in
+  // different PARTs, and the inventory states that in its count column.
+  const tally = (pairs) => {
+    const counts = new Map()
+    for (const [title, times] of pairs) counts.set(title, (counts.get(title) ?? 0) + times)
+    return [...counts].sort(([a], [b]) => a.localeCompare(b))
+  }
+  const claimed = tally(inventory.map((match) => [match[2].trim(), Number(match[1])]))
+  const held = tally(registry.rules.map((rule) => [rule.title, 1]))
 
   const thin = shortfall({
     label: 'CLAUSE INVENTORY',
-    actual: inventory.length,
+    actual: claimed.length,
     atLeast: 200,
     of: 'clause heading(s) in spec/resources/normative-clauses.txt',
-    hint: 'the inventory is missing, truncated, or no longer written as "<count> TITLE" ' +
-      'lines - over an empty list the coverage claim below holds no matter what the ' +
-      'registry says.',
+    hint: 'the inventory is missing or truncated - over an empty list the equality below ' +
+      'says nothing about what the registry watches.',
   })
   assert.equal(thin, null, thin ?? '')
 
-  const unwatched = inventory.filter((title) => !titles.has(title))
   assert.deepEqual(
-    unwatched,
-    [],
-    'clause heading(s) in spec/resources/normative-clauses.txt are not in the rules registry,\n' +
-      'so the rules ledger no longer covers the whole normative surface. Give the inventory\n' +
-      'its own ledger in scripts/review-ledgers.mjs.',
+    claimed,
+    held,
+    'spec/resources/normative-clauses.txt and spec/resources/spec/rules.json no longer hold\n' +
+      'the same clauses, so watching the registry no longer watches the inventory. Give the\n' +
+      'inventory its own ledger in scripts/review-ledgers.mjs.',
   )
 })
 
-test('the generated rule views add no rule the registry does not carry', () => {
-  const known = new Set(
-    [
-      ...JSON.parse(readFileSync(specRules, 'utf8')).rules,
-      ...(JSON.parse(readFileSync(specRules, 'utf8')).retired ?? []),
-    ].map((rule) => rule.id),
-  )
+test('the generated rule views and the rules registry hold the same rule ids', () => {
+  const registry = JSON.parse(readFileSync(specRules, 'utf8'))
+  const active = registry.rules.map((rule) => rule.id).sort()
+  const known = new Set([...active, ...(registry.retired ?? []).map((rule) => rule.id)])
 
   const views = readdirSync(specRuleViews).filter((name) => name.endsWith('.md'))
   assert.ok(views.length >= 5, `spec/docs/rules/ holds ${views.length} view(s), expected at least 5`)
@@ -253,12 +265,23 @@ test('the generated rule views add no rule the registry does not carry', () => {
   })
   assert.equal(thin, null, thin ?? '')
 
+  // Both directions. An id the registry does not carry means the views are no
+  // longer generated from it; an active id no VIEW carries means the same thing
+  // from the other side, and a floor cannot see either - the index claims the
+  // views cover all active rules exactly once.
   assert.deepEqual(
     unknown,
     [],
     'spec/docs/rules/ cites rule id(s) the registry does not carry, so the views are no\n' +
       'longer generated from spec/resources/spec/rules.json and the rules ledger does not\n' +
       'watch them. Give them their own ledger in scripts/review-ledgers.mjs.',
+  )
+  assert.deepEqual(
+    active.filter((id) => !seen.has(id)),
+    [],
+    'active rule id(s) appear in spec/resources/spec/rules.json but in no view under\n' +
+      'spec/docs/rules/, so the views no longer present the whole registry and reading the\n' +
+      'registry is no longer reading them.',
   )
 })
 

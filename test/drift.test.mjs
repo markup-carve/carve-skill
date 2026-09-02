@@ -15,6 +15,9 @@ import {
 } from '../scripts/spec-sections.mjs'
 import { LEDGERS, specRoot } from '../scripts/review-ledgers.mjs'
 import { parseRows, rowFingerprints, splitRow } from '../scripts/cheatsheet-rows.mjs'
+import { clauseFingerprints } from '../scripts/normative-clauses.mjs'
+import { coverageFindings } from '../scripts/normative-coverage.mjs'
+import { ruleFingerprints } from '../scripts/normative-rules.mjs'
 import { shortfall } from '../scripts/participants.mjs'
 
 const here = dirname(fileURLToPath(import.meta.url))
@@ -175,6 +178,104 @@ test('every line of the cheat sheet belongs to exactly one ledger row', () => {
     [],
     'line(s) of spec/docs/cheatsheet.md land in two ledger rows, so one edit reports as two\n' +
       'findings and the row labels no longer name a place in the document.',
+  )
+})
+
+// THE NORMATIVE RULE SURFACE IS FOUR FILES AND TWO LEDGERS, AND THE REST IS A
+// MEASUREMENT RATHER THAN AN ASSUMPTION.
+//
+// scripts/normative-coverage.mjs holds the comparison, because the scheduled
+// workflow needs it too: it reads a FRESH clone of carve main, where the spec
+// can restructure a surface without the pin here moving at all, and a check that
+// only ever runs against the pinned copy could not see that.
+
+test('the normative rule surface is covered by the ledgers that watch it', () => {
+  const findings = coverageFindings(specRoot(root))
+  assert.deepEqual(findings, [], findings.join('\n'))
+})
+
+// What the rules ledger is sensitive to is the whole design of it: too little
+// and a rewritten clause passes, too much and every pin bump reports 249
+// findings and gets recorded without being read. Pinned here rather than
+// described in a comment.
+test('rule fingerprints follow rule identity, not registry presentation', () => {
+  const registry = (rules) => JSON.stringify({ version: 1, scopes: [], rules, retired: [] })
+  const first = { id: 'CARVE-P0-001', part: '0', title: 'ONE RULE', scope: 'parsing' }
+  const second = { id: 'CARVE-P2-001', part: '2', title: 'ANOTHER RULE', scope: 'parsing' }
+  const base = ruleFingerprints(registry([first, second]))
+
+  assert.deepEqual(
+    ruleFingerprints(registry([second, first])),
+    base,
+    'reordering the registry is presentation - it must not demand a re-review of every rule',
+  )
+  assert.deepEqual(
+    ruleFingerprints(registry([{ ...first, scope: 'canonical-writing' }, second])),
+    base,
+    'the scopes are navigation views, and hashing them made one metadata addition read as ' +
+      '242 moved rules',
+  )
+
+  const sha = (doc) => ruleFingerprints(doc)['CARVE-P0-001'].sha256
+  assert.notEqual(
+    sha(registry([{ ...first, title: 'ONE RULE, RESTATED' }, second])),
+    base['CARVE-P0-001'].sha256,
+    'a retitled clause is a changed clause - that is what a reader has to re-read',
+  )
+  assert.notEqual(
+    sha(registry([{ ...first, part: '9' }, second])),
+    base['CARVE-P0-001'].sha256,
+    'a clause that moved to another PART moved in the grammar, not in a view',
+  )
+
+  assert.throws(
+    () => ruleFingerprints(registry([first, { ...second, id: first.id }])),
+    /twice/,
+    'two rules under one id would leave one of them invisible to the ledger',
+  )
+  assert.throws(
+    () => ruleFingerprints(registry([{ part: '0', title: 'NO ID' }])),
+    /no id/,
+    'a rule the parser cannot key would be dropped silently',
+  )
+  assert.throws(
+    () => ruleFingerprints(JSON.stringify({ version: 1 })),
+    /`rules` array/,
+    'a registry with no rules array is a restructured document, not an empty one',
+  )
+})
+
+// And the clause ledger next to it answers the other half - not "which rules
+// exist" but "does this one still say what it said". Its normalization is the
+// one place it can be made blind by accident: the grammar is flattened, so a
+// re-wrapped paragraph must not demand a re-review, and a changed WORD must.
+test('clause fingerprints follow the rule text, not the grammar layout', () => {
+  const clause = (body) =>
+    'PART 0: LAYOUT\n\n        Preceding prose that ends in a period.\n\n' +
+    `        A RULE ABOUT COLUMNS -- NORMATIVE\n        ${body}\n`
+  const tight = clauseFingerprints(clause('The deepest column the line reaches.'))
+  const wrapped = clauseFingerprints(clause('The deepest column\n        the line reaches.'))
+  assert.deepEqual(Object.keys(tight), ['A RULE ABOUT COLUMNS'])
+  assert.deepEqual(
+    wrapped,
+    tight,
+    're-wrapping a clause is layout - it must not demand a re-review of the rule',
+  )
+
+  const inverted = clauseFingerprints(clause('The shallowest column the line reaches.'))
+  assert.notEqual(
+    inverted['A RULE ABOUT COLUMNS'].sha256,
+    tight['A RULE ABOUT COLUMNS'].sha256,
+    'a clause rewritten under an unchanged title is the failure this ledger exists for',
+  )
+
+  const twice = clauseFingerprints(
+    `${clause('First.')}\n        A RULE ABOUT COLUMNS -- NORMATIVE\n        Second.\n`,
+  )
+  assert.deepEqual(
+    Object.keys(twice),
+    ['A RULE ABOUT COLUMNS', 'A RULE ABOUT COLUMNS #2'],
+    'three titles are carried by two clauses each - keeping only one would hide a rule',
   )
 })
 

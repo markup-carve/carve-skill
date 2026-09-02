@@ -5,7 +5,7 @@
 
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { readFileSync, existsSync } from 'node:fs'
+import { readFileSync, readdirSync, existsSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import {
@@ -15,6 +15,7 @@ import {
 } from '../scripts/spec-sections.mjs'
 import { LEDGERS, specRoot } from '../scripts/review-ledgers.mjs'
 import { parseRows, rowFingerprints, splitRow } from '../scripts/cheatsheet-rows.mjs'
+import { ruleFingerprints } from '../scripts/normative-rules.mjs'
 import { shortfall } from '../scripts/participants.mjs'
 
 const here = dirname(fileURLToPath(import.meta.url))
@@ -22,6 +23,9 @@ const root = dirname(here)
 
 const specDivergence = join(root, 'spec', 'docs', 'divergence-from-djot.md')
 const specCheatsheet = join(root, 'spec', 'docs', 'cheatsheet.md')
+const specRules = join(root, 'spec', 'resources', 'spec', 'rules.json')
+const specClauses = join(root, 'spec', 'resources', 'normative-clauses.txt')
+const specRuleViews = join(root, 'spec', 'docs', 'rules')
 
 const traps = readFileSync(join(root, 'references', 'traps.md'), 'utf8')
 
@@ -175,6 +179,137 @@ test('every line of the cheat sheet belongs to exactly one ledger row', () => {
     [],
     'line(s) of spec/docs/cheatsheet.md land in two ledger rows, so one edit reports as two\n' +
       'findings and the row labels no longer name a place in the document.',
+  )
+})
+
+// THE NORMATIVE RULE SURFACE IS THREE FILES AND ONE LEDGER, AND THAT IS A
+// MEASUREMENT, NOT AN ASSUMPTION.
+//
+// The rules ledger watches resources/spec/rules.json alone. Two documents make
+// that sufficient rather than partial: resources/normative-clauses.txt is the
+// registry's title set, generated from the grammar, and docs/rules/ is generated
+// from the registry. A second ledger over either would be a second spelling of
+// one rule, which is the defect markup-carve/carve#755 keeps recording - so the
+// sufficiency is asserted here instead, and stops being true out loud if the
+// spec ever lets those surfaces diverge.
+
+test('the clause inventory names no normative rule the registry lacks', () => {
+  const registry = JSON.parse(readFileSync(specRules, 'utf8'))
+  const titles = new Set(registry.rules.map((rule) => rule.title))
+  const inventory = readFileSync(specClauses, 'utf8')
+    .replace(/\r\n/g, '\n')
+    .split('\n')
+    .filter((line) => line.trim() !== '' && !line.startsWith('#'))
+    .map((line) => line.replace(/^\d+\s+/, '').trim())
+
+  const thin = shortfall({
+    label: 'CLAUSE INVENTORY',
+    actual: inventory.length,
+    atLeast: 200,
+    of: 'clause heading(s) in spec/resources/normative-clauses.txt',
+    hint: 'the inventory is missing, truncated, or no longer written as "<count> TITLE" ' +
+      'lines - over an empty list the coverage claim below holds no matter what the ' +
+      'registry says.',
+  })
+  assert.equal(thin, null, thin ?? '')
+
+  const unwatched = inventory.filter((title) => !titles.has(title))
+  assert.deepEqual(
+    unwatched,
+    [],
+    'clause heading(s) in spec/resources/normative-clauses.txt are not in the rules registry,\n' +
+      'so the rules ledger no longer covers the whole normative surface. Give the inventory\n' +
+      'its own ledger in scripts/review-ledgers.mjs.',
+  )
+})
+
+test('the generated rule views add no rule the registry does not carry', () => {
+  const known = new Set(
+    [
+      ...JSON.parse(readFileSync(specRules, 'utf8')).rules,
+      ...(JSON.parse(readFileSync(specRules, 'utf8')).retired ?? []),
+    ].map((rule) => rule.id),
+  )
+
+  const views = readdirSync(specRuleViews).filter((name) => name.endsWith('.md'))
+  assert.ok(views.length >= 5, `spec/docs/rules/ holds ${views.length} view(s), expected at least 5`)
+
+  const seen = new Set()
+  const unknown = []
+  for (const view of views) {
+    const text = readFileSync(join(specRuleViews, view), 'utf8')
+    for (const match of text.matchAll(/`(CARVE-[A-Z0-9]+-\d{3})`/g)) {
+      seen.add(match[1])
+      if (!known.has(match[1])) unknown.push(`${view}: ${match[1]}`)
+    }
+  }
+
+  const thin = shortfall({
+    label: 'RULE VIEWS',
+    actual: seen.size,
+    atLeast: 200,
+    of: 'rule id(s) cited across spec/docs/rules/',
+    hint: 'the views are missing, truncated, or no longer cite rule ids in code spans.',
+  })
+  assert.equal(thin, null, thin ?? '')
+
+  assert.deepEqual(
+    unknown,
+    [],
+    'spec/docs/rules/ cites rule id(s) the registry does not carry, so the views are no\n' +
+      'longer generated from spec/resources/spec/rules.json and the rules ledger does not\n' +
+      'watch them. Give them their own ledger in scripts/review-ledgers.mjs.',
+  )
+})
+
+// What the rules ledger is sensitive to is the whole design of it: too little
+// and a rewritten clause passes, too much and every pin bump reports 249
+// findings and gets recorded without being read. Pinned here rather than
+// described in a comment.
+test('rule fingerprints follow rule identity, not registry presentation', () => {
+  const registry = (rules) => JSON.stringify({ version: 1, scopes: [], rules, retired: [] })
+  const first = { id: 'CARVE-P0-001', part: '0', title: 'ONE RULE', scope: 'parsing' }
+  const second = { id: 'CARVE-P2-001', part: '2', title: 'ANOTHER RULE', scope: 'parsing' }
+  const base = ruleFingerprints(registry([first, second]))
+
+  assert.deepEqual(
+    ruleFingerprints(registry([second, first])),
+    base,
+    'reordering the registry is presentation - it must not demand a re-review of every rule',
+  )
+  assert.deepEqual(
+    ruleFingerprints(registry([{ ...first, scope: 'canonical-writing' }, second])),
+    base,
+    'the scopes are navigation views, and hashing them made one metadata addition read as ' +
+      '242 moved rules',
+  )
+
+  const sha = (doc) => ruleFingerprints(doc)['CARVE-P0-001'].sha256
+  assert.notEqual(
+    sha(registry([{ ...first, title: 'ONE RULE, RESTATED' }, second])),
+    base['CARVE-P0-001'].sha256,
+    'a retitled clause is a changed clause - that is what a reader has to re-read',
+  )
+  assert.notEqual(
+    sha(registry([{ ...first, part: '9' }, second])),
+    base['CARVE-P0-001'].sha256,
+    'a clause that moved to another PART moved in the grammar, not in a view',
+  )
+
+  assert.throws(
+    () => ruleFingerprints(registry([first, { ...second, id: first.id }])),
+    /twice/,
+    'two rules under one id would leave one of them invisible to the ledger',
+  )
+  assert.throws(
+    () => ruleFingerprints(registry([{ part: '0', title: 'NO ID' }])),
+    /no id/,
+    'a rule the parser cannot key would be dropped silently',
+  )
+  assert.throws(
+    () => ruleFingerprints(JSON.stringify({ version: 1 })),
+    /`rules` array/,
+    'a registry with no rules array is a restructured document, not an empty one',
   )
 })
 

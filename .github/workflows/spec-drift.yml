@@ -29,7 +29,10 @@ name: Spec drift
 # green again, because the guard named prose documents only (#84). And
 # docs/cheatsheet.md, which the guard DID name, was read only for whether certain
 # tokens were present, so a row could be rewritten around a surviving token with
-# nothing to report it (#89).
+# nothing to report it (#89). Then the spec grew a normative rule registry and
+# six generated views over it, none of them named, and CARVE-P0-020 - the rule
+# deciding which container owns a line between two open content columns, which
+# references/traps.md trap 17 teaches - arrived with every gate green (#98).
 
 on:
   schedule:

@@ -13,6 +13,17 @@
 // token and pass every gate (#89). A watched document needs an entry here, with
 // a fingerprint fine-grained enough to notice what the document is for.
 //
+// And a list stays wrong until someone measures it against what the spec now
+// holds. The six documents named here were all prose or schema; the spec's
+// NORMATIVE RULE SURFACE - resources/spec/rules.json, the clause inventory it
+// covers and the generated views under docs/rules/ - was on none of them. Across
+// pin b5b603d2 -> f59cc880 that surface gained CARVE-P0-020, "AT OR PAST MEANS
+// THE DEEPEST COLUMN THE LINE REACHES", the rule references/traps.md trap 17
+// teaches, and every gate here stayed green (#98). Measured on this branch
+// before the seventh entry was added: inverting that clause's title into its
+// losing reading across all three files left `npm test` at 39 passing, and
+// emptying rules.json to zero rules did too.
+//
 // So the list lives here, once, and the test, the offline checker and the
 // scheduled workflow all read it. Adding a document to the guard is adding an
 // entry here; the failure of omission is at least visible in one place.
@@ -20,6 +31,7 @@
 import { join } from 'node:path'
 import { rowFingerprints } from './cheatsheet-rows.mjs'
 import { documentSectionFingerprints } from './document-sections.mjs'
+import { ruleFingerprints } from './normative-rules.mjs'
 import { nodeFingerprints } from './schema-nodes.mjs'
 import { sectionFingerprints } from './spec-sections.mjs'
 
@@ -155,5 +167,29 @@ export const LEDGERS = [
       'Which preamble/H2/H3 sections of spec/docs/security.md references/quality-and-safety.md was ' +
       'last read against. Regenerate with `npm run spec:review` AFTER re-reading the ' +
       'sections the drift guard names - see README, "Not drifting".',
+  },
+  {
+    id: 'normative-rules',
+    source: 'resources/spec/rules.json',
+    reviewFile: 'rules-review.json',
+    entries: 'rules',
+    kind: 'rule',
+    label: 'NORMATIVE RULES',
+    atLeast: 200,
+    of: 'active normative rule(s)',
+    hint: 'the registry is missing, truncated, or no longer keeps its clauses in a `rules` array.',
+    fingerprint: ruleFingerprints,
+    reread: 'Re-read those clauses of spec/resources/spec/rules.json - the full text is in\n' +
+      'spec/resources/grammar.ebnf under the matching PART - check that no reference page\n' +
+      'states the old rule, then run `npm run spec:review`.',
+    comment:
+      'Which active normative rules of spec/resources/spec/rules.json the skill was last read ' +
+      'against, keyed by the stable rule id. The registry is the structured source of the ' +
+      'whole normative surface - the grammar clause inventory is its title set and ' +
+      'docs/rules/ is generated from it - so a clause added, retired or retitled here is a ' +
+      'change to what correct authoring advice looks like. `scope` is not fingerprinted: the ' +
+      'views are navigation, and hashing it made a one-off metadata addition read as 242 ' +
+      'moved rules. Regenerate with `npm run spec:review` AFTER re-reading the rules the ' +
+      'drift guard names - see README, "Not drifting".',
   },
 ]

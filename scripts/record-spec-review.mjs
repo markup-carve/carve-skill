@@ -14,12 +14,17 @@
 //   test/extensions-review.json docs/extensions.md, per preamble/H2/H3 section
 //   test/validation-review.json docs/validation.md, per preamble/H2/H3 section
 //   test/security-review.json   docs/security.md, per preamble/H2/H3 section
+//   test/rules-review.json      resources/spec/rules.json, per active rule id
 //
 // The second exists because the guard used to name only prose documents, so a
 // rule stated in the schema could move without failing anything (#84). The third
 // because naming a document is not the same as reading it: the cheat sheet was
 // named and checked for token PRESENCE, so a row's meaning could be rewritten
-// around a surviving token and nothing failed (#89).
+// around a surviving token and nothing failed (#89). The last because the list
+// was all prose and schema: the spec's normative rule registry was on none of
+// it, and a clause that changed an answer - CARVE-P0-020, content-column reach,
+// which references/traps.md trap 17 teaches - landed with every gate green
+// (#98).
 
 import { execFileSync } from 'node:child_process'
 import { readFileSync, writeFileSync } from 'node:fs'

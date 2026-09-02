@@ -23,7 +23,10 @@ const RULES = 'resources/spec/rules.json'
 const INVENTORY = 'resources/normative-clauses.txt'
 const GRAMMAR = 'resources/grammar.ebnf'
 const VIEWS = join('docs', 'rules')
-const RULE_ID = /`(CARVE-[A-Z0-9]+-\d{3})`/g
+// A generated view row: the rule id, then two more cells. In a scope view they
+// are the PART and the clause title; in the retired table of the index they are
+// the last title and the document that replaced the rule.
+const RULE_ROW = /^\|\s*`(CARVE-[A-Z0-9]+-\d{3})`\s*\|([^|]*)\|([^|]*)\|/gm
 const FLOOR = 200
 
 /**
@@ -79,10 +82,8 @@ export function coverageFindings(checkout) {
     ),
   )
 
-  const active = registry.rules.map((rule) => rule.id)
-  const known = new Set([...active, ...(registry.retired ?? []).map((rule) => rule.id)])
-  const seen = new Set()
-  const unknown = []
+  const active = new Set(registry.rules.map((rule) => rule.id))
+  const retired = new Map((registry.retired ?? []).map((rule) => [rule.id, rule.title]))
   let views = []
   try {
     views = readdirSync(join(checkout, VIEWS)).filter((name) => name.endsWith('.md'))
@@ -90,28 +91,51 @@ export function coverageFindings(checkout) {
     return [...findings, `${VIEWS}: ${error.message}`]
   }
   if (views.length < 5) findings.push(`${VIEWS}: ${views.length} view(s), expected at least 5`)
+
+  // Whole ROWS, counted. Unique ids would pass a view that keeps an id and a
+  // stale part or title beside it, and a rule listed in two views - and the
+  // index claims the views carry every active rule exactly once.
+  const rows = []
+  const unknown = []
+  const staleRetired = []
   for (const view of views) {
-    for (const match of read(join(VIEWS, view)).matchAll(RULE_ID)) {
-      seen.add(match[1])
-      if (!known.has(match[1])) unknown.push(`${view}: ${match[1]}`)
+    for (const match of read(join(VIEWS, view)).matchAll(RULE_ROW)) {
+      const [, id, second, third] = match
+      if (active.has(id)) {
+        rows.push(`${id}\0${second.trim().replace(/`/g, '')}\0${third.trim()}`)
+      } else if (retired.has(id)) {
+        if (second.trim() !== retired.get(id)) {
+          staleRetired.push(`${view}: ${id} is listed as "${second.trim()}"`)
+        }
+      } else {
+        unknown.push(`${view}: ${id}`)
+      }
     }
   }
-  findings.push(...floor('RULE VIEWS', seen.size, `rule id(s) cited across ${VIEWS}`))
+
+  findings.push(...floor('RULE VIEWS', rows.length, `rule row(s) in ${VIEWS}`))
   if (unknown.length > 0) {
     findings.push(
       `${VIEWS} cites rule id(s) the registry does not carry, so the views are no longer ` +
         `generated from ${RULES}: ${unknown.join(', ')}`,
     )
   }
-  // The other direction. A floor cannot see dozens of omissions, and the index
-  // claims the views cover every active rule exactly once.
-  const missing = active.filter((id) => !seen.has(id))
-  if (missing.length > 0) {
+  if (staleRetired.length > 0) {
     findings.push(
-      `${missing.length} active rule id(s) appear in ${RULES} but in no view under ${VIEWS}, so ` +
-        `reading the registry is no longer reading the views: ${missing.slice(0, 10).join(', ')}`,
+      `${VIEWS} names a retired rule under a title ${RULES} does not give it: ` +
+        `${staleRetired.join('; ')}`,
     )
   }
+
+  const expected = registry.rules.map((rule) => `${rule.id}\0${rule.part}\0${rule.title}`)
+  findings.push(
+    ...disagree(
+      tally(rows),
+      tally(expected),
+      `the rule rows under ${VIEWS} are not the rules ${RULES} holds, so the views are no longer ` +
+        'generated from it and reading the registry is no longer reading them',
+    ),
+  )
   return findings
 }
 
@@ -129,7 +153,8 @@ function floor(label, actual, of) {
 
 function disagree(left, right, because) {
   if (JSON.stringify(left) === JSON.stringify(right)) return []
-  const names = (pairs) => new Set(pairs.map(([title, count]) => `${count}x ${title}`))
+  const names = (pairs) =>
+    new Set(pairs.map(([entry, count]) => `${count}x ${entry.split('\0').join(' | ')}`))
   const a = names(left)
   const b = names(right)
   const only = (from, other) => [...from].filter((entry) => !other.has(entry)).slice(0, 10)

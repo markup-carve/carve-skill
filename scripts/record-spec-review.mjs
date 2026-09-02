@@ -117,6 +117,14 @@ function specRev() {
   }
 
   const dirty = dirtyStateOf(checkout)
+  if (dirty === null) {
+    process.stdout.write(
+      `${checkout}: git cannot say whether the spec checkout is clean, so this run cannot ` +
+        'establish that the revision above describes the documents it is about to ' +
+        'fingerprint.\n',
+    )
+    process.exit(1)
+  }
   if (dirty) {
     process.stdout.write(
       `${checkout}: the spec checkout has uncommitted changes, so no revision describes the ` +

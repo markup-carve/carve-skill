@@ -16,6 +16,13 @@
 // a worktree whose submodule was never updated is indistinguishable from a
 // current one for as long as the surfaces agree.
 //
+// THREE VALUES, NOT TWO. The revision this repository PINS is the gitlink in its
+// own tree; the revision it READ is the submodule's checked-out HEAD; the
+// revision it RECORDED is the ledger stamp. Comparing the stamp against the
+// checkout alone would miss the half-applied bump the ticket names, because a
+// ledger recorded from a stale working copy names that stale revision and the
+// two agree with each other while both disagree with the pin.
+//
 // ONLY AGAINST THE PIN. The scheduled workflow points the checker at a fresh
 // clone of carve main, where the ledgers naming the pin is the NORMAL state and
 // a mismatch is the very lag that job reports separately. So this comparison is
@@ -35,6 +42,25 @@ import { LEDGERS, specRoot } from './review-ledgers.mjs'
 export function revisionOf(checkout) {
   try {
     const rev = execFileSync('git', ['-C', checkout, 'rev-parse', 'HEAD'], {
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim()
+
+    return /^[0-9a-f]{40}$/.test(rev) ? rev : null
+  } catch {
+    return null
+  }
+}
+
+/**
+ * The revision this repository pins, as opposed to the one it has checked out.
+ *
+ * @param {string} repoRoot this repository's root
+ * @returns {string | null} the gitlink commit, or null when git cannot answer
+ */
+export function pinnedRevision(repoRoot) {
+  try {
+    const rev = execFileSync('git', ['-C', repoRoot, 'rev-parse', 'HEAD:spec'], {
       encoding: 'utf8',
       stdio: ['ignore', 'pipe', 'ignore'],
     }).trim()
@@ -70,15 +96,33 @@ export function dirtyStateOf(checkout) {
  */
 export function revisionFindings(repoRoot) {
   const checkout = specRoot(repoRoot)
-  const pinned = revisionOf(checkout)
+  const pinned = pinnedRevision(repoRoot)
   if (pinned === null) {
     return [
-      `${checkout}: the pinned spec revision cannot be read from git, so no ledger's ` +
-        'spec_rev can be verified - run `git submodule update --init`.',
+      'the spec gitlink cannot be read from git, so no ledger spec_rev can be checked ' +
+        'against the revision this repository pins.',
     ]
   }
 
   const findings = []
+
+  // The checkout is what the fingerprints were taken from, so a checkout behind
+  // the gitlink means every ledger describes a document this repository does not
+  // pin - even when the stamp and the checkout agree with each other.
+  const readAt = revisionOf(checkout)
+  if (readAt === null) {
+    findings.push(
+      `${checkout}: the spec checkout revision cannot be read from git - run ` +
+        '`git submodule update --init`.',
+    )
+  } else if (readAt !== pinned) {
+    findings.push(
+      `${checkout}: checked out at ${readAt.slice(0, 8)}, but this repository pins ` +
+        `${pinned.slice(0, 8)}. ` +
+        'Run `git submodule update` - everything below was fingerprinted from the checkout.',
+    )
+  }
+
   for (const ledger of LEDGERS) {
     const file = join(repoRoot, 'test', ledger.reviewFile)
     let recorded
@@ -97,8 +141,8 @@ export function revisionFindings(repoRoot) {
     }
     if (recorded !== pinned) {
       findings.push(
-        `test/${ledger.reviewFile}: recorded against ${recorded.slice(0, 8)}, but the spec ` +
-          `submodule pins ${pinned.slice(0, 8)} - the fingerprints in it describe a document ` +
+        `test/${ledger.reviewFile}: recorded against ${recorded.slice(0, 8)}, but this ` +
+          `repository pins ${pinned.slice(0, 8)} - the fingerprints in it describe a document ` +
           'this repository does not pin.',
       )
     }

@@ -28,10 +28,12 @@
     "test": "node --test test/*.test.mjs",
     "lint:examples": "carve lint examples/*.crv",
     "test:behavior": "node --test test/behavior.test.mjs",
+    "context:measure": "node scripts/measure-context.mjs",
     "spec:check": "node scripts/check-spec-review.mjs",
     "spec:review": "node scripts/record-spec-review.mjs"
   },
   "devDependencies": {
-    "@markup-carve/carve": "^0.1.5"
+    "@markup-carve/carve": "^0.1.5",
+    "gpt-tokenizer": "4.0.0"
   }
 }

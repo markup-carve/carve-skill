@@ -46,9 +46,10 @@ carve lint file.crv        # no --from-djot
 ```
 
 must be clean. Run it over every touched `.crv` file, not only the
-smallest example. If it is not clean, fix per the finding and re-run. Common
-fixes map straight to [traps.md](traps.md): `**b**` → `*b*`, `~~s~~` → `~s~`,
-`^x^` → `{^x^}`, `+ item` → `- item`, trailing heading `{#id}` → move it above.
+smallest example. If it is not clean, fix per the finding and re-run. Most fixes
+map to [foundation traps](traps-foundations.md): `**b**` → `*b*`,
+`~~s~~` → `~s~`, `^x^` → `{^x^}`, and `+ item` → `- item`. For a trailing
+heading `{#id}`, use [structure trap 18](traps-structure-references.md).
 
 Lint checks known hazards; it does not prove semantic intent. When changing
 containers, captions, references, raw target routing, extensions, or generated

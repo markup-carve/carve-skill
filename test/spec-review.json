@@ -1,5 +1,5 @@
 {
-  "$comment": "Which spec divergence sections the trap list in references/traps.md was last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
+  "$comment": "Which spec divergence sections the references/traps-*.md topic guides were last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/divergence-from-djot.md",
   "spec_rev": "2775b6dfcda06311f4890d0de87c5eb3593763b6",
   "sections": {
@@ -82,7 +82,7 @@
     "20": {
       "title": "A typed container is a native admonition",
       "sha256": "f2f8aff1b3bc9aef2307038be551448850fb2ac2c375e66caaf71233a51af790",
-      "note": "Read and deliberately not adopted in full: the spec names the admonition landmark (aria-label on an untitled one, aria-labelledby at the admonition-title on a titled one). @markup-carve/carve 0.1.3, the engine this skill is tested against, emits neither yet, so references/traps.md section 20 states the spec rule and then gives the released engine's output as what an author sees today. Re-check when an engine ships the accessible name."
+      "note": "Read and deliberately not adopted in full: the spec names the admonition landmark (aria-label on an untitled one, aria-labelledby at the admonition-title on a titled one). @markup-carve/carve 0.1.3, the engine this skill is tested against, emits neither yet, so references/traps-structure-references.md section 20 states the spec rule and then gives the released engine's output as what an author sees today. Re-check when an engine ships the accessible name."
     },
     "21": {
       "title": "Footnote labels normalize ASCII whitespace",

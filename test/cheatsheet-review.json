@@ -110,7 +110,7 @@
     "Inline / row: `--` `---` `...` `-->` `==>` `(c)`": {
       "title": "`--` `---` `...` `-->` `==>` `(c)` | – — … → ⇒ © | smart typography; a bare HYPHEN RUN with a space before it and a non-space after it is a CLI flag and stays literal (`x --next`) - the arrows are matched before that guard and still convert there (`x -->next` is `x →next`)",
       "sha256": "93360d1042eedddf2e56a528f4784b5aef734cf0d974bc80387ad0065687d80c",
-      "note": "Re-measured 2026-08-28 on published `@markup-carve/carve` 0.1.5: the doubled family is now IN the release (`==>` renders U+21D2), and `=>` stopped converting in the same release. The row's ASCII spellings still render, so it stands; references/traps.md 12 carries the measurement and `doubled_arrows` in references/capabilities.json now probes it, which is what this note used to be doing by hand."
+      "note": "Re-measured 2026-08-28 on published `@markup-carve/carve` 0.1.5: the doubled family is now IN the release (`==>` renders U+21D2), and `=>` stopped converting in the same release. The row's ASCII spellings still render, so it stands; references/traps-blocks-containers.md 12 carries the measurement and `doubled_arrows` in references/capabilities.json now probes it, which is what this note used to be doing by hand."
     },
     "Inline / row: `{--}`": {
       "title": "`{--}` | – | braced en dash — converts in the flag position the bare run refuses",

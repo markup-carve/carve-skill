@@ -10,9 +10,11 @@ const shipped = ['SKILL.md', ...JSON.parse(readFileSync(join(root, 'package.json
 
 test('every local Markdown link in shipped documentation resolves', () => {
   const documents = [
-    'SKILL.md', 'README.md',
-    ...['syntax.md', 'traps.md', 'extensions.md', 'validation.md', 'workflows.md',
-      'quality-and-safety.md'].map((name) => `references/${name}`),
+    'SKILL.md',
+    'README.md',
+    ...readdirSync(join(root, 'references'))
+      .filter((name) => name.endsWith('.md'))
+      .map((name) => `references/${name}`),
   ]
   const missing = []
   for (const document of documents) {

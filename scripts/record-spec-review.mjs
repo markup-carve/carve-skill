@@ -24,7 +24,7 @@
 // around a surviving token and nothing failed (#89). The last because the list
 // was all prose and schema: the spec's normative rule registry was on none of
 // it, and a clause that changed an answer - CARVE-P0-020, content-column reach,
-// which references/traps.md trap 17 teaches - landed with every gate green
+// which trap 11 in the block/container guide teaches - landed with every gate green
 // (#98), and the grammar's clause TEXT with it, because the registry carries
 // titles only.
 

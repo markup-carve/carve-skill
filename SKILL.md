@@ -5,18 +5,15 @@ description: Write or edit Carve (`.crv`) documents or Carve snippets in issues,
 
 # Authoring Carve
 
-Carve is a post-Markdown language with the mnemonic “the markup looks like its
-output.” Files use the `.crv` extension, and only that extension.
+Mnemonic: “the markup looks like its output.” Use `.crv` exclusively.
 
 ## Route before writing
 
-Determine the installed Carve implementation/version, output target, enabled
-extensions, and whether authored spelling must be preserved. Use only core
-syntax when these are unknown; read [syntax.md](references/syntax.md) if the
-needed core construct is unfamiliar. Check version boundaries in
-[capabilities.json](references/capabilities.json); for discovery, migration,
-PR-body, container, and extension procedures, read
-[workflows.md](references/workflows.md).
+Determine the version, output target, extensions, and spelling-preservation
+needs. When unknown, use core syntax; consult
+[syntax.md](references/syntax.md) for unfamiliar constructs. Check version
+boundaries in [capabilities.json](references/capabilities.json) and task
+procedures in [workflows.md](references/workflows.md).
 
 ## Essential dialect differences
 
@@ -34,12 +31,15 @@ Do not rely on Markdown/Djot habits. In Carve:
 - cross-references are `</#id>`, comments are `%%` or fenced `%%%`, and a fence
   must be longer than any bare same-character fence line inside it.
 
-Before using unfamiliar syntax, read the focused source:
+For unfamiliar syntax, read:
 
 - [syntax.md](references/syntax.md) for the complete core syntax card.
-- [traps.md](references/traps.md) when translating Markdown/Djot or diagnosing
-  a surprising render; use its relevant section rather than loading it as a
-  general syntax guide.
+- Open a relevant trap guide: [foundations](references/traps-foundations.md)
+  for ids/lists/emphasis/comments; [blocks](references/traps-blocks-containers.md)
+  for interruption/symbols/definitions/raw/columns/typography/containers/fences;
+  [structure](references/traps-structure-references.md) for
+  headings/attributes/admonitions/footnotes; then
+  [migration](references/traps-migration.md) for a final Djot conversion pass.
 - [extensions.md](references/extensions.md) only for host-dependent Tier-2 or
   Tier-3 features.
 
@@ -51,12 +51,10 @@ Lint every touched Carve file with the project-local matching-version binary:
 ./node_modules/.bin/carve lint file.crv
 ```
 
-Do not install a validator solely for the task. Prefer a project script or
-local binary, then `npx --no-install carve`; use global `carve` only when its
-version matches. Report the command and version. Lint is necessary but not
-sufficient: inspect parsed or rendered output when structure or target routing
-matters. Read [validation.md](references/validation.md) for the full validation
-decision tree.
+Do not install a validator solely for the task. Prefer a project script/local
+binary, then `npx --no-install carve`; use global `carve` only at the matching
+version. Report command and version. Inspect parsed/rendered output when
+structure or target routing matters. See [validation.md](references/validation.md).
 
 ## Preserve intent and safety
 

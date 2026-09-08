@@ -4,6 +4,16 @@ All notable changes to carve-skill are documented in this file.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Changed
+
+- Reduced default-loaded skill context from 2,189 to 770 GPT-5/o200k tokens
+  (64.8%) while retaining essential dialect, validation, and safety constraints;
+  loading the syntax card makes the routine authoring path 2,338 tokens, while
+  also loading the full traps reference makes migration/diagnosis 10,370.
+- Added explicit task-based routing for conditional reference material.
+
 ## [0.1.0] - 2026-08-18
 
 First release.

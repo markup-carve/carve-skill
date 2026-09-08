@@ -48,3 +48,25 @@ npm run lint:examples # round-trip: the showcase must lint clean
 npm run spec:check    # what moved, without the test harness
 npm run spec:review   # record the review — AFTER re-reading what it names
 ```
+
+## Context budget
+
+The entrypoint keeps only routing, essential dialect differences, validation,
+and editing constraints in default context. Detailed syntax, traps, extensions,
+and specialist workflows load only when the request needs them.
+
+Measured with `gpt-tokenizer` 4.0.0's GPT-5/o200k tokenizer, this changes the
+default-loaded `SKILL.md` from **2,189 to 770 tokens**, a **64.8% reduction**,
+of which 54 tokens are discovery metadata. A routine task that also needs the
+syntax card costs 2,338 tokens; a migration or render diagnosis that additionally
+needs the full traps reference costs 10,370. The command discovers and reports
+every shipped reference separately so deferred context remains visible.
+
+Reproduce the comparison against the branch base with:
+
+```sh
+npm run context:measure -- --baseline-ref origin/main
+```
+
+`npm test` enforces an 800-token default-context ceiling and discovers every
+supporting reference to ensure it remains explicitly routed from the entrypoint.

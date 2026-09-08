@@ -23,7 +23,7 @@ name: Spec drift
 #
 # Not hypothetical, twice. carve#455 inverted the whole container rule inside
 # section 13 without changing a heading number, the pin bump carried it in (#6),
-# and every check stayed green while references/traps.md kept describing the old
+# and every check stayed green while the trap topic guides described the old
 # rule. Then the `image` node's block-position rule was rewritten in
 # resources/ast-schema.json across pin be6e7cc6 -> cc06bb5 and every check stayed
 # green again, because the guard named prose documents only (#84). And
@@ -32,7 +32,7 @@ name: Spec drift
 # nothing to report it (#89). Then the spec grew a normative rule registry and
 # six generated views over it, none of them named, and CARVE-P0-020 - the rule
 # deciding which container owns a line between two open content columns, which
-# references/traps.md trap 11 teaches - arrived with every gate green (#98).
+# the block/container guide's trap 11 teaches - arrived with every gate green (#98).
 #
 # check-spec-review.mjs also re-checks, against THIS fresh checkout, that the
 # clause inventory and the generated views still hold what the rules registry
@@ -101,7 +101,7 @@ jobs:
       # lockfile held `@markup-carve/carve` 0.1.3 while package.json allowed
       # 0.1.4, references/capabilities.json named 0.1.3 as "the engine this
       # skill is tested against", and every version-dated claim in
-      # references/traps.md was therefore measured against a release that was
+      # the trap topic guides were therefore measured against a release that was
       # no longer the newest. One of them - the arrow family - was then written
       # up as a gap the newest release does not have.
       #

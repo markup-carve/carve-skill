@@ -5,7 +5,7 @@
 
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { readFileSync, existsSync } from 'node:fs'
+import { readFileSync, readdirSync, existsSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import {
@@ -27,7 +27,12 @@ const root = dirname(here)
 const specDivergence = join(root, 'spec', 'docs', 'divergence-from-djot.md')
 const specCheatsheet = join(root, 'spec', 'docs', 'cheatsheet.md')
 
-const traps = readFileSync(join(root, 'references', 'traps.md'), 'utf8')
+const trapFiles = readdirSync(join(root, 'references'))
+  .filter((name) => /^traps-.*\.md$/.test(name))
+  .sort()
+const traps = trapFiles
+  .map((name) => readFileSync(join(root, 'references', name), 'utf8'))
+  .join('\n')
 
 test('spec submodule is checked out', () => {
   const watched = LEDGERS.map((ledger) => join(specRoot(root), ledger.source))
@@ -51,7 +56,7 @@ test('trap list covers every divergence section in the spec', () => {
   // recording, and the failure mode here is silent: a spec heading form that the
   // shared parser accepts and the local copy does not leaves `specNums` empty,
   // and an empty list makes the assertion below trivially true. Measured -
-  // rewrite the spec's headings and this test passes with references/traps.md
+  // rewrite the spec's headings and this test passes with the trap topic guides
   // COMPLETELY EMPTY.
   const specNums = [...new Set(
     Object.keys(sectionFingerprints(spec)).map((label) => label.replace(/[a-z]$/, '')),
@@ -63,7 +68,7 @@ test('trap list covers every divergence section in the spec', () => {
     atLeast: 10,
     of: 'numbered section(s) in spec/docs/divergence-from-djot.md',
     hint: 'the coverage claim below is about this list; over an empty one it ' +
-      'holds no matter what references/traps.md says.',
+      'holds no matter what the trap topic guides say.',
   })
   assert.equal(thin, null, thin ?? '')
 
@@ -73,12 +78,12 @@ test('trap list covers every divergence section in the spec', () => {
   // The trap list must COVER every spec divergence (superset allowed): it may
   // document a divergence ahead of the spec doc catching up (e.g. definition
   // lists, spec PR #266). If the spec adds a new numbered divergence, this
-  // fails until references/traps.md covers it.
+  // fails until a trap topic guide covers it.
   const missing = specNums.filter((n) => !trapNums.has(n))
   assert.deepEqual(
     missing,
     [],
-    `references/traps.md is missing spec divergence section(s) ${missing.join(', ')}. ` +
+    `references/traps-*.md are missing spec divergence section(s) ${missing.join(', ')}. ` +
       'Update it after bumping the spec submodule.',
   )
 })
@@ -88,7 +93,7 @@ test('trap list covers every divergence section in the spec', () => {
 // opener is text" to "they nest", an unclosed opener went from "stays a
 // paragraph" to "closes at end of input" - and left the heading numbered 13
 // throughout. The coverage test above passes on both texts, and passed across
-// the pin bump that carried the change in (#6), while references/traps.md
+// the pin bump that carried the change in (#6), while the trap topic guides
 // section 13 kept describing the pre-455 rule.
 //
 // So the guard also records WHICH TEXT the skill was last read against, per
@@ -375,7 +380,7 @@ test('essential constructs are present in the spec cheatsheet', () => {
 // paraphrase. Exactly one page in this repository makes that claim:
 // references/syntax.md opens with "The whole core syntax" and "Sourced from the
 // spec's `docs/cheatsheet.md`" - the same document ESSENTIAL is checked against
-// in the test above. The other references are topic pages (traps.md is the
+// in the test above. The other references are topic pages (the traps guides are the
 // divergence list, extensions.md is Tier-2/3, validation.md is the linter, and
 // quality-and-safety.md is a checklist)
 // and none of them undertakes to name every core construct.
@@ -391,7 +396,7 @@ const REFERENCE_PAGES = ['references/syntax.md']
 // only fail once a construct had left EVERY page. Measured on that shape:
 // replacing `{,sub,}` with `{,subscript,}` in references/syntax.md alone - the
 // page that teaches the delimiter - was a complete no-op, 13 passing and 0
-// failing, because SKILL.md and references/traps.md still mentioned it
+// failing, because SKILL.md and a trap topic guide still mentioned it
 // (markup-carve/carve-skill#61).
 //
 // The union is removed rather than narrowed. Once the reference page is held to

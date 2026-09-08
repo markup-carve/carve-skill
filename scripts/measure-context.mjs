@@ -43,6 +43,28 @@ const result = {
     references: Object.fromEntries(references.map((path) => [path, measure(read(path))])),
   },
 }
+const referenceTokens = Object.fromEntries(
+  Object.entries(result.stages.references).map(([path, size]) => [path, size.tokens]),
+)
+const routedTokens = (path) => {
+  const tokens = referenceTokens[path]
+  if (tokens === undefined) throw new Error(`profile reference is missing: ${path}`)
+  return tokens
+}
+const trapTokens = references
+  .filter((path) => /^references\/traps-(?!migration\.md$)/.test(path))
+  .map((path) => routedTokens(path))
+result.profiles = {
+  routine: current.tokens + routedTokens('references/syntax.md'),
+  foundations: current.tokens + routedTokens('references/traps-foundations.md'),
+  blocks: current.tokens + routedTokens('references/traps-blocks-containers.md'),
+  structure: current.tokens + routedTokens('references/traps-structure-references.md'),
+  'largest-migration':
+    current.tokens +
+    routedTokens('references/syntax.md') +
+    Math.max(...trapTokens) +
+    routedTokens('references/traps-migration.md'),
+}
 
 if (baselineRef) {
   const baseline = measure(fromRef(baselineRef, 'SKILL.md'))
@@ -63,5 +85,8 @@ if (json) {
   console.log(`Discovery metadata: ${result.stages.discovery.tokens} tokens`)
   for (const [path, size] of Object.entries(result.stages.references)) {
     console.log(`${path}: +${size.tokens} tokens when routed`)
+  }
+  for (const [profile, tokens] of Object.entries(result.profiles)) {
+    console.log(`profile ${profile}: ${tokens} tokens total`)
   }
 }

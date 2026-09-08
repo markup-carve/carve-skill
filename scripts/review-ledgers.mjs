@@ -18,7 +18,7 @@
 // NORMATIVE RULE SURFACE - resources/spec/rules.json, the clause inventory it
 // covers and the generated views under docs/rules/ - was on none of them. Across
 // pin b5b603d2 -> f59cc880 that surface gained CARVE-P0-020, "AT OR PAST MEANS
-// THE DEEPEST COLUMN THE LINE REACHES", the rule trap 11 of references/traps.md
+// THE DEEPEST COLUMN THE LINE REACHES", the rule trap 11 of the block/container guide
 // teaches, and every gate here stayed green (#98). Measured on this branch
 // before the last two entries were added: inverting that clause's title into its
 // losing reading across all three files left `npm test` at 39 passing, and
@@ -57,7 +57,12 @@ export function specRoot(repoRoot) {
 export const LEDGERS = [
   {
     id: 'divergences',
-    reference: 'references/traps.md',
+    reference: [
+      'references/traps-foundations.md',
+      'references/traps-blocks-containers.md',
+      'references/traps-structure-references.md',
+      'references/traps-migration.md',
+    ],
     source: 'docs/divergence-from-djot.md',
     reviewFile: 'spec-review.json',
     entries: 'sections',
@@ -73,9 +78,9 @@ export const LEDGERS = [
     hint: 'the document is missing, truncated, or no longer uses "## N. Title" headings.',
     fingerprint: sectionFingerprints,
     reread: 'Re-read those sections of spec/docs/divergence-from-djot.md, check the matching\n' +
-      'section of references/traps.md still tells the truth, then run `npm run spec:review`.',
+      'section of the matching references/traps-*.md guide still tells the truth, then run `npm run spec:review`.',
     comment:
-      'Which spec divergence sections the trap list in references/traps.md was last read ' +
+      'Which spec divergence sections the topic guides in references/traps-*.md were last read ' +
       'against. Regenerate with `npm run spec:review` AFTER re-reading the sections the ' +
       'drift guard names - see README, "Not drifting".',
   },

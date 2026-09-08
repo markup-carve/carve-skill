@@ -14,11 +14,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
-- Reduced default-loaded skill context from 2,189 to 770 GPT-5/o200k tokens
-  (64.8%) while retaining essential dialect, validation, and safety constraints;
-  loading the syntax card makes the routine authoring path 2,338 tokens, while
-  also loading the full traps reference makes migration/diagnosis 10,370.
-- Added explicit task-based routing for conditional reference material.
+- Reduced default-loaded skill context from 2,189 to 769 GPT-5/o200k tokens
+  (64.9%) while retaining essential dialect, validation, and safety constraints.
+- Split the 8,032-token traps guide into task-routed guides of 302–3,440 tokens;
+  the largest syntax + relevant traps + migration path is now 6,079 tokens
+  instead of 10,370.
+- Added explicit task-based routing for all conditional reference material.
 
 ### Fixed
 

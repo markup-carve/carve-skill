@@ -113,7 +113,7 @@ test('every capability the matrix records is true of the engine', () => {
 //
 // LIB_VERSION cannot separate a published release from a git build of carve-js
 // `main`: both report the version their package.json carries, which only moves
-// at a release cut. references/traps.md 12 names the discriminator for that
+// at a release cut. Trap 12 in the block/container guide names the discriminator for that
 // (the SMART_PUNCTUATION_GLYPHS arrow count), and the scheduled workflow checks
 // the lockfile against the newest published release.
 test('the capability matrix names the engine the probes actually ran', () => {

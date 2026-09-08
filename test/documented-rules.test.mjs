@@ -5,7 +5,7 @@
 // not 2. That closed the hole the audit found, and it closes only that hole.
 // Measured against it, each of these stayed green at 8 of 8:
 //
-//   - references/traps.md trap 4, the table that IS the swapped-emphasis rule,
+//   - trap 4 in the foundation guide, the table that IS the swapped-emphasis rule,
 //     rewritten so `*text*` is italic and `/text/` is bold. It is a table, but a
 //     THREE-column one (`| Effect | Markdown/Djot | Carve |`), so being a table
 //     is not what puts a claim in scope - being syntax.md's two-column table is.
@@ -15,7 +15,7 @@
 //     the skill said bare `^x^` marks. It does not; it is literal.
 //   - The fence-longer-than-content rule, inverted to say equal length is fine.
 //
-// And traps.md's worked examples - a Carve block followed by the HTML it claims
+// And the trap guides' worked examples - a Carve block followed by the HTML it claims
 // to render - were never executed at all by anything.
 //
 // The mechanism here is the same one and the only one: RENDER THE DOCUMENTED
@@ -33,12 +33,14 @@ import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { carveToHtml } from '@markup-carve/carve'
+import { LEDGERS } from '../scripts/review-ledgers.mjs'
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)))
+const trapFiles = LEDGERS.find((ledger) => ledger.id === 'divergences').reference
 const FILES = [
   'SKILL.md',
   'references/syntax.md',
-  'references/traps.md',
+  ...trapFiles,
   'references/extensions.md',
   'references/validation.md',
 ]
@@ -109,7 +111,7 @@ const firstCodeSpan = (cell) => {
 // ---------------------------------------------------------------------------
 // ARM 1: the worked examples. A fenced Carve block followed by a fenced `html`
 // block is a claim that the first renders to the second, and roughly 26KB of
-// references/traps.md is exactly that shape. Nothing ran them.
+// the trap topic guides are exactly that shape. Nothing ran them.
 
 const fencedBlocks = (text) => {
   const lines = text.split('\n')
@@ -174,6 +176,10 @@ test('every claimed-HTML block belongs to a worked example this test runs', () =
   // out of the arm above in silence. Equality is the assertion, so both a new
   // unreachable block and a pairing this extractor stops recognizing fail here.
   const { pairs, htmlBlocks } = workedExamples()
+  const trapHtmlBlocks = trapFiles
+    .flatMap((file) => fencedBlocks(read(file)))
+    .filter((block) => block.lang === 'html').length
+  assert.ok(trapHtmlBlocks >= 7, `only ${trapHtmlBlocks} trap-guide HTML claims remain executable`)
   assert.equal(
     pairs.length,
     htmlBlocks,
@@ -184,7 +190,7 @@ test('every claimed-HTML block belongs to a worked example this test runs', () =
 })
 
 // ---------------------------------------------------------------------------
-// ARM 2: tables that label a column `Carve`. traps.md trap 4 is the canonical
+// ARM 2: tables that label a column `Carve`. Trap 4 is the canonical
 // statement of the swapped-emphasis rule and it is three columns wide, so the
 // syntax.md row reader cannot see it. The column the table itself calls `Carve`
 // is the claim; the `Markdown/Djot` column beside it is deliberately NOT Carve

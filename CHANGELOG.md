@@ -6,6 +6,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Probed capability-matrix entries for doubled arrows and vertical cell
+  alignment, so a future engine change to either turns a test red rather than
+  leaving the prose stale (#93).
+
 ### Changed
 
 - Reduced default-loaded skill context from 2,189 to 770 GPT-5/o200k tokens
@@ -13,6 +19,18 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   loading the syntax card makes the routine authoring path 2,338 tokens, while
   also loading the full traps reference makes migration/diagnosis 10,370.
 - Added explicit task-based routing for conditional reference material.
+
+### Fixed
+
+- Recalibrated the taught syntax to carve 0.1.5. `=>` no longer converts to a
+  double arrow, so the skill no longer recommends writing it; table-cell
+  vertical alignment is now documented as a released feature; and four reversed
+  behaviors are corrected to the 0.1.5 behavior (the `+` marker transferring a
+  following flush-left block into any container, a block indented past an item's
+  content column nesting, and a digit-leading class or id value being accepted)
+  (#93, #95).
+- One space is the canonical definition separator, matching what `carve fmt`
+  produces; the card and traps page previously taught two spaces (#94).
 
 ## [0.1.0] - 2026-08-18
 

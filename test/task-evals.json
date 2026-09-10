@@ -1,0 +1,35 @@
+[
+  {
+    "name": "author Carve emphasis without Markdown habits",
+    "input": "",
+    "gold": "A /lean/ and *strong* statement.",
+    "requiredHtml": ["<em>lean</em>", "<strong>strong</strong>"],
+    "requiredText": ["A lean and strong statement."],
+    "forbiddenSource": ["**strong**", "*lean*"],
+    "maxChangedLines": 1,
+    "loadedReferences": ["syntax.md"],
+    "maxContextTokens": 2400
+  },
+  {
+    "name": "make the smallest local list edit",
+    "input": "# Tasks\n\n. keep\n. remove me\n. also keep\n",
+    "gold": "# Tasks\n\n. keep\n. replacement\n. also keep\n",
+    "requiredHtml": ["<li>keep</li>", "<li>replacement</li>", "<li>also keep</li>"],
+    "requiredText": ["Tasks", "keep", "replacement", "also keep"],
+    "forbiddenSource": ["1. keep", "2. replacement"],
+    "maxChangedLines": 1,
+    "loadedReferences": ["traps-foundations.md"],
+    "maxContextTokens": 3700
+  },
+  {
+    "name": "attach a fenced block to a list item",
+    "input": "- first\n- second\n",
+    "gold": "- first\n+\n```js\nx()\n```\n- second\n",
+    "requiredHtml": ["<li>first", "<pre><code class=\"language-js\">x()"],
+    "requiredText": ["first", "x()", "second"],
+    "forbiddenSource": [],
+    "maxChangedLines": 5,
+    "loadedReferences": ["traps-blocks-containers.md"],
+    "maxContextTokens": 4300
+  }
+]

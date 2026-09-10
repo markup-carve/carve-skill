@@ -47,6 +47,9 @@ git submodule update --init
 npm ci
 npm test              # drift guard, against the pinned spec
 npm run lint:examples # round-trip: the showcase must lint clean
+npm run eval:tasks     # score task outcomes across five quality dimensions
+# score a real candidate and its disclosed context:
+npm run eval:tasks -- --task "author Carve emphasis without Markdown habits" --candidate /path/to/output.crv --references syntax.md
 
 npm run spec:check    # what moved, without the test harness
 npm run spec:review   # record the review — AFTER re-reading what it names

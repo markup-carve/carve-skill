@@ -1,5 +1,22 @@
 # Authoring workflows
 
+## MCP routing
+
+Use Carve MCP as the execution layer when the host exposes it:
+
+| Need | MCP capability |
+| --- | --- |
+| Confirm unfamiliar syntax | Read `carve://guide`, then the narrow `carve://rules/{ruleId}` resource |
+| Validate touched source | `carve_lint`; read only the returned `carve://lint-rules/{ruleName}` resources |
+| Change structure | `carve_parse`, select a semantic node, then preview a reversible AST patch |
+| Migrate Markdown, HTML, or Djot | `carve_migrate`, review fidelity diagnostics, then lint the result |
+| Prepare for a publishing host | Render the target and inspect losses; enable the relevant lint platform |
+| Edit authorized files | Read first, preview the source patch, then write only with its stale-content hash |
+
+Do not load every resource pre-emptively. MCP results determine the next narrow
+resource or tool. If MCP is absent, use the matching-version project CLI paths
+described in [validation](validation.md).
+
 ## New document
 
 1. Discover the implementation, version, renderer, and enabled extensions.

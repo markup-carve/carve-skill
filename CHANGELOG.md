@@ -6,6 +6,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Executable task-level evaluations scoring valid Carve, meaning preservation,
+  minimal edits, construct choice, and progressive-disclosure context cost.
+
 ## [0.1.1] - 2026-09-09
 
 ### Added

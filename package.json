@@ -28,6 +28,7 @@
     "test": "node --test test/*.test.mjs",
     "lint:examples": "carve lint examples/*.crv",
     "test:behavior": "node --test test/behavior.test.mjs",
+    "eval:tasks": "node scripts/task-evaluator.mjs",
     "context:measure": "node scripts/measure-context.mjs",
     "spec:check": "node scripts/check-spec-review.mjs",
     "spec:review": "node scripts/record-spec-review.mjs"

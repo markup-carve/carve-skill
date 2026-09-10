@@ -62,18 +62,18 @@ and editing constraints in default context. Detailed syntax, traps, extensions,
 and specialist workflows load only when the request needs them.
 
 Measured with `gpt-tokenizer` 4.0.0's GPT-5/o200k tokenizer, default-loaded
-`SKILL.md` is **769 tokens**, down from the original 2,189 (**64.9%**), of which
+`SKILL.md` is **797 tokens**, down from the original 2,189 (**63.6%**), of which
 54 tokens are discovery metadata. The trap material is split so a task opens
 one relevant topic instead of an 8,032-token monolith:
 
 | Path | Total tokens |
 | --- | ---: |
-| Default only | 769 |
-| Default + syntax card | 2,337 |
-| Default + foundation traps | 3,619 |
-| Default + block/container traps | 4,209 |
-| Default + structure/reference traps | 2,449 |
-| Default + syntax + largest relevant trap guide + migration checklist | 6,079 |
+| Default only | 797 |
+| Default + syntax card | 2,365 |
+| Default + foundation traps | 3,647 |
+| Default + block/container traps | 4,237 |
+| Default + structure/reference traps | 2,477 |
+| Default + syntax + largest relevant trap guide + migration checklist | 6,107 |
 
 The command discovers and reports every shipped reference separately so
 deferred context remains visible.

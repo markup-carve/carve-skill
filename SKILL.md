@@ -45,7 +45,9 @@ For unfamiliar syntax, read:
 
 ## Validate
 
-Lint every touched Carve file with the project-local matching-version binary:
+When Carve MCP is available, prefer its versioned resources and `carve_lint`;
+preview structural edits with its AST patch tools. Otherwise lint touched Carve
+files with the matching-version local binary:
 
 ```sh
 ./node_modules/.bin/carve lint file.crv

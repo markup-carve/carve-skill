@@ -10,6 +10,9 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - Executable task-level evaluations scoring valid Carve, meaning preservation,
   minimal edits, construct choice, and progressive-disclosure context cost.
+- MCP-aware routing that uses versioned resources, lint diagnostics, migration
+  reports, guarded AST patches, and stale-safe workspace previews when present,
+  while retaining the matching-version local CLI fallback.
 
 ## [0.1.1] - 2026-09-09
 

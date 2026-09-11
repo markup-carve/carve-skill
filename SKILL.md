@@ -5,7 +5,7 @@ description: Write or edit Carve (`.crv`) documents or Carve snippets in issues,
 
 # Authoring Carve
 
-Mnemonic: “the markup looks like its output.” Use `.crv` exclusively.
+Use `.crv` exclusively.
 
 ## Route before writing
 
@@ -67,5 +67,6 @@ fence in the Carve sample and preview it.
 
 Use logical headings, useful link/alt text, and table headers/captions. Treat
 raw output, remote embeds, templates, and extension renderers as host trust
-boundaries. Read [quality-and-safety.md](references/quality-and-safety.md) when
-the document uses those features or has accessibility/security requirements.
+boundaries. Read [quality-and-safety.md](references/quality-and-safety.md) for
+accessibility/security or [reader-focused.md](references/reader-focused.md) for
+editorial review.

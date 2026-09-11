@@ -1,7 +1,7 @@
 {
   "$comment": "Which active normative rules of spec/resources/spec/rules.json the skill was last read against, keyed by the stable rule id. The registry is the structured source of the whole normative surface - the grammar clause inventory is its title set and docs/rules/ is generated from it - so a clause added, retired or retitled here is a change to what correct authoring advice looks like. `scope` is not fingerprinted: the views are navigation, and hashing it made a one-off metadata addition read as 242 moved rules. Regenerate with `npm run spec:review` AFTER re-reading the rules the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/spec/rules.json",
-  "spec_rev": "2775b6dfcda06311f4890d0de87c5eb3593763b6",
+  "spec_rev": "95a72c8cdf9250df4ed5aed4c05a554fdf204591",
   "rules": {
     "CARVE-P0-001": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -84,8 +84,8 @@
       "sha256": "5ac110a5d6934326ea026a3281ac710eb65d8a3d9b23c666d86e71a53033113d"
     },
     "CARVE-P2-001": {
-      "title": "COLUMN ZERO",
-      "sha256": "9dce3807247272790d0150631e7f4d51477f501198c4418f4d40f16c61820b28"
+      "title": "A HEADING MARKER STARTS AT ITS CONTAINER'S CONTENT COLUMN",
+      "sha256": "fa1e23ff7850230b97d613bd42fdba758c2fd86f306a123301b28081f44a278d"
     },
     "CARVE-P2-002": {
       "title": "THE HEADING MARKER SEPARATOR IS A RUN",
@@ -128,16 +128,16 @@
       "sha256": "d26957c69de2371d8e810d1ae46f3691e1d7ecc3d2726cd6611522490b339f2d"
     },
     "CARVE-P2-010": {
-      "title": "A TAB AS THE FIRST CHARACTER OF CONTENT is a different question from the one above",
-      "sha256": "9812befcbacf05c400cefec1c8fab50dd788639c942496954ca0ebc7c720b1e2"
+      "title": "A LEADING CONTENT TAB FOLLOWS NORMAL INDENTATION",
+      "sha256": "eff63b876eabb5c3816e07d3aeaca2fdd5d678810a58eed28438bf6f79491cba"
     },
     "CARVE-P2-011": {
-      "title": "BARE DOT",
-      "sha256": "e9a92997d6a651115689543b220eb738d391c4b8807ceddb5a33e2ea941b5dee"
+      "title": "A BARE DOT OPENS A DECIMAL LIST",
+      "sha256": "ac07284aa2b64217a1bc91b9f1fd78d396df952cb44e0fe49b31edbce40da2da"
     },
     "CARVE-P2-012": {
-      "title": "COST",
-      "sha256": "f850102f3359e5f51605cf24e34bfe9799f7b38535264e855c92e43c9ec7f811"
+      "title": "A BARE DOT AFTER A BLANK LINE OPENS A LIST",
+      "sha256": "67dbdc948d3633c237844fe4514e6288b72c538a085554a388b790f5a2af1a78"
     },
     "CARVE-P2-013": {
       "title": "WHITESPACE IS THE DISCRIMINATOR",
@@ -228,8 +228,8 @@
       "sha256": "b2db9a082c42bb48ed03600cfefa6d7ecc5329ae481d0b441bb2f27459064556"
     },
     "CARVE-P3-010": {
-      "title": "DISPLAY TEXT",
-      "sha256": "edd2b62fb4e6c2eb273f482e0faec6f3a26056a02f4bd557c3c697dfef111a9c"
+      "title": "AN AUTOLINK DISPLAYS ITS RAW SOURCE BODY",
+      "sha256": "056b667956398c4e7f1ea9773f24141c3f05230a7aa185c3f0b6a5c1aa35469e"
     },
     "CARVE-P3-011": {
       "title": "AN AUTOLINK BODY ADMITS NON-ASCII AND EXCLUDES FORMAT CHARACTERS",
@@ -252,16 +252,16 @@
       "sha256": "15456f26ad070ca72e1644593e33fa4cc0541007335dfc23a7e5a6beffd703db"
     },
     "CARVE-P3-016": {
-      "title": "CONTENT IS LITERAL",
-      "sha256": "d917e387f4c90ba12850af8b2b94c3abff31eb6ff3edcd0e1d8f92026a4a8a97"
+      "title": "EDITORIAL COMMENT CONTENT IS LITERAL",
+      "sha256": "6121db0fbad5e2473b8704bb1782d5b80d5d4931ce0cb280ceec055d8db3d248"
     },
     "CARVE-P3-017": {
-      "title": "ATTRIBUTES",
-      "sha256": "e491b92da0147d634fef794a2028899a7ceb7308ac2407e4e98dac285a0bb92f"
+      "title": "ADDITION AND DELETION ATTRIBUTES BIND TO THEIR ELEMENT",
+      "sha256": "cd167cff8cf4051f2db6e0bfe158c885ccfb43c3e961e7937f5da94f93d08614"
     },
     "CARVE-P3-018": {
-      "title": "ATTRIBUTES",
-      "sha256": "e491b92da0147d634fef794a2028899a7ceb7308ac2407e4e98dac285a0bb92f"
+      "title": "SYMBOL ATTRIBUTES FORCE A SPAN WRAPPER",
+      "sha256": "080be7af887cdef2dd2a85b8cb66d17f011ba658ec9ccbbcc59c64cba6bfeaba"
     },
     "CARVE-P3-019": {
       "title": "PRECEDENCE vs SMART TYPOGRAPHY",
@@ -284,16 +284,16 @@
       "sha256": "9b4e22ceb4dc86db7c59df69116e6fe042f9ec0a5df453abcc3fa44e5fa53ba0"
     },
     "CARVE-P4-002": {
-      "title": "RENDER ORDER",
-      "sha256": "0fb1a241a80d4b1375bd095bcaf68b8e231558e56924c91076f6ba22d6c242b5"
+      "title": "AUTHORED ATTRIBUTES RENDER IN SOURCE ORDER",
+      "sha256": "6ae31f45dee9ea244d08081861dcdeb9677ee37c3122b028090bd93fdc358ee5"
     },
     "CARVE-P4-003": {
       "title": "THE SIGIL TAKES NO PADDING",
       "sha256": "885b322863c5135b2ec2eeac9ca77d7be3519ee052a8f44cee48b41f2345e2cf"
     },
     "CARVE-P4-004": {
-      "title": "COLLISION",
-      "sha256": "5072a03a2cdaafe4b0a0f2807787cef2a788f0692c37ff59303f514ba8a93712"
+      "title": "LANGUAGE SHORTHAND USES THE `lang` KEY",
+      "sha256": "7c9b117ca184575b469ddae02cb5059dcd8c2e069c1f5bee1a2d80f1fdeddd3c"
     },
     "CARVE-P4-005": {
       "title": "A BOOLEAN ATTRIBUTE DOES NOT START WITH AN UNDERSCORE",
@@ -322,6 +322,10 @@
     "CARVE-P9-002": {
       "title": "T5 SPAN WALK",
       "sha256": "262faf293dbf6746252dcb67d1ca65fbc33d3dcf59cc4fe584e109ab77cbc17d"
+    },
+    "CARVE-P9-069": {
+      "title": "THE ROW ABOVE IS A LINE, NOT A `<tr>`",
+      "sha256": "8e046dac6ad12c26a33c2553d256f2b045917ebca6ec3a377ef3a84c5741aa57"
     },
     "CARVE-P9-003": {
       "title": "A CONTINUATION ROW LEAVES NO PARAGRAPH OPEN",
@@ -352,16 +356,16 @@
       "sha256": "093eb7d3d8093d88474f8b7c78e460c64227fedc9ebfb61cd21590faf081e8f9"
     },
     "CARVE-P9-010": {
-      "title": "UNCONDITIONAL BY DEFAULT",
-      "sha256": "8db44d438b2f5813984a42c32aa219603c3eb19c81b95accfd85c3cf57aaed0f"
+      "title": "SMART TYPOGRAPHY RUNS BY DEFAULT",
+      "sha256": "cf596ad5cc918c3e55d0d022451c087c13effb9719c6845413efc021d027dd0c"
     },
     "CARVE-P9-011": {
-      "title": "OPTIONAL OFF SWITCH",
-      "sha256": "a4c0ce6e31f12559bb2b9ca05b2437e79bec490e5e9b50ccbd3fafb10b9a9e87"
+      "title": "HOSTS MAY OFFER A DOCUMENT-WIDE SMART TYPOGRAPHY SWITCH",
+      "sha256": "8baffe32a67998c2409758c980dcfd35a22e7856d72b6af0bd7e8f1449cde76e"
     },
     "CARVE-P9-012": {
-      "title": "AST REPRESENTATION",
-      "sha256": "ab8320ec26c0d033aa3f1af8b5bdc81cd7b91625d7e3c7ac6df40b800eb3bd7b"
+      "title": "SMART TYPOGRAPHY RECORDS SOURCE AND RESOLVED KIND",
+      "sha256": "8b1624790d75e3e2e62a6fd036a91040d303f162065a30813b6826d7ec246c20"
     },
     "CARVE-P9-013": {
       "title": "AN INVISIBLE LINE IS ONE CLASSIFICATION",
@@ -422,10 +426,6 @@
     "CARVE-P9-027": {
       "title": "THE ENDNOTES SECTION CARRIES AN ACCESSIBLE NAME",
       "sha256": "7b4c7db63781b1bfaac2acfdf78f7e21a80845e841848839a53ad303a84b95e7"
-    },
-    "CARVE-P9-028": {
-      "title": "THE ENGINE'S OWN WORDS ARE A RENDER OPTION",
-      "sha256": "512749e1fad2b94196b42a715cc4201d779bddc19eab122016cf6480b034e17e"
     },
     "CARVE-P9-029": {
       "title": "L1a THE ITEM'S FIRST BLOCK DOES NOT MATTER",
@@ -644,8 +644,8 @@
       "sha256": "1769e55ace8786e9d13ca8867e43a93b4b0f937abd48f4bc02172e37e7862d79"
     },
     "CARVE-P10-007": {
-      "title": "WHY THESE THREE ARE CORE AND THE REST ARE NOT",
-      "sha256": "7eeedac7c9eac49461e70aa585626df1a58e74a6c3b4d46a89b79744b452d4f4"
+      "title": "THE CORE SEMANTIC NAMES ARE CLOSED",
+      "sha256": "c403e21759e72bb21afd38ac2a977ee012a3ef3ec80354e15adb1f9e16636117"
     },
     "CARVE-P10-008": {
       "title": "THE OTHER SEMANTIC NAMES ARE AN EXTENSION",
@@ -748,8 +748,8 @@
       "sha256": "8fa88e2dfec9364a2a8ceb7571dc74ff3d675bb8d01f20354b3088fab3cd6839"
     },
     "CARVE-P11-024": {
-      "title": "IS ESCAPED WHEN THE EMITTED LINE WOULD READ IT AS MARKUP",
-      "sha256": "cf4e2fae88f4d7ef5ab4029ada18c5e71defc539718e317a9b748abbfbeeb9e6"
+      "title": "M1e `<` IS ESCAPED WHEN THE EMITTED LINE WOULD READ IT AS MARKUP",
+      "sha256": "a87bb6ced253244fab1d4233b118b8a1d247185bb3459b54fa53fa2fdde84c2c"
     },
     "CARVE-P11-025": {
       "title": "THE MARKDOWN TARGET'S AUTHORED ESCAPE NARROWS TOO",
@@ -820,8 +820,8 @@
       "sha256": "8a17e99fea4d46f1389006e64c6e9162dfe1727e526d4b623159398098d2f316"
     },
     "CARVE-P12-001": {
-      "title": "THE TYPE NAME COMES FROM profiles.md, NOT FROM carve-js",
-      "sha256": "f753b842ba3922bbe43ec46a3b36bd403e95f6c6f52c870c111feafd5749554a"
+      "title": "AST TYPE NAMES FOLLOW THE PROFILE VOCABULARY",
+      "sha256": "11c3c483e84581e45369bbd8f0f7fce6c1bcae412573cc1632e6322a20b5c1ca"
     },
     "CARVE-P12-002": {
       "title": "ADJACENT TEXT RUNS ARE COALESCED",
@@ -856,8 +856,8 @@
       "sha256": "ffce25941f6031eeeabbfda337d4f643aaebad78cd648dadf4a17730a09ae263"
     },
     "CARVE-P12-010": {
-      "title": "RESOLVED OR NOT",
-      "sha256": "3236d0d71986813750aff2a844912325e4697a27390ff18e5fa66df59f9ea226"
+      "title": "A CROSSREF REMAINS A HEADING-REFERENCE NODE AFTER RESOLUTION",
+      "sha256": "6228cdad27fba1aae8e6eac5c448fc239ac4bbb89501df1c9e8db6a8b8ffad07"
     },
     "CARVE-P12-011": {
       "title": "A SPAN CONTAINS ITS CHILDREN'S SPANS",
@@ -884,8 +884,8 @@
       "sha256": "e8ca26dc22a7cbf4b91c0f70c6f17a5825f37f1049700b41b21948d9432f0482"
     },
     "CARVE-P12-017": {
-      "title": "IS NOT AN EXCEPTION",
-      "sha256": "6b980a6ac55996c515fcf2c93fd97479e4000f889b2b835b07073089995f9b25"
+      "title": "A DEFINITION LIST ENDS AT ITS LAST PLACED CHILD",
+      "sha256": "1633a5788df59d89d6ecdfd99ce37fa5aec84c9192c43560728d2d20aba4cb5f"
     },
     "CARVE-P12-018": {
       "title": "A CONTAINER WITH NO PLACED CHILD AT ALL SPANS ITS OWN MARKUP AND STOPS THERE",
@@ -992,12 +992,12 @@
       "sha256": "adf57979fe34d81dc03612716bc8c790927a8bd7d7ac75f3b66700fba06c41b4"
     },
     "CARVE-P12-044": {
-      "title": "ON INGEST, TRUST THE PROPERTY",
-      "sha256": "375cca0b11aed21e3405c73b304c05c9563c4031f82fd13233f420a13c1f9759"
+      "title": "AN INGESTED `blockImage` VALUE IS AUTHORITATIVE",
+      "sha256": "11364e8e5018eda90bef1bb277f1977ed5523de2155664794f47cc43edc0543d"
     },
     "CARVE-P12-045": {
-      "title": "THE WRITER IS UNAFFECTED",
-      "sha256": "56f774c9afa0038d1bfb9119c8063696461d03d0798a9f5753f0738ae0283126"
+      "title": "`fmt` WRITES THE SOURCE SPELLING, NOT `blockImage`",
+      "sha256": "9f38eb5fbe0508e76798121000691876fb940004bce2ab302d49eab1a056ba34"
     }
   }
 }

@@ -25,7 +25,13 @@
 
 import { createHash } from 'node:crypto'
 
-const MARKER = /([A-Z][A-Za-z0-9 ,§`(){}'/+.:[\]-]{3,240}?)\s+--\s+NORMATIVE/g
+// A title unit is an ordinary character OR A WHOLE BACKTICKED RUN, because
+// titles quote markup: ``M1e `<` IS ESCAPED ...`` and ``THE ROW ABOVE IS A
+// LINE, NOT A `<tr>` ``. With `<` and `>` merely added to the character class
+// the first title matched from its second word and the second not at all;
+// with them allowed ANYWHERE a title could start mid-sentence and swallow the
+// prose above it. Inside the backticks is the only place the spec writes them.
+const MARKER = /([A-Z](?:[A-Za-z0-9 ,§(){}'/+.:[\]-]|`[^`\n]*`){3,240}?)\s+--\s+NORMATIVE/g
 
 /**
  * Fingerprint every normative clause of the grammar, keyed by clause title.

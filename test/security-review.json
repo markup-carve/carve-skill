@@ -1,7 +1,7 @@
 {
   "$comment": "Which preamble/H2/H3 sections of spec/docs/security.md references/quality-and-safety.md was last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/security.md",
-  "spec_rev": "2775b6dfcda06311f4890d0de87c5eb3593763b6",
+  "spec_rev": "95a72c8cdf9250df4ed5aed4c05a554fdf204591",
   "sections": {
     "Preamble": {
       "title": "Preamble",
@@ -9,7 +9,7 @@
     },
     "HTML is text, not markup": {
       "title": "HTML is text, not markup",
-      "sha256": "d2f911d2ec5412826f3eaab12439d1c081deb25edd920ca625bbf644ec2292bd"
+      "sha256": "a0fa0eb848f5c9d27c075756e521e4206d3c6b238e29108d0234c958f4b0b069"
     },
     "URL scheme sanitization (always on)": {
       "title": "URL scheme sanitization (always on)",
@@ -21,7 +21,7 @@
     },
     "Attribute hardening (always on)": {
       "title": "Attribute hardening (always on)",
-      "sha256": "e7c98473b4b2daaba5f53f5b658a4e56d742877f8cf76e985f614a15c1050165"
+      "sha256": "066afd2bf26caa3218e07e69ab5479eebb5c572c8ac2d4cfd169064a5164c09e"
     },
     "Invisible Unicode and Trojan Source (always on)": {
       "title": "Invisible Unicode and Trojan Source (always on)",
@@ -29,7 +29,7 @@
     },
     "Resource limits (denial-of-service)": {
       "title": "Resource limits (denial-of-service)",
-      "sha256": "9acccdf9867484f525f6f96d9cd29dbd463a51c09e75c188910d3ac2cf99f9e0"
+      "sha256": "b7d93bb8d3e769f21857f718f8b7ccf69bb521dbf808feb71d42b7957baa7610"
     },
     "Non-HTML render targets": {
       "title": "Non-HTML render targets",
@@ -41,7 +41,7 @@
     },
     "How Carve compares on security": {
       "title": "How Carve compares on security",
-      "sha256": "809ff7a0b06cdd8a972419101990f5615e93b6901e72499a781ec33cba260c8d"
+      "sha256": "8022bdeabc63679c6fe9573212a63ff6836211c3ea7a3e34afd508273ffb442a"
     },
     "How Carve compares on security / Worked examples: same input, Carve vs Markdown": {
       "title": "Worked examples: same input, Carve vs Markdown",
@@ -61,7 +61,7 @@
     },
     "Beyond the baseline: SafeMode and Profiles": {
       "title": "Beyond the baseline: SafeMode and Profiles",
-      "sha256": "c16c5955d4cf2b4a87e0cda6e554f0d2c198e33378df0278117b59b3fbf3a0e1"
+      "sha256": "d69c9aaad54a3f63675ec58b53168ff108152630f2037e0633f9fdda46894755"
     }
   }
 }

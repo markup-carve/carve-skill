@@ -26,7 +26,11 @@ const VIEWS = join('docs', 'rules')
 // A generated view row: the rule id, then two more cells. In a scope view they
 // are the PART and the clause title; in the retired table of the index they are
 // the last title and the document that replaced the rule.
-const RULE_ROW = /^\|\s*`(CARVE-[A-Z0-9]+-\d{3})`\s*\|([^|]*)\|([^|]*)\|/gm
+// The id cell carries a LINK to the clause in the ebnf since the views
+// started deep-linking (`[`CARVE-P0-001`](.../01-layout.ebnf#L14)`), so the
+// wrapper is optional here. Without it this matched nothing and the row
+// count fell to zero - which the floor below is what caught.
+const RULE_ROW = /^\|\s*\[?`(CARVE-[A-Z0-9]+-\d{3})`\]?(?:\([^)]*\))?\s*\|([^|]*)\|([^|]*)\|/gm
 const FLOOR = 200
 
 /**

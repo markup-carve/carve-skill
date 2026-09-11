@@ -125,6 +125,15 @@ export const LEDGERS = [
       'Regenerate with `npm run spec:review` AFTER re-reading the nodes the drift guard ' +
       'names - see README, "Not drifting".',
   },
+  // TWO ENTRIES SINCE carve#1932 SPLIT THE DOCUMENT. `docs/extensions.md` used
+  // to hold both the reader's guide and the API contract; the split left the
+  // guide at ~8 sections and moved the contract - matcher purity, the tier
+  // table, the normative behavior of every standard extension - to
+  // `docs/extension-contract.md`. A single entry pointed at the old path could
+  // only fail: its floor of 45 sections described a document that no longer
+  // exists, and the 1755 lines the skill's reference actually draws from were
+  // watched by nobody. Both are watched now, each with a floor measured against
+  // what it holds today.
   {
     id: 'extensions',
     reference: 'references/extensions.md',
@@ -133,7 +142,7 @@ export const LEDGERS = [
     entries: 'sections',
     kind: 'section',
     label: 'EXTENSION SECTIONS',
-    atLeast: 45,
+    atLeast: 7,
     of: 'preamble/H2/H3 section(s)',
     hint: 'the document is missing, truncated, or no longer uses H2/H3 sections.',
     fingerprint: documentSectionFingerprints,
@@ -143,6 +152,26 @@ export const LEDGERS = [
       'Which preamble/H2/H3 sections of spec/docs/extensions.md references/extensions.md was last ' +
       'read against. Regenerate with `npm run spec:review` AFTER re-reading the sections ' +
       'the drift guard names - see README, "Not drifting".',
+  },
+  {
+    id: 'extension-contract',
+    reference: 'references/extensions.md',
+    source: 'docs/extension-contract.md',
+    reviewFile: 'extension-contract-review.json',
+    entries: 'sections',
+    kind: 'section',
+    label: 'EXTENSION CONTRACT SECTIONS',
+    atLeast: 45,
+    of: 'preamble/H2/H3 section(s)',
+    hint: 'the document is missing, truncated, or no longer uses H2/H3 sections.',
+    fingerprint: documentSectionFingerprints,
+    reread: 'Re-read those sections of spec/docs/extension-contract.md, check that\n' +
+      'references/extensions.md still tells the truth, then run `npm run spec:review`.',
+    comment:
+      'Which preamble/H2/H3 sections of spec/docs/extension-contract.md references/extensions.md ' +
+      'was last read against. This is where the tier table and the normative behavior of each ' +
+      'standard extension live since carve#1932. Regenerate with `npm run spec:review` AFTER ' +
+      're-reading the sections the drift guard names - see README, "Not drifting".',
   },
   {
     id: 'validation',

@@ -43,7 +43,11 @@ test('every reference page is watched or deliberately exempt from spec review', 
     .filter((name) => name.endsWith('.md'))
     .map((name) => `references/${name}`)
     .sort()
-  const watched = LEDGERS.flatMap((ledger) => ledger.reference ?? [])
+  // A SET, not a list: one reference page may draw on more than one spec
+  // document, and each of those documents needs its own ledger. Since
+  // carve#1932 split the extension guide from the extension contract,
+  // references/extensions.md is watched by two.
+  const watched = [...new Set(LEDGERS.flatMap((ledger) => ledger.reference ?? []))]
   // These pages describe agent procedure and editorial quality rather than
   // claims derived from one spec document. They are still named so a new
   // reference cannot silently inherit the same exemption.

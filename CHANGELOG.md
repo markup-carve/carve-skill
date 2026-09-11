@@ -13,6 +13,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - MCP-aware routing that uses versioned resources, lint diagnostics, migration
   reports, guarded AST patches, and stale-safe workspace previews when present,
   while retaining the matching-version local CLI fallback.
+- Current MCP workflows for selected safe repairs, atomic semantic edit plans,
+  multi-target checks, workspace reviews/reference graphs, guarded writes, and
+  batch formatting previews, with task-level routing cases.
+- A deferred reader-focused review checklist for concise, human-centered docs.
+
+### Changed
+
+- Removed the redundant introductory mnemonic while keeping the default skill
+  at its existing 797-token context budget.
 
 ## [0.1.1] - 2026-09-09
 

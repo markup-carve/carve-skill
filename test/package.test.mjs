@@ -44,9 +44,9 @@ test('every reference page is watched or deliberately exempt from spec review', 
     .map((name) => `references/${name}`)
     .sort()
   const watched = LEDGERS.flatMap((ledger) => ledger.reference ?? [])
-  // workflows.md describes repository procedure rather than claims derived
-  // from one spec document. It is still named here so a new reference page
-  // cannot silently inherit the same exemption.
-  const exempt = ['references/workflows.md']
+  // These pages describe agent procedure and editorial quality rather than
+  // claims derived from one spec document. They are still named so a new
+  // reference cannot silently inherit the same exemption.
+  const exempt = ['references/reader-focused.md', 'references/workflows.md']
   assert.deepEqual([...watched, ...exempt].sort(), references)
 })

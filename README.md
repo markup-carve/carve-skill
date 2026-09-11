@@ -15,8 +15,9 @@ Carve deliberately diverges from Markdown/Djot (the emphasis delimiters are swap
 - **[references/extensions.md](references/extensions.md)** — Tier-2/Tier-3 opt-in constructs.
 - **[references/validation.md](references/validation.md)** — the `carve lint` round-trip.
 - **[references/capabilities.json](references/capabilities.json)** — machine-readable released/spec/host support boundaries.
-- **[references/workflows.md](references/workflows.md)** — new-document, editing, migration, PR-body, container, and extension playbooks.
+- **[references/workflows.md](references/workflows.md)** — authoring, migration, MCP editing, workspace-review, and publishing playbooks.
 - **[references/quality-and-safety.md](references/quality-and-safety.md)** — accessibility, raw-output, embed, and host-safety checks.
+- **[references/reader-focused.md](references/reader-focused.md)** — concise editorial checks for clear, human-centered documentation.
 
 ## Install
 

@@ -20,8 +20,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- Broadened skill discovery to cover Carve review, linting, explanation,
+  rendering, publishing, and migration tasks in addition to authoring/editing.
 - Removed the redundant introductory mnemonic while keeping the default skill
-  at its existing 797-token context budget.
+  within its 800-token context budget.
 
 ## [0.1.1] - 2026-09-09
 

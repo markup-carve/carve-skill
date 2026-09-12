@@ -1,12 +1,14 @@
 # carve-skill
 
-A Claude Code / agent authoring skill for [Carve](https://github.com/markup-carve/carve) — teaches AI coding tools to write valid, idiomatic `.crv` the first time.
+A Claude Code / agent skill for authoring, reviewing, publishing, and migrating
+[Carve](https://github.com/markup-carve/carve) — teaches AI coding tools to work
+with valid, idiomatic `.crv` instead of importing Markdown habits.
 
 Carve deliberately diverges from Markdown/Djot (the emphasis delimiters are swapped, sup/sub are braced-only, `+` is a continuation marker, and more). An agent that defaults to Markdown habits emits Carve that silently mis-renders. This skill front-loads the correct syntax and the traps, and points the agent at `carve lint` to verify.
 
 ## Contents
 
-- **[SKILL.md](SKILL.md)** — the skill: trigger description, the traps you'll get wrong, a quick syntax card, and the validation loop.
+- **[SKILL.md](SKILL.md)** — discovery and routing, essential dialect traps, and the validation loop.
 - **Trap topic guides** — [foundations](references/traps-foundations.md),
   [blocks and containers](references/traps-blocks-containers.md),
   [structure and references](references/traps-structure-references.md), and the
@@ -63,18 +65,18 @@ and editing constraints in default context. Detailed syntax, traps, extensions,
 and specialist workflows load only when the request needs them.
 
 Measured with `gpt-tokenizer` 4.0.0's GPT-5/o200k tokenizer, default-loaded
-`SKILL.md` is **797 tokens**, down from the original 2,189 (**63.6%**), of which
-54 tokens are discovery metadata. The trap material is split so a task opens
+`SKILL.md` is **795 tokens**, down from the original 2,189 (**63.7%**), of which
+70 tokens are discovery metadata. The trap material is split so a task opens
 one relevant topic instead of an 8,032-token monolith:
 
 | Path | Total tokens |
 | --- | ---: |
-| Default only | 797 |
-| Default + syntax card | 2,365 |
-| Default + foundation traps | 3,647 |
-| Default + block/container traps | 4,237 |
-| Default + structure/reference traps | 2,477 |
-| Default + syntax + largest relevant trap guide + migration checklist | 6,107 |
+| Default only | 795 |
+| Default + syntax card | 2,363 |
+| Default + foundation traps | 3,645 |
+| Default + block/container traps | 4,235 |
+| Default + structure/reference traps | 2,475 |
+| Default + syntax + largest relevant trap guide + migration checklist | 6,105 |
 
 The command discovers and reports every shipped reference separately so
 deferred context remains visible.

@@ -1,19 +1,19 @@
 ---
 name: carve-authoring
-description: Write or edit Carve (`.crv`) documents or Carve snippets in issues, PRs, and chat. Use when asked to author Carve, not ordinary Markdown or Djot; emphasis and sup/sub syntax differ.
+description: Author, edit, review, lint, explain, render, publish, or migrate Carve (`.crv`) files or snippets in issues, PRs, and chat. Use for Carve syntax, diagnostics, outputs, or conversion; not ordinary Markdown/Djot, whose emphasis and sup/sub differ.
 ---
 
-# Authoring Carve
+# Working with Carve
 
-Use `.crv` exclusively.
+## Route
 
-## Route before writing
+New documents use `.crv`.
 
-Determine the version, output target, extensions, and spelling-preservation
-needs. When unknown, use core syntax; consult
-[syntax.md](references/syntax.md) for unfamiliar constructs. Check version
-boundaries in [capabilities.json](references/capabilities.json) and task
-procedures in [workflows.md](references/workflows.md).
+Determine the version, target, extensions, and spelling preservation. Default
+to core syntax. See [syntax.md](references/syntax.md) for unfamiliar constructs,
+[capabilities.json](references/capabilities.json) for version boundaries, and
+[workflows.md](references/workflows.md) for review, migration, publishing, and
+procedures.
 
 ## Essential dialect differences
 
@@ -31,23 +31,21 @@ Do not rely on Markdown/Djot habits. In Carve:
 - cross-references are `</#id>`, comments are `%%` or fenced `%%%`, and a fence
   must be longer than any bare same-character fence line inside it.
 
-For unfamiliar syntax, read:
-
-- [syntax.md](references/syntax.md) for the complete core syntax card.
-- Open a relevant trap guide: [foundations](references/traps-foundations.md)
-  for ids/lists/emphasis/comments; [blocks](references/traps-blocks-containers.md)
-  for interruption/symbols/definitions/raw/columns/typography/containers/fences;
-  [structure](references/traps-structure-references.md) for
-  headings/attributes/admonitions/footnotes; then
-  [migration](references/traps-migration.md) for a final Djot conversion pass.
-- [extensions.md](references/extensions.md) only for host-dependent Tier-2 or
-  Tier-3 features.
+For unfamiliar syntax, use [syntax.md](references/syntax.md) or a relevant trap
+guide: [foundations](references/traps-foundations.md)
+for ids/lists/emphasis/comments; [blocks](references/traps-blocks-containers.md)
+for interruption/symbols/definitions/raw/columns/typography/containers/fences;
+[structure](references/traps-structure-references.md) for
+headings/attributes/admonitions/footnotes; then
+[migration](references/traps-migration.md) for a final Djot conversion pass.
+Use [extensions.md](references/extensions.md) only for host-dependent Tier-2 or
+Tier-3 features.
 
 ## Validate
 
 When Carve MCP is available, prefer its versioned resources and `carve_lint`;
-preview structural edits with its AST patch tools. Otherwise lint touched Carve
-files with the matching-version local binary:
+preview structural edits with its AST patch tools. Otherwise lint touched files
+with the matching-version local binary:
 
 ```sh
 ./node_modules/.bin/carve lint file.crv

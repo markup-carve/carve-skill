@@ -1,0 +1,4 @@
+interface:
+  display_name: "Carve Authoring"
+  short_description: "Author and validate Carve documents"
+  default_prompt: "Use $carve-authoring to write or review a valid Carve document."

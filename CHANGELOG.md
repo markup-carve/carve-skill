@@ -8,6 +8,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- Codex UI metadata for the skill name, summary, and default invocation prompt.
 - Executable task-level evaluations scoring valid Carve, meaning preservation,
   minimal edits, construct choice, and progressive-disclosure context cost.
 - MCP-aware routing that uses versioned resources, lint diagnostics, migration

@@ -57,7 +57,12 @@ npm run eval:tasks -- --task "author Carve emphasis without Markdown habits" --c
 
 npm run spec:check    # what moved, without the test harness
 npm run spec:review   # record the review — AFTER re-reading what it names
+npm run version:check # compare an installed Codex copy with the latest release
 ```
+
+`version:check` exits nonzero when `~/.codex/skills/carve-authoring` is behind
+the latest GitHub release, making it suitable for a user timer or other local
+monitor. It reports an update but never modifies the installed skill.
 
 ## Context budget
 

@@ -57,6 +57,11 @@ test('the published bundle includes Codex UI metadata', () => {
   )
 })
 
+test('the published bundle includes the installed-version checker', () => {
+  assert.ok(shipped.includes('scripts/check-installed-version.mjs'))
+  assert.ok(existsSync(join(root, 'scripts', 'check-installed-version.mjs')))
+})
+
 test('every reference page is watched or deliberately exempt from spec review', () => {
   const references = readdirSync(join(root, 'references'))
     .filter((name) => name.endsWith('.md'))

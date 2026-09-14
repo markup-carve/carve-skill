@@ -45,6 +45,10 @@ const PROBES = {
     // container opens before the outer one closes.
     presentBefore: ['admonition tip', '</aside>'],
   },
+  admonition_landmark_name: {
+    source: '::: note "Pro tip"\nbody\n:::',
+    present: 'aria-labelledby="adm-1"',
+  },
   raw_html: { source: 'a `<br>`{=html} b', present: '<br>' },
   // The vertical axis rides on the SAME marker as the horizontal one, so a
   // present-check for `text-align` cannot tell support from its absence: the

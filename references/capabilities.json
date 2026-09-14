@@ -26,6 +26,12 @@
       "inTestedEngine": true,
       "guidance": "Shipped in 0.1.4: an equal-width nested container nests. An equal-width CODE fence still closes early."
     },
+    "admonition_landmark_name": {
+      "syntax": "::: note with an optional quoted title",
+      "spec": true,
+      "inTestedEngine": true,
+      "guidance": "Shipped in 0.1.6: untitled admonitions use aria-label; titled admonitions use aria-labelledby pointing to the visible title."
+    },
     "raw_html": {
       "syntax": "`x`{=html} or ```=html",
       "spec": true,

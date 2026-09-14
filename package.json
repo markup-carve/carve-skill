@@ -23,7 +23,8 @@
   "files": [
     "SKILL.md",
     "agents",
-    "references"
+    "references",
+    "scripts/check-installed-version.mjs"
   ],
   "scripts": {
     "test": "node --test test/*.test.mjs",
@@ -31,6 +32,7 @@
     "test:behavior": "node --test test/behavior.test.mjs",
     "eval:tasks": "node scripts/task-evaluator.mjs",
     "context:measure": "node scripts/measure-context.mjs",
+    "version:check": "node scripts/check-installed-version.mjs",
     "spec:check": "node scripts/check-spec-review.mjs",
     "spec:review": "node scripts/record-spec-review.mjs"
   },

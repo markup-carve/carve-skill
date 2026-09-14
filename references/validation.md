@@ -57,6 +57,10 @@ PR/issue snippets, also use the project's parser/render tests or preview and
 confirm the relevant structure. Do not run `carve fmt` across existing authored
 source unless canonicalization was requested.
 
+For an include-expanded AST, read `pos.file` as the identity of the source file
+whose line, column, and offset coordinates the span uses. Its absence means the
+top-level document; do not reinterpret included offsets as parent-file offsets.
+
 ## Getting the linter
 
 `carve lint` ships with the TypeScript implementation (`@markup-carve/carve` on npm; `npx carve lint …`). The language server (`@markup-carve/carve-lsp`) surfaces the same diagnostics in-editor. Programmatic callers use `lintCarve(source)`.

@@ -198,6 +198,8 @@ block comment                     (hides its body at any column, including a
 
 ---
 title: My Document            (frontmatter; ---toml / ---json for other formats)
+
+{{ chapter.crv#intro @shift:auto }}  (processor include; literal without a resolver)
 tags: [carve, markup]
 ---
 ```

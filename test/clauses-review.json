@@ -1,7 +1,7 @@
 {
   "$comment": "Which normative clause TEXTS of spec/resources/grammar.ebnf the skill was last read against, keyed by clause title. The rules ledger next to this one watches what the rules are - id, part, title - and carries no rule text, so on its own a clause can be rewritten into the opposite rule under an unchanged title, which is what happened to divergence section 13 in markup-carve/carve#455. Regenerate with `npm run spec:review` AFTER re-reading the clauses the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/grammar.ebnf",
-  "spec_rev": "a9bbeb7e780e34edadeb5ac0724c0ba71fc815a4",
+  "spec_rev": "c4012cab53f6b12a9aa6ca5478408b4091165127",
   "clauses": {
     "A LEADING BYTE ORDER MARK IS STRIPPED": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -301,7 +301,7 @@
     },
     "A QUOTED VALUE STOPS AT THE NEWLINE": {
       "title": "A QUOTED VALUE STOPS AT THE NEWLINE",
-      "sha256": "2a0e6783402622e3c00d41aa4a5e5dd72841a7bda788714195b963df30d89739"
+      "sha256": "510a366d6648340b38aacadc97c62649b62b3efc27d2b68c0d8d5d8fc07d393f"
     },
     "A TAB IS SYNTAX ONLY IN THE LEADING RUN": {
       "title": "A TAB IS SYNTAX ONLY IN THE LEADING RUN",
@@ -473,7 +473,7 @@
     },
     "CROSSREF AUTO-TEXT + DEFAULT-ON / PROCESSOR FEATURES": {
       "title": "CROSSREF AUTO-TEXT + DEFAULT-ON / PROCESSOR FEATURES",
-      "sha256": "8fdf3fd1cfcb06835273be054a717b4497ead835a48f8595ecb3e01a6b074d0a"
+      "sha256": "959cd3c64c2743b30852af8cc780d5da96088c1152f4d20fed3b3a5a13274b51"
     },
     "RAW PASSTHROUGH": {
       "title": "RAW PASSTHROUGH",

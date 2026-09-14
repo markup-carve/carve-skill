@@ -75,7 +75,7 @@ one relevant topic instead of an 8,032-token monolith:
 | Default + syntax card | 2,363 |
 | Default + foundation traps | 3,645 |
 | Default + block/container traps | 4,235 |
-| Default + structure/reference traps | 2,470 |
+| Default + structure/reference traps | 2,471 |
 | Default + syntax + largest relevant trap guide + migration checklist | 6,105 |
 
 The command discovers and reports every shipped reference separately so

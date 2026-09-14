@@ -104,8 +104,8 @@ is tight in both, and a plain paragraph after the blank is loose in both.
 ::: note
 body
 :::            ->  <aside class="admonition note" aria-label="Note">
-                       <p>body</p>
-                     </aside>
+                    <p>body</p>
+                  </aside>
 ```
 
 Djot renders `<div class="note">`. An unrecognized type still renders a div.
@@ -114,15 +114,16 @@ rendering difference rather than a parsing one.
 
 **The landmark is named.** The spec gives the `<aside>` an accessible name,
 because an unnamed landmark is an anonymous row in a reader's landmark list,
-which is the benefit the `<aside>` was chosen for. An untitled admonition is named by its type
+which is the benefit the `<aside>` was chosen for. An untitled admonition is
+named by its type
 (`aria-label="Note"`); one carrying a quoted title is named by that title
 instead, via `aria-labelledby` pointing at the `<p class="admonition-title">`,
 so the visible name and the spoken one are one string.
 
 ```
 ::: note "Pro tip"      ->  <aside class="admonition note" aria-labelledby="adm-1">
-body                        <p class="admonition-title" id="adm-1">Pro tip</p>
-:::                         <p>body</p>
+body                          <p class="admonition-title" id="adm-1">Pro tip</p>
+:::                           <p>body</p>
                             </aside>
 ```
 

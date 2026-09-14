@@ -25,7 +25,8 @@ Carve deliberately diverges from Markdown/Djot (the emphasis delimiters are swap
 
 Install or link this directory as a skill in Claude Code, Codex, or another agent
 that accepts `SKILL.md` bundles. The package deliberately has no runtime hook:
-`SKILL.md` and the complete `references/` directory must remain together.
+`SKILL.md`, the complete `references/` directory, and the optional Codex UI
+metadata in `agents/` must remain together.
 
 ## Not drifting
 

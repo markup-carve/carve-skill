@@ -38,6 +38,25 @@ test('the published bundle includes the complete reference directory', () => {
   }
 })
 
+test('the published bundle includes Codex UI metadata', () => {
+  assert.ok(shipped.includes('agents'))
+  const metadataPath = join(root, 'agents', 'openai.yaml')
+  assert.ok(existsSync(metadataPath), 'missing agents/openai.yaml')
+
+  const skill = readFileSync(join(root, 'SKILL.md'), 'utf8')
+  const skillName = skill.match(/^name:\s*([^\s]+)$/m)?.[1]
+  assert.ok(skillName, 'SKILL.md has no frontmatter name')
+
+  const metadata = readFileSync(metadataPath, 'utf8')
+  for (const key of ['display_name', 'short_description', 'default_prompt']) {
+    assert.match(metadata, new RegExp(`^  ${key}:`, 'm'), `missing interface.${key}`)
+  }
+  assert.ok(
+    metadata.includes(`$${skillName}`),
+    `agents/openai.yaml default prompt does not invoke $${skillName}`,
+  )
+})
+
 test('every reference page is watched or deliberately exempt from spec review', () => {
   const references = readdirSync(join(root, 'references'))
     .filter((name) => name.endsWith('.md'))

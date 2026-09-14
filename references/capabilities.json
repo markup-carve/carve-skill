@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$comment": "Measured, not asserted: test/behavior.test.mjs runs a probe per feature against the engine in testedEngine and fails when a recorded value disagrees. Two values here were stale falses until that probe existed.",
-  "testedEngine": "@markup-carve/carve@0.1.5",
+  "testedEngine": "@markup-carve/carve@0.1.6",
   "policy": "Prefer released-engine behavior. A spec-only construct must not be authored unless the target explicitly supports it.",
   "features": {
     "trailing_comment": {
@@ -25,6 +25,12 @@
       "spec": true,
       "inTestedEngine": true,
       "guidance": "Shipped in 0.1.4: an equal-width nested container nests. An equal-width CODE fence still closes early."
+    },
+    "admonition_landmark_name": {
+      "syntax": "::: note with an optional quoted title",
+      "spec": true,
+      "inTestedEngine": true,
+      "guidance": "Shipped in 0.1.6: untitled admonitions use aria-label; titled admonitions use aria-labelledby pointing to the visible title."
     },
     "raw_html": {
       "syntax": "`x`{=html} or ```=html",

@@ -45,6 +45,10 @@ const PROBES = {
     // container opens before the outer one closes.
     presentBefore: ['admonition tip', '</aside>'],
   },
+  admonition_landmark_name: {
+    source: '::: note\nplain\n:::\n\n::: note "Pro tip"\ntitled\n:::',
+    presentAll: ['aria-label="Note"', 'aria-labelledby="adm-1"'],
+  },
   raw_html: { source: 'a `<br>`{=html} b', present: '<br>' },
   // The vertical axis rides on the SAME marker as the horizontal one, so a
   // present-check for `text-align` cannot tell support from its absence: the
@@ -82,6 +86,8 @@ test('every capability the matrix records is true of the engine', () => {
       const at = html.indexOf(needle)
       const closes = html.indexOf(marker)
       observed = at !== -1 && closes !== -1 && at < closes
+    } else if (probe.presentAll) {
+      observed = probe.presentAll.every(fragment => html.includes(fragment))
     } else if (probe.present) {
       observed = html.includes(probe.present)
     } else {

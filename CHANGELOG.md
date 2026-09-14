@@ -20,6 +20,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- Recalibrated to carve 0.1.6: admonitions now carry an accessible name, and
+  capability probes cover both titled and untitled forms.
 - Broadened skill discovery to cover Carve review, linting, explanation,
   rendering, publishing, and migration tasks in addition to authoring/editing.
 - Removed the redundant introductory mnemonic while keeping the default skill

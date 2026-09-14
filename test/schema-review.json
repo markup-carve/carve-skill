@@ -1,7 +1,7 @@
 {
   "$comment": "Which AST node definitions of spec/resources/ast-schema.json the skill was last read against. The schema states language rules in prose - block promotion, resolution timing, which fields survive - so a moved description can make a reference page lie. Regenerate with `npm run spec:review` AFTER re-reading the nodes the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/ast-schema.json",
-  "spec_rev": "95a72c8cdf9250df4ed5aed4c05a554fdf204591",
+  "spec_rev": "a9bbeb7e780e34edadeb5ac0724c0ba71fc815a4",
   "nodes": {
     "abbreviation": {
       "title": "abbreviation (inline)",

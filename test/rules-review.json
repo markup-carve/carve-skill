@@ -1,7 +1,7 @@
 {
   "$comment": "Which active normative rules of spec/resources/spec/rules.json the skill was last read against, keyed by the stable rule id. The registry is the structured source of the whole normative surface - the grammar clause inventory is its title set and docs/rules/ is generated from it - so a clause added, retired or retitled here is a change to what correct authoring advice looks like. `scope` is not fingerprinted: the views are navigation, and hashing it made a one-off metadata addition read as 242 moved rules. Regenerate with `npm run spec:review` AFTER re-reading the rules the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/spec/rules.json",
-  "spec_rev": "c4012cab53f6b12a9aa6ca5478408b4091165127",
+  "spec_rev": "e92319cef39e2e9ff8c818922dfaf7a09e2141e4",
   "rules": {
     "CARVE-P0-001": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -326,6 +326,10 @@
     "CARVE-P9-069": {
       "title": "THE ROW ABOVE IS A LINE, NOT A `<tr>`",
       "sha256": "8e046dac6ad12c26a33c2553d256f2b045917ebca6ec3a377ef3a84c5741aa57"
+    },
+    "CARVE-P9-070": {
+      "title": "SOCIAL LINK RESOLUTION",
+      "sha256": "aad3201d5df7c15b0f8590dc7cccc919d615fadea50353a5a56524eb18f36a0b"
     },
     "CARVE-P9-003": {
       "title": "A CONTINUATION ROW LEAVES NO PARAGRAPH OPEN",
@@ -751,6 +755,10 @@
       "title": "M1e `<` IS ESCAPED WHEN THE EMITTED LINE WOULD READ IT AS MARKUP",
       "sha256": "a87bb6ced253244fab1d4233b118b8a1d247185bb3459b54fa53fa2fdde84c2c"
     },
+    "CARVE-P11-044": {
+      "title": "M1f `#` IS ESCAPED WHERE THE EMITTED LINE WOULD OPEN OR CLOSE AN ATX HEADING",
+      "sha256": "cb54bbc5041a4d0d3e4e19c0dfcd660ef84eead36bb80f02dd036c121c601e98"
+    },
     "CARVE-P11-025": {
       "title": "THE MARKDOWN TARGET'S AUTHORED ESCAPE NARROWS TOO",
       "sha256": "eefcd30b298ba08bc4f0d8affdfe51f96c50b9f92d857860d724be209add8fbf"
@@ -818,6 +826,14 @@
     "CARVE-P11-041": {
       "title": "A TASK MARKER IS WRITTEN WITH THE STATE THE AUTHOR CHOSE",
       "sha256": "8a17e99fea4d46f1389006e64c6e9162dfe1727e526d4b623159398098d2f316"
+    },
+    "CARVE-P11-042": {
+      "title": "A BLOCK THAT OPENS A TIGHT ITEM IS WRITTEN ON THE MARKER LINE",
+      "sha256": "c76f0e5bf2c183ae808fac9010601f73a343050fa59ff90f4237eab02defde94"
+    },
+    "CARVE-P11-043": {
+      "title": "THE ROUND-TRIP COMPARISON NORMALIZES A NAMED LIST",
+      "sha256": "c87ac3ca885de3174bfadf832e80534d835130169fbf49662c4e876d90efe7e3"
     },
     "CARVE-P12-001": {
       "title": "AST TYPE NAMES FOLLOW THE PROFILE VOCABULARY",

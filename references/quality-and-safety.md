@@ -15,10 +15,10 @@
 - Treat Mermaid, chart, math, template, Liquid, and Nunjucks processing as code or
   template execution controlled by the host, not as harmless core markup.
 - Treat file inclusion as host I/O, not syntax sugar. The parser must stay pure;
-  enable a resolver explicitly, fix one canonical containment root for the
+  enable a resolver explicitly, fix one absolute containment root for the
   expansion, canonicalize paths and symlinks before checking containment, deny
-  remote schemes by default, and keep cycle/depth/byte limits finite. Included
-  source receives the same sanitization as the parent. For untrusted input,
-  leave includes disabled (`--no-includes`; `--safe` does this in current CLIs).
+  remote schemes by default, and keep cycle/depth/byte/resolver-call limits
+  finite. Included source receives the same sanitization as the parent. For
+  untrusted input, leave includes disabled (`--no-includes`; `--safe` does this in current CLIs).
 - Ensure a document remains understandable when a Tier-3 renderer is unavailable.
 - Preview issue and PR bodies containing nested fences before submission.

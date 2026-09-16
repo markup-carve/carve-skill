@@ -1,7 +1,7 @@
 {
   "$comment": "Which normative clause TEXTS of spec/resources/grammar.ebnf the skill was last read against, keyed by clause title. The rules ledger next to this one watches what the rules are - id, part, title - and carries no rule text, so on its own a clause can be rewritten into the opposite rule under an unchanged title, which is what happened to divergence section 13 in markup-carve/carve#455. Regenerate with `npm run spec:review` AFTER re-reading the clauses the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/grammar.ebnf",
-  "spec_rev": "c4012cab53f6b12a9aa6ca5478408b4091165127",
+  "spec_rev": "e92319cef39e2e9ff8c818922dfaf7a09e2141e4",
   "clauses": {
     "A LEADING BYTE ORDER MARK IS STRIPPED": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -189,7 +189,7 @@
     },
     "NO TRAILING WHITESPACE": {
       "title": "NO TRAILING WHITESPACE",
-      "sha256": "acf0396c3a18bef74dceca195a0e3fbd6456e6c749b3a230d816b56a0a8e3e43"
+      "sha256": "0c3fb54e9d4eba502e94e7a04c8f091f3a27b115d607ba3b09a4e9997ac605a0"
     },
     "WHICH SPANS THE SCAN SKIPS": {
       "title": "WHICH SPANS THE SCAN SKIPS",
@@ -301,7 +301,7 @@
     },
     "A QUOTED VALUE STOPS AT THE NEWLINE": {
       "title": "A QUOTED VALUE STOPS AT THE NEWLINE",
-      "sha256": "510a366d6648340b38aacadc97c62649b62b3efc27d2b68c0d8d5d8fc07d393f"
+      "sha256": "65a1813ea107ad1e7e82dce0bb2397d632fb9ede525e2384c272065480c41753"
     },
     "A TAB IS SYNTAX ONLY IN THE LEADING RUN": {
       "title": "A TAB IS SYNTAX ONLY IN THE LEADING RUN",
@@ -365,7 +365,7 @@
     },
     "SMART TYPOGRAPHY RECORDS SOURCE AND RESOLVED KIND": {
       "title": "SMART TYPOGRAPHY RECORDS SOURCE AND RESOLVED KIND",
-      "sha256": "5abaf96409ce505f99a72e3096af286c8c67f5c179cf2f4d1e128295f5219806"
+      "sha256": "51c68cc328e5a7f103a8c836c202acff86be80d5a47daf22881098bc6f8121e0"
     },
     "AN INVISIBLE LINE IS ONE CLASSIFICATION": {
       "title": "AN INVISIBLE LINE IS ONE CLASSIFICATION",
@@ -473,7 +473,11 @@
     },
     "CROSSREF AUTO-TEXT + DEFAULT-ON / PROCESSOR FEATURES": {
       "title": "CROSSREF AUTO-TEXT + DEFAULT-ON / PROCESSOR FEATURES",
-      "sha256": "959cd3c64c2743b30852af8cc780d5da96088c1152f4d20fed3b3a5a13274b51"
+      "sha256": "b2e9c255e8282d1792619d19eccf29859af1c791192c8e396bf24b5ff0a6bd88"
+    },
+    "SOCIAL LINK RESOLUTION": {
+      "title": "SOCIAL LINK RESOLUTION",
+      "sha256": "14c518ec6312b7303374bc306bb7e7b1262c4b97a23d8a75760c2bc5b2b7fffb"
     },
     "RAW PASSTHROUGH": {
       "title": "RAW PASSTHROUGH",
@@ -549,7 +553,7 @@
     },
     "AT THE RENDER CEILING, A RENDERER REFUSES": {
       "title": "AT THE RENDER CEILING, A RENDERER REFUSES",
-      "sha256": "e069dcef19275abea097d3dda328963516439463afe09fe7b619b563593b2dc4"
+      "sha256": "70d8707bb5b8bfc2f296f4cf64dc2d6c28ebdd7792b7b163ff536822d679c940"
     },
     "TROJAN-SOURCE / INVISIBLE-UNICODE HARDENING": {
       "title": "TROJAN-SOURCE / INVISIBLE-UNICODE HARDENING",
@@ -751,17 +755,25 @@
       "title": "AN EMPTY DESCRIPTION BODY IS WRITTEN WITH THE SENTINEL `{empty}`",
       "sha256": "4cf2ec15f17939a53c96a3be798a76dc2e337f14fe5b69a775303b8205902867"
     },
+    "A BLOCK THAT OPENS A TIGHT ITEM IS WRITTEN ON THE MARKER LINE": {
+      "title": "A BLOCK THAT OPENS A TIGHT ITEM IS WRITTEN ON THE MARKER LINE",
+      "sha256": "d4b6fb11ed2294d98e2235669a451e3c637dee51dbbc6335a82161f66d422041"
+    },
     "THE MARKDOWN TARGET'S ESCAPING": {
       "title": "THE MARKDOWN TARGET'S ESCAPING",
       "sha256": "8332c995edf934a87e82e283d67fd98a3e7796a95fbd9142f88f4d63fb82d373"
     },
     "THE MARKDOWN TARGET'S ESCAPING NARROWS ON THE LINE": {
       "title": "THE MARKDOWN TARGET'S ESCAPING NARROWS ON THE LINE",
-      "sha256": "ee3e03d617b7fc719de5a9731accdc868dc5eb72458df1bc3a3ffba768d8081d"
+      "sha256": "52a6e3f16653be01067ecebfdfbb3039124083272e8f8fdbb0a7c9a63cd9617a"
     },
     "M1e `<` IS ESCAPED WHEN THE EMITTED LINE WOULD READ IT AS MARKUP": {
       "title": "M1e `<` IS ESCAPED WHEN THE EMITTED LINE WOULD READ IT AS MARKUP",
-      "sha256": "50c3a152f9a5d7a49558bd25a40894687bdd62d2d3bffc687ea395629c5510a6"
+      "sha256": "ef0a996fd222a76dcd8dad6edb4fa40c55ab2a95c49020cad0d3df07798cc180"
+    },
+    "M1f `#` IS ESCAPED WHERE THE EMITTED LINE WOULD OPEN OR CLOSE AN ATX HEADING": {
+      "title": "M1f `#` IS ESCAPED WHERE THE EMITTED LINE WOULD OPEN OR CLOSE AN ATX HEADING",
+      "sha256": "ca647791a1f575d3629ca620446c9352a8781a0ecd829fdaded8b0c1af7bf843"
     },
     "THE MARKDOWN TARGET'S AUTHORED ESCAPE NARROWS TOO": {
       "title": "THE MARKDOWN TARGET'S AUTHORED ESCAPE NARROWS TOO",
@@ -813,7 +825,11 @@
     },
     "AN UNSPELLABLE BLOCK DOES NOT CANCEL THE ADJACENCY IT CANNOT SPELL": {
       "title": "AN UNSPELLABLE BLOCK DOES NOT CANCEL THE ADJACENCY IT CANNOT SPELL",
-      "sha256": "e0246de4a4cfe41b2c9636def57a185627811600c6843faab6f2cecc454682a6"
+      "sha256": "680316d3685166111a49d79cd932d6b4337856d19a20751060939561b7cb3f16"
+    },
+    "THE ROUND-TRIP COMPARISON NORMALIZES A NAMED LIST": {
+      "title": "THE ROUND-TRIP COMPARISON NORMALIZES A NAMED LIST",
+      "sha256": "6bc0640e90c92a77c1064c871269f52d5fe29d0d04618bbd1fbd8d64f5330874"
     },
     "THE MARKDOWN TARGET'S CROSS-REFERENCES": {
       "title": "THE MARKDOWN TARGET'S CROSS-REFERENCES",
@@ -829,7 +845,7 @@
     },
     "TEXT COALESCING OCCURS DURING `parse(x)`, NOT SERIALIZATION": {
       "title": "TEXT COALESCING OCCURS DURING `parse(x)`, NOT SERIALIZATION",
-      "sha256": "eabd3d337d6a61b20cb1b6c0b5e8bf7ebb5fc0bc68b9dee354d4b14f77d68266"
+      "sha256": "a30580b82b539dfcfff143f0123c87a1ff90b48ca21deb4358821fcb3c9b15af"
     },
     "THE U+E000 SENTINEL": {
       "title": "THE U+E000 SENTINEL",

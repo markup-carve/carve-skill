@@ -24,7 +24,7 @@ It is ONE block, and the same operation in every container that takes the marker
 ```
 - step one
 +
-  > a note that belongs to step one
+> a note that belongs to step one
 - step two
 ```
 

@@ -1,7 +1,7 @@
 {
   "$comment": "Which rows of spec/docs/cheatsheet.md the syntax card in references/syntax.md was last read against. The card is the source that page is derived from, and a row keeps its construct token while its meaning is rewritten - so presence of the token proves nothing and the row is fingerprinted instead. Regenerate with `npm run spec:review` AFTER re-reading the rows the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/cheatsheet.md",
-  "spec_rev": "c4012cab53f6b12a9aa6ca5478408b4091165127",
+  "spec_rev": "e92319cef39e2e9ff8c818922dfaf7a09e2141e4",
   "rows": {
     "#preamble / prose 1": {
       "title": "---",
@@ -167,7 +167,7 @@
     },
     "Tables / prose 3": {
       "title": "### Alignment",
-      "sha256": "654ac29582313e022af49fa9ec4fce62fd12e6694afcc62289f2254d00771862"
+      "sha256": "7c5c3aea1750022ad350209b5991b0dc4cd68c9e18dbc426cba26ffec56eab5a"
     },
     "Tables / fence 3 (carve)": {
       "title": "carve block",
@@ -206,8 +206,8 @@
       "sha256": "44e143889285996cfb2995fb858d036ea9dfe8a2edca329f1a3a766f092665c0"
     },
     "Captions (images, quotes, tables, code listings, equations, figure groups) / prose 4": {
-      "title": "A caption spans multiple lines like a paragraph — following lines fol...",
-      "sha256": "ab67da9c69119d43ecfb86d20342246a10080aa435f0687ba87365993e8e56ab"
+      "title": "A caption spans multiple lines like a paragraph: following lines fold...",
+      "sha256": "72f6afdd30866eb667a41f388a82307fbc5b82916f3f4cc698e3403c6a204bec"
     },
     "Captions (images, quotes, tables, code listings, equations, figure groups) / fence 4 (carve)": {
       "title": "carve block",

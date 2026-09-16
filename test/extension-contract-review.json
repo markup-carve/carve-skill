@@ -1,7 +1,7 @@
 {
   "$comment": "Which preamble/H2/H3 sections of spec/docs/extension-contract.md references/extensions.md was last read against. This is where the tier table and the normative behavior of each standard extension live since carve#1932. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/extension-contract.md",
-  "spec_rev": "c4012cab53f6b12a9aa6ca5478408b4091165127",
+  "spec_rev": "e92319cef39e2e9ff8c818922dfaf7a09e2141e4",
   "sections": {
     "Preamble": {
       "title": "Preamble",
@@ -13,7 +13,11 @@
     },
     "Availability groups / Feature tiers (quick reference)": {
       "title": "Feature tiers (quick reference)",
-      "sha256": "9546293a216c94c229788f2311ce18ae7cab1c1dd2778dc81c342c161c9613f1"
+      "sha256": "5fb20ae2f3979f74c74bb2cd06ba5309ea442c73304b8094659544525b73ea33"
+    },
+    "Availability groups / Mention and tag link resolvers": {
+      "title": "Mention and tag link resolvers",
+      "sha256": "bd7e7930178ea96f2c5cd08e0fc32b5466e9e8caec258183530053a3c0b1fc40"
     },
     "Availability groups / The strings an extension writes itself": {
       "title": "1.5 The strings an extension writes itself",
@@ -25,7 +29,7 @@
     },
     "Extension system / Matchers (parse stage) — scanner-function contract": {
       "title": "2.1 Matchers (parse stage) — scanner-function contract",
-      "sha256": "26febae58caf1c18e166b84bccea87e2149b3fb289c4bffffb1b2576aec944b3"
+      "sha256": "7bf1804e298ae19727e77780d156b8933c73777e856cc5e89a377d8b2803d480"
     },
     "Extension system / Transforms": {
       "title": "2.2 Transforms",
@@ -181,11 +185,11 @@
     },
     "Placement directives: TOC & footnotes (Tier-3) / `::: toc` — table of contents": {
       "title": "8b.1 `::: toc` — table of contents",
-      "sha256": "dc870a29a8df474200bdabd2ff7eba4991244af890a4401d0940619df21a7cfa"
+      "sha256": "e07b6ccba33a8184c3842d6ff9fd44bee2e26a276b1730792377aae1dca5d02c"
     },
     "Placement directives: TOC & footnotes (Tier-3) / `::: footnotes` — endnotes placement": {
       "title": "8b.2 `::: footnotes` — endnotes placement",
-      "sha256": "56caaa9ac69e6376bdbcb01f6f6ff4325ca62cc5b2937d80332bb71b4bc77331"
+      "sha256": "f90553731189f85af004ae93873ece51dfaf9204f066e682b9a23ad2aae40f10"
     },
     "Placement directives: TOC & footnotes (Tier-3) / Degradation & conformance": {
       "title": "8b.3 Degradation & conformance",
@@ -297,7 +301,7 @@
     },
     "Tabs (Tier-2) and CodeGroup (Tier-3) / A `css`-mode panel carries its tab's name": {
       "title": "13.2 A `css`-mode panel carries its tab's name",
-      "sha256": "acff29e80c07b05a4f8a909012b43363c34bd75a7e597982c09de172736355b5"
+      "sha256": "a9dfabb18514eb786583a4c4da2b76c5f6b03a937edd078393d6e0f00a38833f"
     },
     "Tabs (Tier-2) and CodeGroup (Tier-3) / An `aria`-mode panel is bound, not named": {
       "title": "13.3 An `aria`-mode panel is bound, not named",
@@ -309,7 +313,7 @@
     },
     "Tabs (Tier-2) and CodeGroup (Tier-3) / Exactly one item is selected, and the first mark wins": {
       "title": "13.5 Exactly one item is selected, and the first mark wins",
-      "sha256": "d0598c7040d2104fe0b8f475242653bfe1a317505ca359d4595d57cae4e48cfc"
+      "sha256": "cba973d662a054220b22069b227baf311f5c375c5c873a679d23695853643a2d"
     },
     "Tabs (Tier-2) and CodeGroup (Tier-3) / Conformance": {
       "title": "13.6 Conformance",

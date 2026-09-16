@@ -1,7 +1,7 @@
 {
   "$comment": "Which spec divergence sections the topic guides in references/traps-*.md were last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/divergence-from-djot.md",
-  "spec_rev": "c4012cab53f6b12a9aa6ca5478408b4091165127",
+  "spec_rev": "e92319cef39e2e9ff8c818922dfaf7a09e2141e4",
   "sections": {
     "1": {
       "title": "Case-preserving heading ids with case-insensitive cross-references",
@@ -49,15 +49,15 @@
     },
     "12": {
       "title": "Smart punctuation is one leaf node, not three container types",
-      "sha256": "8babc29fecb22fec1eebc63ae68bd60ff1327b8b3d299b95ea790c8ca1bc5419"
+      "sha256": "52d32fa071dba8ac26b3c6f10a8a3619cc40baf67067b33fd487a63dbe397bd2"
     },
     "13": {
       "title": "A colon fence closes on an exact length match",
-      "sha256": "e9c0c8330075165c3990409411418cab23286053ba8b425869dc996501b94772"
+      "sha256": "b01f17f6fe4347e7947198092cef5aea52b92033821fb382d62dbb2ca236ba59"
     },
     "14": {
       "title": "Headings are single-line",
-      "sha256": "7c7347e53f19621b5e8e5e6003cd94f19341253673f5d7278f799c3bccc800e0"
+      "sha256": "b3476d1edab0d7f5901755a0ad602a32e1a086dc385f8eff0f5eab062c7ef5a7"
     },
     "15": {
       "title": "Block markers are column-strict and their separator is a literal space",

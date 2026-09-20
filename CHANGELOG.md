@@ -6,6 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-09-20
+
 ### Added
 
 - A portable installed-version check for scheduled update notifications.
@@ -19,15 +21,28 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   multi-target checks, workspace reviews/reference graphs, guarded writes, and
   batch formatting previews, with task-level routing cases.
 - A deferred reader-focused review checklist for concise, human-centered docs.
+- Include safety guidance: an absolute containment root, canonicalized paths and
+  symlinks, remote schemes denied by default, and finite cycle, depth, byte, and
+  resolver-call limits (#114, #117).
+- The processor-include spelling, and `pos.file` as the source-file identity of
+  a span in an include-expanded AST (#114).
 
 ### Changed
 
 - Recalibrated to carve 0.1.6: admonitions now carry an accessible name, and
-  capability probes cover both titled and untitled forms.
+  capability probes cover both titled and untitled forms (#110). The skill now
+  tracks the spec's 0.1.6 release and is measured against engine 0.1.7, which
+  changed no probed behavior and no passage that dates itself (#120).
 - Broadened skill discovery to cover Carve review, linting, explanation,
   rendering, publishing, and migration tasks in addition to authoring/editing.
 - Removed the redundant introductory mnemonic while keeping the default skill
   within its 800-token context budget.
+
+### Fixed
+
+- The extensions page points at the feature-tier table's current home (#99).
+- A trap example's note sits flush with the step it belongs to instead of
+  indenting into the step above (#117).
 
 ## [0.1.1] - 2026-09-09
 

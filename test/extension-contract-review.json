@@ -1,7 +1,7 @@
 {
   "$comment": "Which preamble/H2/H3 sections of spec/docs/extension-contract.md references/extensions.md was last read against. This is where the tier table and the normative behavior of each standard extension live since carve#1932. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/extension-contract.md",
-  "spec_rev": "e92319cef39e2e9ff8c818922dfaf7a09e2141e4",
+  "spec_rev": "5863d1d894f128574ba67f73f17cf7735b270d2e",
   "sections": {
     "Preamble": {
       "title": "Preamble",
@@ -17,7 +17,7 @@
     },
     "Availability groups / Mention and tag link resolvers": {
       "title": "Mention and tag link resolvers",
-      "sha256": "bd7e7930178ea96f2c5cd08e0fc32b5466e9e8caec258183530053a3c0b1fc40"
+      "sha256": "df95e14d769ce477aa6885b993339acdd73e62a331d960a31d779c7b81f93f9b"
     },
     "Availability groups / The strings an extension writes itself": {
       "title": "1.5 The strings an extension writes itself",

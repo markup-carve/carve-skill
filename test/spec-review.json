@@ -1,7 +1,7 @@
 {
   "$comment": "Which spec divergence sections the topic guides in references/traps-*.md were last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/divergence-from-djot.md",
-  "spec_rev": "e92319cef39e2e9ff8c818922dfaf7a09e2141e4",
+  "spec_rev": "5863d1d894f128574ba67f73f17cf7735b270d2e",
   "sections": {
     "1": {
       "title": "Case-preserving heading ids with case-insensitive cross-references",

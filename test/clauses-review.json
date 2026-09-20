@@ -1,7 +1,7 @@
 {
   "$comment": "Which normative clause TEXTS of spec/resources/grammar.ebnf the skill was last read against, keyed by clause title. The rules ledger next to this one watches what the rules are - id, part, title - and carries no rule text, so on its own a clause can be rewritten into the opposite rule under an unchanged title, which is what happened to divergence section 13 in markup-carve/carve#455. Regenerate with `npm run spec:review` AFTER re-reading the clauses the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/grammar.ebnf",
-  "spec_rev": "e92319cef39e2e9ff8c818922dfaf7a09e2141e4",
+  "spec_rev": "5863d1d894f128574ba67f73f17cf7735b270d2e",
   "clauses": {
     "A LEADING BYTE ORDER MARK IS STRIPPED": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -189,15 +189,15 @@
     },
     "NO TRAILING WHITESPACE": {
       "title": "NO TRAILING WHITESPACE",
-      "sha256": "0c3fb54e9d4eba502e94e7a04c8f091f3a27b115d607ba3b09a4e9997ac605a0"
+      "sha256": "bbd0fd8c60fc983fe9e833ff54f565bcb35c6dfa5756b8eb1be4ec1895c4fa74"
     },
     "WHICH SPANS THE SCAN SKIPS": {
       "title": "WHICH SPANS THE SCAN SKIPS",
-      "sha256": "7d91d1c0de0cae748d0e90aa10bb3718f8b808fed9ef8b063d683e3f2d171cab"
+      "sha256": "c71dd5b2391b5e7cf231db74b0480a5ce12e319f608b01afda7b13fbc254f756"
     },
     "WHITESPACE HERE IS UNICODE WHITESPACE": {
       "title": "WHITESPACE HERE IS UNICODE WHITESPACE",
-      "sha256": "0c6cae6e8e5004cd49c41979d32d63a3158e635dd122c7603f293f197665c7aa"
+      "sha256": "6516750965a7722376d8ac06cd897e0b75df360299e10ff956734558da37d585"
     },
     "A LABEL THAT BEGINS WITH AN AT SIGN IS NOT A REFERENCE LABEL": {
       "title": "A LABEL THAT BEGINS WITH AN AT SIGN IS NOT A REFERENCE LABEL",
@@ -225,7 +225,7 @@
     },
     "THE DEFINITION MARKER SEPARATOR": {
       "title": "THE DEFINITION MARKER SEPARATOR",
-      "sha256": "c1bcf5d9d6d6ed88ad1887e1cd5d1ac0326b5bbbd65cf1f8f42d5e7c648357f3"
+      "sha256": "7fc164b69e65513804d196154016504d177ab7dc7da6abd3e79716d26e2653ca"
     },
     "AN AUTOLINK DISPLAYS ITS RAW SOURCE BODY": {
       "title": "AN AUTOLINK DISPLAYS ITS RAW SOURCE BODY",
@@ -233,7 +233,7 @@
     },
     "AN AUTOLINK BODY ADMITS NON-ASCII AND EXCLUDES FORMAT CHARACTERS": {
       "title": "AN AUTOLINK BODY ADMITS NON-ASCII AND EXCLUDES FORMAT CHARACTERS",
-      "sha256": "8fc491e891f8c52e14a4f5eacf4ac6b82ba1368c9f78d202f1f04d8130b16bd4"
+      "sha256": "38ac4155a89d37387a9d1d88577cc491ac3b265c7aa7b221a95803b321ac3b26"
     },
     "TRAILING ATTRIBUTES on math": {
       "title": "TRAILING ATTRIBUTES on math",
@@ -253,7 +253,7 @@
     },
     "EDITORIAL COMMENT CONTENT IS LITERAL": {
       "title": "EDITORIAL COMMENT CONTENT IS LITERAL",
-      "sha256": "19700de347d2b98f13bb36101c5dc2ab52e9c6e04309dcf88cbc550f72b9af92"
+      "sha256": "5d8847cbbe77f420541f5dbfa569322bba4f9cd4569c29a5a76eb1c63d1256b4"
     },
     "ADDITION AND DELETION ATTRIBUTES BIND TO THEIR ELEMENT": {
       "title": "ADDITION AND DELETION ATTRIBUTES BIND TO THEIR ELEMENT",
@@ -313,7 +313,7 @@
     },
     "ONE WHITESPACE DEFINITION, IN EVERY CONSTRUCT": {
       "title": "ONE WHITESPACE DEFINITION, IN EVERY CONSTRUCT",
-      "sha256": "3b0ec4fc933aaccdcd8607da534e547591692091f315fd5d8696ef0e9c35189c"
+      "sha256": "bf188165969bdb8e7183d53448a1b62d3dd691abee9277afe5e9d6b73bc40c8c"
     },
     "A COMPOSITE FIGURE GROUPS ITS PANELS UNDER ONE CAPTION": {
       "title": "A COMPOSITE FIGURE GROUPS ITS PANELS UNDER ONE CAPTION",
@@ -365,7 +365,7 @@
     },
     "SMART TYPOGRAPHY RECORDS SOURCE AND RESOLVED KIND": {
       "title": "SMART TYPOGRAPHY RECORDS SOURCE AND RESOLVED KIND",
-      "sha256": "51c68cc328e5a7f103a8c836c202acff86be80d5a47daf22881098bc6f8121e0"
+      "sha256": "93fa021350c9c2f5b75d130f166e37090aef78f7424900051360507959276294"
     },
     "AN INVISIBLE LINE IS ONE CLASSIFICATION": {
       "title": "AN INVISIBLE LINE IS ONE CLASSIFICATION",
@@ -477,7 +477,7 @@
     },
     "SOCIAL LINK RESOLUTION": {
       "title": "SOCIAL LINK RESOLUTION",
-      "sha256": "14c518ec6312b7303374bc306bb7e7b1262c4b97a23d8a75760c2bc5b2b7fffb"
+      "sha256": "f8c94a2873083027d028d8cd6cf774a80cc97c2d00c1904b5c2f2ae373ee084e"
     },
     "RAW PASSTHROUGH": {
       "title": "RAW PASSTHROUGH",
@@ -493,7 +493,7 @@
     },
     "FORCED INTRAWORD EMPHASIS": {
       "title": "FORCED INTRAWORD EMPHASIS",
-      "sha256": "d4d8bb8cbcada10c465f24a92c8b116e44c6f91f052a878822e9884cb57c2ac2"
+      "sha256": "e8d76e6f0d3d302c5e9119c7a30fee53dd4264f07372b9b97cb3c729536161ab"
     },
     "LINE BLOCK (VERSE)": {
       "title": "LINE BLOCK (VERSE)",
@@ -589,7 +589,11 @@
     },
     "A DERIVED VALUE IS ONE THE IMPORTER CAN RECONSTRUCT": {
       "title": "A DERIVED VALUE IS ONE THE IMPORTER CAN RECONSTRUCT",
-      "sha256": "c65a358bb4e478f49b7f24cdb95fe7dd84db5c5ce7f96175e44931d3e58282c5"
+      "sha256": "92c7f3f7925bad79f2246ff775ec5d7328cfb861350f19e13fdd9e342209c4b3"
+    },
+    "THE CLIPBOARD TYPE": {
+      "title": "THE CLIPBOARD TYPE",
+      "sha256": "143211dae8ee78e47ffcdd2991a70622efb89840485167646fad2fc27f72d734"
     },
     "THE EXPLICIT FORM DOES NOT REACH THE INDEX": {
       "title": "THE EXPLICIT FORM DOES NOT REACH THE INDEX",
@@ -669,11 +673,11 @@
     },
     "A FLATTEN PRESERVES THE BOUNDARY IT DISSOLVES": {
       "title": "A FLATTEN PRESERVES THE BOUNDARY IT DISSOLVES",
-      "sha256": "b1095c10fff061dcc74381533557d70c5413c12ed9768e52e190d1e342522127"
+      "sha256": "1c8b5e5f9a2032a0373c84d8246680dcf9eca13a2d8a503f5b03a3398e9f8641"
     },
     "A WRAPPER ITS OWN CONTENT SPELLS AWAY IS A DECLARED CEILING": {
       "title": "A WRAPPER ITS OWN CONTENT SPELLS AWAY IS A DECLARED CEILING",
-      "sha256": "be6cb70b1acbf1902c57b051634424bfc9f232223bf00b26c7dea1dd5dd42283"
+      "sha256": "1196e17b98c90c548c7a117820c2f713903ea4290543d1663eb466544f619d73"
     },
     "WRAPPER LOSS IS THE ONLY EQUALITY CARVE-OUT": {
       "title": "WRAPPER LOSS IS THE ONLY EQUALITY CARVE-OUT",
@@ -829,7 +833,7 @@
     },
     "THE ROUND-TRIP COMPARISON NORMALIZES A NAMED LIST": {
       "title": "THE ROUND-TRIP COMPARISON NORMALIZES A NAMED LIST",
-      "sha256": "6bc0640e90c92a77c1064c871269f52d5fe29d0d04618bbd1fbd8d64f5330874"
+      "sha256": "58938f68f3e5e1d3b8ad9dff60b4d4c8fc987534e4275a977583ec01c9a2b85b"
     },
     "THE MARKDOWN TARGET'S CROSS-REFERENCES": {
       "title": "THE MARKDOWN TARGET'S CROSS-REFERENCES",

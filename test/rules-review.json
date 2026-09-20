@@ -1,7 +1,7 @@
 {
   "$comment": "Which active normative rules of spec/resources/spec/rules.json the skill was last read against, keyed by the stable rule id. The registry is the structured source of the whole normative surface - the grammar clause inventory is its title set and docs/rules/ is generated from it - so a clause added, retired or retitled here is a change to what correct authoring advice looks like. `scope` is not fingerprinted: the views are navigation, and hashing it made a one-off metadata addition read as 242 moved rules. Regenerate with `npm run spec:review` AFTER re-reading the rules the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/spec/rules.json",
-  "spec_rev": "e92319cef39e2e9ff8c818922dfaf7a09e2141e4",
+  "spec_rev": "5863d1d894f128574ba67f73f17cf7735b270d2e",
   "rules": {
     "CARVE-P0-001": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -330,6 +330,10 @@
     "CARVE-P9-070": {
       "title": "SOCIAL LINK RESOLUTION",
       "sha256": "aad3201d5df7c15b0f8590dc7cccc919d615fadea50353a5a56524eb18f36a0b"
+    },
+    "CARVE-P9-071": {
+      "title": "THE CLIPBOARD TYPE",
+      "sha256": "d3978e7ebdf817dd786fa4bacc673ae176d1266205880be5968c45a2ad42f04f"
     },
     "CARVE-P9-003": {
       "title": "A CONTINUATION ROW LEAVES NO PARAGRAPH OPEN",

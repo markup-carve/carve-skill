@@ -129,7 +129,7 @@ a `::: tip`, holds a `:::: tip`, and an opener with no closer ends at end of
 input instead of degrading to paragraph text. A bare closer still closes **one**
 container, not every one open above it.
 
-Measured against `@markup-carve/carve` 0.1.6, the engine this skill is tested
+Measured against `@markup-carve/carve` 0.1.7, the engine this skill is tested
 against:
 
 ```

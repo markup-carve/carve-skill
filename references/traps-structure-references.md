@@ -127,7 +127,7 @@ body                          <p class="admonition-title" id="adm-1">Pro tip</p>
                             </aside>
 ```
 
-Measured against `@markup-carve/carve` 0.1.6, the engine this skill is tested
+Measured against `@markup-carve/carve` 0.1.7, the engine this skill is tested
 against: it emits both forms. Write the source either way - this is a renderer
 detail that changes no source and no tree shape - and do not hand-add
 `aria-label` to Carve output.

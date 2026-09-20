@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$comment": "Measured, not asserted: test/behavior.test.mjs runs a probe per feature against the engine in testedEngine and fails when a recorded value disagrees. Two values here were stale falses until that probe existed.",
-  "testedEngine": "@markup-carve/carve@0.1.6",
+  "testedEngine": "@markup-carve/carve@0.1.7",
   "policy": "Prefer released-engine behavior. A spec-only construct must not be authored unless the target explicitly supports it.",
   "features": {
     "trailing_comment": {

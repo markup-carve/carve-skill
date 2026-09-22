@@ -1,7 +1,7 @@
 {
   "$comment": "Which normative clause TEXTS of spec/resources/grammar.ebnf the skill was last read against, keyed by clause title. The rules ledger next to this one watches what the rules are - id, part, title - and carries no rule text, so on its own a clause can be rewritten into the opposite rule under an unchanged title, which is what happened to divergence section 13 in markup-carve/carve#455. Regenerate with `npm run spec:review` AFTER re-reading the clauses the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/grammar.ebnf",
-  "spec_rev": "5863d1d894f128574ba67f73f17cf7735b270d2e",
+  "spec_rev": "fe81bde7cb0b02c2ee2d1b1f4f1f2618220ff865",
   "clauses": {
     "A LEADING BYTE ORDER MARK IS STRIPPED": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -189,7 +189,7 @@
     },
     "NO TRAILING WHITESPACE": {
       "title": "NO TRAILING WHITESPACE",
-      "sha256": "bbd0fd8c60fc983fe9e833ff54f565bcb35c6dfa5756b8eb1be4ec1895c4fa74"
+      "sha256": "5c6894dc24f2b6fada036f5ab2174fa918df443f44cdd78013dfdc782fbf2145"
     },
     "WHICH SPANS THE SCAN SKIPS": {
       "title": "WHICH SPANS THE SCAN SKIPS",
@@ -225,7 +225,7 @@
     },
     "THE DEFINITION MARKER SEPARATOR": {
       "title": "THE DEFINITION MARKER SEPARATOR",
-      "sha256": "7fc164b69e65513804d196154016504d177ab7dc7da6abd3e79716d26e2653ca"
+      "sha256": "5f307efccb1c0b7882bb177a16f756fb6c7e338b43bebd51fb1e0e6773c0a8d2"
     },
     "AN AUTOLINK DISPLAYS ITS RAW SOURCE BODY": {
       "title": "AN AUTOLINK DISPLAYS ITS RAW SOURCE BODY",
@@ -233,23 +233,23 @@
     },
     "AN AUTOLINK BODY ADMITS NON-ASCII AND EXCLUDES FORMAT CHARACTERS": {
       "title": "AN AUTOLINK BODY ADMITS NON-ASCII AND EXCLUDES FORMAT CHARACTERS",
-      "sha256": "38ac4155a89d37387a9d1d88577cc491ac3b265c7aa7b221a95803b321ac3b26"
+      "sha256": "d3b2e4a12926680d60f646a98fb7a7de526059daf46c67777ef23aad2dee8075"
     },
     "TRAILING ATTRIBUTES on math": {
       "title": "TRAILING ATTRIBUTES on math",
-      "sha256": "8324276329f013378cb24d43d1559d8fa327df38edab04fcbfdf27c5b58b679d"
+      "sha256": "a61134d315618dba2815641a87e41d05af67934045f4b1e06ff4c72e4d87658d"
     },
     "FORMAL word-boundary guards": {
       "title": "FORMAL word-boundary guards",
-      "sha256": "8eac0a55a1518eaa541555420ad99adb659334fb607d7f2763f5ffde74c90ed3"
+      "sha256": "c98754bcb9fcdecd865c1b2c2741e0a300a5e66124b4de80dc946e53a486d03d"
     },
     "AN EMPTY BRACE PAIR IS NOT A CONSTRUCT": {
       "title": "AN EMPTY BRACE PAIR IS NOT A CONSTRUCT",
-      "sha256": "b57f7d0c9cb9b2702abc487807790617d438b85977bcf234e8619ab62834ba58"
+      "sha256": "1f1a050eb3a12ddd2696800f56a5e80185d23204567fda4f2efbc124c5531488"
     },
     "INDENTATION IS COLUMNS, NOT CHARACTERS #2": {
       "title": "INDENTATION IS COLUMNS, NOT CHARACTERS",
-      "sha256": "19471080cb1487c9a1466bb8cb1c97f7de4002a34be166f1ce9ca84bc7b46d1d"
+      "sha256": "87cbb550c526258428e1ecb3b7325bcea6e8a1192f640494e8798200b51ccb9e"
     },
     "EDITORIAL COMMENT CONTENT IS LITERAL": {
       "title": "EDITORIAL COMMENT CONTENT IS LITERAL",
@@ -257,11 +257,11 @@
     },
     "ADDITION AND DELETION ATTRIBUTES BIND TO THEIR ELEMENT": {
       "title": "ADDITION AND DELETION ATTRIBUTES BIND TO THEIR ELEMENT",
-      "sha256": "f5dd9d567ae8f071255b749e713174c845ea78acdfc3cbf8258be5397721694a"
+      "sha256": "5ac053233d1a281d27012bd149cdc7e18bbc2d24c27c9013868a60b17580492e"
     },
     "SYMBOL ATTRIBUTES FORCE A SPAN WRAPPER": {
       "title": "SYMBOL ATTRIBUTES FORCE A SPAN WRAPPER",
-      "sha256": "69093c400d8e9bf6e6bf576c19617ffc36a0da1de0760e92bfce04ae1478b78e"
+      "sha256": "637eed7f6c76ca47d7f65c0bd18d083dadf1eea17dbced267663859bacbb33b0"
     },
     "PRECEDENCE vs SMART TYPOGRAPHY": {
       "title": "PRECEDENCE vs SMART TYPOGRAPHY",
@@ -277,7 +277,7 @@
     },
     "THE DOUBLED RUN IS THE CANONICAL ARROW, IN BOTH FAMILIES": {
       "title": "THE DOUBLED RUN IS THE CANONICAL ARROW, IN BOTH FAMILIES",
-      "sha256": "02865c95790b17bfa67bd6bffc6b7d3ef3397ebb20c23be30e293e65b98c7b7e"
+      "sha256": "7ab23e2d023c8fbf59218da4c622d35c8aeef6173063f23c1e7255b813f0c6d7"
     },
     "THE INLINE INTERIOR IS SPACE-ONLY, THE BLOCK-ATTRIBUTE LINE IS NOT": {
       "title": "THE INLINE INTERIOR IS SPACE-ONLY, THE BLOCK-ATTRIBUTE LINE IS NOT",
@@ -285,7 +285,7 @@
     },
     "AUTHORED ATTRIBUTES RENDER IN SOURCE ORDER": {
       "title": "AUTHORED ATTRIBUTES RENDER IN SOURCE ORDER",
-      "sha256": "eb9f1bfcf620b6ac940cdea20a30ac76c746a7b683040c9c6aabf4db260cf8cb"
+      "sha256": "560f7555c2f2d1a30d979c9a962a2ecf9c9426171ca2ac24018929068da3e79a"
     },
     "THE SIGIL TAKES NO PADDING": {
       "title": "THE SIGIL TAKES NO PADDING",
@@ -493,7 +493,7 @@
     },
     "FORCED INTRAWORD EMPHASIS": {
       "title": "FORCED INTRAWORD EMPHASIS",
-      "sha256": "e8d76e6f0d3d302c5e9119c7a30fee53dd4264f07372b9b97cb3c729536161ab"
+      "sha256": "b21fcdb7149ec9969c68da4b931d24a4aff0b40dfcea14a13780e641f44bb3b9"
     },
     "LINE BLOCK (VERSE)": {
       "title": "LINE BLOCK (VERSE)",

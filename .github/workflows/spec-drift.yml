@@ -39,11 +39,28 @@ name: Spec drift
 # holds. That question is about the spec as it stands, not about the pin, so the
 # offline run over the pinned copy cannot answer it.
 
+# WHAT THIS JOB'S RED MEANT, AND WHY IT STOPPED MEANING IT. Over the 30 days to
+# 2026-09-22 this workflow ran 30 times and failed 25 of them. Each of those
+# reds is real - a watched spec document moved at carve main and the skill has
+# not been read against it - but none of them produced anything to act on. They
+# accumulated in the Actions tab, which is the state the comment above warns
+# about for the checks it replaced: a gate that is always red is a gate nobody
+# reads.
+#
+# So a verdict job now turns the red into ONE living ticket, filed and
+# maintained here: edited by each later red run, closed by the first green one,
+# matched on a body marker rather than a title so a rename cannot fork it. The
+# gates themselves are unchanged - what changes is that 25 identical reds become
+# one item with the failing gate named in it.
+
 on:
   schedule:
     # 05:00 UTC daily, after the spec has had a night to settle.
     - cron: "0 5 * * *"
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   spec-pin:
@@ -121,4 +138,104 @@ jobs:
           if [ "${installed}" != "${latest}" ]; then
             echo "::error::the skill is tested against ${installed} but ${latest} is published; re-measure every version-dated claim in references/ before bumping the pin"
             exit 1
+          fi
+
+  # THE GATES ABOVE RUN ON A SCHEDULE AND NOTHING ELSE OBSERVES THEM. A pull
+  # request never sees this workflow, so without this job its result exists only
+  # as a colour in the Actions tab. Modelled on the verdict step in
+  # markup-carve/carve's ast-conformance workflow.
+  verdict:
+    name: The verdict reaches a person
+    runs-on: ubuntu-latest
+    needs: [spec-pin]
+    if: ${{ !cancelled() && github.event_name != 'workflow_dispatch' }}
+    permissions:
+      contents: read
+      issues: write
+      actions: read
+
+    steps:
+      - name: File the verdict where someone reads it
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          HEAD_SHA: ${{ github.sha }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+
+          MARKER="<!-- spec-drift-verdict ref=$REF_NAME -->"
+
+          # Read the failing steps back from the run rather than keeping a list
+          # beside the workflow: this job has three gates that fail for three
+          # different reasons, and a report that named them by hand would go
+          # stale the first time a fourth is added.
+          failed="$(gh api "repos/$REPO/actions/runs/$RUN_ID/jobs" --paginate \
+            --jq '.jobs[] | select(.name != "The verdict reaches a person") | .steps[]
+                  | select(.conclusion == "failure") | "- `" + .name + "`"')"
+
+          # Listed rather than searched: the search index lags a fresh issue by
+          # long enough to file a duplicate.
+          issue="$(gh api "repos/$REPO/issues?state=open&per_page=100" --paginate \
+            | jq -r --arg m "$MARKER" \
+                '.[] | select(.pull_request == null) | select((.body // "") | contains($m)) | .number' \
+            | head -n1)"
+
+          if [ -z "$failed" ]; then
+            echo "Spec drift is green on $HEAD_SHA."
+            if [ -n "$issue" ]; then
+              gh issue comment "$issue" --repo "$REPO" --body \
+                "Green again: run $RUN_URL on \`$HEAD_SHA\`. Closing. The next red run files a fresh ticket rather than reopening this one, so a closed ticket always means the last run passed."
+              gh issue close "$issue" --repo "$REPO"
+              echo "Closed #$issue."
+            fi
+            echo "Spec drift green on \`$HEAD_SHA\`. Nothing filed." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          {
+            echo "$MARKER"
+            echo
+            echo "\`Spec drift\` is failing. This workflow runs on a schedule only, so no pull"
+            echo "request gate sees it and \`main\` shows green CI while this is red."
+            echo
+            echo "| | |"
+            echo "| --- | --- |"
+            echo "| run | $RUN_URL |"
+            echo "| commit | \`$HEAD_SHA\` |"
+            echo
+            echo "### Failing gates"
+            echo
+            printf '%s\n' "$failed"
+            echo
+            echo "### What each one asks for"
+            echo
+            echo "- **A watched spec document moved.** The offline drift guard reads the PINNED"
+            echo "  spec copy, so it cannot see the pin fall behind; this is the half that reads"
+            echo "  carve main. Bump the pin, re-read what the ledger names against the reference"
+            echo "  pages, and record the review. Do not bump the pin alone - that carries the"
+            echo "  change in while every check stays green, which is how carve#455 and the"
+            echo "  \`image\` node rule both landed unread."
+            echo "- **The spec pin is not on carve main.** It came from an unmerged or rewritten"
+            echo "  branch, or the commit was collected. Re-pin to a commit on main."
+            echo "- **The tested engine is behind the newest release.** One \`npm install\`, then"
+            echo "  re-measure every version-dated claim in \`references/\` before trusting it:"
+            echo "  a dated status note is only evidence while its premise holds."
+            echo
+            echo "This ticket is filed and maintained by the workflow. It is EDITED by each"
+            echo "later red run and CLOSED by the first green one. Closing it by hand does not"
+            echo "silence it: the next red run files a new one."
+          } > /tmp/spec-drift-verdict.md
+
+          if [ -n "$issue" ]; then
+            gh issue edit "$issue" --repo "$REPO" --body-file /tmp/spec-drift-verdict.md
+            echo "Updated #$issue."
+          else
+            url="$(gh issue create --repo "$REPO" \
+              --title "The skill has not been read against the spec it pins" \
+              --label chore --label area:docs \
+              --body-file /tmp/spec-drift-verdict.md)"
+            echo "Filed $url."
           fi

@@ -17,12 +17,19 @@ a validator unless the user authorizes dependency changes.
 Record `carve --version` (or the dependency version from the lockfile) in the
 handoff whenever version-sensitive syntax is involved.
 
+Confirm the command can fail before trusting a clean run: lint a line you know
+is wrong, such as `**x**`, and expect exit `1`. The carve-js 0.1.7 CLI prints
+nothing and exits `0` when started through a symlink, which is how
+`./node_modules/.bin/carve` and `npx carve` start it. With that version, call
+`node node_modules/@markup-carve/carve/dist/cli.js` directly.
+
 ## Command
 
 ```sh
 carve lint file.crv
 carve lint docs/**/*.crv
 carve lint < file.crv
+carve fmt --check file.crv
 ```
 
 Exit `0` = clean, `1` = findings, `2` = command/read error. One finding per line: `file:line:col rule — message`.
@@ -46,12 +53,18 @@ carve lint file.crv        # no --from-djot
 ```
 
 must be clean. Run it over every touched `.crv` file, not only the
-smallest example. If it is not clean, fix per the finding and re-run. Most fixes
+smallest example. Text you wrote yourself must also pass `carve fmt --check`:
+lint accepts lenient spellings such as ```` ``` js ```` (canonical ```` ```js ````)
+and reports nothing for them. If it is not clean, fix per the finding and re-run. Most fixes
 map to [foundation traps](traps-foundations.md): `**b**` → `*b*`,
 `~~s~~` → `~s~`, `^x^` → `{^x^}`, and `+ item` → `- item`. For a trailing
 heading `{#id}`, use [structure trap 18](traps-structure-references.md).
 
-Lint checks known hazards; it does not prove semantic intent. When changing
+Lint checks known hazards; it does not prove semantic intent. It is also
+silent when a fence opener is not an opener at all: ```` ```js {.diff} ```` has
+an attribute after the language, so the whole block degrades to an inline code
+span. Put the attribute on its own line above the fence, and check the render
+when a block matters. When changing
 containers, captions, references, raw target routing, extensions, or generated
 PR/issue snippets, also use the project's parser/render tests or preview and
 confirm the relevant structure. Do not run `carve fmt` across existing authored

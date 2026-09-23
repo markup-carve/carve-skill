@@ -30,6 +30,8 @@ Do not rely on Markdown/Djot habits. In Carve:
   paragraph, and a lone `-` without content is paragraph text.
 - cross-references are `</#id>`, comments are `%%` or fenced `%%%`, and a fence
   must be longer than any bare same-character fence line inside it.
+- a fence has no space before its language (```` ```js ````); attributes like
+  `{.diff}` go on the line above.
 
 For unfamiliar syntax, use [syntax.md](references/syntax.md) or a relevant trap
 guide: [foundations](references/traps-foundations.md)
@@ -44,17 +46,11 @@ Tier-3 features.
 ## Validate
 
 When Carve MCP is available, prefer its versioned resources and `carve_lint`;
-preview structural edits with its AST patch tools. Otherwise lint touched files
-with the matching-version local binary:
-
-```sh
-./node_modules/.bin/carve lint file.crv
-```
-
-Do not install a validator solely for the task. Prefer a project script/local
-binary, then `npx --no-install carve`; use global `carve` only at the matching
-version. Report command and version. Inspect parsed/rendered output when
-structure or target routing matters. See [validation.md](references/validation.md).
+preview structural edits with its AST patch tools. Otherwise run the project's
+`carve lint` on touched files and `carve fmt --check` on text you wrote; lint
+accepts non-canonical spellings. Use the matching version,
+never install one, and confirm it can fail before trusting a clean run.
+Report command and version. See [validation.md](references/validation.md).
 
 ## Preserve intent and safety
 

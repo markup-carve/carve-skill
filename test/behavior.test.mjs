@@ -3,14 +3,30 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { LIB_VERSION, carveToHtml, lintCarve } from '@markup-carve/carve'
+import { LIB_VERSION, carveToHtml, djotMigrationWarnings, lintCarve } from '@markup-carve/carve'
+
+// WHAT `carve lint` MEANS, PROGRAMMATICALLY. The CLI's default mode is two
+// calls, not one: `lintCarve` for the semantic rules and `djotMigrationWarnings`
+// for the Markdown-habit family, filtered to the `carve-breakage` category
+// (`--from-djot` keeps `djot-shift` as well). `lintCarve` alone cannot see
+// `**bold**`, `~~strike~~`, `^sup^` or a `+` bullet - the four mistakes this
+// skill exists to prevent - so a fixture written with one of them passed the
+// clean-lint assertion below. Measured on 0.1.7: `lintCarve('a **x** b')` is
+// `[]` while `carve lint` on the same bytes reports
+// `markdown-strong-double-star`.
+const defaultLint = (source) => [
+  ...lintCarve(source).map((finding) => finding.rule),
+  ...djotMigrationWarnings(source)
+    .filter((warning) => warning.category === 'carve-breakage')
+    .map((warning) => warning.rule),
+]
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)))
 const cases = JSON.parse(readFileSync(join(root, 'test', 'behavior.json'), 'utf8'))
 
 for (const fixture of cases) {
   test(`behavior: ${fixture.name}`, () => {
-    const findings = lintCarve(fixture.source)
+    const findings = defaultLint(fixture.source)
     assert.deepEqual(findings, [], `unexpected lint findings: ${JSON.stringify(findings)}`)
     const html = carveToHtml(fixture.source)
     for (const fragment of fixture.htmlIncludes) assert.ok(
@@ -23,6 +39,32 @@ for (const fixture of cases) {
     )
   })
 }
+
+// THE CLEAN-LINT ASSERTION ABOVE HAS TO BE ABLE TO FAIL. It was written against
+// `lintCarve` alone, which is blind to the whole Markdown-habit family, so for
+// every fixture in this file it could only ever pass. Both halves are asserted:
+// that the composed call reports the mistake, and that the single call does not,
+// because the day `lintCarve` absorbs these rules this test should say so rather
+// than keep composing a call that no longer needs composing.
+test('the clean-lint assertion sees the mistakes this skill exists to prevent', () => {
+  for (const [source, rule] of [
+    ['a **x** b', 'markdown-strong-double-star'],
+    ['a ~~x~~ b', 'markdown-strikethrough-double-tilde'],
+    ['a ^x^ b', 'djot-superscript-caret'],
+    ['+ item', 'djot-plus-bullet'],
+  ]) {
+    assert.ok(
+      defaultLint(source).includes(rule),
+      `${JSON.stringify(source)} should report ${rule}, got ${JSON.stringify(defaultLint(source))}`,
+    )
+    assert.deepEqual(
+      lintCarve(source).map((finding) => finding.rule),
+      [],
+      `lintCarve now reports ${JSON.stringify(source)} on its own; drop the composition in defaultLint ` +
+        'and the paragraph about it in references/validation.md',
+    )
+  }
+})
 
 // Every feature the matrix records a boolean for, and the document that proves
 // it. The matrix is machine-readable guidance an agent acts on, and until this
@@ -55,6 +97,23 @@ const PROBES = {
   // engine emitted that before the second axis existed. `vertical-align` is the
   // half that only appears once the feature does.
   vertical_cell_alignment: { source: '|=<^ A |\n| x |', present: 'vertical-align: top' },
+  // The CLOSING half is what tells the exemption from its absence: `_*x*_`
+  // marking proves a bare `*` opened against a `_`, and the second line proves
+  // the exemption is conditional on the outer span closing rather than a blanket
+  // relaxation of the guard.
+  nested_bare_emphasis: {
+    source: '_*x*_\n\n_*y* q',
+    presentAll: ['<u><strong>x</strong></u>', '_*y* q'],
+  },
+  // A LINT probe, not a render one. The claim is about what the LINTER reports;
+  // rendering this sample would only re-measure the degradation the skill
+  // already documents, and would go on passing after the rule ships. The matrix
+  // records `false`, so this reads "no finding names it" and flips on its own
+  // the release the engine starts emitting it.
+  fence_opener_fallback_lint: {
+    source: 'Intro.\n\n```js {.diff}\nx\n```\n',
+    lintRule: 'fence-opener-fallback',
+  },
   // `==>` rather than `=>`: the doubled family arriving and `=>` ceasing to
   // convert were ONE release, so probing `=>` would now measure the opposite of
   // this entry and read as a regression rather than the feature.
@@ -77,6 +136,16 @@ test('every capability the matrix records is true of the engine', () => {
     const probe = PROBES[name]
     if (!probe) {
       findings.push(`${name}: recorded as ${feature.inTestedEngine} with no probe in PROBES`)
+      continue
+    }
+    if (probe.lintRule) {
+      const reported = defaultLint(probe.source)
+      if (reported.includes(probe.lintRule) !== feature.inTestedEngine) {
+        findings.push(
+          `${name}: matrix says ${feature.inTestedEngine}, ` +
+            `${capabilities.testedEngine} lints it as ${JSON.stringify(reported)}`,
+        )
+      }
       continue
     }
     const html = carveToHtml(probe.source)

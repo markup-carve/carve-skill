@@ -1,7 +1,7 @@
 {
   "$comment": "Which active normative rules of spec/resources/spec/rules.json the skill was last read against, keyed by the stable rule id. The registry is the structured source of the whole normative surface - the grammar clause inventory is its title set and docs/rules/ is generated from it - so a clause added, retired or retitled here is a change to what correct authoring advice looks like. `scope` is not fingerprinted: the views are navigation, and hashing it made a one-off metadata addition read as 242 moved rules. Regenerate with `npm run spec:review` AFTER re-reading the rules the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/spec/rules.json",
-  "spec_rev": "fe81bde7cb0b02c2ee2d1b1f4f1f2618220ff865",
+  "spec_rev": "d85b13ae7f8ed8614418315645770113defb67ab",
   "rules": {
     "CARVE-P0-001": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -412,8 +412,8 @@
       "sha256": "02402512c44be0e0103a9e07debb57cd6732020815c51cdc26bdc3abe033a1ae"
     },
     "CARVE-P9-022": {
-      "title": "BOOLEAN (value-less) ATTRIBUTES",
-      "sha256": "a7c912a9b6ed9c65cbd2323513808d7821cfb70bf0b68335f9712084bd4f2bc6"
+      "title": "BOOLEAN ATTRIBUTES",
+      "sha256": "4cd8cabd2ee2956032184da649de4fe261716d9057a11d5a5b6e23924df51c9a"
     },
     "CARVE-P9-023": {
       "title": "A2a AN INVISIBLE CONSTRUCT IS NOT THE NEXT BLOCK",
@@ -627,6 +627,10 @@
       "title": "AN UNANSWERABLE PROBE KEEPS THE CANDIDATE TEXT",
       "sha256": "aa84f9089ff096b557dc6f6748b82d08ea3167c6827210a71fcae6e9ff83117e"
     },
+    "CARVE-P9R-009": {
+      "title": "R5a LABELED DISPLAY EQUATIONS ARE NUMBERED",
+      "sha256": "37b1c63d79655151bd8a460032bfe3ab68fe741108897faa0e334fe1cf9afe81"
+    },
     "CARVE-P10-001": {
       "title": "AN EMPTY CONTAINER BODY",
       "sha256": "d13219de9bd20e994d8fb274a59379786c66968b6346a70b8b71552284696f07"
@@ -708,8 +712,8 @@
       "sha256": "f85ee69e19770fa63e3738040b1f2c0a4f76fc3bc539f9cb7b3817f046e227bc"
     },
     "CARVE-P11-012": {
-      "title": "A VALUE-LESS ATTRIBUTE IS WRITTEN AS A BOOLEAN",
-      "sha256": "e8f8644751aedf9d4f0d12e44dad3c6aea692ebe9054711c4b75881a7843eb3f"
+      "title": "AN EMPTY-STRING ATTRIBUTE IS WRITTEN AS A BOOLEAN",
+      "sha256": "ef7be4d0a0565d10b4ca93e8146868d1e3e22e5e9055b5b26caba4a38f2ecde2"
     },
     "CARVE-P11-013": {
       "title": "A CODE FENCE OPENER IS WRITTEN GLUED TO ITS INFO STRING",
@@ -766,6 +770,10 @@
     "CARVE-P11-025": {
       "title": "THE MARKDOWN TARGET'S AUTHORED ESCAPE NARROWS TOO",
       "sha256": "eefcd30b298ba08bc4f0d8affdfe51f96c50b9f92d857860d724be209add8fbf"
+    },
+    "CARVE-P11-045": {
+      "title": "THE MARKDOWN TARGET USES RICH-TEXT DELIMITERS WHERE THEY READ BACK",
+      "sha256": "d43aeeb9d2ca02c2195f85ae352ac46e87e28c99894372fc5846648876541946"
     },
     "CARVE-P11-026": {
       "title": "THE MARKDOWN TARGET'S HARD BREAK",
@@ -1018,6 +1026,62 @@
     "CARVE-P12-045": {
       "title": "`fmt` WRITES THE SOURCE SPELLING, NOT `blockImage`",
       "sha256": "9f38eb5fbe0508e76798121000691876fb940004bce2ab302d49eab1a056ba34"
+    },
+    "CARVE-P12-046": {
+      "title": "A CHILDREN ARRAY HOLDS ONLY A CONTENT BLOCK",
+      "sha256": "f058037a2ca7d1990b4a3d4f1db0c72621c329bca305e49a4b212f350ed97f94"
+    },
+    "CARVE-P12-047": {
+      "title": "A REFERENCE NODE CARRIES ITS TARGET",
+      "sha256": "466c407622138f3e02ddc84a35093ddbe9412f9c6af7963db8c62620c1b16c9f"
+    },
+    "CARVE-P12-048": {
+      "title": "A SPANNING CELL PUBLISHES ITS RESOLVED EXTENT",
+      "sha256": "6225eb489824246b8cc8188b0b6ca975922309cdc0024e49b78e0024a006e887"
+    },
+    "CARVE-P12-049": {
+      "title": "A TABLE CELL MAY CARRY BLOCK CONTENT INSTEAD OF INLINE",
+      "sha256": "c59063cfc9cd7a3c0bed83b51d33a25ffdd897585ad070487464796a5f4fe5b9"
+    },
+    "CARVE-P12-050": {
+      "title": "SMALL CAPS SURVIVE INTERCHANGE",
+      "sha256": "2f248adbceddc4251f6f19a1172d49423365db66f8e285c7e27add840aa72c36"
+    },
+    "CARVE-P12-051": {
+      "title": "A DISPLAY EQUATION MAY CARRY A LABEL AND NUMBER",
+      "sha256": "9e7be8e27fe5aa4d2f38bd34bc6fbdf3f00ebf42000f4899ff30393803c7ac41"
+    },
+    "CARVE-P12-052": {
+      "title": "SECTIONING IS INTERCHANGE-ONLY",
+      "sha256": "8acb367cda28525fbd15c9f53458631463270b87f164d84310816a442dcb64a7"
+    },
+    "CARVE-P12-053": {
+      "title": "A CITATION ITEM CARRIES ITS OWN MODE",
+      "sha256": "a766e352e6fcd4a22dd60b68e856e9aa502cae6cbebd39318dbb564d65d0ea82"
+    },
+    "CARVE-P12-054": {
+      "title": "RUBY ANNOTATIONS SURVIVE INTERCHANGE",
+      "sha256": "4c81432537619d61f172815892fc5b882c2f66246af65e678c5b7f0d9d0e3d7a"
+    },
+    "CARVE-P12-055": {
+      "title": "A BLOCK EXTENSION DECLARES A CORE FALLBACK",
+      "sha256": "4c288911b6cfc7f379eaacdc8d737cf278e42288615c46f9f0eddfd75aad7d5a"
+    },
+    "CARVE-P12-056": {
+      "title": "A STORED TREE IS WRAPPED IN A VERSIONED ENVELOPE",
+      "sha256": "369220b46819a0d5e844cb3b2e2174326394bc5fb6b1510f9ac13aa76e456ad2"
+    },
+    "CARVE-P12-057": {
+      "title": "A NAMED CONTAINER IS A CALLOUT, A DIRECTIVE OR A DIV",
+      "sha256": "548f854ada5bd7c4c9b947a893c82e22fe365618eeb8b4d6ebbc03677cf8c7e6"
+    },
+    "CARVE-P12-058": {
+      "title": "A LINE BLOCK MAY PUBLISH ITS LINES",
+      "sha256": "dc80f890235621ef5ac42397e4bf72d33e3c75c34bf30e6281942217c40d3b9d"
+    },
+    "CARVE-P12-059": {
+      "title": "A CITATION IS ONLY EVER AN ITEM OF A GROUP",
+      "sha256": "b97b769f9b8286bfe0ff13c4af2cd384e220399082cb49eec585391148723efb"
     }
   }
 }

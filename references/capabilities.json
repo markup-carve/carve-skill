@@ -49,6 +49,18 @@
       "inTestedEngine": true,
       "guidance": "Shipped in 0.1.5. Was prose-only guidance saying 0.1.4 left the markers as literal cell text, which stayed in the skill for a release after it stopped being true."
     },
+    "nested_bare_emphasis": {
+      "syntax": "_*x*_, one bare mark directly inside another",
+      "spec": true,
+      "inTestedEngine": true,
+      "guidance": "PART 3's word-boundary guard exempts a delimiter that opens directly after a `_` or `/` which itself opens a span that closes. `_*x*_` nests; `_*x* q` stays literal."
+    },
+    "fence_opener_fallback_lint": {
+      "syntax": "carve lint reporting a fence opener whose info string is not valid",
+      "spec": true,
+      "inTestedEngine": false,
+      "guidance": "The spec's validation rule table names `fence-opener-fallback`; 0.1.7 does not emit it, so ```js {.diff} degrades to an inline code span with no finding. Check the render until this flips."
+    },
     "doubled_arrows": {
       "syntax": "==> <== <=> smart-punctuation arrows",
       "spec": true,

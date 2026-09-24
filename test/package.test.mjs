@@ -1,6 +1,8 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { existsSync, readFileSync, readdirSync } from 'node:fs'
+import { spawnSync } from 'node:child_process'
+import { existsSync, mkdtempSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
+import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { LEDGERS } from '../scripts/review-ledgers.mjs'
@@ -77,4 +79,37 @@ test('every reference page is watched or deliberately exempt from spec review', 
   // reference cannot silently inherit the same exemption.
   const exempt = ['references/reader-focused.md', 'references/workflows.md']
   assert.deepEqual([...watched, ...exempt].sort(), references)
+})
+
+// THE ROUND-TRIP LINT GATE HAS TO BE ABLE TO FAIL. `npm run lint:examples` is
+// the CI step that stands for "the syntax this skill teaches is valid Carve",
+// and it was spelled `carve lint examples/*.crv`. npm puts `node_modules/.bin`
+// on PATH, and carve-js 0.1.7 started through that symlink prints nothing and
+// exits 0 - the hazard references/validation.md documents, applied to this
+// repository's own gate. Measured before the fix: an `examples/*.crv` holding
+// `**x**` passed `npm run lint:examples` while the direct `dist/cli.js` path
+// reported `markdown-strong-double-star` and exited 1.
+//
+// So the script is run here against a file that must fail, rather than being
+// pattern-matched for a path that could be re-spelled correctly and still be
+// wrong on the next release.
+test('the round-trip lint script reports a document it must reject', () => {
+  const script = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')).scripts['lint:examples']
+  assert.ok(script.includes('examples/*.crv'), 'lint:examples no longer lints the examples directory')
+
+  const probe = join(mkdtempSync(join(tmpdir(), 'carve-skill-lint-')), 'bad.crv')
+  writeFileSync(probe, 'a **x** b\n')
+  const run = spawnSync(script.replace('examples/*.crv', probe), {
+    cwd: root,
+    shell: true,
+    encoding: 'utf8',
+  })
+
+  assert.notEqual(
+    run.status,
+    0,
+    'lint:examples exited 0 on a document holding `**x**`, so the CI round-trip gate cannot fail. ' +
+      `stdout: ${JSON.stringify(run.stdout)} stderr: ${JSON.stringify(run.stderr)}`,
+  )
+  assert.match(run.stdout, /markdown-strong-double-star/)
 })

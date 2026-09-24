@@ -28,6 +28,9 @@ It is ONE block, and the same operation in every container that takes the marker
 - step two
 ```
 
+`fmt` indents a lone attached block; `+` survives only where indenting would
+merge two blocks (`CARVE-P11-030`).
+
 ## 4. Visual-mnemonic emphasis (the delimiters are swapped)
 
 | Effect | Markdown/Djot | Carve |

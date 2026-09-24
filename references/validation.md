@@ -55,7 +55,32 @@ carve lint file.crv        # no --from-djot
 must be clean. Run it over every touched `.crv` file, not only the
 smallest example. Text you wrote yourself must also pass `carve fmt --check`:
 lint accepts lenient spellings such as ```` ``` js ```` (canonical ```` ```js ````)
-and reports nothing for them. If it is not clean, fix per the finding and re-run. Most fixes
+and reports nothing for them. Others only `fmt` reports: a bare `---`
+frontmatter opener (canonical `---yaml`), a definition separator padded past
+one space, and table cells padded to align a column. None of them is wrong -
+the formatter has one spelling for each.
+
+The `+` continuation marker is the one worth knowing before you write it,
+because [foundation trap 3](traps-foundations.md) teaches the construct with an
+example the formatter rewrites. `CARVE-P11-030` (PART 11 §10c) writes a lone
+attached block indented at the item's content column, and keeps the marker only
+where two adjacent children written there would re-parse as one block. So this
+is canonical and `+` survives:
+
+```
+- step one
++
+> the first note
++
+> the second note, which indentation would merge into the first
+- step two
+```
+
+while the same item with only the first note canonicalizes to `  > the first
+note`. Both spellings parse to the same document; `examples/showcase.crv`
+carries the surviving form. Measured on `@markup-carve/carve` 0.1.7.
+
+If lint or `fmt --check` is not clean, fix per the finding and re-run. Most fixes
 map to [foundation traps](traps-foundations.md): `**b**` → `*b*`,
 `~~s~~` → `~s~`, `^x^` → `{^x^}`, and `+ item` → `- item`. For a trailing
 heading `{#id}`, use [structure trap 18](traps-structure-references.md).

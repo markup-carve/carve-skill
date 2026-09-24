@@ -1,4 +1,4 @@
----
+---yaml
 title: Carve Showcase
 tags: [carve, demo]
 ---
@@ -6,8 +6,9 @@ tags: [carve, demo]
 {#intro}
 # Carve Showcase
 
-A short document exercising core Carve constructs. It is written to pass
-`carve lint` cleanly, so it doubles as the skill's round-trip check.
+A short document exercising core Carve constructs. It passes `carve lint` and
+`carve fmt --check`, so it doubles as the skill's round-trip check and as the
+one place the instruction SKILL.md gives agents is run on this repository.
 
 Inline: /italic/, *bold*, /*bold italic*/, _underline_, ~strike~, =highlight=,
 `code`, water is H{,2,}O and energy is E = mc{^2^}. See </#tables> below,
@@ -17,9 +18,13 @@ the same endnotes.]
 ## Lists
 
 - unordered item
-- item with a continuation
+- item with two attached notes
 +
 > A note attached to the item above.
++
+> A second note. Indented at the content column these two quotes would read
+> as one, which is where the continuation marker is required.
+
 - [ ] a task
 - [x] a done task
 
@@ -27,14 +32,14 @@ the same endnotes.]
 2. second
 
 :: term
-:  Its definition, one block per entry.
+: Its definition, one block per entry.
 
 {#tables}
 ## Tables
 
 |= Name |=> Score |
-| Alice |< 30     |
-| Bob   |< 42     |
+| Alice |< 30 |
+| Bob |< 42 |
 ^ Table: a small scoreboard.
 
 ## Code and math

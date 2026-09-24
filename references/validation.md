@@ -64,7 +64,15 @@ Lint checks known hazards; it does not prove semantic intent. It is also
 silent when a fence opener is not an opener at all: ```` ```js {.diff} ```` has
 an attribute after the language, so the whole block degrades to an inline code
 span. Put the attribute on its own line above the fence, and check the render
-when a block matters. When changing
+when a block matters.
+
+The spec has since named a rule for exactly that shape -
+`fence-opener-fallback`, for an opener whose info string is not a language plus
+an optional `"title"` and `[label]` - but the engine this skill is tested
+against does not emit it yet. Measured on `@markup-carve/carve` 0.1.7, the
+sample above lints clean and renders as one `<code>` span, so the sentence above
+is still the operating rule. `references/capabilities.json` records it as
+`fence_opener_fallback_lint` so the next release re-measures it. When changing
 containers, captions, references, raw target routing, extensions, or generated
 PR/issue snippets, also use the project's parser/render tests or preview and
 confirm the relevant structure. Do not run `carve fmt` across existing authored
@@ -76,4 +84,16 @@ top-level document; do not reinterpret included offsets as parent-file offsets.
 
 ## Getting the linter
 
-`carve lint` ships with the TypeScript implementation (`@markup-carve/carve` on npm; `npx carve lint …`). The language server (`@markup-carve/carve-lsp`) surfaces the same diagnostics in-editor. Programmatic callers use `lintCarve(source)`.
+`carve lint` ships with the TypeScript implementation (`@markup-carve/carve` on npm; `npx carve lint …`). The language server (`@markup-carve/carve-lsp`) surfaces the same diagnostics in-editor.
+
+A programmatic caller needs BOTH halves, because the CLI runs both and
+`lintCarve` is only one of them. `lintCarve(source)` carries the semantic rules
+- `broken-crossref`, the footnote rules, `raw-block-syntax`, the table rules.
+The Markdown-habit family this skill exists to prevent is not in it:
+`djotMigrationWarnings(source)` carries that, and the CLI's default mode keeps
+the entries whose `category` is `carve-breakage`, adding `--from-djot` to keep
+the `djot-shift` ones too. Measured on `@markup-carve/carve` 0.1.7,
+`lintCarve('a **x** b')` returns no findings while `carve lint` on the same
+bytes reports `markdown-strong-double-star`. So a caller that runs `lintCarve`
+alone and calls the result clean has checked half of what the section above
+promises.

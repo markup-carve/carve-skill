@@ -1,7 +1,7 @@
 {
   "$comment": "Which preamble/H2/H3 sections of spec/docs/extension-contract.md references/extensions.md was last read against. This is where the tier table and the normative behavior of each standard extension live since carve#1932. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/extension-contract.md",
-  "spec_rev": "fe81bde7cb0b02c2ee2d1b1f4f1f2618220ff865",
+  "spec_rev": "d85b13ae7f8ed8614418315645770113defb67ab",
   "sections": {
     "Preamble": {
       "title": "Preamble",
@@ -93,7 +93,7 @@
     },
     "ListTable (Tier-2) / Rendering": {
       "title": "5.2 Rendering",
-      "sha256": "228487d8d457176e42a55ff91da20963bf908b882739c8ce3243a2217bdcf80c"
+      "sha256": "9ac4ed4c94a1bb33f584e98627b192bbe65f2f5e83641a6547c6d79e03ad7338"
     },
     "ListTable (Tier-2) / Degradation": {
       "title": "5.3 Degradation",
@@ -101,7 +101,7 @@
     },
     "ListTable (Tier-2) / Conformance (`tests/corpus-optional`)": {
       "title": "5.4 Conformance (`tests/corpus-optional`)",
-      "sha256": "dacb25bd46b6677bd87aca0012b61a06f6fc5dd4a4ce8f663dbe20872c0a6ff0"
+      "sha256": "fd78d68de1b2cbe750be74fdc8ac4628d80f2d18bec4b51eb6f3ab5ccf33f8a1"
     },
     "ListTable (Tier-2) / Out of scope (impls MAY differ)": {
       "title": "5.5 Out of scope (impls MAY differ)",

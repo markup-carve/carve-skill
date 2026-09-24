@@ -46,6 +46,27 @@ It is ONE block, and the same operation in every container that takes the marker
 - **Sup/sub have no bare delimiter.** `^x^` and `,x,` are literal; only `{^x^}` / `{,x,}` mark. This is because the dominant uses are intraword (H₂O, mc²) and a bare comma collides with prose.
 - Bare delimiters only fire at word boundaries; force an intraword one with the brace form (`H{,2,}O`).
 
+**Two bare marks may sit directly against each other**, which the word-boundary
+rule alone reads as forbidden - the character before a delimiter may not be `_`
+or `/`. PART 3's guard exempts the nesting case: a delimiter opens directly
+after a `_` or `/` when that character itself opens a span that CLOSES. So no
+brace form is needed to wrap one whole-word mark in another, and a half-written
+pair stays text.
+
+````
+_*both*_ marks land.
+
+_*only one* closes.
+````
+
+````html
+<p><u><strong>both</strong></u> marks land.</p>
+<p>_*only one* closes.</p>
+````
+
+Measured against `@markup-carve/carve` 0.1.7 and recorded as
+`nested_bare_emphasis` in `references/capabilities.json`.
+
 ## 5. No parenthesized ordered markers
 
 Ordered lists use `.` and `)` only (`1.` / `1)`). `(1)`, `(a)`, `(i)` stay literal paragraph text (they are far more often a prose parenthetical).
@@ -159,18 +180,38 @@ marker may carry a second axis, and the pair is HORIZONTAL FIRST
 `v>` and a lone `^` or `v` stay ordinary cell content. `?` takes the column's
 horizontal axis and its own vertical (#1408).
 
-Re-measured 2026-08-28 on published `@markup-carve/carve` 0.1.5, where it WORKS:
+Measured against `@markup-carve/carve` 0.1.7, the engine this skill is tested
+against:
 
-    |=<^ A |   ->  <th style="text-align: left; vertical-align: top;">A</th>
-    |?v x  |   ->  <td style="text-align: right; vertical-align: bottom;">x</td>
+````
+|=>^ Qty |
+|?v 15 |
+````
 
-This paragraph used to say the opposite, and said it for a release after it
-stopped being true: it recorded 0.1.4 leaving the markers as literal cell text
-and told the reader to avoid the syntax. Nothing could catch that, because the
-claim lived HERE, in prose, while the probes only read
-`references/capabilities.json`. It is recorded there now as
-`vertical_cell_alignment`, so the next release re-measures it instead of
-trusting this sentence.
+````html
+<table>
+  <thead>
+    <tr><th scope="col" style="text-align: right; vertical-align: top;">Qty</th></tr>
+  </thead>
+  <tbody>
+    <tr><td style="text-align: right; vertical-align: bottom;">15</td></tr>
+  </tbody>
+</table>
+````
+
+The `?` row is the point of the example: it sets only the vertical axis, so the
+figure keeps the column's `right`.
+
+This entry has now been wrong twice. It first recorded 0.1.4 leaving the markers
+as literal cell text and told the reader to avoid the syntax, and said so for a
+release after that stopped being true. The correction then paired a LEFT-aligned
+column with a `?v` cell and claimed `text-align: right`, contradicting the
+sentence above it; no engine renders that, 0.1.5 and 0.1.7 both give `left`
+there. Both survived because the claim was an indented arrow line rather than a
+Carve block followed by the HTML it claims, which is the shape
+`test/documented-rules.test.mjs` executes. The pair above is that shape, and
+`vertical_cell_alignment` in `references/capabilities.json` re-measures the
+feature each release.
 
 The collision worth knowing is unchanged: `^` alone in a DATA cell is the
 rowspan marker (`| ^ |`), which is a different thing and works everywhere.

@@ -19,7 +19,7 @@
     "forbiddenSource": ["1. keep", "2. replacement"],
     "maxChangedLines": 1,
     "loadedReferences": ["traps-foundations.md"],
-    "maxContextTokens": 3700
+    "maxContextTokens": 4000
   },
   {
     "name": "attach a fenced block to a list item",

@@ -27,3 +27,8 @@ jobs:
       # Round-trip: the showcase must lint clean with hand-written Carve rules
       # (no --from-djot). If the skill taught wrong syntax, this would fail.
       - run: npm run lint:examples
+
+      # The instruction SKILL.md gives agents, run on this repository's own
+      # Carve. Lint accepts lenient spellings the formatter rewrites, so a
+      # clean lint above says nothing about this (#129).
+      - run: npm run fmt:examples

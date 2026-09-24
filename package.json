@@ -29,6 +29,7 @@
   "scripts": {
     "test": "node --test test/*.test.mjs",
     "lint:examples": "node node_modules/@markup-carve/carve/dist/cli.js lint examples/*.crv",
+    "fmt:examples": "node node_modules/@markup-carve/carve/dist/cli.js fmt --check examples/*.crv",
     "test:behavior": "node --test test/behavior.test.mjs",
     "eval:tasks": "node scripts/task-evaluator.mjs",
     "context:measure": "node scripts/measure-context.mjs",

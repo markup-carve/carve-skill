@@ -1,7 +1,7 @@
 {
   "$comment": "Which AST node definitions of spec/resources/ast-schema.json the skill was last read against. The schema states language rules in prose - block promotion, resolution timing, which fields survive - so a moved description can make a reference page lie. Regenerate with `npm run spec:review` AFTER re-reading the nodes the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/ast-schema.json",
-  "spec_rev": "d85b13ae7f8ed8614418315645770113defb67ab",
+  "spec_rev": "45784cbca3369c50ed570c6ba102f7fb71b84cab",
   "nodes": {
     "abbreviation": {
       "title": "abbreviation (inline)",
@@ -17,7 +17,7 @@
     },
     "admonition": {
       "title": "admonition (block)",
-      "sha256": "9542ac2ed72f98eb9dbbf6f68b7cd2c70823f148a8f8bde97f4f09ea06fc2b2e"
+      "sha256": "d0f3c5b148c07e5e0eaf1d29219ec4d1c9dea5b6d9f7bfdcb1e95e36f504ee0e"
     },
     "attrs": {
       "title": "Attribute block",
@@ -53,7 +53,7 @@
     },
     "citation_group": {
       "title": "citation_group (inline)",
-      "sha256": "88c8734f13646c688c2a8fcea8cf563db77b798faefede5be203559fcff4cbb9"
+      "sha256": "1e46f074de4aa34610df2d9c37b52d56511f9687a8aa5f94765df53684a34195"
     },
     "code": {
       "title": "code (inline)",
@@ -93,7 +93,7 @@
     },
     "directive": {
       "title": "directive (block)",
-      "sha256": "ac34c3b44be894e5845b31320c1fd317acc821ffb103eea66b7f6bb386558d3f"
+      "sha256": "68302683db624baaeb520e28d00c61ba27cda4f5fbf9060f319e3e125a720486"
     },
     "document": {
       "title": "document (root)",
@@ -165,7 +165,7 @@
     },
     "line_block": {
       "title": "line_block (block)",
-      "sha256": "f67e312788816eb4149b0f09637117a03498da0682c1b60e3db72f8c0378d090"
+      "sha256": "c9952d80f725f3dab3c1d30877ca974cbd2f89ec56f5d2de7be0872050a45895"
     },
     "link": {
       "title": "link (inline)",
@@ -209,7 +209,7 @@
     },
     "section": {
       "title": "section (block)",
-      "sha256": "2b8a1fcc7fd21f8d6cfd0cd84ac49c5488b88fc91c467daf25c909d7aea1546e"
+      "sha256": "9030680ccb72683be4f2e1728e43c04a6549aab3388e3bc04f048b28b0a9d2d5"
     },
     "smart_punctuation": {
       "title": "smart_punctuation (inline)",
@@ -265,7 +265,7 @@
     },
     "table_cell": {
       "title": "table_cell (block)",
-      "sha256": "4463891e7ea935cef5761f2c64baec637cec2dc3bbbe9a0341aae4da979fe992"
+      "sha256": "5dcb0cb60d0717f48fb1f76c567ad07dc33bfbbb4b2c91afc718c90cfd4b0b43"
     },
     "table_row": {
       "title": "table_row (block)",

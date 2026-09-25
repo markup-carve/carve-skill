@@ -8,7 +8,7 @@
     "forbiddenSource": ["**strong**", "*lean*"],
     "maxChangedLines": 1,
     "loadedReferences": ["syntax.md"],
-    "maxContextTokens": 2400
+    "maxContextTokens": 2500
   },
   {
     "name": "make the smallest local list edit",

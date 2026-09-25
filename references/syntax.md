@@ -126,7 +126,7 @@ body
 :::
 ```
 
-Types: `note tip warning danger info success example quote`. Any other word → `<div class="word">`. Title must be **straight-quoted** (unquoted or curly-quoted makes the line a plain paragraph). Longer fences nest shorter ones:
+Types: `note tip warning danger info success example quote`. Any other word → `<div class="word">`, except `footnotes toc glossary index bibliography references`, which **place** generated content and fall back to that `<div>` (see [extensions.md](extensions.md)). Title must be **straight-quoted** (unquoted or curly-quoted makes the line a plain paragraph). Longer fences nest shorter ones:
 
 ```
 :::: outer
@@ -198,8 +198,12 @@ block comment                     (hides its body at any column, including a
 
 ---
 title: My Document            (frontmatter; ---toml / ---json for other formats)
-
-{{ chapter.crv#intro @shift:auto }}  (processor include; literal without a resolver)
 tags: [carve, markup]
 ---
+
+{{ chapter.crv#intro @shift:auto }}  (processor include)
 ```
+
+Core never expands an include, and the braces stay — but the bytes inside still
+parse as inline content, so only a directive carrying no inline marker comes back
+verbatim: the `@shift` above renders as a mention.

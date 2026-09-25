@@ -114,6 +114,17 @@ const PROBES = {
     source: 'Intro.\n\n```js {.diff}\nx\n```\n',
     lintRule: 'fence-opener-fallback',
   },
+  // The PLACING path is the probe, because the degraded `<div>` already carries
+  // the title: rendering the no-footnotes marker would read as support while the
+  // section that places still drops it.
+  directive_title: {
+    source: 'T[^1]\n\n::: footnotes "Reader notes"\n:::\n\n[^1]: n\n',
+    present: 'Reader notes',
+  },
+  footnotes_placement_lint: {
+    source: 'T[^1]\n\n> ::: footnotes\n> :::\n\n[^1]: n\n',
+    lintRule: 'footnotes-placement-in-container',
+  },
   // `==>` rather than `=>`: the doubled family arriving and `=>` ceasing to
   // convert were ONE release, so probing `=>` would now measure the opposite of
   // this entry and read as a regression rather than the feature.

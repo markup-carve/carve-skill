@@ -24,21 +24,26 @@ Beyond the core (Tier-1) syntax, Carve has opt-in extensions. **The syntax is st
 
 `::: footnotes`, `::: bibliography` and `::: references` move a document-wide
 region, and only a marker at document top level does so. Inside a block-level
-container — a quote, a list item, a div or directive body, a table cell, a
-definition description, a footnote definition — the marker renders the
+container (a quote, a list item, a div or directive body, a table cell, a
+definition description, a footnote definition) the marker renders the
 `<div class="{kind}">` fallback where it stands and the region goes where an
 unmarked document puts it (`CARVE-P9-073`). The spec names a diagnostic for that
 shape, `{kind}-placement-in-container`; `@markup-carve/carve` 0.1.7 does not emit
 it yet, so lint stays silent and only the render shows it. `::: toc`,
 `::: glossary` and `::: index` are placeable at any depth.
 
-A quoted title and an opener `[label]` on one of these markers belong to the
-element it places (`CARVE-P9-072`). 0.1.7 carries them only on the fallback
-`<div>`: a marker that actually places drops both, so
-`::: footnotes "Reader notes"` renders an endnotes section with the title
-nowhere in the output ([markup-carve/carve-js#2073](https://github.com/markup-carve/carve-js/issues/2073)).
-Leave a placing marker untitled until that ships; `directive_title` in
-[capabilities.json](capabilities.json) re-measures it each release.
+A quoted title and an opener `[label]` on any placement marker belong to the
+element it places, title first (`CARVE-P9-072`), except where that element
+cannot hold a paragraph: `glossary` places a `<dl>` and `index` a `<ul>`, so for
+those two the tokens precede the generated content instead. The fallback `<div>`
+takes them as children and takes no naming attribute.
+
+0.1.7 carries them only on that fallback. A marker that actually places drops
+both, so `::: footnotes "Reader notes" [End]` renders an endnotes section with
+neither token anywhere in the output
+([markup-carve/carve-js#2073](https://github.com/markup-carve/carve-js/issues/2073)).
+Leave a placing marker untitled and unlabeled until that ships; `directive_title`
+in [capabilities.json](capabilities.json) re-measures it each release.
 
 ## Guidance for agents
 

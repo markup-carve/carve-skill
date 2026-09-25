@@ -204,6 +204,6 @@ tags: [carve, markup]
 {{ chapter.crv#intro @shift:auto }}  (processor include)
 ```
 
-Core never expands an include, and the braces stay — but the bytes inside still
+Core never expands an include and the braces stay, but the bytes inside still
 parse as inline content, so only a directive carrying no inline marker comes back
 verbatim: the `@shift` above renders as a mention.

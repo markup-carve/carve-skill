@@ -99,11 +99,12 @@ sample above lints clean and renders as one `<code>` span, so the sentence above
 is still the operating rule. `references/capabilities.json` records it as
 `fence_opener_fallback_lint` so the next release re-measures it.
 
-`footnotes-placement-in-container` is the same kind of gap. The spec's rule table
-names it for a `::: footnotes`, `::: bibliography` or `::: references` marker
-written inside a container, where the marker renders the
+The placement diagnostics are the same kind of gap. The spec's rule table names
+one per kind: `footnotes-placement-in-container`,
+`bibliography-placement-in-container` and `references-placement-in-container`, for a
+marker of that kind written inside a container, where it renders the
 `<div class="{kind}">` fallback and places nothing (`CARVE-P9-073`). 0.1.7 reports
-nothing for it, so read the render rather than the exit code when a placement
+none of the three, so read the render rather than the exit code when a placement
 marker is not at document top level; `footnotes_placement_lint` in
 `references/capabilities.json` re-measures it.
 

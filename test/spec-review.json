@@ -1,7 +1,7 @@
 {
   "$comment": "Which spec divergence sections the topic guides in references/traps-*.md were last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/divergence-from-djot.md",
-  "spec_rev": "d85b13ae7f8ed8614418315645770113defb67ab",
+  "spec_rev": "45784cbca3369c50ed570c6ba102f7fb71b84cab",
   "sections": {
     "1": {
       "title": "Case-preserving heading ids with case-insensitive cross-references",
@@ -17,7 +17,7 @@
     },
     "4": {
       "title": "Visual-mnemonic emphasis",
-      "sha256": "102308f3f56a98c56f5990e84875c3691e5deba4002eb607d058de0b440c412e"
+      "sha256": "8d37582e780e3082c846c223506d4694120152245cb60ff2ced01ae003fee172"
     },
     "5": {
       "title": "No parenthesized ordered markers",

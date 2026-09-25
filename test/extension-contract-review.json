@@ -1,7 +1,7 @@
 {
   "$comment": "Which preamble/H2/H3 sections of spec/docs/extension-contract.md references/extensions.md was last read against. This is where the tier table and the normative behavior of each standard extension live since carve#1932. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/extension-contract.md",
-  "spec_rev": "d85b13ae7f8ed8614418315645770113defb67ab",
+  "spec_rev": "45784cbca3369c50ed570c6ba102f7fb71b84cab",
   "sections": {
     "Preamble": {
       "title": "Preamble",
@@ -69,7 +69,7 @@
     },
     "Citations (Tier-2) / Lifecycle": {
       "title": "4.3 Lifecycle",
-      "sha256": "e9d6ac3ac7ce03b1fb0d0e6978333f384d9ca7531c09602696f3fbec3feda118"
+      "sha256": "d760bf70d2c93c85db3579d4299bc66401e4a15fbcc329c3712faf56da580ee8"
     },
     "Citations (Tier-2) / HTML data-\\* contract": {
       "title": "4.4 HTML data-\\* contract",
@@ -109,7 +109,7 @@
     },
     "Bibliography (Tier-3)": {
       "title": "6. Bibliography (Tier-3)",
-      "sha256": "5f46af388eeee3a67bc792900ae5a104cd108c8a0e0cf15050abed44bc27a879"
+      "sha256": "d9b27357a44084b9d27ec0b2e1985164111c4463cc9fcbff05a4495a37f800af"
     },
     "Bibliography (Tier-3) / Data source": {
       "title": "6.1 Data source",
@@ -157,7 +157,7 @@
     },
     "Glossary (Tier-3) / Conformance (NOT corpus-pinned)": {
       "title": "7.5 Conformance (NOT corpus-pinned)",
-      "sha256": "8acb16295b1d28eef5f6b75723b39eaac43c30ae826a3735c1e9f99b05fdb9fb"
+      "sha256": "b3b819a0ca1d6418fa2a2cb94248fed6b5015524e46bb01e72ed2bdb1090c12f"
     },
     "Index (Tier-3)": {
       "title": "8. Index (Tier-3)",
@@ -177,7 +177,7 @@
     },
     "Index (Tier-3) / Conformance (NOT corpus-pinned)": {
       "title": "8.4 Conformance (NOT corpus-pinned)",
-      "sha256": "2d2018c269eb8d52b774733b7a0b5987d1983048c9f40ac5bdb30f697fd8a789"
+      "sha256": "411c3ab868ea0307e92bf4dd091bdccf1626b0cacf6a9db919f48d9b02b4bc23"
     },
     "Placement directives: TOC & footnotes (Tier-3)": {
       "title": "8b. Placement directives: TOC & footnotes (Tier-3)",
@@ -185,15 +185,15 @@
     },
     "Placement directives: TOC & footnotes (Tier-3) / `::: toc` — table of contents": {
       "title": "8b.1 `::: toc` — table of contents",
-      "sha256": "e07b6ccba33a8184c3842d6ff9fd44bee2e26a276b1730792377aae1dca5d02c"
+      "sha256": "00bed469e3d4ef8824b12ff1ec81a06db006d3056f4646ba01910f58ca883e69"
     },
     "Placement directives: TOC & footnotes (Tier-3) / `::: footnotes` — endnotes placement": {
       "title": "8b.2 `::: footnotes` — endnotes placement",
-      "sha256": "f90553731189f85af004ae93873ece51dfaf9204f066e682b9a23ad2aae40f10"
+      "sha256": "9b4a83bfa394550923fd1be64b44ce93fe0b6bb6974eb074e3ea889e6ffc6c1e"
     },
     "Placement directives: TOC & footnotes (Tier-3) / Degradation & conformance": {
       "title": "8b.3 Degradation & conformance",
-      "sha256": "a461916e725858a5928ef51be7585671765b97f2ad55118173d12202a08baff9"
+      "sha256": "98355fc486f0b7301dbc91c657c1dfa26337d7f6ca041fbdb377122637980ab5"
     },
     "HeadingNumbers (Tier-3)": {
       "title": "9. HeadingNumbers (Tier-3)",

@@ -61,6 +61,18 @@
       "inTestedEngine": false,
       "guidance": "The spec's validation rule table names `fence-opener-fallback`; 0.1.7 does not emit it, so ```js {.diff} degrades to an inline code span with no finding. Check the render until this flips."
     },
+    "directive_title": {
+      "syntax": "::: footnotes \"Title\" - a quoted title on a placement marker",
+      "spec": true,
+      "inTestedEngine": false,
+      "guidance": "CARVE-P9-072 renders the title and the opener label as the placed element's first children. 0.1.7 carries them only on the degraded <div> and drops both when the marker places (markup-carve/carve-js#2073), so leave a placing marker untitled."
+    },
+    "footnotes_placement_lint": {
+      "syntax": "carve lint reporting a ::: footnotes marker written inside a container",
+      "spec": true,
+      "inTestedEngine": false,
+      "guidance": "CARVE-P9-073 names `footnotes-placement-in-container`; 0.1.7 renders the <div class=\"footnotes\"> fallback and reports nothing, so only the render shows that the marker did not place."
+    },
     "doubled_arrows": {
       "syntax": "==> <== <=> smart-punctuation arrows",
       "spec": true,

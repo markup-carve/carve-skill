@@ -97,7 +97,18 @@ an optional `"title"` and `[label]` - but the engine this skill is tested
 against does not emit it yet. Measured on `@markup-carve/carve` 0.1.7, the
 sample above lints clean and renders as one `<code>` span, so the sentence above
 is still the operating rule. `references/capabilities.json` records it as
-`fence_opener_fallback_lint` so the next release re-measures it. When changing
+`fence_opener_fallback_lint` so the next release re-measures it.
+
+The placement diagnostics are the same kind of gap. The spec's rule table names
+one per kind: `footnotes-placement-in-container`,
+`bibliography-placement-in-container` and `references-placement-in-container`, for a
+marker of that kind written inside a container, where it renders the
+`<div class="{kind}">` fallback and places nothing (`CARVE-P9-073`). 0.1.7 reports
+none of the three, so read the render rather than the exit code when a placement
+marker is not at document top level; `footnotes_placement_lint` in
+`references/capabilities.json` re-measures it.
+
+When changing
 containers, captions, references, raw target routing, extensions, or generated
 PR/issue snippets, also use the project's parser/render tests or preview and
 confirm the relevant structure. Do not run `carve fmt` across existing authored

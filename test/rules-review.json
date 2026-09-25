@@ -1,7 +1,7 @@
 {
   "$comment": "Which active normative rules of spec/resources/spec/rules.json the skill was last read against, keyed by the stable rule id. The registry is the structured source of the whole normative surface - the grammar clause inventory is its title set and docs/rules/ is generated from it - so a clause added, retired or retitled here is a change to what correct authoring advice looks like. `scope` is not fingerprinted: the views are navigation, and hashing it made a one-off metadata addition read as 242 moved rules. Regenerate with `npm run spec:review` AFTER re-reading the rules the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/spec/rules.json",
-  "spec_rev": "d85b13ae7f8ed8614418315645770113defb67ab",
+  "spec_rev": "45784cbca3369c50ed570c6ba102f7fb71b84cab",
   "rules": {
     "CARVE-P0-001": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -399,6 +399,10 @@
       "title": "AN ADMONITION LANDMARK CARRIES AN ACCESSIBLE NAME",
       "sha256": "679795d10546fd537519c173a7f9e89fc77705c1fb4999960a5c1090a73360be"
     },
+    "CARVE-P9-072": {
+      "title": "A DIRECTIVE'S TITLE AND LABEL RENDER INSIDE THE REGION IT PLACES",
+      "sha256": "5c105e789a6bcf536476b782812ec171075960db177ece185fee22c5a269f42a"
+    },
     "CARVE-P9-019": {
       "title": "HEADING SECTION WRAPPING",
       "sha256": "d8693f61588d8e49ac91d8c61938c23943163a52db2a6181bc2a1a31faef16be"
@@ -406,6 +410,10 @@
     "CARVE-P9-020": {
       "title": "INLINE SPAN VS LINK DISAMBIGUATION",
       "sha256": "650b993a7861a51c39f6ce83c737841d05bf6f8145af90bc613d5a0f52f04ee5"
+    },
+    "CARVE-P9-074": {
+      "title": "A MARKDOWN LABEL THAT IS BOTH A CHECKBOX AND A DEFINED REFERENCE IS THE CHECKBOX",
+      "sha256": "34eee0736c19e3a2ca25a79ddb31b98655cc31f0e761c923d87f08b117560165"
     },
     "CARVE-P9-021": {
       "title": "EMPTY OR INVALID ATTRIBUTE BLOCK",
@@ -434,6 +442,10 @@
     "CARVE-P9-027": {
       "title": "THE ENDNOTES SECTION CARRIES AN ACCESSIBLE NAME",
       "sha256": "7b4c7db63781b1bfaac2acfdf78f7e21a80845e841848839a53ad303a84b95e7"
+    },
+    "CARVE-P9-073": {
+      "title": "DOCUMENT-WIDE PLACEMENT MARKERS REQUIRE DOCUMENT TOP LEVEL",
+      "sha256": "c85b5e5bd1128fdc0a6d82e8efcc7de0f72e2c5c491ec4ae4084ec14e10d116f"
     },
     "CARVE-P9-029": {
       "title": "L1a THE ITEM'S FIRST BLOCK DOES NOT MATTER",
@@ -667,6 +679,10 @@
       "title": "AN EXTENDED TASK STATE NAMES ITSELF ON THE ITEM",
       "sha256": "677e1349541be7e1b764c6fe19278785456f7636315e209c5bf9cba279810522"
     },
+    "CARVE-P10-010": {
+      "title": "A PLACED ELEMENT'S OWN TAGS CARRY THE PER-IMPLEMENTATION INDENTATION",
+      "sha256": "3496d40884f577bb000c49063e0ffed361378bb3cf26a4c689865644dcd02d33"
+    },
     "CARVE-P11-001": {
       "title": "EQUALITY IS MODULO ESCAPING",
       "sha256": "9002f55828c87f88e3f87f0a832892ade4d5a9dfcb39aea61e355ea4dabb54e6"
@@ -686,6 +702,10 @@
     "CARVE-P11-005": {
       "title": "WRAPPER LOSS IS THE ONLY EQUALITY CARVE-OUT",
       "sha256": "d23e15224112e835504da4f675dc4a1b19c0d6ad69cb0413fd9eabb82d476df8"
+    },
+    "CARVE-P11-046": {
+      "title": "THE CONVERSION-DIAGNOSTICS CHANNEL",
+      "sha256": "59045f3c0d66d431998889db95c9a09689afddda3c05cb68d926033a94f40268"
     },
     "CARVE-P11-006": {
       "title": "THE ESCAPING RULE",
@@ -814,6 +834,10 @@
     "CARVE-P11-035": {
       "title": "THE PLAIN-TEXT TARGET PRESERVES LIST DEPTH",
       "sha256": "94e9d33072743a499799b2efb2f18ab6d033973896b6538d760eb6d797ff01af"
+    },
+    "CARVE-P11-047": {
+      "title": "THE MARKDOWN TARGET KEEPS A LIST'S TIGHTNESS",
+      "sha256": "843257aedb989775ebd91ea95a6238400e6d651d8050feb91d3a78766d057480"
     },
     "CARVE-P11-036": {
       "title": "A HARD LIST BOUNDARY IS WRITTEN AS EXACTLY THREE BLANK LINES",
@@ -1082,6 +1106,22 @@
     "CARVE-P12-059": {
       "title": "A CITATION IS ONLY EVER AN ITEM OF A GROUP",
       "sha256": "b97b769f9b8286bfe0ff13c4af2cd384e220399082cb49eec585391148723efb"
+    },
+    "CARVE-P12-060": {
+      "title": "NODE IDENTITY IS A SEPARATE OPT-IN SIDECAR",
+      "sha256": "5bc09e85908f16974b763a22caa080419660b8223e9c8bc8fb40bc08a53d9660"
+    },
+    "CARVE-P12-061": {
+      "title": "A COUNT WITH NO MARKERS IS INGESTED AS THE SPAN",
+      "sha256": "47aa720f504f92c224c00f0eaf1dbb3a35080a33f0a8482fa6cf58b1768f9ebc"
+    },
+    "CARVE-P12-062": {
+      "title": "AN ANNOTATION RANGE IS A SEPARATE OPT-IN SIDECAR",
+      "sha256": "f5b91dd4c461b402f222dec6b3bb1f3dda30bd4120d5cc95acdd710886c24265"
+    },
+    "CARVE-P12-063": {
+      "title": "PROVENANCE IS A SEPARATE OPT-IN SIDECAR",
+      "sha256": "aaed90bb3d211dd8cd8052150eb6d4e45eadc83b9e783e47042030f5d360363f"
     }
   }
 }

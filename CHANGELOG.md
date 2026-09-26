@@ -6,6 +6,27 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+
+- `SKILL.md` prescribes `carve fmt --check` beside `carve lint` for text the
+  agent wrote. `carve lint` accepts the lenient ``` ``` js ``` ``` spelling and
+  only the formatter reports it, so linting alone let a non-canonical sample
+  through (#126).
+- A dialect bullet records that ``` ```js {.diff} ``` ``` is not a fence opener:
+  the whole block degrades to an inline code span and lint reports nothing. The
+  mechanism is in `references/validation.md` (#126).
+
+### Changed
+
+- The skill is read against spec `main` and the pin moves with it, twice. The
+  offline guard reads the PINNED copy, so a pin falling behind cannot show up as
+  a red gate on the skill's own CI; both reads named real drift in the
+  divergence section, the extension contract, validation's rules table and the
+  capabilities map (#124, #127, #131, #132).
+- `examples/showcase.crv` passes the `carve fmt --check` the skill prescribes.
+  Four hunks failed it, and CARVE-P11-030 decides the `+` hunk against the
+  example rather than against the formatter (#129, #130).
+
 ## [0.1.2] - 2026-09-20
 
 ### Added

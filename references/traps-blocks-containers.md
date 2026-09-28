@@ -254,10 +254,5 @@ when a lone three-backtick line sits inside a four-backtick wrapper, and
 same-length neighbors are harmless when the inner one carries an info string.
 Parse the document and require a real defect instead.
 
-Unlike trap 13, this rule never moved, and that is the whole of the difference
-between them. Both say widen outward; markup-carve/carve#455 moved the
-*container* closer to an exact-length match and deliberately left code fences on
-`>=`, "because their length axis really is quoting: opaque content that never
-nests, which must be able to hold a shorter fence". That has shipped, so an
-equal-length container nests and an equal-length code fence still closes early.
-The spec and `@markup-carve/carve` 0.1.5 agree here, re-measured 2026-08-28.
+The spec and 0.1.5 agree: equal-length containers nest; equal-length code
+fences close. Re-measured 2026-08-28.

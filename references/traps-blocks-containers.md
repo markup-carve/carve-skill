@@ -37,6 +37,14 @@ The separator is a run of ONE OR MORE spaces, and its width sets the body's cont
 
 A **blank line ends the definition** — there is no multi-paragraph (loose) `<dd>`. Djot's `: term` + indented body parses as a plain paragraph in Carve, and vice versa. For rich block content in a definition, use a fenced div per entry instead.
 
+A term has no content column of its own (`CARVE-P2-028`). A block opener
+indented past the containing block's content column folds into the term as
+text. At that column it ends the term and opens a block. List markers are the
+exception: they end the term at any column. Put a term's blocks in its `: `
+description. In `:: term` followed by `  # H`, 0.1.7 renders `# H` inside the
+term and lint reports nothing; the spec's `definition-term-block-folded`
+diagnostic has not shipped in that release.
+
 ## 10. Raw passthrough is target-routed
 
 `` `x`{=format} `` inline and a ```` ```=format ```` block emit `x` verbatim, but only to the renderer whose target is `format`. Carve ships an HTML renderer that owns `html`, so `` `x`{=html} `` passes through in HTML output (and is escaped to text / dropped by the Markdown, ANSI, and plain renderers). Every other format (`{=latex}`, `{=typst}`, `{=markdown}`) is inert in Carve's own renderers: it survives in the AST as a `raw_inline` / `raw_block` node tagged with its format, for a custom consumer or pandoc (whose Djot reader routes it per writer), but no built-in renderer emits it. Do not expect `` `\alpha`{=latex} `` to render anything in Carve itself.

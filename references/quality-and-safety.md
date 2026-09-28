@@ -20,5 +20,8 @@
   remote schemes by default, and keep cycle/depth/byte/resolver-call limits
   finite. Included source receives the same sanitization as the parent. For
   untrusted input, leave includes disabled (`--no-includes`; `--safe` does this in current CLIs).
+  For server-side user content, the spec requires an administrator-only opt-in
+  and explicit root; front-end rendering must not inherit that opt-in.
+  A containment denial must not disclose whether an outside-root path exists.
 - Ensure a document remains understandable when a Tier-3 renderer is unavailable.
 - Preview issue and PR bodies containing nested fences before submission.

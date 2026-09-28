@@ -1,7 +1,7 @@
 {
   "$comment": "Which active normative rules of spec/resources/spec/rules.json the skill was last read against, keyed by the stable rule id. The registry is the structured source of the whole normative surface - the grammar clause inventory is its title set and docs/rules/ is generated from it - so a clause added, retired or retitled here is a change to what correct authoring advice looks like. `scope` is not fingerprinted: the views are navigation, and hashing it made a one-off metadata addition read as 242 moved rules. Regenerate with `npm run spec:review` AFTER re-reading the rules the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/spec/rules.json",
-  "spec_rev": "45784cbca3369c50ed570c6ba102f7fb71b84cab",
+  "spec_rev": "b1a592379afc51f245c27bdb0c12cfe2273f5474",
   "rules": {
     "CARVE-P0-001": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -126,6 +126,10 @@
     "CARVE-P2-027": {
       "title": "WHICH CHARACTERS THE CONTENT TEST IGNORES",
       "sha256": "d26957c69de2371d8e810d1ae46f3691e1d7ecc3d2726cd6611522490b339f2d"
+    },
+    "CARVE-P2-028": {
+      "title": "A TERM HAS NO CONTENT COLUMN",
+      "sha256": "84c9ae4569e74e9342d9a405c47d199f1faf863991736f4783787593178fd6f7"
     },
     "CARVE-P2-010": {
       "title": "A LEADING CONTENT TAB FOLLOWS NORMAL INDENTATION",
@@ -303,6 +307,10 @@
       "title": "A QUOTED VALUE STOPS AT THE NEWLINE",
       "sha256": "5cddaee0d2402a5f6291ad87212ac651530648687d0b2f4a213064184bda17d7"
     },
+    "CARVE-P4-007": {
+      "title": "A `class` KEY-VALUE IS A SPELLING OF THE CLASS SLOT",
+      "sha256": "a10fab2f790f72945225e0bc65405120fe44d3287bd3b5634884440866c2f6d9"
+    },
     "CARVE-P7-001": {
       "title": "A TAB IS SYNTAX ONLY IN THE LEADING RUN",
       "sha256": "2c5eaf82371855fc271e6ad18828b4f355e60f39e566dc27f06b6a71c244a2d2"
@@ -400,8 +408,8 @@
       "sha256": "679795d10546fd537519c173a7f9e89fc77705c1fb4999960a5c1090a73360be"
     },
     "CARVE-P9-072": {
-      "title": "A DIRECTIVE'S TITLE AND LABEL RENDER INSIDE THE REGION IT PLACES",
-      "sha256": "5c105e789a6bcf536476b782812ec171075960db177ece185fee22c5a269f42a"
+      "title": "A DIRECTIVE'S TITLE AND LABEL ACCOMPANY THE REGION IT PLACES",
+      "sha256": "0f14b28ec3c4b1fcb01c9b2ccad378c83a49c80b3290c645beb00cde8975b877"
     },
     "CARVE-P9-019": {
       "title": "HEADING SECTION WRAPPING",
@@ -442,6 +450,10 @@
     "CARVE-P9-027": {
       "title": "THE ENDNOTES SECTION CARRIES AN ACCESSIBLE NAME",
       "sha256": "7b4c7db63781b1bfaac2acfdf78f7e21a80845e841848839a53ad303a84b95e7"
+    },
+    "CARVE-P9-075": {
+      "title": "A TOP-LEVEL `::: footnotes` THAT PLACES THE ENDNOTES SECTION",
+      "sha256": "5b80c5ff3a09b2c89205596624934d25fd73b81edb2933f49bfd3f2450145d39"
     },
     "CARVE-P9-073": {
       "title": "DOCUMENT-WIDE PLACEMENT MARKERS REQUIRE DOCUMENT TOP LEVEL",
@@ -795,9 +807,33 @@
       "title": "THE MARKDOWN TARGET USES RICH-TEXT DELIMITERS WHERE THEY READ BACK",
       "sha256": "d43aeeb9d2ca02c2195f85ae352ac46e87e28c99894372fc5846648876541946"
     },
+    "CARVE-P11-050": {
+      "title": "A CONTEXTUAL ESCAPE READS THE EMITTED LINE ACROSS NODES",
+      "sha256": "ab331c0749f577319c7e89b82e44d777231b291c8b1546d897b223512c226f65"
+    },
+    "CARVE-P11-051": {
+      "title": "AN AMPERSAND THAT WOULD READ AS A CHARACTER REFERENCE IS ESCAPED",
+      "sha256": "cd90334cc76254f3fb2a2a1a24a791ce74a5e28f9379e6fbc4a9ac95dbb55838"
+    },
+    "CARVE-P11-052": {
+      "title": "A `!` BEFORE A LINK IS ESCAPED",
+      "sha256": "b5ded39e39d0713d6127accb7645878c2bb15e371f58f343903c85a7cb67cef2"
+    },
+    "CARVE-P11-053": {
+      "title": "A PARAGRAPH LINE MUST NOT BECOME A THEMATIC BREAK OR A SETEXT UNDERLINE",
+      "sha256": "f45fea1ca1c98a91edc08a66ee123585f7a3258aa2d70f6d99dad9bb0152f844"
+    },
+    "CARVE-P11-054": {
+      "title": "A PIPE IN A TABLE CELL IS ESCAPED",
+      "sha256": "9c7664125cffc6cb0cf8ea74bce5be55f6e63ebefc77033a0e6fbdd00224aa76"
+    },
     "CARVE-P11-026": {
       "title": "THE MARKDOWN TARGET'S HARD BREAK",
       "sha256": "aa00f98b55e3e6390d101a0c2a39bb9f12db3e539a7d2d8ae8dacd699da7d1b2"
+    },
+    "CARVE-P11-048": {
+      "title": "A HARD BREAK IN A TABLE CELL IS `<br>`",
+      "sha256": "cf693c1f01fd8044df27ad959106aef3e798afb1126acd3a2537be7ae6d39d43"
     },
     "CARVE-P11-027": {
       "title": "A LIST ITEM'S CONTINUATION LINES ARE ALIGNED",
@@ -839,6 +875,38 @@
       "title": "THE MARKDOWN TARGET KEEPS A LIST'S TIGHTNESS",
       "sha256": "843257aedb989775ebd91ea95a6238400e6d651d8050feb91d3a78766d057480"
     },
+    "CARVE-P11-055": {
+      "title": "A PARAGRAPH LINE CARRIES NO EDGE WHITESPACE",
+      "sha256": "b5f659cf75fb3742dda506a5025432a67576d211df06480f74a9a60dac3ae51a"
+    },
+    "CARVE-P11-056": {
+      "title": "A TABLE WITHOUT A HEADER ROW GETS AN EMPTY ONE",
+      "sha256": "118b77e8cb1c25969fd2f43e3f324b9c1e4f52f9c767a22dc454aab166c78b53"
+    },
+    "CARVE-P11-057": {
+      "title": "ADJACENT LISTS OF ONE KIND ALTERNATE THEIR MARKER",
+      "sha256": "b0f6b9cae1b82a23dccda2c807689984f9541ca12410e7b98faafef3bf639740"
+    },
+    "CARVE-P11-058": {
+      "title": "A DEFINITION LIST IS WRITTEN AS ITS TERMS AND BLOCKS",
+      "sha256": "a83d606bbfc8176c55d908b4f03fbfaee9d86a879730c3c4ffa2ae1f02280d03"
+    },
+    "CARVE-P11-059": {
+      "title": "A LIST TABLE IS WRITTEN AS A PIPE TABLE",
+      "sha256": "631a0647917a94b324d34915d64354fa55dca49d1cdeb2b0c525ae7c511e9cd8"
+    },
+    "CARVE-P11-060": {
+      "title": "TEXT THAT GFM WOULD AUTOLINK IS ESCAPED",
+      "sha256": "fa0956acc5e677665da52315c439caef89ceed21824afd766f3f07e8f84fd754"
+    },
+    "CARVE-P11-061": {
+      "title": "A SOFT BREAK IN A TABLE CELL IS ONE SPACE",
+      "sha256": "8051e2789e2b3472182f38de5c2c5b32545bd3fa1157649679346b9eff728f52"
+    },
+    "CARVE-P11-062": {
+      "title": "THE MARKDOWN TARGET KEEPS FRONTMATTER",
+      "sha256": "a44bcb7b1f8cfd770a7c28f7b75707e32b340bffa9bb709561b5429b7d219c90"
+    },
     "CARVE-P11-036": {
       "title": "A HARD LIST BOUNDARY IS WRITTEN AS EXACTLY THREE BLANK LINES",
       "sha256": "2e0da9c7c70a8691cdb1042a5514a443c3c8cba3a55a818ef88400ff7d2ff24a"
@@ -848,8 +916,12 @@
       "sha256": "5667bba2cca7eb71bb440c16eae9a51ae5a4a4633435e37e45797ca339ab854e"
     },
     "CARVE-P11-038": {
-      "title": "THE MARKDOWN TARGET'S CROSS-REFERENCES",
-      "sha256": "1a3bbfa8b3e2f366aa5ddbf3fc04611ca96648b120b574f9f96a1a27d365f0b4"
+      "title": "THE MARKDOWN TARGET LINKS A HEADING BY ITS GFM SLUG",
+      "sha256": "f6ac3d32dd2c9e7e1e3e1c5aa6370ea8094d7bfaefe998598138f90a0869309a"
+    },
+    "CARVE-P11-049": {
+      "title": "THE MARKDOWN TARGET KEEPS A FRAGMENT LINK",
+      "sha256": "c3681dd1e0b5d3529a1cdffd8ba27474d5606fe5fbc07a3e9945d3a940505d42"
     },
     "CARVE-P11-039": {
       "title": "A RESOLUTION RESULT ABOUT THE WRAPPER IS NOT CONTENT OF IT",
@@ -884,8 +956,8 @@
       "sha256": "91303638dc3fa99dd9a11b295bd499d7ec83cd3531477f6a0625c822f2a8e7ad"
     },
     "CARVE-P12-004": {
-      "title": "THE U+E000 SENTINEL",
-      "sha256": "d5becd9c67a20478981c76d1f5f7716881673d4c8560d423c856dba06a70f10d"
+      "title": "GENERATED NONBREAKING SPACES ARE NODES",
+      "sha256": "8a85624162132fb365622c12c850dc96a5fba17812f2fdb61b8b19bf23514e6d"
     },
     "CARVE-P12-005": {
       "title": "THE SERIALIZED TREE IS PRE-RESOLVE",
@@ -1122,6 +1194,14 @@
     "CARVE-P12-063": {
       "title": "PROVENANCE IS A SEPARATE OPT-IN SIDECAR",
       "sha256": "aaed90bb3d211dd8cd8052150eb6d4e45eadc83b9e783e47042030f5d360363f"
+    },
+    "CARVE-P9-076": {
+      "title": "A MARKER IN A TOC BODY RETAINS ITS CONTAINER SCOPE",
+      "sha256": "240b63f21d77328d253b446c117bcaeaf4ed149c6c90422d9c208d5b787b7778"
+    },
+    "CARVE-P10-011": {
+      "title": "DIRECTIVE CLASSES FOLLOW ELEMENT OWNERSHIP",
+      "sha256": "a0e8884b9e01dafc6c33a2694966c1c0e0ec8764b133b9f2e5ec1d1719744feb"
     }
   }
 }

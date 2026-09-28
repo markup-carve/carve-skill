@@ -108,6 +108,13 @@ none of the three, so read the render rather than the exit code when a placement
 marker is not at document top level; `footnotes_placement_lint` in
 `references/capabilities.json` re-measures it.
 
+The spec's lint table includes rules ahead of the released engine. For
+example, 0.1.7 reports `table-alignment-run-padding` for `|>text |`; keep
+accepting that id until the broader `table-marker-run-padding` replacement
+ships. The spec's measurements of development builds do not establish
+coverage in an npm release. For definition-term folding, see
+[block trap 9](traps-blocks-containers.md#9-definition-lists-explicit-markers-one-block-per-definition).
+
 When changing
 containers, captions, references, raw target routing, extensions, or generated
 PR/issue snippets, also use the project's parser/render tests or preview and

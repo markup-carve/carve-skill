@@ -106,6 +106,16 @@ unsupported in a particular target. Render only the chosen targets after the
 comparison and report material losses to the writer. Supply every intended
 target explicitly; plain text and ANSI are not part of the default set.
 
+Preview exported Markdown in the intended reader. The pinned spec targets
+GFM: heading links use GFM slugs without `{#id}` suffixes, table cells keep
+their breaks within one row, and headerless tables gain an empty header.
+It also specifies preserved frontmatter and fragment links, flattened
+definition lists, list-tables written as pipe tables, and escapes that work
+across adjacent nodes. These rules do not establish released-engine support.
+For example, 0.1.7 still writes `{#h}` after an explicitly identified heading
+and links to `#h`; a GFM reader displays that suffix and derives a different
+anchor. Check exported links before publishing.
+
 ## Workspace references
 
 When a root is authorized, start with `carve_review_workspace` for bounded lint

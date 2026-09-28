@@ -59,6 +59,12 @@ The failure is loud rather than silent: you see the braces in the output.
 GENERATED heading ids stay conservative either way - a digit-leading slug still
 takes the `s-` prefix.
 
+`class=VALUE` also writes the class slot, in source order with `.class`
+tokens (`CARVE-P4-007`). Use it for values the dotted form cannot spell:
+`[x]{class=w-1/2}` renders a span with class `w-1/2` in 0.1.7. Quote a value
+containing whitespace, braces, quotes, a backslash or a pipe; inside a table
+cell, write a literal pipe as `\|` even in a quoted attribute value.
+
 ## 17. A list marker takes attributes
 
 An attribute block right after the marker binds to the ITEM. It is item metadata, not marker width, so it contributes nothing to the item's content column: a continuation under `-{.c} x` still has to reach column 2, the same as under `- x`.

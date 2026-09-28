@@ -32,6 +32,17 @@ shape, `{kind}-placement-in-container`; `@markup-carve/carve` 0.1.7 does not emi
 it yet, so lint stays silent and only the render shows it. `::: toc`,
 `::: glossary` and `::: index` are placeable at any depth.
 
+The spec keeps authored directive bodies as well as generated content.
+Footnotes and TOC bodies precede the generated section or nav as sibling
+blocks. An index writes its title, label, authored body, then its list;
+references keep authored blocks before the list inside the references div.
+When at least one note is referenced, the first eligible top-level footnotes
+marker places the section (`CARVE-P9-075`). Later markers, or every marker when
+no note is referenced, keep their bodies in fallback divs. A marker nested in a TOC body
+remains nested even when that body renders before the nav (`CARVE-P9-076`).
+Preview these placements on the chosen host. On 0.1.7, a paragraph inside
+the first top-level footnotes marker renders before the endnotes section.
+
 A quoted title and an opener `[label]` on any placement marker belong to the
 element it places, title first (`CARVE-P9-072`), except where that element
 cannot hold a paragraph: `glossary` places a `<dl>` and `index` a `<ul>`, so for

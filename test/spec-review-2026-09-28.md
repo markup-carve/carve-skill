@@ -8,9 +8,11 @@ cheatsheet, extension guide and security ledgers had no changed entries.
 
 ## Reference changes
 
-The block guide now explains definition-term folding and its missing 0.1.7
-diagnostic. The attribute guide covers the class key-value spelling and pipes
-in quoted cell attributes. Extension guidance records authored directive body
+The block guide now explains definition-term folding, invisible lines and its
+missing 0.1.7 diagnostic. It also corrects the old claim that a description
+cannot hold several paragraphs. The attribute guide covers the class key-value spelling and pipes
+in quoted cell attributes, with a warning about mixed class spellings in 0.1.7.
+Extension guidance records authored directive body
 placement and nested TOC marker scope. Validation distinguishes the specified
 lint inventory from release coverage. Publishing guidance warns about the
 released Markdown heading-anchor behavior. Include guidance incorporates the

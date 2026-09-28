@@ -35,11 +35,15 @@ An attribute line between the prose and the block is the one place the two diffe
 
 The separator is a run of ONE OR MORE spaces, and its width sets the body's content column (`: x` establishes column 2, `:  x` column 3). **One space is canonical** - a wider separator parses and means the same thing, and `carve fmt` narrows it, carrying every continuation line inside that body down by the same amount.
 
-A **blank line ends the definition** — there is no multi-paragraph (loose) `<dd>`. Djot's `: term` + indented body parses as a plain paragraph in Carve, and vice versa. For rich block content in a definition, use a fenced div per entry instead.
+A description can hold several blocks, including paragraphs separated by
+blank lines, when continuations reach its content column. Djot's `: term`
+with an indented body is a plain paragraph in Carve.
 
 A term has no content column of its own (`CARVE-P2-028`). A block opener
 indented past the containing block's content column folds into the term as
-text. At that column it ends the term and opens a block. List markers are the
+text. Indented link and footnote definitions fold too and register nothing;
+comments stay hidden and leave the term open. At the containing column these
+lines end the term. List markers are the
 exception: they end the term at any column. Put a term's blocks in its `: `
 description. In `:: term` followed by `  # H`, 0.1.7 renders `# H` inside the
 term and lint reports nothing; the spec's `definition-term-block-folded`

@@ -60,7 +60,9 @@ GENERATED heading ids stay conservative either way - a digit-leading slug still
 takes the `s-` prefix.
 
 `class=VALUE` also writes the class slot, in source order with `.class`
-tokens (`CARVE-P4-007`). Use it for values the dotted form cannot spell:
+tokens in the spec (`CARVE-P4-007`). In 0.1.7, mixing the two emits duplicate
+HTML class attributes, so use one spelling per element. For a class the dotted
+form cannot spell,
 `[x]{class=w-1/2}` renders a span with class `w-1/2` in 0.1.7. Quote a value
 containing whitespace, braces, quotes, a backslash or a pipe; inside a table
 cell, write a literal pipe as `\|` even in a quoted attribute value.

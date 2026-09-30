@@ -23,7 +23,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   example rather than against the formatter (#130).
 - Corrected the guidance where it had fallen behind the released engine,
   measured against `markup-carve/carve` 0.1.9 (#138):
-  - ``` ```js {.diff} ``` ``` and a block opener folded into a definition term
+  - ```` ```js {.diff} ``` ```` and a block opener folded into a definition term
     are reported now, where lint had been silent on both.
   - A `::: footnotes` marker written inside a container is reported;
     `::: bibliography` and `::: references` still are not, so those two need
@@ -41,10 +41,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Improvements
 
 - `SKILL.md` asks for `carve fmt --check` on text the agent wrote, beside
-  `carve lint`. Lint accepts lenient spellings such as ``` ``` js ``` ``` and
+  `carve lint`. Lint accepts lenient spellings such as ```` ``` js ``` ```` and
   reports nothing for them, so linting alone let a non-canonical sample through
   (#126).
-- ``` ```js {.diff} ``` ``` is not a fence opener: an attribute after the
+- ```` ```js {.diff} ``` ```` is not a fence opener: an attribute after the
   language degrades the whole block to an inline code span, so the attribute
   goes on the line above (#126).
 - `_*x*_` nests two bare marks with no brace form, and a half-written pair such

@@ -1,7 +1,7 @@
 {
   "$comment": "Which active normative rules of spec/resources/spec/rules.json the skill was last read against, keyed by the stable rule id. The registry is the structured source of the whole normative surface - the grammar clause inventory is its title set and docs/rules/ is generated from it - so a clause added, retired or retitled here is a change to what correct authoring advice looks like. `scope` is not fingerprinted: the views are navigation, and hashing it made a one-off metadata addition read as 242 moved rules. Regenerate with `npm run spec:review` AFTER re-reading the rules the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/spec/rules.json",
-  "spec_rev": "b1a592379afc51f245c27bdb0c12cfe2273f5474",
+  "spec_rev": "de08416e99e2d6b0c3014977190cffebe7daca5c",
   "rules": {
     "CARVE-P0-001": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -83,6 +83,10 @@
       "title": "AT OR PAST MEANS THE DEEPEST COLUMN THE LINE REACHES",
       "sha256": "5ac110a5d6934326ea026a3281ac710eb65d8a3d9b23c666d86e71a53033113d"
     },
+    "CARVE-P0-021": {
+      "title": "A BLOCK OPENER IN THE BAND FOLDS ON THE SAME TERMS",
+      "sha256": "e48f7c9a08b2834577a68f1f5fc4e8d895e261b9999f41fb35d4c31a7c5c3c18"
+    },
     "CARVE-P2-001": {
       "title": "A HEADING MARKER STARTS AT ITS CONTAINER'S CONTENT COLUMN",
       "sha256": "fa1e23ff7850230b97d613bd42fdba758c2fd86f306a123301b28081f44a278d"
@@ -102,6 +106,10 @@
     "CARVE-P2-005": {
       "title": "CODE-FENCE INFO STRING",
       "sha256": "89dc85b938a3ff630cb6294d4ee7da331e62f445311515e4a90e5aabaff5466c"
+    },
+    "CARVE-P2-029": {
+      "title": "AN IMPORTER DROPS INFO-STRING TEXT THAT IS NOT A LANGUAGE",
+      "sha256": "02fa495bc5f5b67125584ecacb3c6e5c690c28a924800aa0a8eb629924e59dcd"
     },
     "CARVE-P2-006": {
       "title": "COLUMN-EXACT DELIMITERS",
@@ -1195,13 +1203,29 @@
       "title": "PROVENANCE IS A SEPARATE OPT-IN SIDECAR",
       "sha256": "aaed90bb3d211dd8cd8052150eb6d4e45eadc83b9e783e47042030f5d360363f"
     },
+    "CARVE-P12-064": {
+      "title": "CODE BLOCK CONTENT IS LITERAL PAYLOAD TEXT",
+      "sha256": "fab0dfedceece23a0e572b83cf2d05c84815e0445d6410f892d9ee708c4445e3"
+    },
     "CARVE-P9-076": {
       "title": "A MARKER IN A TOC BODY RETAINS ITS CONTAINER SCOPE",
       "sha256": "240b63f21d77328d253b446c117bcaeaf4ed149c6c90422d9c208d5b787b7778"
     },
+    "CARVE-P9-077": {
+      "title": "A BODY WHOSE EVERY BLOCK RENDERS NOTHING IS AN EMPTY BODY",
+      "sha256": "ddd17e54d0d8a812a78a74dfea1656826d1dabb473058eb2654a05d373ce3a0e"
+    },
     "CARVE-P10-011": {
       "title": "DIRECTIVE CLASSES FOLLOW ELEMENT OWNERSHIP",
       "sha256": "a0e8884b9e01dafc6c33a2694966c1c0e0ec8764b133b9f2e5ec1d1719744feb"
+    },
+    "CARVE-P10-012": {
+      "title": "A MATCHING RAW BLOCK KEEPS ITS PLACEMENT SLOT",
+      "sha256": "34c7975adb3df72a4e4486e617a76adf2eeb2cf729887f828096d901537ef71e"
+    },
+    "CARVE-P0-022": {
+      "title": "AN OPAQUE MARKER-LINE QUOTE PRESERVES THE BAND AS TEXT",
+      "sha256": "e3a0c1f303b975c2f845bb0e3d0312526ad02ab9b754d61902f0ed680d596956"
     }
   }
 }

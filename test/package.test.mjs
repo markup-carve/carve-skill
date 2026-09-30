@@ -84,11 +84,13 @@ test('every reference page is watched or deliberately exempt from spec review', 
 // THE ROUND-TRIP LINT GATE HAS TO BE ABLE TO FAIL. `npm run lint:examples` is
 // the CI step that stands for "the syntax this skill teaches is valid Carve",
 // and it was spelled `carve lint examples/*.crv`. npm puts `node_modules/.bin`
-// on PATH, and carve-js 0.1.7 started through that symlink prints nothing and
-// exits 0 - the hazard references/validation.md documents, applied to this
+// on PATH, and carve-js 0.1.7 started through that symlink printed nothing and
+// exited 0 - the hazard references/validation.md documents, applied to this
 // repository's own gate. Measured before the fix: an `examples/*.crv` holding
 // `**x**` passed `npm run lint:examples` while the direct `dist/cli.js` path
-// reported `markdown-strong-double-star` and exited 1.
+// reported `markdown-strong-double-star` and exited 1. 0.1.9 reports it through
+// the symlink too, which is exactly why the gate stays: the next regression
+// would be invisible again.
 //
 // So the script is run here against a file that must fail, rather than being
 // pattern-matched for a path that could be re-spelled correctly and still be

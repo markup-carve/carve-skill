@@ -1,7 +1,7 @@
 {
   "$comment": "Which rows of spec/docs/cheatsheet.md the syntax card in references/syntax.md was last read against. The card is the source that page is derived from, and a row keeps its construct token while its meaning is rewritten - so presence of the token proves nothing and the row is fingerprinted instead. Regenerate with `npm run spec:review` AFTER re-reading the rows the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/cheatsheet.md",
-  "spec_rev": "b1a592379afc51f245c27bdb0c12cfe2273f5474",
+  "spec_rev": "de08416e99e2d6b0c3014977190cffebe7daca5c",
   "rows": {
     "#preamble / prose 1": {
       "title": "---",

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$comment": "Measured, not asserted: test/behavior.test.mjs runs a probe per feature against the engine in testedEngine and fails when a recorded value disagrees. Two values here were stale falses until that probe existed.",
-  "testedEngine": "@markup-carve/carve@0.1.7",
+  "testedEngine": "@markup-carve/carve@0.1.9",
   "policy": "Prefer released-engine behavior. A spec-only construct must not be authored unless the target explicitly supports it.",
   "features": {
     "trailing_comment": {
@@ -58,20 +58,20 @@
     "fence_opener_fallback_lint": {
       "syntax": "carve lint reporting a fence opener whose info string is not valid",
       "spec": true,
-      "inTestedEngine": false,
-      "guidance": "The spec's validation rule table names `fence-opener-fallback`; 0.1.7 does not emit it, so ```js {.diff} degrades to an inline code span with no finding. Check the render until this flips."
+      "inTestedEngine": true,
+      "guidance": "Shipped in 0.1.9: ```js {.diff} now reports `fence-opener-fallback`. It still degrades to an inline code span, so the finding names the degradation rather than preventing it. 0.1.7 reported nothing."
     },
     "directive_title": {
       "syntax": "::: footnotes \"Title\" - a quoted title on a placement marker",
       "spec": true,
-      "inTestedEngine": false,
-      "guidance": "CARVE-P9-072 renders the title and the opener label as the placed element's first children. 0.1.7 carries them only on the degraded <div> and drops both when the marker places (markup-carve/carve-js#2073), so leave a placing marker untitled."
+      "inTestedEngine": true,
+      "guidance": "Shipped in 0.1.9: a placing marker's quoted title renders as the placed element's first child with aria-labelledby, and an opener label follows it as <p class=\"div-label\">. 0.1.7 dropped both when the marker placed (markup-carve/carve-js#2073), so a title is safe to write only from 0.1.9 on."
     },
     "footnotes_placement_lint": {
       "syntax": "carve lint reporting a ::: footnotes marker written inside a container",
       "spec": true,
-      "inTestedEngine": false,
-      "guidance": "CARVE-P9-073 names `footnotes-placement-in-container`; 0.1.7 renders the <div class=\"footnotes\"> fallback and reports nothing, so only the render shows that the marker did not place."
+      "inTestedEngine": true,
+      "guidance": "Shipped in 0.1.9 for footnotes only: a ::: footnotes marker inside a container reports `footnotes-placement-in-container`. The sibling rules `bibliography-placement-in-container` and `references-placement-in-container` are still unreported, so for those two kinds only the render shows that the marker did not place."
     },
     "doubled_arrows": {
       "syntax": "==> <== <=> smart-punctuation arrows",

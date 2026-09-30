@@ -67,7 +67,7 @@ _*only one* closes.
 <p>_*only one* closes.</p>
 ````
 
-Measured against `@markup-carve/carve` 0.1.7 and recorded as
+Measured against `@markup-carve/carve` 0.1.9 and recorded as
 `nested_bare_emphasis` in `references/capabilities.json`.
 
 ## 5. No parenthesized ordered markers
@@ -183,7 +183,7 @@ marker may carry a second axis, and the pair is HORIZONTAL FIRST
 `v>` and a lone `^` or `v` stay ordinary cell content. `?` takes the column's
 horizontal axis and its own vertical (#1408).
 
-Measured against `@markup-carve/carve` 0.1.7, the engine this skill is tested
+Measured against `@markup-carve/carve` 0.1.9, the engine this skill is tested
 against:
 
 ````
@@ -209,7 +209,7 @@ This entry has now been wrong twice. It first recorded 0.1.4 leaving the markers
 as literal cell text and told the reader to avoid the syntax, and said so for a
 release after that stopped being true. The correction then paired a LEFT-aligned
 column with a `?v` cell and claimed `text-align: right`, contradicting the
-sentence above it; no engine renders that, 0.1.5 and 0.1.7 both give `left`
+sentence above it; no engine renders that, 0.1.5 through 0.1.9 all give `left`
 there. Both survived because the claim was an indented arrow line rather than a
 Carve block followed by the HTML it claims, which is the shape
 `test/documented-rules.test.mjs` executes. The pair above is that shape, and

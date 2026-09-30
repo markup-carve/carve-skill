@@ -18,10 +18,13 @@ Record `carve --version` (or the dependency version from the lockfile) in the
 handoff whenever version-sensitive syntax is involved.
 
 Confirm the command can fail before trusting a clean run: lint a line you know
-is wrong, such as `**x**`, and expect exit `1`. The carve-js 0.1.7 CLI prints
-nothing and exits `0` when started through a symlink, which is how
-`./node_modules/.bin/carve` and `npx carve` start it. With that version, call
-`node node_modules/@markup-carve/carve/dist/cli.js` directly.
+is wrong, such as `**x**`, and expect exit `1`. Do this whatever the version
+says. Through 0.1.7 the carve-js CLI printed nothing and exited `0` when
+started through a symlink, which is how `./node_modules/.bin/carve` and
+`npx carve` start it; 0.1.9 reports the finding and exits `1` through the
+symlink and the direct `node node_modules/@markup-carve/carve/dist/cli.js`
+path alike. On an older engine, or on any engine whose probe stays silent, use
+the direct path.
 
 ## Command
 
@@ -78,7 +81,7 @@ is canonical and `+` survives:
 
 while the same item with only the first note canonicalizes to `  > the first
 note`. Both spellings parse to the same document; `examples/showcase.crv`
-carries the surviving form. Measured on `@markup-carve/carve` 0.1.7.
+carries the surviving form. Measured on `@markup-carve/carve` 0.1.9.
 
 If lint or `fmt --check` is not clean, fix per the finding and re-run. Most fixes
 map to [foundation traps](traps-foundations.md): `**b**` → `*b*`,
@@ -91,25 +94,29 @@ an attribute after the language, so the whole block degrades to an inline code
 span. Put the attribute on its own line above the fence, and check the render
 when a block matters.
 
-The spec has since named a rule for exactly that shape -
-`fence-opener-fallback`, for an opener whose info string is not a language plus
-an optional `"title"` and `[label]` - but the engine this skill is tested
-against does not emit it yet. Measured on `@markup-carve/carve` 0.1.7, the
-sample above lints clean and renders as one `<code>` span, so the sentence above
-is still the operating rule. `references/capabilities.json` records it as
-`fence_opener_fallback_lint` so the next release re-measures it.
+The spec names a rule for exactly that shape - `fence-opener-fallback`, for an
+opener whose info string is not a language plus an optional `"title"` and
+`[label]` - and it SHIPPED in 0.1.9. Measured on `@markup-carve/carve` 0.1.9,
+the sample above reports `fence-opener-fallback` and still renders as one
+`<code>` span: the finding names the degradation, it does not prevent it, so
+move the attribute to its own line rather than treating a reported document as
+fixed. Through 0.1.7 the same sample linted clean.
+`references/capabilities.json` records it as `fence_opener_fallback_lint`.
 
-The placement diagnostics are the same kind of gap. The spec's rule table names
-one per kind: `footnotes-placement-in-container`,
+The placement diagnostics are a PARTIAL gap. The spec's rule table names one
+per kind: `footnotes-placement-in-container`,
 `bibliography-placement-in-container` and `references-placement-in-container`, for a
 marker of that kind written inside a container, where it renders the
-`<div class="{kind}">` fallback and places nothing (`CARVE-P9-073`). 0.1.7 reports
-none of the three, so read the render rather than the exit code when a placement
-marker is not at document top level; `footnotes_placement_lint` in
-`references/capabilities.json` re-measures it.
+`<div class="{kind}">` fallback and places nothing (`CARVE-P9-073`). 0.1.9
+reports the footnotes one and neither of the other two, where 0.1.7 reported
+none of the three. So lint catches a misplaced `::: footnotes` and stays silent
+on a misplaced `::: bibliography` or `::: references`: read the render for those
+two whenever a placement marker is not at document top level.
+`footnotes_placement_lint` in `references/capabilities.json` re-measures the
+shipped one.
 
 The spec's lint table includes rules ahead of the released engine. For
-example, 0.1.7 reports `table-alignment-run-padding` for `|>text |`; keep
+example, 0.1.9 still reports `table-alignment-run-padding` for `|>text |`; keep
 accepting that id until the broader `table-marker-run-padding` replacement
 ships. The spec's measurements of development builds do not establish
 coverage in an npm release. For definition-term folding, see
@@ -135,7 +142,7 @@ A programmatic caller needs BOTH halves, because the CLI runs both and
 The Markdown-habit family this skill exists to prevent is not in it:
 `djotMigrationWarnings(source)` carries that, and the CLI's default mode keeps
 the entries whose `category` is `carve-breakage`, adding `--from-djot` to keep
-the `djot-shift` ones too. Measured on `@markup-carve/carve` 0.1.7,
+the `djot-shift` ones too. Measured on `@markup-carve/carve` 0.1.9,
 `lintCarve('a **x** b')` returns no findings while `carve lint` on the same
 bytes reports `markdown-strong-double-star`. So a caller that runs `lintCarve`
 alone and calls the result clean has checked half of what the section above

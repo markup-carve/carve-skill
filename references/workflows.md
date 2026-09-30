@@ -111,10 +111,11 @@ GFM: heading links use GFM slugs without `{#id}` suffixes, table cells keep
 their breaks within one row, and headerless tables gain an empty header.
 It also specifies preserved frontmatter and fragment links, flattened
 definition lists, list-tables written as pipe tables, and escapes that work
-across adjacent nodes. These rules do not establish released-engine support.
-For example, 0.1.7 still writes `{#h}` after an explicitly identified heading
-and links to `#h`; a GFM reader displays that suffix and derives a different
-anchor. Check exported links before publishing.
+across adjacent nodes. These rules do not establish released-engine support, so check exported links
+before publishing. The heading case has since caught up: 0.1.7 wrote `{#h}`
+after an explicitly identified heading and linked to `#h`, which a GFM reader
+displays as a literal suffix under a different anchor, while 0.1.9 writes the
+bare heading and rewrites the link to the GFM slug.
 
 ## Workspace references
 

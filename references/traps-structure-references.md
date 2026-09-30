@@ -60,10 +60,11 @@ GENERATED heading ids stay conservative either way - a digit-leading slug still
 takes the `s-` prefix.
 
 `class=VALUE` also writes the class slot, in source order with `.class`
-tokens in the spec (`CARVE-P4-007`). In 0.1.7, mixing the two emits duplicate
-HTML class attributes, so use one spelling per element. For a class the dotted
-form cannot spell,
-`[x]{class=w-1/2}` renders a span with class `w-1/2` in 0.1.7. Quote a value
+tokens in the spec (`CARVE-P4-007`). 0.1.9 merges the two into one HTML class
+attribute in source order (`[x]{.a class=b}` renders `class="a b"`); 0.1.7
+emitted two, so keep one spelling per element when the consumer may be older.
+For a class the dotted form cannot spell, `[x]{class=w-1/2}` renders a span
+with class `w-1/2`. Quote a value
 containing whitespace, braces, quotes, a backslash or a pipe; inside a table
 cell, write a literal pipe as `\|` even in a quoted attribute value.
 
@@ -135,7 +136,7 @@ body                          <p class="admonition-title" id="adm-1">Pro tip</p>
                             </aside>
 ```
 
-Measured against `@markup-carve/carve` 0.1.7, the engine this skill is tested
+Measured against `@markup-carve/carve` 0.1.9, the engine this skill is tested
 against: it emits both forms. Write the source either way - this is a renderer
 detail that changes no source and no tree shape - and do not hand-add
 `aria-label` to Carve output.

@@ -45,9 +45,9 @@ text. Indented link and footnote definitions fold too and register nothing;
 comments stay hidden and leave the term open. At the containing column these
 lines end the term. List markers are the
 exception: they end the term at any column. Put a term's blocks in its `: `
-description. In `:: term` followed by `  # H`, 0.1.7 renders `# H` inside the
-term and lint reports nothing; the spec's `definition-term-block-folded`
-diagnostic has not shipped in that release.
+description. In `:: term` followed by `  # H`, 0.1.9 renders `# H` inside the
+term and reports `definition-term-block-folded`; 0.1.7 rendered the same and
+reported nothing, so on an older engine only the render shows the fold.
 
 ## 10. Raw passthrough is target-routed
 
@@ -141,7 +141,7 @@ a `::: tip`, holds a `:::: tip`, and an opener with no closer ends at end of
 input instead of degrading to paragraph text. A bare closer still closes **one**
 container, not every one open above it.
 
-Measured against `@markup-carve/carve` 0.1.7, the engine this skill is tested
+Measured against `@markup-carve/carve` 0.1.9, the engine this skill is tested
 against:
 
 ```

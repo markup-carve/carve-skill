@@ -11,7 +11,7 @@ import { LIB_VERSION, carveToHtml, djotMigrationWarnings, lintCarve } from '@mar
 // (`--from-djot` keeps `djot-shift` as well). `lintCarve` alone cannot see
 // `**bold**`, `~~strike~~`, `^sup^` or a `+` bullet - the four mistakes this
 // skill exists to prevent - so a fixture written with one of them passed the
-// clean-lint assertion below. Measured on 0.1.7: `lintCarve('a **x** b')` is
+// clean-lint assertion below. Measured on 0.1.9: `lintCarve('a **x** b')` is
 // `[]` while `carve lint` on the same bytes reports
 // `markdown-strong-double-star`.
 const defaultLint = (source) => [

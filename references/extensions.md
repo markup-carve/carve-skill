@@ -28,8 +28,9 @@ container (a quote, a list item, a div or directive body, a table cell, a
 definition description, a footnote definition) the marker renders the
 `<div class="{kind}">` fallback where it stands and the region goes where an
 unmarked document puts it (`CARVE-P9-073`). The spec names a diagnostic for that
-shape, `{kind}-placement-in-container`; `@markup-carve/carve` 0.1.7 does not emit
-it yet, so lint stays silent and only the render shows it. `::: toc`,
+shape, `{kind}-placement-in-container`. `@markup-carve/carve` 0.1.9 emits the
+footnotes one and neither of the other two, so a misplaced `::: bibliography` or
+`::: references` still passes lint and only the render shows it. `::: toc`,
 `::: glossary` and `::: index` are placeable at any depth.
 
 The spec keeps authored directive bodies as well as generated content.
@@ -40,7 +41,7 @@ When at least one note is referenced, the first eligible top-level footnotes
 marker places the section (`CARVE-P9-075`). Later markers, or every marker when
 no note is referenced, keep their bodies in fallback divs. A marker nested in a TOC body
 remains nested even when that body renders before the nav (`CARVE-P9-076`).
-Preview these placements on the chosen host. On 0.1.7, a paragraph inside
+Preview these placements on the chosen host. On 0.1.9, a paragraph inside
 the first top-level footnotes marker renders before the endnotes section.
 
 A quoted title and an opener `[label]` on any placement marker belong to the
@@ -49,12 +50,15 @@ cannot hold a paragraph: `glossary` places a `<dl>` and `index` a `<ul>`, so for
 those two the tokens precede the generated content instead. The fallback `<div>`
 takes them as children and takes no naming attribute.
 
-0.1.7 carries them only on that fallback. A marker that actually places drops
-both, so `::: footnotes "Reader notes" [End]` renders an endnotes section with
-neither token anywhere in the output
-([markup-carve/carve-js#2073](https://github.com/markup-carve/carve-js/issues/2073)).
-Leave a placing marker untitled and unlabeled until that ships; `directive_title`
-in [capabilities.json](capabilities.json) re-measures it each release.
+0.1.9 carries them on a PLACING marker too, so a title is safe to write.
+`::: footnotes "Reader notes" [End]` renders the endnotes `<section>` with
+`aria-labelledby` pointing at a `<p class="admonition-title">` holding the
+title, and the label after it as `<p class="div-label">`. Through 0.1.7 the
+marker dropped both when it placed
+([markup-carve/carve-js#2073](https://github.com/markup-carve/carve-js/issues/2073)),
+so leave a placing marker untitled when the consumer is on an older engine;
+`directive_title` in [capabilities.json](capabilities.json) re-measures it each
+release.
 
 ## Guidance for agents
 

@@ -12,6 +12,12 @@
   For untrusted input use `allowRawHtml: false` (carve-js),
   `Options::with_raw_html(false)` (carve-rs), or `SafeMode` (carve-php).
 - Validate remote media/embed schemes and domains against the host policy.
+- Canonical Carve source is not a sanitized artifact. `carve fmt` and the `carve`
+  render target preserve authored destinations, denied schemes included, because
+  they owe a round trip of the parsed document; the HTML, Markdown and ANSI
+  targets are the ones that blank a denied destination. A tool that reads
+  formatted source or an exported AST and wires a destination into a URL sink
+  applies the denylist itself.
 - Treat Mermaid, chart, math, template, Liquid, and Nunjucks processing as code or
   template execution controlled by the host, not as harmless core markup.
 - Treat file inclusion as host I/O, not syntax sugar. The parser must stay pure;

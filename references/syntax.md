@@ -126,7 +126,7 @@ body
 :::
 ```
 
-Types: `note tip warning danger info success example quote`. Any other word → `<div class="word">`, except `footnotes toc glossary index bibliography references`, which **place** generated content and fall back to that `<div>` (see [extensions.md](extensions.md)). Title must be **straight-quoted** (unquoted or curly-quoted makes the line a plain paragraph). Longer fences nest shorter ones:
+Types: `note tip warning danger info success example quote`. Any other word → `<div class="word">`, except `footnotes toc glossary index bibliography references`, which **place** generated content and fall back to that `<div>` (see [extensions.md](extensions.md)). Title must be **straight-quoted**; unquoted or curly-quoted is invalid (`fence-title-syntax`). The spec drops the bad title and keeps the container; 0.1.9 drops the whole line to a paragraph. Longer fences nest shorter ones:
 
 ```
 :::: outer

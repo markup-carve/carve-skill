@@ -1,7 +1,7 @@
 {
   "$comment": "Which normative clause TEXTS of spec/resources/grammar.ebnf the skill was last read against, keyed by clause title. The rules ledger next to this one watches what the rules are - id, part, title - and carries no rule text, so on its own a clause can be rewritten into the opposite rule under an unchanged title, which is what happened to divergence section 13 in markup-carve/carve#455. Regenerate with `npm run spec:review` AFTER re-reading the clauses the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/grammar.ebnf",
-  "spec_rev": "9d6d06c26b85560f625c1088cb9447c7667e5017",
+  "spec_rev": "1acc54cfb26811868490dd8add4c7f75128a1507",
   "clauses": {
     "A LEADING BYTE ORDER MARK IS STRIPPED": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -193,7 +193,7 @@
     },
     "CAPTION NUMBER PLACEHOLDER": {
       "title": "CAPTION NUMBER PLACEHOLDER",
-      "sha256": "940469dc3170d03190ada328c11fadf6adb5d9b14bb335432fc4349e0fbfdb42"
+      "sha256": "d19f35d79c19fb160dd8c736608aa6e59ecdb198a86c87ff4b88f2aab6ea909a"
     },
     "THE INTERIOR IS VERBATIM, THE OPENING IS PLACED": {
       "title": "THE INTERIOR IS VERBATIM, THE OPENING IS PLACED",
@@ -201,7 +201,7 @@
     },
     "RENDER-LOSS REPORTING": {
       "title": "RENDER-LOSS REPORTING",
-      "sha256": "4a7e5ed9469c3dcdb781a4e1bae883f1bead7495e0125482708858e8b59130ad"
+      "sha256": "f1de80a69a037d8342dfe050d958076f5e29a6cb3dad5196383cb1f60a8b6611"
     },
     "NO TRAILING WHITESPACE": {
       "title": "NO TRAILING WHITESPACE",
@@ -581,7 +581,7 @@
     },
     "SECURITY REQUIREMENTS": {
       "title": "SECURITY REQUIREMENTS",
-      "sha256": "e903ebf04fb71423d834313b1dfca392e64ef42f4567d458657be8d76bbf4a1c"
+      "sha256": "939fa0fe352c09e086f6c28ae47d10517309d67ec014f5e0736017268a466b7f"
     },
     "A URL-LIST ATTRIBUTE IS PROBED TOKEN-WISE, NOT AT ITS HEAD": {
       "title": "A URL-LIST ATTRIBUTE IS PROBED TOKEN-WISE, NOT AT ITS HEAD",
@@ -721,7 +721,7 @@
     },
     "AN EXTENDED TASK STATE NAMES ITSELF ON THE ITEM": {
       "title": "AN EXTENDED TASK STATE NAMES ITSELF ON THE ITEM",
-      "sha256": "6f6b662d77eb4ce9677b1caf4ca5b75537459676cb7df7cfbeec024ece6ccc7a"
+      "sha256": "54f1132447db16e9a7369047c642b6c0b052fc1466108d8a0b34f6c1da0eef07"
     },
     "EQUALITY IS MODULO ESCAPING": {
       "title": "EQUALITY IS MODULO ESCAPING",
@@ -749,7 +749,7 @@
     },
     "THE CONVERSION-DIAGNOSTICS CHANNEL": {
       "title": "THE CONVERSION-DIAGNOSTICS CHANNEL",
-      "sha256": "0fbda6c76ee2f53e5f321af8adf588b437d1668310033816c6de58fb03e7be09"
+      "sha256": "ec010f9861add7243a8cf73a42c013987ebba716d35bb1bf82c615697e40fabd"
     },
     "THE ESCAPING RULE": {
       "title": "THE ESCAPING RULE",
@@ -1005,11 +1005,11 @@
     },
     "A DESTINATION IS THE AUTHOR'S TEXT, UNSANITIZED": {
       "title": "A DESTINATION IS THE AUTHOR'S TEXT, UNSANITIZED",
-      "sha256": "d69042dd99eb3c3f25f189aeece93611ede4b8e51346b799d7543fd754b5646a"
+      "sha256": "052801c54fce3d16a8bbd9db7e292d41f339a321793edcfbe50233bf27bc3d39"
     },
     "A CONSUMER THAT RENDERS A DESTINATION OWNS THE DENYLIST": {
       "title": "A CONSUMER THAT RENDERS A DESTINATION OWNS THE DENYLIST",
-      "sha256": "bbe36f1f36815061ab869a65c003b75dd316940cc12c0d61dd32dc5b2bd64abd"
+      "sha256": "156bd7d5f7ee6b13e3ca16e2072e113d82608f76bba8bc47c8f3ce6b3893b45e"
     },
     "A CROSSREF REMAINS A HEADING-REFERENCE NODE AFTER RESOLUTION": {
       "title": "A CROSSREF REMAINS A HEADING-REFERENCE NODE AFTER RESOLUTION",
@@ -1061,7 +1061,7 @@
     },
     "A REASSEMBLED NODE MUST OMIT `pos`": {
       "title": "A REASSEMBLED NODE MUST OMIT `pos`",
-      "sha256": "c91e90c860bc6afabc1762b7c8378471461c67e775496d347c4666e87b35a16f"
+      "sha256": "717cd14373296e10cdb54ee59fc718b59fb4a2d565deba5bf4ecd4fa6e6e4b0e"
     },
     "A GENERATED HEADING ID IS A RESOLUTION RESULT": {
       "title": "A GENERATED HEADING ID IS A RESOLUTION RESULT",
@@ -1105,11 +1105,11 @@
     },
     "A CAPTION MAY CARRY AN OPTIONAL STRUCTURED SHORT CAPTION": {
       "title": "A CAPTION MAY CARRY AN OPTIONAL STRUCTURED SHORT CAPTION",
-      "sha256": "6fc131f1a3b4c60239b29eea4c32c6ed4a852af9fc63ab49a12f8c61853fba63"
+      "sha256": "b13be0b37deb6bc5ed95929a762e0621e0d6f4fc1ef4fda15e9d9e9d1cca343c"
     },
     "A TABLE MAY CARRY AN OPTIONAL ROW GROUPING": {
       "title": "A TABLE MAY CARRY AN OPTIONAL ROW GROUPING",
-      "sha256": "bdc76de68d34796dc06f60cc9374f9d375aae1cc5a87e2eda244d72fe3152f17"
+      "sha256": "51b295b9c11cd7b1cd651edccb2c095db33958292d5d92a7cee59cf2ef906ec9"
     },
     "A COMPOSITE FIGURE IS ITS OWN NODE TYPE": {
       "title": "A COMPOSITE FIGURE IS ITS OWN NODE TYPE",
@@ -1117,7 +1117,7 @@
     },
     "A FIGURE MAY WRAP A TABLE, AND NO CARVE SOURCE SPELLS IT": {
       "title": "A FIGURE MAY WRAP A TABLE, AND NO CARVE SOURCE SPELLS IT",
-      "sha256": "3b159b18fddb83a7b7462f3486f2bda70e35208299de466da80be63006760985"
+      "sha256": "2b35a722c4e5e33d8fc3f8dfa1b839b77e48b5f720c1e29fd3861b8fd9a226af"
     },
     "A CITATION DEFINITION IS A NODE": {
       "title": "A CITATION DEFINITION IS A NODE",
@@ -1169,11 +1169,11 @@
     },
     "A TABLE CELL MAY CARRY BLOCK CONTENT INSTEAD OF INLINE": {
       "title": "A TABLE CELL MAY CARRY BLOCK CONTENT INSTEAD OF INLINE",
-      "sha256": "ffa113691f935b398b50c6a1da34d70ff10c23b426c3187893ef249ea3d11133"
+      "sha256": "305063a7d52fcab2345d309b03747c9f41835a9d0770f51dc15145b9ffa7f54f"
     },
     "SMALL CAPS SURVIVE INTERCHANGE": {
       "title": "SMALL CAPS SURVIVE INTERCHANGE",
-      "sha256": "39c22af55a8209c123f27d49012fa4d726f343d55a10896bf87057f0d345f2f6"
+      "sha256": "2ccd062e2240594d280cbdfbb2577c30ddd6eb02d5a7dddb6b97ebb95da49d22"
     },
     "A DISPLAY EQUATION MAY CARRY A LABEL AND NUMBER": {
       "title": "A DISPLAY EQUATION MAY CARRY A LABEL AND NUMBER",
@@ -1181,7 +1181,7 @@
     },
     "SECTIONING IS INTERCHANGE-ONLY": {
       "title": "SECTIONING IS INTERCHANGE-ONLY",
-      "sha256": "60182c278a1e06d6a85757014afe6689967bf7b5a3f6135f3bb406bb48a06fde"
+      "sha256": "494e85892273e089d3ed4d0a798d7618f555bef53e42cefe84f2a6d047a6a96c"
     },
     "A CITATION ITEM CARRIES ITS OWN MODE": {
       "title": "A CITATION ITEM CARRIES ITS OWN MODE",
@@ -1189,11 +1189,11 @@
     },
     "RUBY ANNOTATIONS SURVIVE INTERCHANGE": {
       "title": "RUBY ANNOTATIONS SURVIVE INTERCHANGE",
-      "sha256": "c4bc9b5879273b90ca00883458aa7675d8fde4e07a9143e61dbf5f9202834c0f"
+      "sha256": "c79a0515fb9603287f56e78b2d6ef1a63783a302398fc6a6aab6851288a34002"
     },
     "A BLOCK EXTENSION DECLARES A CORE FALLBACK": {
       "title": "A BLOCK EXTENSION DECLARES A CORE FALLBACK",
-      "sha256": "fc861ac042ffd8573888a073052715f88a3e2e144718f06eb07dd77f83cb622f"
+      "sha256": "cc4016b4d2e7d711659d07838449072b964254236d2ab6efdbe1dff3c0050b36"
     },
     "A STORED TREE IS WRAPPED IN A VERSIONED ENVELOPE": {
       "title": "A STORED TREE IS WRAPPED IN A VERSIONED ENVELOPE",

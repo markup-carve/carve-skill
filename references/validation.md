@@ -118,7 +118,13 @@ shipped one.
 The spec's lint table includes rules ahead of the released engine. For
 example, 0.1.9 still reports `table-alignment-run-padding` for `|>text |`; keep
 accepting that id until the broader `table-marker-run-padding` replacement
-ships. The spec's measurements of development builds do not establish
+ships. `fence-title-syntax` is the same kind of gap, and there the DOCUMENT and
+not just the id differs: the spec now describes invalid fence metadata as
+recovered - a recognized fence or type word keeps its container and children
+while the metadata is dropped - where 0.1.9 reports the finding and leaves the
+whole opener line as a paragraph. So on a released engine the body of a
+`::: note Bare Title` block is prose, not container content; read the render
+before trusting the finding to be the only consequence. The spec's measurements of development builds do not establish
 coverage in an npm release. For definition-term folding, see
 [block trap 9](traps-blocks-containers.md#9-definition-lists-explicit-markers-one-block-per-definition).
 

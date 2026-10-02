@@ -62,9 +62,13 @@ on:
 permissions:
   contents: read
 
+# Every job declares timeout-minutes so a hung step fails in minutes
+# rather than inheriting the 360-minute GitHub default.
+
 jobs:
   spec-pin:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
 
@@ -147,6 +151,7 @@ jobs:
   verdict:
     name: The verdict reaches a person
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     needs: [spec-pin]
     if: ${{ !cancelled() && github.event_name != 'workflow_dispatch' }}
     permissions:

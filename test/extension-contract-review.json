@@ -1,7 +1,7 @@
 {
   "$comment": "Which preamble/H2/H3 sections of spec/docs/extension-contract.md references/extensions.md was last read against. This is where the tier table and the normative behavior of each standard extension live since carve#1932. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/extension-contract.md",
-  "spec_rev": "1acc54cfb26811868490dd8add4c7f75128a1507",
+  "spec_rev": "e60b7847b816ff00fcc86373c6700a377ac0028f",
   "sections": {
     "Preamble": {
       "title": "Preamble",
@@ -93,7 +93,7 @@
     },
     "ListTable (Tier-2) / Rendering": {
       "title": "5.2 Rendering",
-      "sha256": "9ac4ed4c94a1bb33f584e98627b192bbe65f2f5e83641a6547c6d79e03ad7338"
+      "sha256": "20638c369b148c5dda7c5475dc5548a1261e98a210a246bcbd29b325f87f1ca5"
     },
     "ListTable (Tier-2) / Degradation": {
       "title": "5.3 Degradation",

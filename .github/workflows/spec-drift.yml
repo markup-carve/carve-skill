@@ -12,8 +12,8 @@ name: Spec drift
 #   engine have to move together, and the engine cannot move past a published
 #   carve-js. Failing on lag alone would go red for something this repo cannot
 #   fix by itself.
-# - A CHANGED WATCHED ENTRY fails. One ledger per watched document records which
-#   text the skill was last read against - per numbered section of
+# - A CHANGED WATCHED ENTRY files a ticket. One ledger per watched document
+#   records which text the skill was last read against - per numbered section of
 #   docs/divergence-from-djot.md, per node definition of resources/ast-schema.json,
 #   per row of docs/cheatsheet.md, or per preamble/H2/H3 section of a topic
 #   source; when one of those moves at carve main, the
@@ -39,19 +39,10 @@ name: Spec drift
 # holds. That question is about the spec as it stands, not about the pin, so the
 # offline run over the pinned copy cannot answer it.
 
-# WHAT THIS JOB'S RED MEANT, AND WHY IT STOPPED MEANING IT. Over the 30 days to
-# 2026-09-22 this workflow ran 30 times and failed 25 of them. Each of those
-# reds is real - a watched spec document moved at carve main and the skill has
-# not been read against it - but none of them produced anything to act on. They
-# accumulated in the Actions tab, which is the state the comment above warns
-# about for the checks it replaced: a gate that is always red is a gate nobody
-# reads.
-#
-# So a verdict job now turns the red into ONE living ticket, filed and
-# maintained here: edited by each later red run, closed by the first green one,
-# matched on a body marker rather than a title so a rename cannot fork it. The
-# gates themselves are unchanged - what changes is that 25 identical reds become
-# one item with the failing gate named in it.
+# A drift verdict files or updates ONE tracking issue and the run stays green:
+# upstream moving is work for a person, not a defect of this repo (ruling 1 of
+# markup-carve/carve#2706). A check that could not do its job, or a reporter
+# that could not file, still ends the run red.
 
 on:
   schedule:
@@ -69,6 +60,9 @@ jobs:
   spec-pin:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    permissions:
+      contents: read
+      issues: write
     steps:
       - uses: actions/checkout@v4
 
@@ -109,13 +103,19 @@ jobs:
       # every ledger in scripts/review-ledgers.mjs - adding a watched document
       # does not need this step edited. Deliberately NOT `continue-on-error`:
       # this is the one condition nothing else in this repo can observe.
+      # Exit 3 is the drift verdict; any other nonzero exit is a broken check.
       - name: Has a watched spec document moved since the skill was read?
+        id: review
         run: |
-          set -euo pipefail
-          node scripts/check-spec-review.mjs carve-spec || {
-            echo "::error::a watched spec document changed at carve main; the skill has not been read against it"
-            exit 1
-          }
+          set +e -u
+          node scripts/check-spec-review.mjs carve-spec 2>&1 | sed 's#carve-spec/##' | tee /tmp/spec-review.txt
+          status="${PIPESTATUS[0]}"
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          case "$status" in
+            0) ;;
+            3) echo "::warning::a watched spec document changed at carve main; the skill has not been read against it" ;;
+            *) echo "::error::check-spec-review.mjs exited $status, so it could not compare the ledgers"; exit 1 ;;
+          esac
 
       # The spec pin and the ENGINE are two different pins, and both can fall
       # behind. Nothing in this repository could observe the second one: the
@@ -127,10 +127,10 @@ jobs:
       # up as a gap the newest release does not have.
       #
       # A dated status note is only evidence while its premise holds, so the
-      # premise is checked here rather than trusted. FAILS rather than warns:
-      # unlike the spec pin, this repository can fix it on its own with one
-      # `npm install`.
+      # premise is checked here rather than trusted. A newer release is a drift
+      # verdict for the ticket; a lookup that fails is a broken check.
       - name: Is the tested engine the newest published release?
+        id: engine
         run: |
           set -euo pipefail
           # Read the LOCKFILE, not node_modules: the lockfile is the pin, and
@@ -139,108 +139,138 @@ jobs:
           installed="$(node -p "require('./package-lock.json').packages['node_modules/@markup-carve/carve'].version")"
           latest="$(npm view @markup-carve/carve version)"
           echo "tested engine: ${installed}; newest published: ${latest}"
-          if [ "${installed}" != "${latest}" ]; then
-            echo "::error::the skill is tested against ${installed} but ${latest} is published; re-measure every version-dated claim in references/ before bumping the pin"
+          if [ -z "${installed}" ] || [ -z "${latest}" ]; then
+            echo "::error::could not read both engine versions"
             exit 1
           fi
+          if [ "${installed}" != "${latest}" ]; then
+            echo "behind=${installed} -> ${latest}" >> "$GITHUB_OUTPUT"
+            echo "::warning::the skill is tested against ${installed} but ${latest} is published; re-measure every version-dated claim in references/ before bumping the pin"
+          fi
 
-  # THE GATES ABOVE RUN ON A SCHEDULE AND NOTHING ELSE OBSERVES THEM. A pull
-  # request never sees this workflow, so without this job its result exists only
-  # as a colour in the Actions tab. Modelled on the verdict step in
-  # markup-carve/carve's ast-conformance workflow.
-  verdict:
-    name: The verdict reaches a person
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    needs: [spec-pin]
-    if: ${{ !cancelled() && github.event_name != 'workflow_dispatch' }}
-    permissions:
-      contents: read
-      issues: write
-      actions: read
-
-    steps:
+      # THE GATES ABOVE RUN ON A SCHEDULE AND NOTHING ELSE OBSERVES THEM, so the
+      # run files its own verdict. The reporter is markup-carve/carve's
+      # changelog-drift one: one issue matched on a body marker, edited by each
+      # later run with findings, closed by the first clean one. Scoped to the
+      # default branch, because a ticket filed from a deleted branch is never
+      # closed. It FAILS if it cannot file.
       - name: File the verdict where someone reads it
+        if: ${{ !cancelled() }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
-          RUN_ID: ${{ github.run_id }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           HEAD_SHA: ${{ github.sha }}
           REF_NAME: ${{ github.ref_name }}
+          EVENT_NAME: ${{ github.event_name }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          JOB_STATUS: ${{ job.status }}
+          REVIEW_STATUS: ${{ steps.review.outputs.status }}
+          ENGINE_BEHIND: ${{ steps.engine.outputs.behind }}
         run: |
           set -euo pipefail
 
-          MARKER="<!-- spec-drift-verdict ref=$REF_NAME -->"
+          if [ "$REF_NAME" != "$DEFAULT_BRANCH" ]; then
+            echo "Spec drift tickets are scoped to $DEFAULT_BRANCH; $REF_NAME keeps its Actions verdict only."
+            exit 0
+          fi
 
-          # Read the failing steps back from the run rather than keeping a list
-          # beside the workflow: this job has three gates that fail for three
-          # different reasons, and a report that named them by hand would go
-          # stale the first time a fourth is added.
-          failed="$(gh api "repos/$REPO/actions/runs/$RUN_ID/jobs" --paginate \
-            --jq '.jobs[] | select(.name != "The verdict reaches a person") | .steps[]
-                  | select(.conclusion == "failure") | "- `" + .name + "`"')"
+          broken=false; [ "$JOB_STATUS" = "success" ] || broken=true
+          moved=false; [ "${REVIEW_STATUS:-}" = "3" ] && moved=true
+          engine=false; [ -n "${ENGINE_BEHIND:-}" ] && engine=true
+
+          MARKER="<!-- spec-drift-verdict ref=$REF_NAME -->"
 
           # Listed rather than searched: the search index lags a fresh issue by
           # long enough to file a duplicate.
-          issue="$(gh api "repos/$REPO/issues?state=open&per_page=100" --paginate \
+          open_issues="$(gh api "repos/$REPO/issues?state=open&per_page=100" --paginate \
             | jq -r --arg m "$MARKER" \
-                '.[] | select(.pull_request == null) | select((.body // "") | contains($m)) | .number' \
-            | head -n1)"
+                '.[] | select(.pull_request == null) | select((.body // "") | contains($m)) | .number')"
+          issue="${open_issues%%$'\n'*}"
 
-          if [ -z "$failed" ]; then
-            echo "Spec drift is green on $HEAD_SHA."
+          if ! $broken && ! $moved && ! $engine; then
+            echo "Spec drift is clean on $HEAD_SHA."
             if [ -n "$issue" ]; then
               gh issue comment "$issue" --repo "$REPO" --body \
-                "Green again: run $RUN_URL on \`$HEAD_SHA\`. Closing. The next red run files a fresh ticket rather than reopening this one, so a closed ticket always means the last run passed."
+                "Clean again: run $RUN_URL on \`$HEAD_SHA\`. Closing. The next run with findings files a fresh ticket rather than reopening this one."
               gh issue close "$issue" --repo "$REPO"
               echo "Closed #$issue."
             fi
-            echo "Spec drift green on \`$HEAD_SHA\`. Nothing filed." >> "$GITHUB_STEP_SUMMARY"
+            echo "Spec drift clean on \`$HEAD_SHA\`. Nothing filed." >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
 
           {
             echo "$MARKER"
             echo
-            echo "\`Spec drift\` is failing. This workflow runs on a schedule only, so no pull"
-            echo "request gate sees it and \`main\` shows green CI while this is red."
+            echo "\`Spec drift\` found work that only a person can do. A run that finds only"
+            echo "drift stays green, so this ticket is where the verdict shows up."
             echo
             echo "| | |"
             echo "| --- | --- |"
             echo "| run | $RUN_URL |"
             echo "| commit | \`$HEAD_SHA\` |"
+            echo "| trigger | \`$EVENT_NAME\` |"
             echo
-            echo "### Failing gates"
-            echo
-            printf '%s\n' "$failed"
-            echo
-            echo "### What each one asks for"
-            echo
-            echo "- **A watched spec document moved.** The offline drift guard reads the PINNED"
-            echo "  spec copy, so it cannot see the pin fall behind; this is the half that reads"
-            echo "  carve main. Bump the pin, re-read what the ledger names against the reference"
-            echo "  pages, and record the review. Do not bump the pin alone - that carries the"
-            echo "  change in while every check stays green, which is how carve#455 and the"
-            echo "  \`image\` node rule both landed unread."
-            echo "- **The spec pin is not on carve main.** It came from an unmerged or rewritten"
-            echo "  branch, or the commit was collected. Re-pin to a commit on main."
-            echo "- **The tested engine is behind the newest release.** One \`npm install\`, then"
-            echo "  re-measure every version-dated claim in \`references/\` before trusting it:"
-            echo "  a dated status note is only evidence while its premise holds."
-            echo
+            if $broken; then
+              echo "### The check itself failed"
+              echo
+              echo "A step could not do its job: the pin is not on carve main, a checkout or"
+              echo "registry lookup failed, or the checker exited with something other than a"
+              echo "verdict. The run is RED for that. Open the run and fix the check first;"
+              echo "until it runs, anything below may be incomplete."
+              echo
+            fi
+            if $moved; then
+              changed="$(sed -n 's/^\(.*\): [0-9]* [a-z]*(s) moved since the skill was last read against them:$/\1/p' /tmp/spec-review.txt)"
+              echo "### Read the skill against the changed spec documents"
+              echo
+              echo "These watched documents changed at carve main since the skill was last"
+              echo "read against them:"
+              echo
+              printf '%s\n' "$changed" | while IFS= read -r doc; do echo "- \`$doc\`"; done
+              echo
+              echo "No script can decide whether the skill still teaches the right rule, so"
+              echo "this part is a reading task:"
+              echo
+              echo "1. Bump the \`spec\` pin. carve's bump-downstream workflow keeps an"
+              echo "   \`automation/bump-spec\` pull request open for this; build on it."
+              echo "2. Run \`npm run spec:check\` at the new pin and read every entry it names"
+              echo "   in the documents above."
+              echo "3. Check each reference page and trap topic guide that teaches that rule,"
+              echo "   and correct whatever now teaches the old one."
+              echo "4. Only then record the review with \`npm run spec:review\`. Recording"
+              echo "   without reading is how carve#455 and the \`image\` node rule landed unread."
+              echo
+              echo "<details><summary>What the checker reported</summary>"
+              echo
+              echo '```text'
+              cat /tmp/spec-review.txt
+              echo '```'
+              echo
+              echo "</details>"
+              echo
+            fi
+            if $engine; then
+              echo "### The tested engine is behind the newest release"
+              echo
+              echo "\`@markup-carve/carve\` $ENGINE_BEHIND. Bump it with \`npm install\`, then"
+              echo "re-measure every version-dated claim in \`references/\`: a dated status"
+              echo "note is only evidence while its premise holds."
+              echo
+            fi
             echo "This ticket is filed and maintained by the workflow. It is EDITED by each"
-            echo "later red run and CLOSED by the first green one. Closing it by hand does not"
-            echo "silence it: the next red run files a new one."
+            echo "later run with findings and CLOSED by the first clean one. Closing it by"
+            echo "hand does not silence it: the next run with findings files a new one."
           } > /tmp/spec-drift-verdict.md
 
           if [ -n "$issue" ]; then
             gh issue edit "$issue" --repo "$REPO" --body-file /tmp/spec-drift-verdict.md
-            echo "Updated #$issue."
+            echo "Updated #$issue." | tee -a "$GITHUB_STEP_SUMMARY"
           else
             url="$(gh issue create --repo "$REPO" \
               --title "The skill has not been read against the spec it pins" \
               --label chore --label area:docs \
               --body-file /tmp/spec-drift-verdict.md)"
-            echo "Filed $url."
+            echo "Filed $url." | tee -a "$GITHUB_STEP_SUMMARY"
           fi

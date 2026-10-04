@@ -1,5 +1,6 @@
 // Compare a spec checkout against the recorded reviews and exit nonzero if any
-// watched entry moved:
+// watched entry moved. Exit 3 means only that: watched text moved and every
+// ledger was still read. Any other nonzero exit means the check itself failed.
 //
 //   node scripts/check-spec-review.mjs [path/to/spec/checkout]
 //
@@ -37,9 +38,12 @@ if (argument && /\.(md|json)$/.test(argument)) {
 
 const checkout = argument ?? specRoot(root)
 let failed = false
+let moved = false
 
 for (const ledger of LEDGERS) {
-  if (!check(ledger)) failed = true
+  const verdict = check(ledger)
+  if (verdict === 'moved') moved = true
+  else if (verdict !== 'current') failed = true
 }
 
 // Whether the ledgers still COVER the normative surface is a question about the
@@ -55,7 +59,7 @@ if (!coverage(checkout)) failed = true
 // is what the workflow's own step reports.
 if (argument === undefined && !revisions()) failed = true
 
-process.exit(failed ? 1 : 0)
+process.exit(failed ? 1 : moved ? 3 : 0)
 
 /**
  * @returns {boolean} true when every ledger names the pinned spec revision
@@ -100,7 +104,7 @@ function coverage(root) {
 
 /**
  * @param {(typeof LEDGERS)[number]} ledger
- * @returns {boolean} true when the recorded review is still current
+ * @returns {'current' | 'moved' | 'broken'}
  */
 function check(ledger) {
   const document = join(checkout, ledger.source)
@@ -120,7 +124,7 @@ function check(ledger) {
   })
   if (empty) {
     process.stdout.write(`${empty}\n`)
-    return false
+    return 'broken'
   }
 
   let current
@@ -128,7 +132,7 @@ function check(ledger) {
     current = ledger.fingerprint(readFileSync(document, 'utf8'))
   } catch (error) {
     process.stdout.write(`${document}: ${error.message}\n`)
-    return false
+    return 'broken'
   }
 
   // The comparison below only reports on a document it could parse. A
@@ -148,7 +152,7 @@ function check(ledger) {
   })
   if (thin) {
     process.stdout.write(`${thin}\n`)
-    return false
+    return 'broken'
   }
 
   const findings = compareSections(recorded, current)
@@ -157,12 +161,12 @@ function check(ledger) {
     process.stdout.write(
       `${document}: all ${Object.keys(recorded).length} ${ledger.kind}s match the recorded review\n`,
     )
-    return true
+    return 'current'
   }
 
   process.stdout.write(
     `${document}: ${findings.length} ${ledger.kind}(s) moved since the skill was last read against them:\n` +
       `${describeFindings(findings, ledger.kind)}\n\n${ledger.reread}\n`,
   )
-  return false
+  return 'moved'
 }

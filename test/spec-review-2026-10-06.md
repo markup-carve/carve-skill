@@ -194,3 +194,90 @@ Two gaps, both recorded rather than filled, and both scope decisions:
   name-lookup family and does not carry the index carve-out. Filling it needs
   either budget headroom or a decision to cover the Tier-2 and Tier-3
   constructs involved.
+
+# Second reading, 2026-10-06
+
+Reviewed `71caf585` through `14c9be77`, the head of carve main, one commit of
+lag. The scheduled bump bot pushed a commit on top of the first reading one
+minute after it landed, moving the pin to `14c9be77` on its own; this reading
+takes that commit as given rather than reverting it.
+`git merge-base --is-ancestor 71caf585 14c9be77` holds.
+
+The drift guard named one clause of `resources/grammar.ebnf`. Clean at this
+pin: `docs/divergence-from-djot.md`, `docs/cheatsheet.md` (63 rows),
+`resources/ast-schema.json` (73 nodes), `docs/extensions.md` (8 sections),
+`docs/extension-contract.md` (79 sections), `docs/validation.md` (11
+sections), `docs/security.md` (16 sections) and `resources/spec/rules.json`
+(307 rules). The normative rule surface check passed.
+
+The engine stayed at `@markup-carve/carve` 0.1.9.
+
+## What moved
+
+One change, from carve#2741.
+
+- **`resources/grammar.ebnf`, clause BELOW THE BODY'S COLUMN THE BODY ENDS.**
+  The clause governs what a line below a definition description's content
+  column is. It gained a sentence saying an info string decides nothing there:
+  a flush-left fence line with no closer ahead opens no block, so below a
+  CLOSED nested fence it is the body's content whether or not it carries a
+  language, and a TERMINATED fence at that column is a different line that
+  ends the body for either spelling. Three corpus rows landed with it, 547 and
+  its two variants.
+
+## Reference changes
+
+None. The skill has no coverage of a definition description body's content
+column. `SKILL.md` line 28 says only that "definition entries are `:: term`
+then `: definition`", and `references/syntax.md` lines 71 to 78 give a
+seven-line definition-list sample with no nested block in it. There is no page
+that states what a line below the body's column becomes, so there is no old
+rule to correct.
+
+Measured on 0.1.9, rendering the three new corpus documents:
+
+- Row 547 and row 547-2, where the flush-left fence has no closer ahead. The
+  spec expects the line to be the description body's own content, so the HTML
+  ends `<p><code>rust</code></p>` and `<p><code></code></p>` inside the `dd`.
+  0.1.9 instead opens a code block there,
+  `<pre><code class="language-rust"></code></pre>` and
+  `<pre><code></code></pre>`. The clause is ahead of the published engine for
+  this spelling.
+- Row 547-3, where the fence IS terminated. Spec and 0.1.9 agree exactly: the
+  description body ends and the code block renders at document level. That is
+  the half of the clause saying a terminated fence ends the body for either
+  spelling.
+
+`resources/engine-pin-drift.txt` names no 547 row, which is consistent rather
+than contradictory: that file describes the carve-js build carve's own
+`package.json` pins, moved to commit `77aa54d9` at pin `43c90238`, not the
+published 0.1.9 this repo installs.
+
+## Checked and left alone
+
+- `references/traps-blocks-containers.md` line 234, the nearest statement in
+  the skill, that an inner opener carrying an info string is content even at
+  the wrapper's own length. That reads like the same subject and is a
+  different mechanism. It governs a line INSIDE an open fence, where only a
+  bare delimiter of sufficient width closes; the new sentence governs a line
+  below a definition body's column with no fence open. Both happen to conclude
+  that an info string decides nothing, so the page is consistent with the
+  clause and says nothing the clause contradicts.
+- `references/traps-blocks-containers.md` lines 238 to 258, the widen-outward
+  rule and the two false fixes. All about fence width inside an open fence;
+  untouched.
+- `references/syntax.md` lines 71 to 78, the definition-list sample, and
+  `SKILL.md` line 28. Neither nests a block in a description body, so neither
+  depends on the column rule.
+- `references/validation.md` lines 97 to 100, `fence-opener-fallback`. That
+  rule is about an opener whose info string is not a language plus an optional
+  quoted title and label. The new sentence is about a VALID opener with no
+  closer, which is a different shape and raises no lint question the page
+  answers wrongly.
+
+## Left open
+
+Whether the skill should teach the definition-body column at all. It has no
+definition-list trap, only the construct sample, and adding one is a scope
+decision of the same kind as the include and wikilink gaps recorded above.
+Not filled here.

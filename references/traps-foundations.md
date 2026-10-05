@@ -7,9 +7,11 @@ this in sync.
 This guide owns traps 1–6; cross-references to 7–13a open the block/container
 guide, and 14–21 open the structure/reference guide.
 
-## 1. Heading ids are case-preserving; cross-references resolve case-insensitively
+## 1. Heading ids are case-preserving, and every name lookup matches exactly
 
-`# Getting Started` → id `Getting-Started` (case kept, non-ASCII kept verbatim, no normalization). A `</#getting-started>` or `[Getting Started][]` reference still resolves — matching is case-insensitive and links to the target's actual (case-preserved) id. Only ASCII alphanumerics and non-ASCII code points survive in the id; every other ASCII run collapses to a single `-` (`# C++ & Rust` → `C-Rust`). Lowercase/ASCII-folded anchors are opt-in processor options, not the default.
+`# Getting Started` → id `Getting-Started` (case kept, non-ASCII kept verbatim, no normalization). Only ASCII alphanumerics and non-ASCII code points survive in the id; every other ASCII run collapses to a single `-` (`# C++ & Rust` → `C-Rust`). Lowercase/ASCII-folded anchors are opt-in processor options, not the default.
+
+Every name lookup compares case EXACTLY (`CARVE-P9R-010`): `</#id>` cross-references against heading and caption ids, `[text][label]` labels, a collapsed `[Heading][]` against the heading index, footnote labels, and an include's `#name`. Labels still trim, collapse whitespace runs and NFC-normalize, but nothing folds case, and nothing folds ASCII either, so `</#getting-started>` and `</#cafe-notes>` both stay literal next to `Getting-Started` and `Café-Notes`. `carve lint` names the real spelling; `carve fmt --migrate` rewrites the reference when exactly one target matches it case-insensitively. **Ahead of the engine:** 0.1.9 still folds case, so `</#getting-started>` resolves there (measured on `@markup-carve/carve` 0.1.9; carve declares the drift for corpus rows 15, 173 and 546). Write references case-exact regardless.
 
 ## 2. A list marker must have content
 

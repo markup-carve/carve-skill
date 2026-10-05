@@ -1,11 +1,11 @@
 {
   "$comment": "Which spec divergence sections the topic guides in references/traps-*.md were last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/divergence-from-djot.md",
-  "spec_rev": "d3ba0205fc577e5f7930c53c61b6ba50e253d950",
+  "spec_rev": "f25fb0944ce5f65c4ffd4143f15331d276646998",
   "sections": {
     "1": {
-      "title": "Case-preserving heading ids with case-insensitive cross-references",
-      "sha256": "4474e850337b569586ca5bf3e9868cc8b98eb5514b29f58b9ae958ed0955b005"
+      "title": "Case-preserving heading ids, matched exactly",
+      "sha256": "0dcfe3428c6ac3aeb6bb8a115a70927368132201416ca96004206740d26bae6a"
     },
     "2": {
       "title": "A list marker must have content",

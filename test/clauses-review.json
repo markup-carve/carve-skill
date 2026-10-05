@@ -1,7 +1,7 @@
 {
   "$comment": "Which normative clause TEXTS of spec/resources/grammar.ebnf the skill was last read against, keyed by clause title. The rules ledger next to this one watches what the rules are - id, part, title - and carries no rule text, so on its own a clause can be rewritten into the opposite rule under an unchanged title, which is what happened to divergence section 13 in markup-carve/carve#455. Regenerate with `npm run spec:review` AFTER re-reading the clauses the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/grammar.ebnf",
-  "spec_rev": "f25fb0944ce5f65c4ffd4143f15331d276646998",
+  "spec_rev": "71caf5856905738c9e52662812e063d923ad7169",
   "clauses": {
     "A LEADING BYTE ORDER MARK IS STRIPPED": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -405,7 +405,7 @@
     },
     "ABSORPTION REACHES A PARAGRAPH'S OWN LINES ONLY": {
       "title": "ABSORPTION REACHES A PARAGRAPH'S OWN LINES ONLY",
-      "sha256": "d8ecad10845923dd168f1fbc74602a4e626014ae0dbc795815c118b316ea2c6f"
+      "sha256": "5afe0b11bd945a6fae4504a3152ae34edcdb29e7e47cae7a287f06b9eaf5b10c"
     },
     "AN ADMONITION LANDMARK CARRIES AN ACCESSIBLE NAME": {
       "title": "AN ADMONITION LANDMARK CARRIES AN ACCESSIBLE NAME",

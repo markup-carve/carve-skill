@@ -1,7 +1,7 @@
 {
   "$comment": "Which preamble/H2/H3 sections of spec/docs/extension-contract.md references/extensions.md was last read against. This is where the tier table and the normative behavior of each standard extension live since carve#1932. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/extension-contract.md",
-  "spec_rev": "f25fb0944ce5f65c4ffd4143f15331d276646998",
+  "spec_rev": "14c9be776c09c6840218930fbb31d1cace6d3c1f",
   "sections": {
     "Preamble": {
       "title": "Preamble",
@@ -143,13 +143,13 @@
       "title": "7.1 Syntax",
       "sha256": "3735c81e0360cd472a9856e978cc552fbc9dc177c7a07d1cfb84f25c76358940"
     },
-    "Glossary (Tier-3) / Slug": {
-      "title": "7.2 Slug",
-      "sha256": "0f35ef6dc74575c7688059670fb296b6ff8f3b8614036013d820d7b419967c26"
+    "Glossary (Tier-3) / Id and matching": {
+      "title": "7.2 Id and matching",
+      "sha256": "72c4af2b7d9ef75dd09cf064e580379ac5fcdb428d65e45c532b6e6b7583dd11"
     },
     "Glossary (Tier-3) / Rendering": {
       "title": "7.3 Rendering",
-      "sha256": "54b02df11be152e1c352b9b2226f451166f89e4eccd345c1543710e7c0dd3f18"
+      "sha256": "f4a92d20ddb13057807bdc219364f1b917f3209f61be4af388179858885b0a62"
     },
     "Glossary (Tier-3) / Degradation": {
       "title": "7.4 Degradation",
@@ -169,7 +169,7 @@
     },
     "Index (Tier-3) / Rendering": {
       "title": "8.2 Rendering",
-      "sha256": "fa33521076b127a097c43d58540932c01bbb989ae1e95276132e2a9cf027f29c"
+      "sha256": "4ba7c1c7f1fa39a4a50644aed65a40317ef9b8554842cfcb3cd7b2ffd2180f57"
     },
     "Index (Tier-3) / Degradation": {
       "title": "8.3 Degradation",
@@ -281,7 +281,7 @@
     },
     "Wikilinks and HeadingReference (Tier-2) / HeadingReference: a link to a heading in THIS document": {
       "title": "12.2 HeadingReference: a link to a heading in THIS document",
-      "sha256": "efe62c333a9b2c49db9b875740b070649a2b503668695a2ea0824d418318cddd"
+      "sha256": "9d788dad64ae41ca0878fefa2a60bb9aff48e337cdce76205f3631a48ef1b962"
     },
     "Wikilinks and HeadingReference (Tier-2) / Enable one or the other, never both": {
       "title": "12.3 Enable one or the other, never both",

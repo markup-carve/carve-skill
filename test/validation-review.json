@@ -1,7 +1,7 @@
 {
   "$comment": "Which preamble/H2/H3 sections of spec/docs/validation.md references/validation.md was last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/validation.md",
-  "spec_rev": "f25fb0944ce5f65c4ffd4143f15331d276646998",
+  "spec_rev": "14c9be776c09c6840218930fbb31d1cace6d3c1f",
   "sections": {
     "Preamble": {
       "title": "Preamble",
@@ -21,7 +21,7 @@
     },
     "Rules": {
       "title": "Rules",
-      "sha256": "dcc18bc8e2893f812af925ffd2d1a234eb911540b26a3e8d58ffff3943c8428e"
+      "sha256": "dd9c6cdde86b83be220b8c2ecc78421fc8d0133e61132bb254aeb7d249e7734a"
     },
     "Rules / Declaring a target version": {
       "title": "Declaring a target version",
@@ -37,7 +37,7 @@
     },
     "Rules / Which implementations provide these rules": {
       "title": "Which implementations provide these rules",
-      "sha256": "f5a6d9326e0e7e0ac41352a07cbb7feeef48e4f3951ff9ca174c98af3625c69f"
+      "sha256": "3e70dd073614944681089b3be678715860fbeecce86cfcb64bc273c4158694eb"
     },
     "Rules / A rule id is a contract": {
       "title": "A rule id is a contract",

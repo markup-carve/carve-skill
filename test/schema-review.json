@@ -1,7 +1,7 @@
 {
   "$comment": "Which AST node definitions of spec/resources/ast-schema.json the skill was last read against. The schema states language rules in prose - block promotion, resolution timing, which fields survive - so a moved description can make a reference page lie. Regenerate with `npm run spec:review` AFTER re-reading the nodes the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/ast-schema.json",
-  "spec_rev": "1acc54cfb26811868490dd8add4c7f75128a1507",
+  "spec_rev": "e60b7847b816ff00fcc86373c6700a377ac0028f",
   "nodes": {
     "abbreviation": {
       "title": "abbreviation (inline)",
@@ -261,7 +261,7 @@
     },
     "table": {
       "title": "table (block)",
-      "sha256": "88ff04dac94c76b2a66ada3f844858a85df978431e6340896823b0cda1b5cd4b"
+      "sha256": "2cc127b401674d56aee09e4d95e53de86d2f2ce78c4b9ec308c3629bd92e1f00"
     },
     "table_cell": {
       "title": "table_cell (block)",

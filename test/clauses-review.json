@@ -1,7 +1,7 @@
 {
   "$comment": "Which normative clause TEXTS of spec/resources/grammar.ebnf the skill was last read against, keyed by clause title. The rules ledger next to this one watches what the rules are - id, part, title - and carries no rule text, so on its own a clause can be rewritten into the opposite rule under an unchanged title, which is what happened to divergence section 13 in markup-carve/carve#455. Regenerate with `npm run spec:review` AFTER re-reading the clauses the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/grammar.ebnf",
-  "spec_rev": "1acc54cfb26811868490dd8add4c7f75128a1507",
+  "spec_rev": "e60b7847b816ff00fcc86373c6700a377ac0028f",
   "clauses": {
     "A LEADING BYTE ORDER MARK IS STRIPPED": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -313,7 +313,7 @@
     },
     "A `class` KEY-VALUE IS A SPELLING OF THE CLASS SLOT": {
       "title": "A `class` KEY-VALUE IS A SPELLING OF THE CLASS SLOT",
-      "sha256": "1ac7bc8638b68b417ab70e959ecd8f76f2aacda4961e7caf679a95b7fcd644ec"
+      "sha256": "6e25ea954ec1705f22d3b5665e725225bd972f77edccb72dca12307ad8883ab6"
     },
     "A BOOLEAN ATTRIBUTE DOES NOT START WITH AN UNDERSCORE": {
       "title": "A BOOLEAN ATTRIBUTE DOES NOT START WITH AN UNDERSCORE",
@@ -1109,7 +1109,7 @@
     },
     "A TABLE MAY CARRY AN OPTIONAL ROW GROUPING": {
       "title": "A TABLE MAY CARRY AN OPTIONAL ROW GROUPING",
-      "sha256": "51b295b9c11cd7b1cd651edccb2c095db33958292d5d92a7cee59cf2ef906ec9"
+      "sha256": "54d028e8d8aee8912b4ecc8baa684f61f41baf5aed18c7fd6c939022ef9dc59b"
     },
     "A COMPOSITE FIGURE IS ITS OWN NODE TYPE": {
       "title": "A COMPOSITE FIGURE IS ITS OWN NODE TYPE",

@@ -79,7 +79,7 @@ one relevant topic instead of an 8,032-token monolith:
 | --- | ---: |
 | Default only | 800 |
 | Default + syntax card | 2,489 |
-| Default + foundation traps | 4,000 |
+| Default + foundation traps | 4,181 |
 | Default + block/container traps | 4,280 |
 | Default + structure/reference traps | 2,638 |
 | Default + syntax + largest relevant trap guide + migration checklist | 6,271 |

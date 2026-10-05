@@ -1,7 +1,7 @@
 {
   "$comment": "Which normative clause TEXTS of spec/resources/grammar.ebnf the skill was last read against, keyed by clause title. The rules ledger next to this one watches what the rules are - id, part, title - and carries no rule text, so on its own a clause can be rewritten into the opposite rule under an unchanged title, which is what happened to divergence section 13 in markup-carve/carve#455. Regenerate with `npm run spec:review` AFTER re-reading the clauses the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/grammar.ebnf",
-  "spec_rev": "d3ba0205fc577e5f7930c53c61b6ba50e253d950",
+  "spec_rev": "f25fb0944ce5f65c4ffd4143f15331d276646998",
   "clauses": {
     "A LEADING BYTE ORDER MARK IS STRIPPED": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -105,7 +105,7 @@
     },
     "HEADING IDENTIFIERS": {
       "title": "HEADING IDENTIFIERS",
-      "sha256": "2a2dc8021517cec1d86cdb325c733b001759a92b47b7e45365f1ef7bf837ad6e"
+      "sha256": "7cf22c32aa49192a0ad79d021bdda6904e349c325e67f430e21877f19814b451"
     },
     "CODE-FENCE INFO STRING": {
       "title": "CODE-FENCE INFO STRING",
@@ -245,7 +245,7 @@
     },
     "AN AUTOLINK DISPLAYS ITS RAW SOURCE BODY": {
       "title": "AN AUTOLINK DISPLAYS ITS RAW SOURCE BODY",
-      "sha256": "0f58876aafe1af3f625688bae8421120fd14e2de8e13827d821b06cf8206a34a"
+      "sha256": "b3dcd2fce2a3a8655cbce61770cc168026604c0f7ab9c3f0c9f49481f28e0db2"
     },
     "AN AUTOLINK BODY ADMITS NON-ASCII AND EXCLUDES FORMAT CHARACTERS": {
       "title": "AN AUTOLINK BODY ADMITS NON-ASCII AND EXCLUDES FORMAT CHARACTERS",
@@ -321,7 +321,7 @@
     },
     "A QUOTED VALUE STOPS AT THE NEWLINE": {
       "title": "A QUOTED VALUE STOPS AT THE NEWLINE",
-      "sha256": "d52911e9abd4e9e59ff961d3964fe76766a5de75a774da6d2d045ef3ab602fa9"
+      "sha256": "b1ffbcc4d13fe48e699c925b855a2b0a5f6b3d483469ba9bc13005c2bcdf6f49"
     },
     "A TAB IS SYNTAX ONLY IN THE LEADING RUN": {
       "title": "A TAB IS SYNTAX ONLY IN THE LEADING RUN",
@@ -521,7 +521,7 @@
     },
     "SOCIAL LINK RESOLUTION": {
       "title": "SOCIAL LINK RESOLUTION",
-      "sha256": "fe3f0313f3c290bc86134a661453254c2453de3b8eaa89a32724752c6e468477"
+      "sha256": "a417fb969059893e58e9a7fe0881925e78b552d2720030e9d36576c03bac0303"
     },
     "RAW PASSTHROUGH": {
       "title": "RAW PASSTHROUGH",
@@ -637,11 +637,15 @@
     },
     "THE CLIPBOARD TYPE": {
       "title": "THE CLIPBOARD TYPE",
-      "sha256": "fdbd7a33ef8e1bf4ad9153058140dacdfbae1d58f7a6952238caa88650563ede"
+      "sha256": "1abdb1fc8638f9786457ba76419c0433a865539b18d33a168dace1ba9d897fd6"
+    },
+    "NO NAME LOOKUP FOLDS CASE": {
+      "title": "NO NAME LOOKUP FOLDS CASE",
+      "sha256": "fd066941f9f3c8071d2928e3076f6717f0f7a63909af74f530bead574749463b"
     },
     "THE EXPLICIT FORM DOES NOT REACH THE INDEX": {
       "title": "THE EXPLICIT FORM DOES NOT REACH THE INDEX",
-      "sha256": "ab9ee7c670dba905e3d85bc798dccd2bfd2d8f05521c76235e75a59706311c13"
+      "sha256": "66d86be816ba4382dc7a3744e6d93f33e6848f0bca9bdb3af5987e2c393410b0"
     },
     "R1a A DEFINITION IS COLLECTED FROM A LINE THE BLOCK STRUCTURE KEEPS": {
       "title": "R1a A DEFINITION IS COLLECTED FROM A LINE THE BLOCK STRUCTURE KEEPS",
@@ -657,7 +661,7 @@
     },
     "A NOTE INSIDE AN UNRESOLVED REFERENCE IS NOT A REFERENCE": {
       "title": "A NOTE INSIDE AN UNRESOLVED REFERENCE IS NOT A REFERENCE",
-      "sha256": "10f705d9e137ab1b10056b4bf3c4f3730aafcefa28e17334877758749a8fdfaa"
+      "sha256": "677973177871e13ef7cc3b6083bff36b261bb69b94035108d5b74956e1cb86da"
     },
     "WHAT IS CLONED IS THE HEADING'S INLINE NODES": {
       "title": "WHAT IS CLONED IS THE HEADING'S INLINE NODES",
@@ -669,7 +673,7 @@
     },
     "R5a LABELED DISPLAY EQUATIONS ARE NUMBERED": {
       "title": "R5a LABELED DISPLAY EQUATIONS ARE NUMBERED",
-      "sha256": "065f5c5af7fe73291837fadb2337a2f7191aee4916b8a1c0e800d4254b754f31"
+      "sha256": "2d606c50b3f66a097ee21d7d0f5c4cce8a0cb78e167a1e2f0dfaa5f6d9029177"
     },
     "R7 BLOCK IMAGE PROMOTION": {
       "title": "R7 BLOCK IMAGE PROMOTION",
@@ -1013,7 +1017,7 @@
     },
     "A CROSSREF REMAINS A HEADING-REFERENCE NODE AFTER RESOLUTION": {
       "title": "A CROSSREF REMAINS A HEADING-REFERENCE NODE AFTER RESOLUTION",
-      "sha256": "e471d623e9449b35fc02e41a81c29c98ce5fc0ad9f9d14dd5d6595c9ce84948f"
+      "sha256": "6ff80a1d1ebb1f2a5c096a3b8422f25240c8dc15675e66863bae4122884d1af3"
     },
     "A SPAN CONTAINS ITS CHILDREN'S SPANS": {
       "title": "A SPAN CONTAINS ITS CHILDREN'S SPANS",
@@ -1089,7 +1093,7 @@
     },
     "A LINK REFERENCE DEFINITION IS A NODE": {
       "title": "A LINK REFERENCE DEFINITION IS A NODE",
-      "sha256": "372d07336be8bd80285792f338a1feb805fd8fe283b32c366dd2071c92dc3f4d"
+      "sha256": "80ca5be0d290f217a7aed00952be14b6b70b44c298d2b1edaee44726ee9fd78d"
     },
     "A PROPERTY THE SCHEMA DOES NOT NAME IS REJECTED ON INGEST": {
       "title": "A PROPERTY THE SCHEMA DOES NOT NAME IS REJECTED ON INGEST",

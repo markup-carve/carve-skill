@@ -1,7 +1,7 @@
 {
   "$comment": "Which preamble/H2/H3 sections of spec/docs/extension-contract.md references/extensions.md was last read against. This is where the tier table and the normative behavior of each standard extension live since carve#1932. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/extension-contract.md",
-  "spec_rev": "e60b7847b816ff00fcc86373c6700a377ac0028f",
+  "spec_rev": "d3ba0205fc577e5f7930c53c61b6ba50e253d950",
   "sections": {
     "Preamble": {
       "title": "Preamble",

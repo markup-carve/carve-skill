@@ -1,7 +1,7 @@
 {
   "$comment": "Which normative clause TEXTS of spec/resources/grammar.ebnf the skill was last read against, keyed by clause title. The rules ledger next to this one watches what the rules are - id, part, title - and carries no rule text, so on its own a clause can be rewritten into the opposite rule under an unchanged title, which is what happened to divergence section 13 in markup-carve/carve#455. Regenerate with `npm run spec:review` AFTER re-reading the clauses the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/grammar.ebnf",
-  "spec_rev": "e60b7847b816ff00fcc86373c6700a377ac0028f",
+  "spec_rev": "d3ba0205fc577e5f7930c53c61b6ba50e253d950",
   "clauses": {
     "A LEADING BYTE ORDER MARK IS STRIPPED": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -521,7 +521,7 @@
     },
     "SOCIAL LINK RESOLUTION": {
       "title": "SOCIAL LINK RESOLUTION",
-      "sha256": "e98c5c0df4d1401b17045d9d97f0b94e12f1c77edb4ce967ce4a7f2b5aa76a04"
+      "sha256": "fe3f0313f3c290bc86134a661453254c2453de3b8eaa89a32724752c6e468477"
     },
     "RAW PASSTHROUGH": {
       "title": "RAW PASSTHROUGH",

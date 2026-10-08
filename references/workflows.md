@@ -114,7 +114,7 @@ definition lists, list-tables written as pipe tables, and escapes that work
 across adjacent nodes. These rules do not establish released-engine support, so check exported links
 before publishing. The heading case has since caught up: 0.1.7 wrote `{#h}`
 after an explicitly identified heading and linked to `#h`, which a GFM reader
-displays as a literal suffix under a different anchor, while 0.1.9 writes the
+displays as a literal suffix under a different anchor, while 0.1.10 writes the
 bare heading and rewrites the link to the GFM slug.
 
 ## Workspace references

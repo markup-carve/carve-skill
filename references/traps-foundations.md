@@ -11,7 +11,7 @@ guide, and 14–21 open the structure/reference guide.
 
 `# Getting Started` → id `Getting-Started` (case kept, non-ASCII kept verbatim, no normalization). Only ASCII alphanumerics and non-ASCII code points survive in the id; every other ASCII run collapses to a single `-` (`# C++ & Rust` → `C-Rust`). Lowercase/ASCII-folded anchors are opt-in processor options, not the default.
 
-Every name lookup compares case EXACTLY (`CARVE-P9R-010`): `</#id>` cross-references against heading and caption ids, `[text][label]` labels, a collapsed `[Heading][]` against the heading index, footnote labels, and an include's `#name`. Labels still trim, collapse whitespace runs and NFC-normalize, but nothing folds case, and nothing folds ASCII either, so `</#getting-started>` and `</#cafe-notes>` both stay literal next to `Getting-Started` and `Café-Notes`. `carve lint` names the real spelling; `carve fmt --migrate` rewrites a cross-reference or link reference, never an include selector, when exactly one target matches it case-insensitively. **Ahead of the engine:** 0.1.9 still folds case, so `</#getting-started>` resolves there (measured on `@markup-carve/carve` 0.1.9; carve declares the drift for corpus rows 15, 173 and 546). Write references case-exact regardless.
+Every name lookup compares case EXACTLY (`CARVE-P9R-010`): `</#id>` cross-references against heading and caption ids, `[text][label]` labels, a collapsed `[Heading][]` against the heading index, footnote labels, and an include's `#name`. Labels still trim, collapse whitespace runs and NFC-normalize, but nothing folds case, and nothing folds ASCII either, so `</#getting-started>` and `</#cafe-notes>` both stay literal next to `Getting-Started` and `Café-Notes`. `carve lint` names the real spelling; `carve fmt --migrate` rewrites a cross-reference or link reference, never an include selector, when exactly one target matches it case-insensitively. The engine agrees since 0.1.10: `# Getting Started` followed by `</#getting-started>` renders the reference as literal text, where 0.1.9 resolved it to a link (measured on `@markup-carve/carve` 0.1.9 and 0.1.10).
 
 ## 2. A list marker must have content
 
@@ -69,7 +69,7 @@ _*only one* closes.
 <p>_*only one* closes.</p>
 ````
 
-Measured against `@markup-carve/carve` 0.1.9 and recorded as
+Measured against `@markup-carve/carve` 0.1.10 and recorded as
 `nested_bare_emphasis` in `references/capabilities.json`.
 
 ## 5. No parenthesized ordered markers
@@ -185,7 +185,7 @@ marker may carry a second axis, and the pair is HORIZONTAL FIRST
 `v>` and a lone `^` or `v` stay ordinary cell content. `?` takes the column's
 horizontal axis and its own vertical (#1408).
 
-Measured against `@markup-carve/carve` 0.1.9, the engine this skill is tested
+Measured against `@markup-carve/carve` 0.1.10, the engine this skill is tested
 against:
 
 ````
@@ -211,7 +211,7 @@ This entry has now been wrong twice. It first recorded 0.1.4 leaving the markers
 as literal cell text and told the reader to avoid the syntax, and said so for a
 release after that stopped being true. The correction then paired a LEFT-aligned
 column with a `?v` cell and claimed `text-align: right`, contradicting the
-sentence above it; no engine renders that, 0.1.5 through 0.1.9 all give `left`
+sentence above it; no engine renders that, 0.1.5 through 0.1.10 all give `left`
 there. Both survived because the claim was an indented arrow line rather than a
 Carve block followed by the HTML it claims, which is the shape
 `test/documented-rules.test.mjs` executes. The pair above is that shape, and

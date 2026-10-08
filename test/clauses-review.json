@@ -1,7 +1,7 @@
 {
   "$comment": "Which normative clause TEXTS of spec/resources/grammar.ebnf the skill was last read against, keyed by clause title. The rules ledger next to this one watches what the rules are - id, part, title - and carries no rule text, so on its own a clause can be rewritten into the opposite rule under an unchanged title, which is what happened to divergence section 13 in markup-carve/carve#455. Regenerate with `npm run spec:review` AFTER re-reading the clauses the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/grammar.ebnf",
-  "spec_rev": "14c9be776c09c6840218930fbb31d1cace6d3c1f",
+  "spec_rev": "bae59dad86f9888f1129bdb4d09dc6719deef343",
   "clauses": {
     "A LEADING BYTE ORDER MARK IS STRIPPED": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -213,7 +213,7 @@
     },
     "WHITESPACE HERE IS UNICODE WHITESPACE": {
       "title": "WHITESPACE HERE IS UNICODE WHITESPACE",
-      "sha256": "94ab16a33d30b092376323cb39199e3ef8f3fe13f584529ea730a58ee554f1d3"
+      "sha256": "f204758fd81ae0ad378b2f34f4eeea117899a683d379f74db082e34a33563f48"
     },
     "A LABEL THAT BEGINS WITH AN AT SIGN IS NOT A REFERENCE LABEL": {
       "title": "A LABEL THAT BEGINS WITH AN AT SIGN IS NOT A REFERENCE LABEL",
@@ -313,7 +313,7 @@
     },
     "A `class` KEY-VALUE IS A SPELLING OF THE CLASS SLOT": {
       "title": "A `class` KEY-VALUE IS A SPELLING OF THE CLASS SLOT",
-      "sha256": "6e25ea954ec1705f22d3b5665e725225bd972f77edccb72dca12307ad8883ab6"
+      "sha256": "915014cb1dd9507a9666da03429eb3731bd61277da74d04d62accc894f207c7b"
     },
     "A BOOLEAN ATTRIBUTE DOES NOT START WITH AN UNDERSCORE": {
       "title": "A BOOLEAN ATTRIBUTE DOES NOT START WITH AN UNDERSCORE",
@@ -321,7 +321,7 @@
     },
     "A QUOTED VALUE STOPS AT THE NEWLINE": {
       "title": "A QUOTED VALUE STOPS AT THE NEWLINE",
-      "sha256": "b1ffbcc4d13fe48e699c925b855a2b0a5f6b3d483469ba9bc13005c2bcdf6f49"
+      "sha256": "4c6ffa2ec0d84ec309f8ca4f809c944c5bff1497d3d3dd67661b71265e3dc057"
     },
     "A TAB IS SYNTAX ONLY IN THE LEADING RUN": {
       "title": "A TAB IS SYNTAX ONLY IN THE LEADING RUN",
@@ -593,7 +593,11 @@
     },
     "A RETURNED DOCUMENT NEVER SILENTLY LACKS AUTHORED TEXT": {
       "title": "A RETURNED DOCUMENT NEVER SILENTLY LACKS AUTHORED TEXT",
-      "sha256": "fabe2d054b52044e8e980cb198f20a37b288aad8152af9ef7d92935b2fa0d5fb"
+      "sha256": "766b932adaec4649d0171a96d9226ac57c8e01c5334965e274ef2f8d7af7a661"
+    },
+    "THE CANONICAL WRITER MAY TAKE THE REFUSE ARM PAST THE CAP": {
+      "title": "THE CANONICAL WRITER MAY TAKE THE REFUSE ARM PAST THE CAP",
+      "sha256": "95b3d6bb22e3e832cc9a702cdbaa80ee11b080b06315264f86c1ea562181a7eb"
     },
     "AT THE RENDER CEILING, A RENDERER REFUSES": {
       "title": "AT THE RENDER CEILING, A RENDERER REFUSES",
@@ -753,11 +757,11 @@
     },
     "THE CONVERSION-DIAGNOSTICS CHANNEL": {
       "title": "THE CONVERSION-DIAGNOSTICS CHANNEL",
-      "sha256": "ec010f9861add7243a8cf73a42c013987ebba716d35bb1bf82c615697e40fabd"
+      "sha256": "e59d18051f6f0b9f59fbbd9dd539c154247e4a8e268adf31ec5231dbbfc595fa"
     },
     "THE ESCAPING RULE": {
       "title": "THE ESCAPING RULE",
-      "sha256": "73584582a078d4fcabd32cb039fd7e58ef10f8203b7be87fb0e208215df462f6"
+      "sha256": "105c494a5b6820f426201c25e031a189865ee2c94f4cb9f4cb3b7a2f66b1b74a"
     },
     "ESCAPE MINIMALITY STILL APPLIES INSIDE AN ESCALATED UNIT": {
       "title": "ESCAPE MINIMALITY STILL APPLIES INSIDE AN ESCALATED UNIT",
@@ -801,7 +805,7 @@
     },
     "NO WHITESPACE-ONLY LINE": {
       "title": "NO WHITESPACE-ONLY LINE",
-      "sha256": "3f590f919554971240c94d7d80094e759bd964648d7eeb38134fe267a77ff50c"
+      "sha256": "65af2e5ed7c5726d3d066562d28b414f14479a41e59da574e88ed2a6c5ca9000"
     },
     "THE SAME LINE DECIDES WHAT AN IMPORT KEEPS": {
       "title": "THE SAME LINE DECIDES WHAT AN IMPORT KEEPS",

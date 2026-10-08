@@ -1,7 +1,7 @@
 {
   "$comment": "Which active normative rules of spec/resources/spec/rules.json the skill was last read against, keyed by the stable rule id. The registry is the structured source of the whole normative surface - the grammar clause inventory is its title set and docs/rules/ is generated from it - so a clause added, retired or retitled here is a change to what correct authoring advice looks like. `scope` is not fingerprinted: the views are navigation, and hashing it made a one-off metadata addition read as 242 moved rules. Regenerate with `npm run spec:review` AFTER re-reading the rules the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/spec/rules.json",
-  "spec_rev": "14c9be776c09c6840218930fbb31d1cace6d3c1f",
+  "spec_rev": "bae59dad86f9888f1129bdb4d09dc6719deef343",
   "rules": {
     "CARVE-P0-001": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -494,6 +494,10 @@
     "CARVE-P9-068": {
       "title": "A RETURNED DOCUMENT NEVER SILENTLY LACKS AUTHORED TEXT",
       "sha256": "758046631d7764484cd43a15f8afe31f50108b05ad1296dc9cb026920618ae00"
+    },
+    "CARVE-P9-078": {
+      "title": "THE CANONICAL WRITER MAY TAKE THE REFUSE ARM PAST THE CAP",
+      "sha256": "19a404fb6f9a86a2c0084fc451842e7e40fc7a8d1913cef298b3f79b0e6c0bc3"
     },
     "CARVE-P9-034": {
       "title": "L6 A COLLECTED DEFINITION LEAVES NO TRACE",

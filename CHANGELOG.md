@@ -6,6 +6,33 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Fixes
+
+- Two guidance entries said the released engine disagreed with the spec, and it
+  no longer does. `traps-foundations.md` carried an "Ahead of the engine" note
+  saying 0.1.9 still folds case for a cross-reference; `@markup-carve/carve`
+  0.1.10 leaves `</#getting-started>` literal next to `Getting-Started`.
+  `syntax.md` and `validation.md` said a curly-quoted fence title drops the
+  whole opener line to a paragraph on a released engine; 0.1.10 recovers,
+  keeping the container with its body as content while still reporting
+  `fence-title-syntax`. Both measured on 0.1.9 and 0.1.10.
+
+### Changed
+
+- Read against `@markup-carve/carve` 0.1.10, from 0.1.9. Every dated claim in
+  `references/` was re-run on both engines rather than renumbered: the vertical
+  cell alignment pair, admonition naming, nested admonitions, the canonical form
+  of a quoted note in a list item, the placement diagnostics (`footnotes`
+  reported, `bibliography` and `references` still silent), a titled placing
+  marker, the delimited comment, `fence-opener-fallback`,
+  `table-alignment-run-padding`, the merged `class=` slot, the term-fold render,
+  the GFM heading rewrite, `lintCarve` against the CLI, and the CLI's exit code
+  through the `.bin` symlink are all unchanged, so their attributions moved with
+  evidence. `references/capabilities.json` names 0.1.10, which its own per-feature
+  probe now holds it to.
+- The published progressive-disclosure table is re-measured: the routine profile
+  is 2487 GPT-5 tokens, foundations 4193, largest migration 6269.
+
 ## [0.1.3] - 2026-09-30
 
 ### Fixes

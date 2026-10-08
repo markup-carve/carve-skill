@@ -28,7 +28,7 @@ container (a quote, a list item, a div or directive body, a table cell, a
 definition description, a footnote definition) the marker renders the
 `<div class="{kind}">` fallback where it stands and the region goes where an
 unmarked document puts it (`CARVE-P9-073`). The spec names a diagnostic for that
-shape, `{kind}-placement-in-container`. `@markup-carve/carve` 0.1.9 emits the
+shape, `{kind}-placement-in-container`. `@markup-carve/carve` 0.1.10 emits the
 footnotes one and neither of the other two, so a misplaced `::: bibliography` or
 `::: references` still passes lint and only the render shows it. `::: toc`,
 `::: glossary` and `::: index` are placeable at any depth.
@@ -41,7 +41,7 @@ When at least one note is referenced, the first eligible top-level footnotes
 marker places the section (`CARVE-P9-075`). Later markers, or every marker when
 no note is referenced, keep their bodies in fallback divs. A marker nested in a TOC body
 remains nested even when that body renders before the nav (`CARVE-P9-076`).
-Preview these placements on the chosen host. On 0.1.9, a paragraph inside
+Preview these placements on the chosen host. On 0.1.10, a paragraph inside
 the first top-level footnotes marker renders before the endnotes section.
 
 A quoted title and an opener `[label]` on any placement marker belong to the
@@ -50,7 +50,7 @@ cannot hold a paragraph: `glossary` places a `<dl>` and `index` a `<ul>`, so for
 those two the tokens precede the generated content instead. The fallback `<div>`
 takes them as children and takes no naming attribute.
 
-0.1.9 carries them on a PLACING marker too, so a title is safe to write.
+0.1.10 carries them on a PLACING marker too, so a title is safe to write.
 `::: footnotes "Reader notes" [End]` renders the endnotes `<section>` with
 `aria-labelledby` pointing at a `<p class="admonition-title">` holding the
 title, and the label after it as `<p class="div-label">`. Through 0.1.7 the

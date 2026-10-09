@@ -1,7 +1,7 @@
 {
   "$comment": "Which active normative rules of spec/resources/spec/rules.json the skill was last read against, keyed by the stable rule id. The registry is the structured source of the whole normative surface - the grammar clause inventory is its title set and docs/rules/ is generated from it - so a clause added, retired or retitled here is a change to what correct authoring advice looks like. `scope` is not fingerprinted: the views are navigation, and hashing it made a one-off metadata addition read as 242 moved rules. Regenerate with `npm run spec:review` AFTER re-reading the rules the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/spec/rules.json",
-  "spec_rev": "bae59dad86f9888f1129bdb4d09dc6719deef343",
+  "spec_rev": "a895b116f8443913c16df3a8b7b43981edcad66c",
   "rules": {
     "CARVE-P0-001": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -110,6 +110,10 @@
     "CARVE-P2-029": {
       "title": "AN IMPORTER DROPS INFO-STRING TEXT THAT IS NOT A LANGUAGE",
       "sha256": "02fa495bc5f5b67125584ecacb3c6e5c690c28a924800aa0a8eb629924e59dcd"
+    },
+    "CARVE-P2-030": {
+      "title": "A BARE `---` BLOCK IS IMPORTED AS FRONTMATTER ONLY WHERE IT SHAPES AS A MAPPING",
+      "sha256": "d9b1be7d392982660bb39b882c9c76c64aba0a7f2ca5a8ec5979e0e2895a8276"
     },
     "CARVE-P2-006": {
       "title": "COLUMN-EXACT DELIMITERS",
@@ -1234,6 +1238,14 @@
     "CARVE-P0-022": {
       "title": "AN OPAQUE MARKER-LINE QUOTE PRESERVES THE BAND AS TEXT",
       "sha256": "e3a0c1f303b975c2f845bb0e3d0312526ad02ab9b754d61902f0ed680d596956"
+    },
+    "CARVE-P10-013": {
+      "title": "AN ESCAPED RAW BLOCK IS WRITTEN AS CODE",
+      "sha256": "889f8402af502d1ee9eaa4f79200347821039b0c70eb9b230fa21eb15e2c86ca"
+    },
+    "CARVE-P10-014": {
+      "title": "AN ORDERED LIST'S DELIMITER NAMES ITSELF ON THE LIST",
+      "sha256": "3d8e767b33ea898d1a40161b587775133a4b72c08c45e5d49b6123e32fd25f27"
     }
   }
 }

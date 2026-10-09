@@ -74,7 +74,7 @@ Measured against `@markup-carve/carve` 0.1.10 and recorded as
 
 ## 5. No parenthesized ordered markers
 
-Ordered lists use `.` and `)` only (`1.` / `1)`). `(1)`, `(a)`, `(i)` stay literal paragraph text (they are far more often a prose parenthetical).
+Ordered lists use `.` and `)` only (`1.` / `1)`). `(1)`, `(a)`, `(i)` stay literal paragraph text (they are far more often a prose parenthetical). The delimiter reaches the output: a `)` list carries `data-delim=")"` on its `<ol>` and a `.` list carries nothing (`CARVE-P10-014`).
 
 ## 6. Plain-text comments
 

@@ -1,0 +1,247 @@
+name: Release
+
+# THE TAG IS CREATED HERE, AFTER THE GATES PASS AND AFTER A HUMAN APPROVES.
+#
+# NOTHING IS PUBLISHED TO A REGISTRY, and that is not an omission. package.json
+# carries `"private": true` and @markup-carve/carve-skill does not exist on npm;
+# the skill is installed by cloning this repository or by unpacking a release.
+# So the release IS the tag plus the release page, which makes the tag the first
+# and only irreversible act - and `scripts/check-installed-version.mjs` reads
+# `releases/latest` and compares its `tag_name` against an installed copy, so a
+# tag pushed here is immediately what every installed skill measures itself
+# against.
+#
+# Every job declares timeout-minutes, so a hung step fails in minutes instead of
+# inheriting GitHub's 360-minute default.
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release, without a leading v (e.g. 0.1.5)'
+        required: true
+        type: string
+
+concurrency:
+  group: release-${{ inputs.version }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    name: The version surfaces agree and the tag is free
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        shell: bash
+    steps:
+      # fetch-depth: 0 for the tags: the check below asks whether a ref exists,
+      # and a shallow clone carries none of them.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: The tag does not exist yet
+        env:
+          VER: ${{ inputs.version }}
+        run: |
+          case "$VER" in
+            ""|v*|*[!0-9A-Za-z.+-]*)
+              echo "::error::[$VER] is not a bare version. This repository tags bare, so pass 0.1.5."
+              exit 1
+              ;;
+          esac
+          if git rev-parse -q --verify "refs/tags/${VER}" >/dev/null; then
+            echo "::error::Tag ${VER} already exists, and check-installed-version.mjs resolves"
+            echo "::error::releases/latest by tag - supersede it with a new version instead."
+            exit 1
+          fi
+          echo "${VER} is free"
+
+      # BOTH version surfaces, because this repository states its version twice.
+      # package.json is what an unpacked copy carries, and
+      # check-installed-version.mjs compares exactly that field against the
+      # latest release tag: a tag that disagrees with it tells every installed
+      # skill it is out of date while the file says otherwise.
+      - name: package.json declares this version
+        env:
+          VER: ${{ inputs.version }}
+        run: |
+          got="$(node -p "require('./package.json').version")"
+          if [ "$VER" != "$got" ]; then
+            echo "::error::package.json declares $got, but this run would release $VER."
+            exit 1
+          fi
+          echo "package.json: $got"
+
+      # A DATED section, not merely a heading. An undated one is the shape a cut
+      # leaves behind when the version was bumped and the section never written,
+      # and it reads as released while saying nothing.
+      - name: CHANGELOG.md has a dated section for this version
+        env:
+          VER: ${{ inputs.version }}
+        run: |
+          count="$(grep -cE "^## \[?${VER//./\\.}\]? - [0-9]{4}-[0-9]{2}-[0-9]{2}" CHANGELOG.md || true)"
+          if [ "$count" != "1" ]; then
+            echo "::error::CHANGELOG.md needs exactly one dated section for ${VER}, found ${count}"
+            grep -nE '^## ' CHANGELOG.md
+            exit 1
+          fi
+
+  release-notes:
+    name: A release draft for this version exists and has notes
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      # `write`, not `read`: a DRAFT release is invisible to a caller without
+      # push access, so under `contents: read` the listing comes back empty and
+      # this gate reports "no release" for a draft sitting right there with
+      # notes in it. See markup-carve/carve-wasm#80.
+      contents: write
+    steps:
+      # Found by LISTING rather than by `gh release view <tag>`: a draft's tag is
+      # not a git ref, so addressing one by tag can match nothing, change nothing
+      # and still exit 0.
+      - name: The draft exists and has notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VER: ${{ inputs.version }}
+        run: |
+          set -uo pipefail
+          release="$(gh api "repos/$GITHUB_REPOSITORY/releases" --paginate \
+            --jq "[.[] | select(.tag_name == \"${VER}\")] | first")"
+          if [ -z "$release" ]; then
+            echo "::error::no release for ${VER}. Write the notes first:" \
+                 "gh release create ${VER} --draft --notes-file notes.md"
+            echo "::error::if a draft DOES exist, this job could not see it -" \
+                 "check that it still declares contents: write"
+            exit 1
+          fi
+          body="$(printf '%s' "$release" | jq -r '.body // ""')"
+          printf '%s' "$release" | jq -r '"draft=\(.draft) tag=\(.tag_name)"'
+          if [ "${#body}" -lt 40 ]; then
+            echo "::error::the release for ${VER} carries ${#body} characters of notes." \
+                 "That is not a description of a release."
+            exit 1
+          fi
+          echo "notes: ${#body} characters"
+
+  suite:
+    name: Drift guard, round-trip lint and format check
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive # spec docs the drift guard reads
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # The drift guard. The skill teaches syntax, so a release that has drifted
+      # from the vendored spec docs ships wrong instructions to every agent that
+      # installs it - and nothing downstream of here would notice.
+      - run: npm test
+
+      # The showcase must lint clean under hand-written Carve rules, and must
+      # also survive `fmt --check`: lint accepts lenient spellings the formatter
+      # rewrites, so a clean lint says nothing about this (#129).
+      - run: npm run lint:examples
+      - run: npm run fmt:examples
+
+  tag:
+    name: Create the tag
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [guard, release-notes, suite]
+    # THE APPROVAL GATE, and the ONLY job that carries an environment. GitHub
+    # prompts once per gated JOB, so a second one would ask twice for one
+    # decision, and the second prompt would arrive after the tag already existed
+    # and so could withhold nothing.
+    environment: release-approval
+    permissions:
+      # Without this the push 403s AFTER the approval has been spent.
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push the tag
+        env:
+          VER: ${{ inputs.version }}
+        run: |
+          # Re-checked under the approval: `main` can move while a run waits for
+          # a reviewer, and the gates measured the commit that was current then.
+          got="$(node -p "require('./package.json').version")"
+          if [ "$VER" != "$got" ]; then
+            echo "::error::package.json now declares $got. main moved while this run waited for"
+            echo "::error::approval, so the gate result no longer describes it. Re-run the workflow."
+            exit 1
+          fi
+          if git rev-parse -q --verify "refs/tags/${VER}" >/dev/null; then
+            echo "::error::Tag ${VER} appeared while this run waited for approval. Stopping."
+            exit 1
+          fi
+          git tag "$VER" "$GITHUB_SHA"
+          git push origin "refs/tags/${VER}"
+          echo "tagged ${VER} at $GITHUB_SHA"
+
+  publish:
+    name: Publish the release notes
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [tag]
+    # NO `environment:` here - see the comment on `tag`. `needs: [tag]` already
+    # makes this unreachable without the approval.
+    permissions:
+      contents: write
+    steps:
+      # This is the publish. check-installed-version.mjs asks GitHub for
+      # releases/latest, and a DRAFT is not latest - so until this step runs,
+      # every installed skill still believes the previous version is current.
+      - name: Un-draft the release for this version
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VER: ${{ inputs.version }}
+        run: |
+          set -uo pipefail
+          id="$(gh api "repos/$GITHUB_REPOSITORY/releases" --paginate \
+            --jq "[.[] | select(.tag_name == \"${VER}\" and .draft)] | first | .id // empty")"
+          if [ -z "$id" ]; then
+            echo "No draft release for ${VER}; nothing to publish."
+            exit 0
+          fi
+          # `tag_name` goes with every PATCH of a release. Omit it on a DRAFT and
+          # GitHub replaces the tag with a generated `untagged-*` placeholder,
+          # because a draft's tag is a string on the object rather than a git
+          # ref. `-F` (not `-f`) for draft, so it is sent as a boolean: the
+          # string "false" is truthy and would publish anyway.
+          gh api "repos/$GITHUB_REPOSITORY/releases/$id" -X PATCH \
+            -f tag_name="$VER" -F draft=false --jq '"published \(.tag_name)"'
+          # Read it back: an exit status does not tell you whether the tag survived.
+          gh api "repos/$GITHUB_REPOSITORY/releases/$id" \
+            --jq '"draft=\(.draft) tag=\(.tag_name)"'
+
+      # The check installed copies run resolves releases/latest, so this is the
+      # one assertion that says the release is visible the way a consumer sees
+      # it rather than the way the API accepted it.
+      - name: releases/latest now names this version
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VER: ${{ inputs.version }}
+        run: |
+          latest="$(gh api "repos/$GITHUB_REPOSITORY/releases/latest" --jq '.tag_name')"
+          echo "releases/latest: $latest"
+          if [ "$latest" != "$VER" ]; then
+            echo "::error::releases/latest still names ${latest}, so check-installed-version.mjs"
+            echo "::error::would keep reporting ${latest} as current."
+            exit 1
+          fi

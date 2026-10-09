@@ -1,7 +1,7 @@
 {
   "$comment": "Which normative clause TEXTS of spec/resources/grammar.ebnf the skill was last read against, keyed by clause title. The rules ledger next to this one watches what the rules are - id, part, title - and carries no rule text, so on its own a clause can be rewritten into the opposite rule under an unchanged title, which is what happened to divergence section 13 in markup-carve/carve#455. Regenerate with `npm run spec:review` AFTER re-reading the clauses the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/grammar.ebnf",
-  "spec_rev": "bae59dad86f9888f1129bdb4d09dc6719deef343",
+  "spec_rev": "a895b116f8443913c16df3a8b7b43981edcad66c",
   "clauses": {
     "A LEADING BYTE ORDER MARK IS STRIPPED": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -105,7 +105,11 @@
     },
     "HEADING IDENTIFIERS": {
       "title": "HEADING IDENTIFIERS",
-      "sha256": "7cf22c32aa49192a0ad79d021bdda6904e349c325e67f430e21877f19814b451"
+      "sha256": "c6bb5a6175fd11255a2737768d7e591c90724beed4919c4878b771eea4db357b"
+    },
+    "A BARE `---` BLOCK IS IMPORTED AS FRONTMATTER ONLY WHERE IT SHAPES AS A MAPPING": {
+      "title": "A BARE `---` BLOCK IS IMPORTED AS FRONTMATTER ONLY WHERE IT SHAPES AS A MAPPING",
+      "sha256": "12e0d92214730b3b2a0fc4ba3190a10ca0bf68e9ef4017f73c5cefed6b734fa2"
     },
     "CODE-FENCE INFO STRING": {
       "title": "CODE-FENCE INFO STRING",
@@ -201,7 +205,7 @@
     },
     "RENDER-LOSS REPORTING": {
       "title": "RENDER-LOSS REPORTING",
-      "sha256": "f1de80a69a037d8342dfe050d958076f5e29a6cb3dad5196383cb1f60a8b6611"
+      "sha256": "30767d12ad414969c0d15beccd4922f2745f43305ee01bbf16acf935778fe1fe"
     },
     "NO TRAILING WHITESPACE": {
       "title": "NO TRAILING WHITESPACE",
@@ -249,7 +253,7 @@
     },
     "AN AUTOLINK BODY ADMITS NON-ASCII AND EXCLUDES FORMAT CHARACTERS": {
       "title": "AN AUTOLINK BODY ADMITS NON-ASCII AND EXCLUDES FORMAT CHARACTERS",
-      "sha256": "d3b2e4a12926680d60f646a98fb7a7de526059daf46c67777ef23aad2dee8075"
+      "sha256": "6b1db4c774d05fb1dcfa31fee52c61ba513d2c0b90620b18c8c1c66fff78f078"
     },
     "TRAILING ATTRIBUTES on math": {
       "title": "TRAILING ATTRIBUTES on math",
@@ -289,7 +293,7 @@
     },
     "A HYPHEN RUN OPENING A WORD AFTER WHITESPACE IS A FLAG, NOT A DASH": {
       "title": "A HYPHEN RUN OPENING A WORD AFTER WHITESPACE IS A FLAG, NOT A DASH",
-      "sha256": "99494d0fbb966142e60eff94824b8cc03ecd28a6bc81a94f8a6e30b66529a58b"
+      "sha256": "cbfab7f9cdebf723124be60a34270a7e7ebde844243975fdfa8704311eeaf608"
     },
     "THE DOUBLED RUN IS THE CANONICAL ARROW, IN BOTH FAMILIES": {
       "title": "THE DOUBLED RUN IS THE CANONICAL ARROW, IN BOTH FAMILIES",
@@ -321,7 +325,7 @@
     },
     "A QUOTED VALUE STOPS AT THE NEWLINE": {
       "title": "A QUOTED VALUE STOPS AT THE NEWLINE",
-      "sha256": "4c6ffa2ec0d84ec309f8ca4f809c944c5bff1497d3d3dd67661b71265e3dc057"
+      "sha256": "d3cfc6d9a6a24ac43b8a83cca6e2b50d7a91081dba21903a5344a196d13edaf5"
     },
     "A TAB IS SYNTAX ONLY IN THE LEADING RUN": {
       "title": "A TAB IS SYNTAX ONLY IN THE LEADING RUN",
@@ -697,7 +701,11 @@
     },
     "A PLACED ELEMENT'S OWN TAGS CARRY THE PER-IMPLEMENTATION INDENTATION": {
       "title": "A PLACED ELEMENT'S OWN TAGS CARRY THE PER-IMPLEMENTATION INDENTATION",
-      "sha256": "f0ada0860df9b225eede8d734a5396b5cca1c00f1a62f5024cd997fa86266cfa"
+      "sha256": "5a5368c7dfa113e557a7f513493c352a01c994322b79decc6e24530047de3b9d"
+    },
+    "AN ESCAPED RAW BLOCK IS WRITTEN AS CODE": {
+      "title": "AN ESCAPED RAW BLOCK IS WRITTEN AS CODE",
+      "sha256": "db427066e8e98c74a9db21fe0557dd16931e7940cd8e13788417b1e339836652"
     },
     "A ROW IS A ROW, IN EVERY SECTION": {
       "title": "A ROW IS A ROW, IN EVERY SECTION",
@@ -729,7 +737,11 @@
     },
     "AN EXTENDED TASK STATE NAMES ITSELF ON THE ITEM": {
       "title": "AN EXTENDED TASK STATE NAMES ITSELF ON THE ITEM",
-      "sha256": "54f1132447db16e9a7369047c642b6c0b052fc1466108d8a0b34f6c1da0eef07"
+      "sha256": "51e7e7ca773e4da305d95561a3024b7f2a2d6ce804258e5e96ce598a5eb6e398"
+    },
+    "AN ORDERED LIST'S DELIMITER NAMES ITSELF ON THE LIST": {
+      "title": "AN ORDERED LIST'S DELIMITER NAMES ITSELF ON THE LIST",
+      "sha256": "8f8ecb08c82e58e08fcc7d9650fdc8e436397c1a11f4ee3e65b44b00031da070"
     },
     "EQUALITY IS MODULO ESCAPING": {
       "title": "EQUALITY IS MODULO ESCAPING",
@@ -757,7 +769,7 @@
     },
     "THE CONVERSION-DIAGNOSTICS CHANNEL": {
       "title": "THE CONVERSION-DIAGNOSTICS CHANNEL",
-      "sha256": "e59d18051f6f0b9f59fbbd9dd539c154247e4a8e268adf31ec5231dbbfc595fa"
+      "sha256": "2231acef20a9e695bb38b08123a1a85ad15b7256098a4d7b2f01636a6891fe20"
     },
     "THE ESCAPING RULE": {
       "title": "THE ESCAPING RULE",
@@ -841,7 +853,7 @@
     },
     "THE MARKDOWN TARGET'S ESCAPING NARROWS ON THE LINE": {
       "title": "THE MARKDOWN TARGET'S ESCAPING NARROWS ON THE LINE",
-      "sha256": "52a6e3f16653be01067ecebfdfbb3039124083272e8f8fdbb0a7c9a63cd9617a"
+      "sha256": "5a49778e95eda6e590852761d63dce9b1312b56752834115ba88cbcc0b2bfab1"
     },
     "M1e `<` IS ESCAPED WHEN THE EMITTED LINE WOULD READ IT AS MARKUP": {
       "title": "M1e `<` IS ESCAPED WHEN THE EMITTED LINE WOULD READ IT AS MARKUP",
@@ -849,7 +861,7 @@
     },
     "M1f `#` IS ESCAPED WHERE THE EMITTED LINE WOULD OPEN OR CLOSE AN ATX HEADING": {
       "title": "M1f `#` IS ESCAPED WHERE THE EMITTED LINE WOULD OPEN OR CLOSE AN ATX HEADING",
-      "sha256": "56374cfe631a84937cc6c74cf9b978f114094500f9771159bf5f52b8a8729bac"
+      "sha256": "447144ab7180377b0d0f0546fc0e28c501040fabaf0d30140354259eb8b8a22e"
     },
     "THE MARKDOWN TARGET'S AUTHORED ESCAPE NARROWS TOO": {
       "title": "THE MARKDOWN TARGET'S AUTHORED ESCAPE NARROWS TOO",
@@ -857,7 +869,7 @@
     },
     "THE MARKDOWN TARGET USES RICH-TEXT DELIMITERS WHERE THEY READ BACK": {
       "title": "THE MARKDOWN TARGET USES RICH-TEXT DELIMITERS WHERE THEY READ BACK",
-      "sha256": "bda8530c9ce8a82a0ae644b143f7d67e0b7827313e3212fe63aed74e88e5cf65"
+      "sha256": "dffbe68d5bc8ddf06da522a56f665a6b4a9511a75dd87a5211ef32256940b345"
     },
     "A CONTEXTUAL ESCAPE READS THE EMITTED LINE ACROSS NODES": {
       "title": "A CONTEXTUAL ESCAPE READS THE EMITTED LINE ACROSS NODES",

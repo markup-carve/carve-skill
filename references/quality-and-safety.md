@@ -6,11 +6,19 @@
 - Give data tables header cells and add captions when context is not obvious.
 - Do not place secrets, private notes, or security-sensitive material in comments:
   parser and renderer versions differ in how unclosed or fenced comments behave.
+- A CriticMarkup editorial comment (`{#…#}`) is not a hidden comment. Plain and
+  ANSI write its text into the surrounding output and report
+  `editorial-comment-flattened`; HTML, Markdown and canonical Carve keep it.
+  A note meant to stay out of every target is a `%%` comment, not an editorial one.
 - Bare HTML is escaped as text, but explicit `` ```=html `` blocks and
   `` `…`{=html} `` inline raw emit executable output in an HTML host by default.
   Use them only when requested and when the host sanitization policy is known.
   For untrusted input use `allowRawHtml: false` (carve-js),
   `Options::with_raw_html(false)` (carve-rs), or `SafeMode` (carve-php).
+  Escaping keeps the content visible rather than discarding it: a suppressed
+  `` ```=html `` block renders as a fenced code block whose language is the raw
+  format, and that escape is not a render loss (`CARVE-P10-013`). A policy that
+  omits the block instead reports `raw-format-dropped`.
 - Validate remote media/embed schemes and domains against the host policy.
 - Canonical Carve source is not a sanitized artifact. `carve fmt` and the `carve`
   render target preserve authored destinations, denied schemes included, because

@@ -74,10 +74,22 @@ host API, not syntax, so each engine spells it its own way:
 | Markdown | `carveToMarkdown(src, { smartTypography: 'source' })` | `(new MarkdownRenderer())->setSmartTypography(...)` | the same `Options` field |
 
 carve-php and carve-rs also take `--smart-typography source` on the command
-line, and reject an unknown mode rather than ignoring it. The plain-text and
-ANSI renderers still emit the glyph in all three (spec markup-carve/carve#560).
+line, and reject an unknown mode rather than ignoring it. The switch applies to
+every target (`CARVE-P9-011`): on `@markup-carve/carve` 0.1.10 plain text and
+ANSI write the source run too.
 Heading ids are identical either way: the id pass normalizes the glyphs back to
 ASCII before slugging.
+
+**Djot's forced quote markers are not Carve.** `{"`, `"}`, `{'` and `'}` force
+nothing and the brace stays literal. Type `“ ” ‘ ’` where direction matters.
+
+````
+a {"b c
+````
+
+````html
+<p>a {“b c</p>
+````
 
 **The arrow family CHANGED in 0.1.5, and one spelling this file used to
 recommend stopped working.** markup-carve/carve#1442 made the doubled run

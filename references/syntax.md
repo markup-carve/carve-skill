@@ -153,7 +153,7 @@ inner
                               the column's horizontal axis. Shipped in
                               published 0.1.5.)
 
-| Name  | Age |              (GFM separator row accepted as an alias)
+| Name  | Age |              (GFM separator row, a second header spelling)
 |-------|----:|
 | Alice |  30 |
 

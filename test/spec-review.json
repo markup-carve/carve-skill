@@ -1,7 +1,7 @@
 {
   "$comment": "Which spec divergence sections the topic guides in references/traps-*.md were last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/divergence-from-djot.md",
-  "spec_rev": "a895b116f8443913c16df3a8b7b43981edcad66c",
+  "spec_rev": "2d473af7439b4114f1eb244757fc7ff886cc3958",
   "sections": {
     "1": {
       "title": "Case-preserving heading ids, matched exactly",
@@ -49,7 +49,7 @@
     },
     "12": {
       "title": "Smart punctuation is one leaf node, not three container types",
-      "sha256": "52d32fa071dba8ac26b3c6f10a8a3619cc40baf67067b33fd487a63dbe397bd2"
+      "sha256": "b92a045dd0a5950aa035ef3a518d651698cb870c88ecc09b2f0b8004c3c2d164"
     },
     "13": {
       "title": "A colon fence closes on an exact length match",

@@ -30,6 +30,6 @@
     "forbiddenSource": [],
     "maxChangedLines": 5,
     "loadedReferences": ["traps-blocks-containers.md"],
-    "maxContextTokens": 4300
+    "maxContextTokens": 4400
   }
 ]

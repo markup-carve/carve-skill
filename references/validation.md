@@ -61,7 +61,9 @@ lint accepts lenient spellings such as ```` ``` js ```` (canonical ```` ```js ``
 and reports nothing for them. Others only `fmt` reports: a bare `---`
 frontmatter opener (canonical `---yaml`), a definition separator padded past
 one space, and table cells padded to align a column. None of them is wrong -
-the formatter has one spelling for each.
+the formatter has one spelling for each. A GFM separator row is the exception
+in the spec, which keeps it where the author wrote one (`CARVE-P11-066`);
+0.1.10 rewrites it to `|=` header cells.
 
 The `+` continuation marker is the one worth knowing before you write it,
 because [foundation trap 3](traps-foundations.md) teaches the construct with an

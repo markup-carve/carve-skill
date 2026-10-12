@@ -1,7 +1,7 @@
 {
   "$comment": "Which active normative rules of spec/resources/spec/rules.json the skill was last read against, keyed by the stable rule id. The registry is the structured source of the whole normative surface - the grammar clause inventory is its title set and docs/rules/ is generated from it - so a clause added, retired or retitled here is a change to what correct authoring advice looks like. `scope` is not fingerprinted: the views are navigation, and hashing it made a one-off metadata addition read as 242 moved rules. Regenerate with `npm run spec:review` AFTER re-reading the rules the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/spec/rules.json",
-  "spec_rev": "a895b116f8443913c16df3a8b7b43981edcad66c",
+  "spec_rev": "2d473af7439b4114f1eb244757fc7ff886cc3958",
   "rules": {
     "CARVE-P0-001": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -323,6 +323,10 @@
       "title": "A `class` KEY-VALUE IS A SPELLING OF THE CLASS SLOT",
       "sha256": "a10fab2f790f72945225e0bc65405120fe44d3287bd3b5634884440866c2f6d9"
     },
+    "CARVE-P4-008": {
+      "title": "AN IMPORTER READS A BRACE RUN'S CONTINUATION ONLY WHERE IT IS INDENTED",
+      "sha256": "bad124a5f13e27b36d6c6a544eb433bec8e5991d32541494914d7b996b565bc0"
+    },
     "CARVE-P7-001": {
       "title": "A TAB IS SYNTAX ONLY IN THE LEADING RUN",
       "sha256": "2c5eaf82371855fc271e6ad18828b4f355e60f39e566dc27f06b6a71c244a2d2"
@@ -540,8 +544,8 @@
       "sha256": "3a72d74bfdb63cac5d2bb164a92f680bdbcf3bd1e42a105e0c715987a00d359d"
     },
     "CARVE-P9-043": {
-      "title": "FORCED INTRAWORD EMPHASIS",
-      "sha256": "0ecc933c902d39dd9b840e256f8269cc07efcafbb74755fb507da7ebdab3cc88"
+      "title": "FORCED EMPHASIS AND EXPLICIT SAME-TYPE NESTING",
+      "sha256": "ec01db579d9b61094c90a4e630779fa638644272fb7cac228af99e21f3262601"
     },
     "CARVE-P9-044": {
       "title": "LINE BLOCK (VERSE)",
@@ -708,8 +712,8 @@
       "sha256": "9eb32de0b849ce3873c392bf852fa9295b6dfbd9082714ca866d176b86a995d0"
     },
     "CARVE-P10-009": {
-      "title": "AN EXTENDED TASK STATE NAMES ITSELF ON THE ITEM",
-      "sha256": "677e1349541be7e1b764c6fe19278785456f7636315e209c5bf9cba279810522"
+      "title": "A TASK LIST AND ITS NAMED TASK STATES NAME THEMSELVES",
+      "sha256": "57a3fc470aff66ba925fbee679cf2f4924bfac6e7125a2a400c6d2df915693dc"
     },
     "CARVE-P10-010": {
       "title": "A PLACED ELEMENT'S OWN TAGS CARRY THE PER-IMPLEMENTATION INDENTATION",
@@ -926,6 +930,26 @@
     "CARVE-P11-062": {
       "title": "THE MARKDOWN TARGET KEEPS FRONTMATTER",
       "sha256": "a44bcb7b1f8cfd770a7c28f7b75707e32b340bffa9bb709561b5429b7d219c90"
+    },
+    "CARVE-P11-063": {
+      "title": "AN OPT-IN MODE CARRIES AN ELEMENT-LESS CONTAINER IN A COMMENT",
+      "sha256": "ad7e459872b00bcdd10adbdd7fcb09b1b7e3edd5c9bfd7975410bf53780e32eb"
+    },
+    "CARVE-P11-064": {
+      "title": "INLINE CODE PRESERVES ITS PAYLOAD",
+      "sha256": "f5ef7212893d9caedb0271009c4ca82992310e1c707bb53b0c2b3ce5a8b6cf1c"
+    },
+    "CARVE-P11-065": {
+      "title": "A HARD BREAK AT AN INLINE BOUNDARY SURVIVES",
+      "sha256": "e366881a196c0874ab2d60839aa9be9d46645db81b90b2db27c41f6066e0afba"
+    },
+    "CARVE-P11-066": {
+      "title": "A TABLE'S SEPARATOR ROW IS WRITTEN WHERE THE AUTHOR WROTE ONE",
+      "sha256": "ccd8bbef1a06060e9a4ed64d57d761f37af0eaf6dad743e96ea4a8839cc0a33a"
+    },
+    "CARVE-P11-067": {
+      "title": "THE CARRIER MODE ALSO CARRIES AN ATTRIBUTE LINE, A DEFINITION LIST AND A CAPTION",
+      "sha256": "93050c65cff6cd1a931c294115e5c0b32a6775032968aaef75f8b756dcab43e2"
     },
     "CARVE-P11-036": {
       "title": "A HARD LIST BOUNDARY IS WRITTEN AS EXACTLY THREE BLANK LINES",
@@ -1219,6 +1243,10 @@
       "title": "CODE BLOCK CONTENT IS LITERAL PAYLOAD TEXT",
       "sha256": "fab0dfedceece23a0e572b83cf2d05c84815e0445d6410f892d9ee708c4445e3"
     },
+    "CARVE-P12-065": {
+      "title": "RAW BLOCK CONTENT IS LITERAL PAYLOAD TEXT",
+      "sha256": "cee84955197f0faa537710de0ec4832d4bfc925176172b0465e75c7482ed9c39"
+    },
     "CARVE-P9-076": {
       "title": "A MARKER IN A TOC BODY RETAINS ITS CONTAINER SCOPE",
       "sha256": "240b63f21d77328d253b446c117bcaeaf4ed149c6c90422d9c208d5b787b7778"
@@ -1246,6 +1274,46 @@
     "CARVE-P10-014": {
       "title": "AN ORDERED LIST'S DELIMITER NAMES ITSELF ON THE LIST",
       "sha256": "3d8e767b33ea898d1a40161b587775133a4b72c08c45e5d49b6123e32fd25f27"
+    },
+    "CARVE-P10-015": {
+      "title": "ROUNDTRIP EXPORT WRITES NAMED CARRIERS",
+      "sha256": "c340a77628eac6249ef4c25468454644b06a65737f185796017965860602b929"
+    },
+    "CARVE-P10-016": {
+      "title": "THE HTML CARRIERS ARE THE NAMES IN THIS INVENTORY",
+      "sha256": "9596250873c9d8fcb37dd5c0941d060811fb0e6e32d6223f481b9959f3d5ba4f"
+    },
+    "CARVE-P10-017": {
+      "title": "EXPORT DOES NOT SELECT AN IMPORT MODE",
+      "sha256": "1d5c38f61c70a99c538c9f8077c878d2efb9e36ceeadb2da66b940fdd0bd5027"
+    },
+    "CARVE-P10-018": {
+      "title": "ONE OPTION SWITCHES EVERY TARGET'S CARRIERS",
+      "sha256": "07e201e4d741d3d92a06d0697740d1c0f5fa819164c9a23de6606c0cac8512cc"
+    },
+    "CARVE-P10-019": {
+      "title": "A CARRIER WINS A COLLISION AND THE DROPPED ATTRIBUTE IS REPORTED",
+      "sha256": "2812dee7897f72be01a40b06b830b03f00a1a02facd9add46ce6ec0d6c416891"
+    },
+    "CARVE-P10-020": {
+      "title": "AN IMPORTER READS THE DEPRECATED `data-djot-` SPELLING",
+      "sha256": "863f88807631b1ff37b2b9f9b6b3433f4a965ba294614cb69c09185233e63b59"
+    },
+    "CARVE-P10-021": {
+      "title": "EVERY IMPORT MODE CONSUMES THE INVENTORY AND WRITES NO RESERVED NAME BACK",
+      "sha256": "5d4693cac8c442bd0b39b55f63694e2695d33a3c4a1eb94393e6372b4230c5b7"
+    },
+    "CARVE-P3-023": {
+      "title": "SMART QUOTE DIRECTION",
+      "sha256": "dbc8a5bb60fb929acb8476935510cd2c2c47487d6b5cd0cd6d7748818d8d4772"
+    },
+    "CARVE-P9-079": {
+      "title": "A QUOTE'S DIRECTION IS DECIDED ON THE RENDERED TEXT",
+      "sha256": "7a23829c2a75529bfa69be40aa9b56be56b262f829d2a175fe5240f72ba01ab2"
+    },
+    "CARVE-P9-080": {
+      "title": "A STRUCTURAL-ONLY LINE RESETS CAPTION SCOPE",
+      "sha256": "89d936d3614a7873d3344a77ed06813c1711fbb92a02e1ef2cddf5716bddeba3"
     }
   }
 }

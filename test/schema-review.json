@@ -1,7 +1,7 @@
 {
   "$comment": "Which AST node definitions of spec/resources/ast-schema.json the skill was last read against. The schema states language rules in prose - block promotion, resolution timing, which fields survive - so a moved description can make a reference page lie. Regenerate with `npm run spec:review` AFTER re-reading the nodes the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/ast-schema.json",
-  "spec_rev": "a895b116f8443913c16df3a8b7b43981edcad66c",
+  "spec_rev": "2d473af7439b4114f1eb244757fc7ff886cc3958",
   "nodes": {
     "abbreviation": {
       "title": "abbreviation (inline)",
@@ -173,7 +173,7 @@
     },
     "list": {
       "title": "list (block)",
-      "sha256": "c375375ebb91deb11b28f5cb6a29dd647d7fa185c32cd3cc19a7545b456753ab"
+      "sha256": "3c639e294c2328c41b5fb549476a20e1b6888e78eff44ad029bffd400fd1dfb4"
     },
     "list_item": {
       "title": "list_item (block)",
@@ -201,7 +201,7 @@
     },
     "raw_block": {
       "title": "raw_block (block)",
-      "sha256": "fccf3f55ed31414a0866f1c412797959193d7380204bfd148e41c10788e54679"
+      "sha256": "6fb54eebcc0bbe12beec8c45202fce5eff9eb78b82f2b73025c05d47168fe95f"
     },
     "raw_inline": {
       "title": "raw_inline (inline)",
@@ -261,7 +261,7 @@
     },
     "table": {
       "title": "table (block)",
-      "sha256": "2cc127b401674d56aee09e4d95e53de86d2f2ce78c4b9ec308c3629bd92e1f00"
+      "sha256": "584199b3ef0fd854344576f755e8ff9b64136093d8a70a452af4e8856ea89e88"
     },
     "table_cell": {
       "title": "table_cell (block)",

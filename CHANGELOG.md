@@ -22,6 +22,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - A GFM table separator row is a second header spelling the spec keeps, not an
   alias (#167).
 
+- Quote and footnote first-block markers are now described as supported by the
+  0.1.11 engine, and footnote labels with tabs are described as distinct from
+  labels with spaces.
+- Round-trip carrier guidance now names the released 0.1.11 engine.
+
 ### Improvements
 
 - Traps 1b and 1c (heading-id punctuation, only the id moves to `<section>`)

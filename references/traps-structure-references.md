@@ -163,11 +163,10 @@ against: it emits both forms. Write the source either way - this is a renderer
 detail that changes no source and no tree shape - and do not hand-add
 `aria-label` to Carve output.
 
-## 21. Footnote labels normalize ASCII whitespace
+## 21. Footnote labels normalize spaces only
 
-Djot and Carve both trim a label's ends and collapse its internal whitespace
-runs before lookup. Carve defines that operation over ASCII whitespace and
-keeps matching CASE-SENSITIVE. The authored spelling stays available in source
+Djot and Carve both trim a label's ends and collapse internal space runs
+before lookup. Carve treats tabs as content and keeps matching case-sensitive. The authored spelling stays available in source
 layout data, and colliding definitions are diagnosed.
 
 Given the definition `[^a b]: foo`:
@@ -175,14 +174,13 @@ Given the definition `[^a b]: foo`:
 ```
 [^a b]         ->  binds
 [^a  b]        ->  binds               (two spaces collapse)
-[^a	b]        ->  binds on 0.1.10     (a tab; see below)
+[^a	b]        ->  literal text        (a tab is content)
 [^ a b ]       ->  binds               (the ends are trimmed)
 [^A b]         ->  literal text        (case is not normalized)
 ```
 
-The tab row is in flux. The grammar's label key collapses space runs only and
-treats a tab as content, and carve-js `main` leaves `[^a<TAB>b]` literal, while
-0.1.10 and the spec's divergence page still bind it. Write labels with spaces.
+The spec and the 0.1.11 engine both leave a tabbed reference literal beside a
+definition spelled with a space. Write labels with spaces.
 
 What Carve does NOT do is fold a newline: a reference may not be wrapped.
 

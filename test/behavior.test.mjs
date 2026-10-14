@@ -135,6 +135,14 @@ const PROBES = {
   },
 }
 
+test('footnote labels match spaces but keep tabs distinct', () => {
+  const definition = '[^a b]: note\n\n'
+  const spaced = carveToHtml(definition + 'See [^a  b].\n')
+  const tabbed = carveToHtml(definition + 'See [^a\tb].\n')
+  assert.match(spaced, /role="doc-noteref"/)
+  assert.doesNotMatch(tabbed, /role="doc-noteref"/)
+})
+
 test('every capability the matrix records is true of the engine', () => {
   const capabilities = JSON.parse(
     readFileSync(join(root, 'references', 'capabilities.json'), 'utf8'),

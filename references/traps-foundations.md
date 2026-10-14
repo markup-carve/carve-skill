@@ -82,11 +82,10 @@ code
 </ul>
 ````
 
-0.1.10 takes `- +` and `: +`. `> +` and `[^a]: +` are spec rules not in
-0.1.10, which renders the `+` as quote or note text and leaves the next block
-outside; `first_block_marker_quote` in
-[capabilities.json](capabilities.json) re-measures it. With no flush-left block
-after it, `+` in a quote or a note is plain text.
+The 0.1.11 engine accepts this first-block form in list items, descriptions,
+quotes and footnotes. `first_block_marker_quote` in
+[capabilities.json](capabilities.json) tests the quote form against the installed
+engine. With no following block, `+` remains plain text.
 
 ## 4. Visual-mnemonic emphasis (the delimiters are swapped)
 

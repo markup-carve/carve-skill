@@ -1,6 +1,6 @@
 # Structure and reference traps
 
-Headings, attributes, tight-list attachment, admonitions, and footnote labels.
+Headings, attributes, tight-list attachment, admonitions, footnote labels, and table cells.
 
 This guide owns traps 14–21; cross-references to 1–6 open the foundation guide,
 and 7–13a open the block/container guide. It is sourced from the spec's
@@ -13,12 +13,14 @@ beneath one is its own paragraph and the heading's auto-id comes from the
 heading line alone.
 
 ```
-# Title        →  <h1 id="Title">Title</h1><p>Some text.</p>
+# Title        →  <section id="Title"><h1>Title</h1><p>Some text.</p></section>
 Some text.
 
 ## A           →  two <h2> elements, ids A and B
 ## B
 ```
+
+The id sits on the `<section>` wrapper, not on the `<h1>` (trap 1c).
 
 Djot folds both of those into the open heading (a plain line, or a line with the
 same number of `#`, marker stripped), which silently took the id with it — the
@@ -68,6 +70,10 @@ with class `w-1/2`. Quote a value
 containing whitespace, braces, quotes, a backslash or a pipe; inside a table
 cell, write a literal pipe as `\|` even in a quoted attribute value.
 
+Separate attributes with spaces only (`CARVE-P4-001`). In the spec a tab inside
+an attribute block is content, so `{.a<TAB>.b}` on its own line is paragraph
+text. 0.1.10 still reads it as two classes.
+
 ## 17. A list marker takes attributes
 
 An attribute block right after the marker binds to the ITEM. It is item metadata, not marker width, so it contributes nothing to the item's content column: a continuation under `-{.c} x` still has to reach column 2, the same as under `- x`.
@@ -106,6 +112,22 @@ A blank line inside an item attaches what follows; it does not loosen the item.
 Djot makes that item loose, wrapping the lead in `<p>`. Holds for an attached
 quote, fence, div, heading and table. It does NOT hold for a nested list, which
 is tight in both, and a plain paragraph after the blank is loose in both.
+
+A tight item's paragraph that carries block attributes keeps its `<p>`, and the
+item stays tight (`CARVE-P9-081`):
+
+```
+- {.c}
+  text
+- b
+```
+
+```html
+<ul>
+  <li><p class="c">text</p></li>
+  <li>b</li>
+</ul>
+```
 
 ## 20. A typed container is a native admonition
 
@@ -153,10 +175,14 @@ Given the definition `[^a b]: foo`:
 ```
 [^a b]         ->  binds
 [^a  b]        ->  binds               (two spaces collapse)
-[^a	b]        ->  binds               (a tab collapses)
+[^a	b]        ->  binds on 0.1.10     (a tab; see below)
 [^ a b ]       ->  binds               (the ends are trimmed)
 [^A b]         ->  literal text        (case is not normalized)
 ```
+
+The tab row is in flux. The grammar's label key collapses space runs only and
+treats a tab as content, and carve-js `main` leaves `[^a<TAB>b]` literal, while
+0.1.10 and the spec's divergence page still bind it. Write labels with spaces.
 
 What Carve does NOT do is fold a newline: a reference may not be wrapped.
 
@@ -185,3 +211,49 @@ Same ruling as link-reference labels: the bytes decide, and nothing is silently
 dropped - an unmatched reference stays visible as the text you typed, which is
 how you spot it. `carve portability` reports a document that relies on the Djot
 behavior.
+
+A footnote reference inside link text, `[see[^1]](/u)`, renders as a bare
+`<sup>` in the spec, so the link never holds a second `<a>`. 0.1.10 still nests
+the note's `<a>` inside the link, so keep the reference outside the link text
+for now.
+
+## Table cells
+
+A `^` extends the cell above it and a `<` the cell to its left. With nothing to
+extend (a `^` in the first row, a `<` in the first column) or where the span
+would cover another cell, the marker renders as an empty cell and the span does
+not happen. carve-js `main` reports this as `table-span-marker-blocked`;
+0.1.10 does not, so check the render.
+
+An alignment marker on a head-row cell sets the whole column, header and body
+cells. A marker on a body cell sets that cell only. Where a column has both a
+marker and a GFM delimiter colon, the marker wins: `|=> a |` over `|:-- |`
+right-aligns the column.
+
+A row whose cells are all blank is a table row when every cell is delimited:
+`| |` is one empty data cell and `| | |` two. This is a spec rule not in
+0.1.10, which renders `| |` as paragraph text.
+
+A cell marker may carry a second, vertical axis, horizontal first:
+`<^ <~ <v ~^ ~~ ~v >^ >~ >v` are runs, while `v>` and a lone `^` or `v` stay
+ordinary cell content. `?` keeps the column's horizontal axis and sets only the
+vertical one:
+
+````
+|=>^ Qty |
+|?v 15 |
+````
+
+````html
+<table>
+  <thead>
+    <tr><th scope="col" style="text-align: right; vertical-align: top;">Qty</th></tr>
+  </thead>
+  <tbody>
+    <tr><td style="text-align: right; vertical-align: bottom;">15</td></tr>
+  </tbody>
+</table>
+````
+
+`vertical_cell_alignment` in `references/capabilities.json` re-measures this
+each release.

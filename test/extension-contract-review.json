@@ -1,7 +1,7 @@
 {
   "$comment": "Which preamble/H2/H3 sections of spec/docs/extension-contract.md references/extensions.md was last read against. This is where the tier table and the normative behavior of each standard extension live since carve#1932. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/extension-contract.md",
-  "spec_rev": "2d473af7439b4114f1eb244757fc7ff886cc3958",
+  "spec_rev": "4bffec09e40a91ba4196ae88633f7b4e304dc79b",
   "sections": {
     "Preamble": {
       "title": "Preamble",
@@ -261,7 +261,7 @@
     },
     "SemanticSpan (Tier-2) / The `:name[…]` spelling is soft-deprecated": {
       "title": "11.2 The `:name[…]` spelling is soft-deprecated",
-      "sha256": "c2b8660c2c71d738c09d75efe71c5866c11d3fbaad3e1f02b55a5cf1c53be141"
+      "sha256": "d0ff5860a84b12d08fa967e89c050937c46a4c43be9f4678e00353473db515fc"
     },
     "SemanticSpan (Tier-2) / What is NOT here": {
       "title": "11.3 What is NOT here",

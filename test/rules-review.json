@@ -1,7 +1,7 @@
 {
   "$comment": "Which active normative rules of spec/resources/spec/rules.json the skill was last read against, keyed by the stable rule id. The registry is the structured source of the whole normative surface - the grammar clause inventory is its title set and docs/rules/ is generated from it - so a clause added, retired or retitled here is a change to what correct authoring advice looks like. `scope` is not fingerprinted: the views are navigation, and hashing it made a one-off metadata addition read as 242 moved rules. Regenerate with `npm run spec:review` AFTER re-reading the rules the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/spec/rules.json",
-  "spec_rev": "2d473af7439b4114f1eb244757fc7ff886cc3958",
+  "spec_rev": "4bffec09e40a91ba4196ae88633f7b4e304dc79b",
   "rules": {
     "CARVE-P0-001": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -296,8 +296,8 @@
       "sha256": "24f9a030da574f12e716706d77bad0ead87080aa3b405881e911006e12f992dd"
     },
     "CARVE-P4-001": {
-      "title": "THE INLINE INTERIOR IS SPACE-ONLY, THE BLOCK-ATTRIBUTE LINE IS NOT",
-      "sha256": "9b4e22ceb4dc86db7c59df69116e6fe042f9ec0a5df453abcc3fa44e5fa53ba0"
+      "title": "ATTRIBUTE PADDING IS SPACE-ONLY",
+      "sha256": "3657aa800f9851ac80fb02e6eded557394f9f6605a571e3163e7f352eb60fe8d"
     },
     "CARVE-P4-002": {
       "title": "AUTHORED ATTRIBUTES RENDER IN SOURCE ORDER",
@@ -327,6 +327,10 @@
       "title": "AN IMPORTER READS A BRACE RUN'S CONTINUATION ONLY WHERE IT IS INDENTED",
       "sha256": "bad124a5f13e27b36d6c6a544eb433bec8e5991d32541494914d7b996b565bc0"
     },
+    "CARVE-P6-001": {
+      "title": "FILE INCLUSION SEMANTICS",
+      "sha256": "b043dc0016e190e0e5f223683615d8ee876cd7a2bee855edd2df763460b21a74"
+    },
     "CARVE-P7-001": {
       "title": "A TAB IS SYNTAX ONLY IN THE LEADING RUN",
       "sha256": "2c5eaf82371855fc271e6ad18828b4f355e60f39e566dc27f06b6a71c244a2d2"
@@ -338,6 +342,10 @@
     "CARVE-P7-003": {
       "title": "ONE WHITESPACE DEFINITION, IN EVERY CONSTRUCT",
       "sha256": "fb916171fe414a7215d08bb0ce2c727288c8443f7b0257be0be275cf1ec47d98"
+    },
+    "CARVE-P7-004": {
+      "title": "ESCAPE CONTEXTS",
+      "sha256": "e93fa86233e1b6918c945323c4c7ace031932058e4d1e76422b2da6a88e4ff71"
     },
     "CARVE-P9-001": {
       "title": "A COMPOSITE FIGURE GROUPS ITS PANELS UNDER ONE CAPTION",
@@ -496,8 +504,8 @@
       "sha256": "1b562f395adfa22b88c9ae5d5554ff86190137816f3783be1036ceee39632d5e"
     },
     "CARVE-P9-067": {
-      "title": "THE FIRST-BLOCK FORM IS THE ITEM AND THE DESCRIPTION",
-      "sha256": "d0079170315dd5a16091b1d7ef438d91622b3ff4b735107df09314de85bbe535"
+      "title": "EVERY CONTAINER THAT TAKES THE MARKER TAKES THE FIRST-BLOCK FORM",
+      "sha256": "0af09cbb746532778ec4d9aea5a9ef192e9667ec20572da36f24ce91f4d837d3"
     },
     "CARVE-P9-068": {
       "title": "A RETURNED DOCUMENT NEVER SILENTLY LACKS AUTHORED TEXT",
@@ -951,6 +959,10 @@
       "title": "THE CARRIER MODE ALSO CARRIES AN ATTRIBUTE LINE, A DEFINITION LIST AND A CAPTION",
       "sha256": "93050c65cff6cd1a931c294115e5c0b32a6775032968aaef75f8b756dcab43e2"
     },
+    "CARVE-P11-068": {
+      "title": "THE CARRIER MODE CARRIES AN INLINE CONSTRUCT'S ATTRIBUTES, A SPAN AND A CROSS-REFERENCE IN INLINE MARKERS",
+      "sha256": "8e603007f1f13d0c9bc4200ea929c0a9bd15bd0d32bc0c82d27ee33501b3017f"
+    },
     "CARVE-P11-036": {
       "title": "A HARD LIST BOUNDARY IS WRITTEN AS EXACTLY THREE BLANK LINES",
       "sha256": "2e0da9c7c70a8691cdb1042a5514a443c3c8cba3a55a818ef88400ff7d2ff24a"
@@ -1247,6 +1259,22 @@
       "title": "RAW BLOCK CONTENT IS LITERAL PAYLOAD TEXT",
       "sha256": "cee84955197f0faa537710de0ec4832d4bfc925176172b0465e75c7482ed9c39"
     },
+    "CARVE-P12-066": {
+      "title": "A SHAPE NO CARVE SOURCE SPELLS IS CARRIED, NOT INVENTED",
+      "sha256": "0f24d45784e458c103af2c3442affc7b9885d9514dc5514a903b87952f397868"
+    },
+    "CARVE-P12-067": {
+      "title": "A SIDECAR TRAVELS BESIDE THE TREE AND NEVER IN IT",
+      "sha256": "8ef7119cc8ead0c7983f963727ca712acf543629e145004d4a974a83c7428355"
+    },
+    "CARVE-P12-068": {
+      "title": "AN INGEST REFUSAL IS A TYPED ERROR NAMING WHAT AND WHERE",
+      "sha256": "632b95b0e30f0856f1af8f928ea5bd7f62920b6c246c3c2aff2a37d2972e5318"
+    },
+    "CARVE-P12-069": {
+      "title": "A CONTINUATION LINE IS A MARKER IN THE JOINED CELL",
+      "sha256": "7059ead0c49779e6db26ccd459ae54afc6205a1ebd32eb53afdbb1b5d067c1b6"
+    },
     "CARVE-P9-076": {
       "title": "A MARKER IN A TOC BODY RETAINS ITS CONTAINER SCOPE",
       "sha256": "240b63f21d77328d253b446c117bcaeaf4ed149c6c90422d9c208d5b787b7778"
@@ -1292,8 +1320,8 @@
       "sha256": "07e201e4d741d3d92a06d0697740d1c0f5fa819164c9a23de6606c0cac8512cc"
     },
     "CARVE-P10-019": {
-      "title": "A CARRIER WINS A COLLISION AND THE DROPPED ATTRIBUTE IS REPORTED",
-      "sha256": "2812dee7897f72be01a40b06b830b03f00a1a02facd9add46ce6ec0d6c416891"
+      "title": "ROUNDTRIP EXPORT DROPS AN AUTHORED RESERVED NAME AND REPORTS IT",
+      "sha256": "06e14e6bc1086a9bd4f07d069ec8c323d428cfc69dff35627043ebeff42d442b"
     },
     "CARVE-P10-020": {
       "title": "AN IMPORTER READS THE DEPRECATED `data-djot-` SPELLING",
@@ -1307,13 +1335,17 @@
       "title": "SMART QUOTE DIRECTION",
       "sha256": "dbc8a5bb60fb929acb8476935510cd2c2c47487d6b5cd0cd6d7748818d8d4772"
     },
-    "CARVE-P9-079": {
-      "title": "A QUOTE'S DIRECTION IS DECIDED ON THE RENDERED TEXT",
-      "sha256": "7a23829c2a75529bfa69be40aa9b56be56b262f829d2a175fe5240f72ba01ab2"
-    },
     "CARVE-P9-080": {
       "title": "A STRUCTURAL-ONLY LINE RESETS CAPTION SCOPE",
       "sha256": "89d936d3614a7873d3344a77ed06813c1711fbb92a02e1ef2cddf5716bddeba3"
+    },
+    "CARVE-P9-081": {
+      "title": "A TIGHT ITEM'S ATTRIBUTED PARAGRAPH KEEPS ITS `<p>`",
+      "sha256": "95112cc9dcbb31046a159f3d1391939d338e6765f9c87df4c5790a8b28bdcb0e"
+    },
+    "CARVE-P9-082": {
+      "title": "A CELL SLOT IS COUNTED, NOT WEIGHED",
+      "sha256": "2b815d9b72b82830254c606faa20b18c8ef8ccf11e8eff5c525f70768795dbe1"
     }
   }
 }

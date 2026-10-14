@@ -4,7 +4,7 @@ Heading ids, list markers, continuations, emphasis, ordered markers, and comment
 Sourced from the spec's `docs/divergence-from-djot.md`; the drift test keeps
 this in sync.
 
-This guide owns traps 1–6; cross-references to 7–13a open the block/container
+This guide owns traps 1–6 (with 1b and 1c); cross-references to 7–13a open the block/container
 guide, and 14–21 open the structure/reference guide.
 
 ## 1. Heading ids are case-preserving, and every name lookup matches exactly
@@ -12,6 +12,33 @@ guide, and 14–21 open the structure/reference guide.
 `# Getting Started` → id `Getting-Started` (case kept, non-ASCII kept verbatim, no normalization). Only ASCII alphanumerics and non-ASCII code points survive in the id; every other ASCII run collapses to a single `-` (`# C++ & Rust` → `C-Rust`). Lowercase/ASCII-folded anchors are opt-in processor options, not the default.
 
 Every name lookup compares case EXACTLY (`CARVE-P9R-010`): `</#id>` cross-references against heading and caption ids, `[text][label]` labels, a collapsed `[Heading][]` against the heading index, footnote labels, and an include's `#name`. Labels still trim, collapse whitespace runs and NFC-normalize, but nothing folds case, and nothing folds ASCII either, so `</#getting-started>` and `</#cafe-notes>` both stay literal next to `Getting-Started` and `Café-Notes`. `carve lint` names the real spelling; `carve fmt --migrate` rewrites a cross-reference or link reference, never an include selector, when exactly one target matches it case-insensitively. The engine agrees since 0.1.10: `# Getting Started` followed by `</#getting-started>` renders the reference as literal text, where 0.1.9 resolved it to a link (measured on `@markup-carve/carve` 0.1.9 and 0.1.10).
+
+## 1b. Heading ids keep only ASCII letters, digits and non-ASCII
+
+Djot drops a fixed list of punctuation, so `;` and `:` survive in its ids.
+Carve keeps ASCII alphanumerics and every non-ASCII code point and turns each
+other ASCII run into one `-`: `# a; b: c` gets the id `a-b-c`.
+
+## 1c. Only the id moves to the `<section>` wrapper
+
+A top-level heading and the content after it render inside a `<section>`. The
+id goes on the `<section>`; every other attribute stays on the `<h*>`, whether
+the id was written or generated:
+
+```
+{.c}
+# abc
+```
+
+```html
+<section id="abc">
+  <h1 class="c">abc</h1>
+</section>
+```
+
+Djot moves every attribute to the section when the heading has an explicit id
+and none when it does not. Link to the id as usual; style the heading with its
+class, or wrap the region in a div to style the section.
 
 ## 2. A list marker must have content
 
@@ -32,6 +59,34 @@ It is ONE block, and the same operation in every container that takes the marker
 
 `fmt` indents a lone attached block; `+` survives only where indenting would
 merge two blocks (`CARVE-P11-030`).
+
+The marker also works as a container's FIRST block: `- +`, `: +`, `> +` and
+`[^a]: +` open a body whose content is the next flush-left block
+(`CARVE-P9-067`).
+
+````
+- +
+```
+code
+```
+- next
+````
+
+````html
+<ul>
+  <li>
+    <pre><code>code
+</code></pre>
+  </li>
+  <li>next</li>
+</ul>
+````
+
+0.1.10 takes `- +` and `: +`. `> +` and `[^a]: +` are spec rules not in
+0.1.10, which renders the `+` as quote or note text and leaves the next block
+outside; `first_block_marker_quote` in
+[capabilities.json](capabilities.json) re-measures it. With no flush-left block
+after it, `+` in a quote or a note is plain text.
 
 ## 4. Visual-mnemonic emphasis (the delimiters are swapped)
 
@@ -178,48 +233,6 @@ CHANGELOG of their released tag.
 So **`{% … %}` is safe to write.** `%%` remains correct and is still the right
 choice for a whole-line or end-of-line comment; the delimited form is for the
 middle of a sentence, where `%%` would take the rest of the line with it.
-
-**A table cell may carry a VERTICAL alignment too.** A cell
-marker may carry a second axis, and the pair is HORIZONTAL FIRST
-(markup-carve/carve#1405, #1407): `<^ <~ <v ~^ ~~ ~v >^ >~ >v` are runs, while
-`v>` and a lone `^` or `v` stay ordinary cell content. `?` takes the column's
-horizontal axis and its own vertical (#1408).
-
-Measured against `@markup-carve/carve` 0.1.10, the engine this skill is tested
-against:
-
-````
-|=>^ Qty |
-|?v 15 |
-````
-
-````html
-<table>
-  <thead>
-    <tr><th scope="col" style="text-align: right; vertical-align: top;">Qty</th></tr>
-  </thead>
-  <tbody>
-    <tr><td style="text-align: right; vertical-align: bottom;">15</td></tr>
-  </tbody>
-</table>
-````
-
-The `?` row is the point of the example: it sets only the vertical axis, so the
-figure keeps the column's `right`.
-
-This entry has now been wrong twice. It first recorded 0.1.4 leaving the markers
-as literal cell text and told the reader to avoid the syntax, and said so for a
-release after that stopped being true. The correction then paired a LEFT-aligned
-column with a `?v` cell and claimed `text-align: right`, contradicting the
-sentence above it; no engine renders that, 0.1.5 through 0.1.10 all give `left`
-there. Both survived because the claim was an indented arrow line rather than a
-Carve block followed by the HTML it claims, which is the shape
-`test/documented-rules.test.mjs` executes. The pair above is that shape, and
-`vertical_cell_alignment` in `references/capabilities.json` re-measures the
-feature each release.
-
-The collision worth knowing is unchanged: `^` alone in a DATA cell is the
-rowspan marker (`| ^ |`), which is a different thing and works everywhere.
 
 The rules: `{%` opens and the **first** `%}` closes, there is no nesting, a
 comment inside an emphasis run does not break it (`*bo{% c %}ld*` is one

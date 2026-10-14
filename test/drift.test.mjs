@@ -58,9 +58,10 @@ test('trap list covers every divergence section in the spec', () => {
   // and an empty list makes the assertion below trivially true. Measured -
   // rewrite the spec's headings and this test passes with the trap topic guides
   // COMPLETELY EMPTY.
-  const specNums = [...new Set(
-    Object.keys(sectionFingerprints(spec)).map((label) => label.replace(/[a-z]$/, '')),
-  )].sort((a, b) => a - b)
+  // Keyed on the full label: stripping the suffix folded 1b and 1c into 1, so a
+  // lettered divergence needed no trap of its own.
+  const specNums = Object.keys(sectionFingerprints(spec))
+    .sort((a, b) => parseInt(a, 10) - parseInt(b, 10) || a.localeCompare(b))
 
   const thin = shortfall({
     label: 'DIVERGENCES',
@@ -73,7 +74,7 @@ test('trap list covers every divergence section in the spec', () => {
   assert.equal(thin, null, thin ?? '')
 
   const trapNums = new Set(
-    [...traps.matchAll(/^## (\d+)\. /gm)].map((m) => m[1]),
+    [...traps.matchAll(/^## (\d+[a-z]?)\. /gm)].map((m) => m[1]),
   )
   // The trap list must COVER every spec divergence (superset allowed): it may
   // document a divergence ahead of the spec doc catching up (e.g. definition

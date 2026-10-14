@@ -1,7 +1,7 @@
 {
   "$comment": "Which spec divergence sections the topic guides in references/traps-*.md were last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/divergence-from-djot.md",
-  "spec_rev": "2d473af7439b4114f1eb244757fc7ff886cc3958",
+  "spec_rev": "4bffec09e40a91ba4196ae88633f7b4e304dc79b",
   "sections": {
     "1": {
       "title": "Case-preserving heading ids, matched exactly",
@@ -29,7 +29,7 @@
     },
     "7": {
       "title": "Block openers interrupt paragraphs (Markdown-like)",
-      "sha256": "e4ee6d048970b76df01ab439c190621e2b75140a7887b650b4ecdea86919ee8d"
+      "sha256": "e75a45fc86adb974b4e2798fd7430ae1629695365516379afd0256f9eca2d9b3"
     },
     "8": {
       "title": "Symbols: same name, stricter shape and boundary",
@@ -53,7 +53,7 @@
     },
     "13": {
       "title": "A colon fence closes on an exact length match",
-      "sha256": "b01f17f6fe4347e7947198092cef5aea52b92033821fb382d62dbb2ca236ba59"
+      "sha256": "7e7c4738a250944706564315d13c7a78b92146b449690d60db36e40308cb7377"
     },
     "14": {
       "title": "Headings are single-line",

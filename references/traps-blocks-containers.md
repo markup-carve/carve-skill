@@ -9,7 +9,21 @@ and 14–21 open the structure/reference guide. It is sourced from the spec's
 
 ## 7. Block openers interrupt paragraphs (Markdown-like)
 
-A **visible** block marker directly under a line of prose starts a block with no blank line before it — `#` heading, `>` quote, `|` table row, or a fence. (Djot would keep it in the paragraph.)
+A **visible** block marker directly under a line of prose starts a block with no blank line before it: `#` heading, `>` quote, `|` table row, `:::` container, or a fence. (Djot would keep it in the paragraph.)
+
+A code or raw fence interrupts only when its opener is valid and a matching closer follows in the same context. An unclosed fence, or one whose info string is not valid, stays paragraph text:
+
+````
+intro
+```js
+code
+````
+
+````html
+<p>intro
+<code>js
+code</code></p>
+````
 
 ```
 intro
@@ -59,7 +73,7 @@ A block belongs to a list item only if it reaches the item's content column, the
 
 ## 12. Smart typography always runs, and keeps your source
 
-`--`, `...`, `->`, `"` and `'` are rewritten to typographic glyphs on every
+`--`, `...`, `-->`, `"` and `'` are rewritten to typographic glyphs on every
 render — there is no per-span opt-out and no "off in Markdown output" default.
 The AST keeps the run you typed alongside the resolved glyph, so `carve fmt`
 writes back `He said "hello"`, not the curly form, and `----` round-trips to
@@ -91,17 +105,14 @@ a {"b c
 <p>a {“b c</p>
 ````
 
-**The arrow family CHANGED in 0.1.5, and one spelling this file used to
-recommend stopped working.** markup-carve/carve#1442 made the doubled run
-canonical (`-->` `<--` `<-->`, `==>` `<==` `<=>`), deprecates `->` `<-` `<->`
-without removing them, removes `=>` because `key => value` is prose about code,
-and pairs a guard that keeps a bare hyphen run literal in the flag position
-(`x --next`) with `{--}` as the braced en dash that still converts there.
+**Write the doubled arrows.** Since 0.1.5 (markup-carve/carve#1442) the
+canonical arrows are `-->` `<--` `<-->` and `==>` `<==` `<=>`. The single-dash
+`->` `<-` `<->` are deprecated and still convert; `=>` was removed and is
+literal text, because `key => value` is prose about code. A bare hyphen run in
+the flag position (`x --next`) stays literal, and `{--}` is the braced en dash
+that still converts there.
 
-Re-measured 2026-08-28 on published `@markup-carve/carve` 0.1.5, which now
-behaves the way only the pinned build used to:
-
-| source | published 0.1.4 | published 0.1.5 |
+| source | published 0.1.4 | 0.1.5 and later |
 | --- | --- | --- |
 | `a --> b` | en dash then a literal `>` | → |
 | `a ==> b` | `=` then ⇒ | ⇒ |
@@ -110,26 +121,15 @@ behaves the way only the pinned build used to:
 | `{--}` | empty CriticMarkup delete | – |
 | `x --next` | en dash | `--next`, left alone |
 
-**So do NOT write `=>`.** It converted in 0.1.4, this file recommended it on that
-basis, and 0.1.5 removed it because `key => value` is prose about code. It is
-literal text now. The single-dash family is deprecated but still converts, so
-the spellings that are safe in both releases are `->`, `<-` and `<->`; add
-`==>`, `<==` and `<=>` when the consumer is on 0.1.5 or later.
-
-One shape to know: `<==>` is NOT a spelling. It renders `⇐` followed by a
-literal `>`, because `<==` matches first.
-
-Recorded as `doubled_arrows` in `references/capabilities.json` so a probe checks
-it, rather than this table being re-read by hand every release.
+Use the single-dash family only for an engine older than 0.1.5. `<==>` is not a
+spelling: it renders `⇐` followed by a literal `>`, because `<==` matches first.
+`doubled_arrows` in `references/capabilities.json` re-measures this each
+release.
 
 **Do not identify the build by its version field.** A published release and a
-git install of carve-js `main` can BOTH report the same string in `package.json`,
-because
-that field only moves at a release cut - so "confirmed via package.json" cannot
-tell them apart, and the spec repository pins a git SHA rather than the npm
-package. The exported `SMART_PUNCTUATION_GLYPHS` map does tell them apart: the
-release has four arrow glyphs, the pinned build has six, and the two missing
-from the release are `leftwards_double_arrow` and `left_right_double_arrow`.
+git install of carve-js `main` can report the same `package.json` version,
+because that field only moves at a release cut, and the spec repository pins a
+git SHA rather than the npm package.
 
 ## 13. Containers nest, and an unclosed one closes at the end
 
@@ -184,8 +184,9 @@ there and always will. See trap 13a.
 The wrapper is the OUTER fence, and it has to be **strictly longer** than any
 fence line inside it: content holding a three-backtick line needs a
 four-backtick wrapper. This is the one rule here that Markdown and Djot already
-share. It earns a trap anyway because trap 13 is its neighbor and is about to
-stop agreeing with it, and because the place it actually goes wrong is not the
+share. It earns a trap anyway because trap 13 is its neighbor and no longer
+agrees with it (equal-length containers nest, equal-length code fences close),
+and because the place it actually goes wrong is not the
 `.crv` file - it is Carve written into a GitHub issue, a PR body, a docs page
 or a chat answer, where nobody renders the result before posting it. Carve
 documentation is usually *about* fences, so its examples contain literal fence

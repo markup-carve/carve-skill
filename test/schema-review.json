@@ -1,7 +1,7 @@
 {
   "$comment": "Which AST node definitions of spec/resources/ast-schema.json the skill was last read against. The schema states language rules in prose - block promotion, resolution timing, which fields survive - so a moved description can make a reference page lie. Regenerate with `npm run spec:review` AFTER re-reading the nodes the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/ast-schema.json",
-  "spec_rev": "2d473af7439b4114f1eb244757fc7ff886cc3958",
+  "spec_rev": "4bffec09e40a91ba4196ae88633f7b4e304dc79b",
   "nodes": {
     "abbreviation": {
       "title": "abbreviation (inline)",
@@ -9,7 +9,7 @@
     },
     "link_reference_definition": {
       "title": "link_reference_definition (block)",
-      "sha256": "4ff9c3d925f2c266ce0c862f542bbe6855ac152c86f5823dbcd14d56c10a232b"
+      "sha256": "3d551fb025f6c2f6f77eef4c7a07e8abf3527d89879d2a63102e60aa1014e88d"
     },
     "abbreviation_def": {
       "title": "abbreviation_def (block)",
@@ -43,6 +43,10 @@
       "title": "caption_number (inline)",
       "sha256": "d0b33e7bd11e029f3205a54211b11d5bfbbc28773818889ce00262a2d4d871b5"
     },
+    "cell_wrap": {
+      "title": "cell_wrap (inline)",
+      "sha256": "55dc72a6444538b58931614b5b3316211080193a03c3b81c1b6d87cc90a03b44"
+    },
     "citation": {
       "title": "citation (inline)",
       "sha256": "5d913b47c8b8f0b3a6d09f5e9fda4f13c1931eb8b40d1ab5aafd03c3389a467d"
@@ -57,7 +61,7 @@
     },
     "code": {
       "title": "code (inline)",
-      "sha256": "e497b5bd62ee056a5a23ea5e53a4ce88f67454e89c690e23cec14d59c090f4ad"
+      "sha256": "3a6d67ee65a6f6dda0a34bf3264075eeab126100c194c53ce0708af6a203b741"
     },
     "code_block": {
       "title": "code_block (block)",
@@ -121,7 +125,7 @@
     },
     "footnote_ref": {
       "title": "footnote_ref (inline)",
-      "sha256": "5c4cf09e24cdf59208e42eb09b8b0d35f65eb9fcb6b823f24902078dc1da0df1"
+      "sha256": "0426a6815b9c3f9feb1e416e98dba946f988b37db55f955679b4f0796b86339f"
     },
     "frontmatter": {
       "title": "frontmatter (block)",
@@ -149,7 +153,7 @@
     },
     "inlineNode": {
       "title": "Any inline node",
-      "sha256": "1c65d61e128454827ca3ed272e02d49c69deb72e44008adb8a37c05e8e90ced9"
+      "sha256": "cd538e09c7320fe23481a5cec123da8841fc8c177e86709b3eea1bd7aee4b2da"
     },
     "inline_extension": {
       "title": "inline_extension (inline)",
@@ -185,7 +189,7 @@
     },
     "math": {
       "title": "math (inline)",
-      "sha256": "d04b593ec1430cffa0a93fe0f7cf30a585310cd1cb4a661a5b9dec37476fb56a"
+      "sha256": "15f000702ca22febf83955c5c2e98007b540c14e0e4448bd3c5cb1517fddfb19"
     },
     "mention": {
       "title": "mention (inline)",
@@ -205,7 +209,7 @@
     },
     "raw_inline": {
       "title": "raw_inline (inline)",
-      "sha256": "495db88ba65c466e18840bfe334d10d66a2cf33776baf5a3b3dbf5f9fb233aad"
+      "sha256": "8d3da9753e910492b8af81375365a5acb3742433cc39297b27bff9538895ba4a"
     },
     "section": {
       "title": "section (block)",
@@ -269,7 +273,7 @@
     },
     "table_row": {
       "title": "table_row (block)",
-      "sha256": "3478ded401431f4eee8bb8040a4228a23b36127f1e49843a233224884b692c71"
+      "sha256": "427feea211eb82541e4c2984d950007dda6302bfc431292cd5337e7167200da6"
     },
     "tag": {
       "title": "tag (inline)",

@@ -139,6 +139,12 @@ const PROBES = {
   },
 }
 
+test('attribute tabs stay literal in the published engine', () => {
+  const html = carveToHtml('{.a\t.b}\nx\n')
+  assert.doesNotMatch(html, /class="a b"/)
+  assert.match(html, /\{\.a\t\.b\}/)
+})
+
 test('a footnote in link text renders without a nested link', () => {
   const html = carveToHtml('[see[^1]](/u)\n\n[^1]: note\n')
   assert.match(html, /<a href="\/u">see<sup/)

@@ -72,7 +72,7 @@ cell, write a literal pipe as `\|` even in a quoted attribute value.
 
 Separate attributes with spaces only (`CARVE-P4-001`). In the spec a tab inside
 an attribute block is content, so `{.a<TAB>.b}` on its own line is paragraph
-text. 0.1.10 still reads it as two classes.
+text. The 0.1.11 engine leaves it as paragraph text.
 
 ## 17. A list marker takes attributes
 

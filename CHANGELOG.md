@@ -26,7 +26,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   labels with spaces (#173).
 - Footnote references inside links use a bare superscript; blocked table spans
   report their lint rule in the released engine (#173).
-- Round-trip carrier guidance now names the released 0.1.11 engine (#173).
+- Attribute tabs and round-trip carriers are described against the released
+  0.1.11 engine (#173).
 
 ### Improvements
 

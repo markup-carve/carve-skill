@@ -4,6 +4,28 @@ All notable changes to carve-skill are documented in this file.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Fixes
+
+- The table example no longer puts a rowspan `^` in the first row, where it has
+  no cell to extend and renders as an empty cell.
+- Trap 7 says a code or raw fence interrupts a paragraph only with a valid
+  opener and a matching closer.
+- Definition examples use the canonical one space after `:`.
+- Smart typography recommends `-->` and `==>`; `->` is listed as deprecated.
+- Trap 14 shows the heading id on the `<section>` wrapper, where the engine
+  puts it.
+
+### Added
+
+- Traps 1b and 1c (heading-id punctuation, only the id moves to `<section>`),
+  the `- +` / `: +` / `> +` / `[^a]: +` first-block form, a table-cells section
+  (span limits, head-row alignment, blank-cell rows, vertical alignment), and
+  notes on attribute tabs, footnote references in link text, tight attributed
+  paragraphs, `carve render --roundtrip`, the `i.` / `j.` list ambiguity and the
+  soft-deprecated `:name[…]` spelling. Spec rules not in 0.1.10 are marked so.
+
 ## [0.1.4] - 2026-10-08
 
 ### Fixes

@@ -129,6 +129,10 @@ const PROBES = {
   // convert were ONE release, so probing `=>` would now measure the opposite of
   // this entry and read as a regression rather than the feature.
   doubled_arrows: { source: 'a ==> b', present: '⇒' },
+  first_block_marker_quote: {
+    source: '> +\n- a list\n',
+    presentAll: ['<blockquote>', '<li>a list</li>'],
+  },
 }
 
 test('every capability the matrix records is true of the engine', () => {

@@ -64,4 +64,5 @@ release.
 
 - Prefer **core** constructs unless the user names a host that supports the extension.
 - When you use a Tier-3 construct, say so and note it needs a supporting processor.
+- For the SemanticSpan names (`abbr`, `time`, `kbd`, `samp`, `var`, `cite`, `dfn`) write the span attribute, `[CSS]{dfn}`. The `:dfn[CSS]` spelling is soft-deprecated: still accepted, with no removal scheduled, but it cannot combine two names where `[CSS]{dfn abbr="…"}` can.
 - Extensions never change the core rules — the emphasis swap, braced sup/sub, `%%` comments, etc. still apply inside extension content.

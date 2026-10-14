@@ -77,7 +77,13 @@
       "syntax": "==> <== <=> smart-punctuation arrows",
       "spec": true,
       "inTestedEngine": true,
-      "guidance": "Shipped in 0.1.5, and `=>` STOPPED converting in the same release. Write ->, <-, <->, ==>, <== or <=>; `=>` is literal text now."
+      "guidance": "Shipped in 0.1.5, and `=>` STOPPED converting in the same release. Write -->, <--, <-->, ==>, <== or <=>. The single-dash ->, <- and <-> are deprecated but still convert; `=>` is literal text now."
+    },
+    "first_block_marker_quote": {
+      "syntax": "> + or [^a]: + over a flush-left block",
+      "spec": true,
+      "inTestedEngine": false,
+      "guidance": "Spec rule CARVE-P9-067. 0.1.10 takes the first-block form for a list item (- +) and a description (: +) only; for a quote or a footnote it renders the + as text and leaves the next block outside."
     }
   }
 }

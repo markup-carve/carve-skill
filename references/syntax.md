@@ -26,7 +26,7 @@ Mnemonic: **the markup looks like its output.**
 | `[span]{.class}` | span with attributes |
 | `@user` `#tag` | mention / tag |
 | `\*literal\*` | escape (backslash + any ASCII punctuation) |
-| `--` `---` `...` `->` `(c)` | – — … → © (smart typography) |
+| `--` `---` `...` `-->` `==>` `(c)` | – — … → ⇒ © (smart typography; `->` deprecated) |
 | `` `<br>`{=html} `` | raw inline (only for the matching output format) |
 | `\` at end of line | hard break |
 
@@ -50,6 +50,7 @@ ATX `#`..`######`. Attributes go on the line **above**:
 ```
 - unordered        * also unordered      1. ordered      1) ordered
 - [ ] task         - [x] done            a. A. i. I. dialects
+                   (i. then j. is alphabetic, from 9)
                    (more task states: [-] [_] [>] [?])
 -{.c} styled item  (attributes abutting the marker target the <li>)
 
@@ -73,8 +74,8 @@ Definition list:
 ```
 :: term
 :: another term
-:  definition
-:  another definition
+: definition       (one space after `:`)
+: another definition
 ```
 
 ## Blockquotes
@@ -147,20 +148,20 @@ inner
 
 |= Name |=> Age |=~ City |   (alignment glued to |=: < ~ >)
 | Sum    |< 12   | NYC    |   (a data-cell marker overrides per cell)
-|=<^ Top |=>v Low |          (a VERTICAL second axis, HORIZONTAL FIRST:
-|?v x |                       <^ <~ <v ~^ ~~ ~v >^ >~ >v. `v>` and a lone
-                              ^ or v are ordinary cell content. `?` inherits
-                              the column's horizontal axis. Shipped in
-                              published 0.1.5.)
+|=<^ Top |=>v Low |          (vertical second axis, horizontal first;
+|?v x |                       ? keeps the column's horizontal)
 
 | Name  | Age |              (GFM separator row, a second header spelling)
 |-------|----:|
 | Alice |  30 |
 
-| ^      | spanned |         (^ = rowspan)
-| Header | <       |         (< = colspan)
-+ continuation cell |        (+ = multi-line cell)
+|= Item |= Qty |= Note |
+| Apple | 12 | fresh |
++       |    | picked today |  (+ = continuation)
+| ^     |  3 | <     |          (^ = rowspan, < = colspan)
 ```
+
+Span and alignment rules: [table cells](traps-structure-references.md#table-cells).
 
 ## Captions
 

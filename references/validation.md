@@ -120,7 +120,10 @@ shipped one.
 The spec's lint table includes rules ahead of the released engine. For
 example, 0.1.10 still reports `table-alignment-run-padding` for `|>text |`; keep
 accepting that id until the broader `table-marker-run-padding` replacement
-ships. `fence-title-syntax` has closed: invalid fence metadata is recovered, in the
+ships. `table-span-marker-blocked` (a `^` with no cell above it, a `<` in the
+first column, or a span that would cover another cell) is in carve-js `main`
+and not in 0.1.10, so on 0.1.10 only the render shows a span that did not
+happen. `fence-title-syntax` has closed: invalid fence metadata is recovered, in the
 spec and in the engine since 0.1.10 - a recognized fence or type word keeps its
 container and children while the metadata is dropped. The finding is still
 reported, so the id is unchanged, but the render is not: a curly-quoted

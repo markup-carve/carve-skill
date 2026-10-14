@@ -11,7 +11,7 @@ guide, and 14–21 open the structure/reference guide.
 
 `# Getting Started` → id `Getting-Started` (case kept, non-ASCII kept verbatim, no normalization). Only ASCII alphanumerics and non-ASCII code points survive in the id; every other ASCII run collapses to a single `-` (`# C++ & Rust` → `C-Rust`). Lowercase/ASCII-folded anchors are opt-in processor options, not the default.
 
-Every name lookup compares case EXACTLY (`CARVE-P9R-010`): `</#id>` cross-references against heading and caption ids, `[text][label]` labels, a collapsed `[Heading][]` against the heading index, footnote labels, and an include's `#name`. Labels still trim, collapse whitespace runs and NFC-normalize, but nothing folds case, and nothing folds ASCII either, so `</#getting-started>` and `</#cafe-notes>` both stay literal next to `Getting-Started` and `Café-Notes`. `carve lint` names the real spelling; `carve fmt --migrate` rewrites a cross-reference or link reference, never an include selector, when exactly one target matches it case-insensitively. The engine agrees since 0.1.10: `# Getting Started` followed by `</#getting-started>` renders the reference as literal text, where 0.1.9 resolved it to a link (measured on `@markup-carve/carve` 0.1.9 and 0.1.10).
+Every name lookup compares case EXACTLY (`CARVE-P9R-010`): `</#id>` cross-references against heading and caption ids, `[text][label]` labels, a collapsed `[Heading][]` against the heading index, footnote labels, and an include's `#name`. Labels still trim, collapse space runs and NFC-normalize, but nothing folds case, and nothing folds ASCII either, so `</#getting-started>` and `</#cafe-notes>` both stay literal next to `Getting-Started` and `Café-Notes`. `carve lint` names the real spelling; `carve fmt --migrate` rewrites a cross-reference or link reference, never an include selector, when exactly one target matches it case-insensitively. The engine agrees since 0.1.10: `# Getting Started` followed by `</#getting-started>` renders the reference as literal text, where 0.1.9 resolved it to a link (measured on `@markup-carve/carve` 0.1.9 and 0.1.10).
 
 ## 1b. Heading ids keep only ASCII letters, digits and non-ASCII
 
@@ -82,11 +82,10 @@ code
 </ul>
 ````
 
-0.1.10 takes `- +` and `: +`. `> +` and `[^a]: +` are spec rules not in
-0.1.10, which renders the `+` as quote or note text and leaves the next block
-outside; `first_block_marker_quote` in
-[capabilities.json](capabilities.json) re-measures it. With no flush-left block
-after it, `+` in a quote or a note is plain text.
+The 0.1.11 engine accepts this first-block form in list items, descriptions,
+quotes and footnotes. `first_block_marker_quote` in
+[capabilities.json](capabilities.json) tests the quote form against the installed
+engine. With no following block, `+` remains plain text.
 
 ## 4. Visual-mnemonic emphasis (the delimiters are swapped)
 

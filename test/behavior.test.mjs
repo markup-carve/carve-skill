@@ -131,9 +131,38 @@ const PROBES = {
   doubled_arrows: { source: 'a ==> b', present: '⇒' },
   first_block_marker_quote: {
     source: '> +\n- a list\n',
-    presentAll: ['<blockquote>', '<li>a list</li>'],
+    presentBefore: ['<li>a list</li>', '</blockquote>'],
+  },
+  first_block_marker_footnote: {
+    source: '[^a]: +\n- a list\n\nSee [^a].\n',
+    presentBefore: ['<li id="fn1">', '<li>a list</li>'],
   },
 }
+
+test('attribute tabs stay literal in the published engine', () => {
+  const html = carveToHtml('{.a\t.b}\nx\n')
+  assert.doesNotMatch(html, /class="a b"/)
+  assert.match(html, /\{\.a\t\.b\}/)
+})
+
+test('a footnote in link text renders without a nested link', () => {
+  const html = carveToHtml('[see[^1]](/u)\n\n[^1]: note\n')
+  assert.match(html, /<a href="\/u">see<sup/)
+  assert.doesNotMatch(html, /<a href="\/u">[^<]*<a /)
+})
+
+test('first-block marker keeps the list inside the footnote', () => {
+  const html = carveToHtml('[^a]: +\n- a list\n\nSee [^a].\n')
+  assert.match(html, /<li id="fn1">[\s\S]*<ul>[\s\S]*<li>a list<\/li>/)
+})
+
+test('footnote labels match spaces but keep tabs distinct', () => {
+  const definition = '[^a b]: note\n\n'
+  const spaced = carveToHtml(definition + 'See [^a  b].\n')
+  const tabbed = carveToHtml(definition + 'See [^a\tb].\n')
+  assert.match(spaced, /role="doc-noteref"/)
+  assert.doesNotMatch(tabbed, /role="doc-noteref"/)
+})
 
 test('every capability the matrix records is true of the engine', () => {
   const capabilities = JSON.parse(

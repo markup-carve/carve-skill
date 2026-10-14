@@ -117,10 +117,8 @@ after an explicitly identified heading and linked to `#h`, which a GFM reader
 displays as a literal suffix under a different anchor, while 0.1.10 writes the
 bare heading and rewrites the link to the GFM slug.
 
-When an export must import back without losing structure, carve-js `main`
-adds `carve render --roundtrip`, which writes the preservation carriers (named
-`data-carve-` attributes in HTML, carrier comments in Markdown). It is not in
-0.1.10. Under it an authored attribute with a reserved carrier name is dropped
+When an export must import back without losing structure, carve-js 0.1.11 provides `carve render --roundtrip`, which writes the preservation carriers (named
+`data-carve-` attributes in HTML, carrier comments in Markdown). An authored attribute with a reserved carrier name is dropped
 and reported as `carrier-attribute-dropped`, so do not author `data-carve-`
 attributes by hand.
 

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$comment": "Measured, not asserted: test/behavior.test.mjs runs a probe per feature against the engine in testedEngine and fails when a recorded value disagrees. Two values here were stale falses until that probe existed.",
-  "testedEngine": "@markup-carve/carve@0.1.10",
+  "testedEngine": "@markup-carve/carve@0.1.11",
   "policy": "Prefer released-engine behavior. A spec-only construct must not be authored unless the target explicitly supports it.",
   "features": {
     "trailing_comment": {
@@ -82,8 +82,14 @@
     "first_block_marker_quote": {
       "syntax": "> + or [^a]: + over a flush-left block",
       "spec": true,
-      "inTestedEngine": false,
-      "guidance": "Spec rule CARVE-P9-067. 0.1.10 takes the first-block form for a list item (- +) and a description (: +) only; for a quote or a footnote it renders the + as text and leaves the next block outside."
+      "inTestedEngine": true,
+      "guidance": "Spec rule CARVE-P9-067. The 0.1.11 engine accepts the first-block form in lists, descriptions, quotes and footnotes."
+    },
+    "first_block_marker_footnote": {
+      "syntax": "[^a]: + over a flush-left list",
+      "spec": true,
+      "inTestedEngine": true,
+      "guidance": "The 0.1.11 engine places the following list inside the footnote."
     }
   }
 }

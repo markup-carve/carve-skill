@@ -158,8 +158,7 @@ body                          <p class="admonition-title" id="adm-1">Pro tip</p>
                             </aside>
 ```
 
-Measured against `@markup-carve/carve` 0.1.10, the engine this skill is tested
-against: it emits both forms. Write the source either way - this is a renderer
+Measured against the 0.1.10 and 0.1.11 engines: it emits both forms. Write the source either way - this is a renderer
 detail that changes no source and no tree shape - and do not hand-add
 `aria-label` to Carve output.
 
@@ -211,17 +210,15 @@ how you spot it. `carve portability` reports a document that relies on the Djot
 behavior.
 
 A footnote reference inside link text, `[see[^1]](/u)`, renders as a bare
-`<sup>` in the spec, so the link never holds a second `<a>`. 0.1.10 still nests
-the note's `<a>` inside the link, so keep the reference outside the link text
-for now.
+`<sup>` in the 0.1.11 engine, so the link never holds a second `<a>`. Earlier
+engines nested the note link inside the outer link.
 
 ## Table cells
 
 A `^` extends the cell above it and a `<` the cell to its left. With nothing to
 extend (a `^` in the first row, a `<` in the first column) or where the span
 would cover another cell, the marker renders as an empty cell and the span does
-not happen. carve-js `main` reports this as `table-span-marker-blocked`;
-0.1.10 does not, so check the render.
+not happen. The 0.1.11 engine reports `table-span-marker-blocked`.
 
 An alignment marker on a head-row cell sets the whole column, header and body
 cells. A marker on a body cell sets that cell only. Where a column has both a

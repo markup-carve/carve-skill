@@ -84,6 +84,12 @@
       "spec": true,
       "inTestedEngine": true,
       "guidance": "Spec rule CARVE-P9-067. The 0.1.11 engine accepts the first-block form in lists, descriptions, quotes and footnotes."
+    },
+    "first_block_marker_footnote": {
+      "syntax": "[^a]: + over a flush-left list",
+      "spec": true,
+      "inTestedEngine": true,
+      "guidance": "The 0.1.11 engine places the following list inside the footnote."
     }
   }
 }

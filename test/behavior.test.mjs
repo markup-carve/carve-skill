@@ -131,9 +131,24 @@ const PROBES = {
   doubled_arrows: { source: 'a ==> b', present: '⇒' },
   first_block_marker_quote: {
     source: '> +\n- a list\n',
-    presentAll: ['<blockquote>', '<li>a list</li>'],
+    presentBefore: ['<li>a list</li>', '</blockquote>'],
+  },
+  first_block_marker_footnote: {
+    source: '[^a]: +\n- a list\n\nSee [^a].\n',
+    presentBefore: ['<li>a list</li>', '</li>'],
   },
 }
+
+test('a footnote in link text renders without a nested link', () => {
+  const html = carveToHtml('[see[^1]](/u)\n\n[^1]: note\n')
+  assert.match(html, /<a href="\/u">see<sup/)
+  assert.doesNotMatch(html, /<a href="\/u">[^<]*<a /)
+})
+
+test('first-block marker keeps the list inside the footnote', () => {
+  const html = carveToHtml('[^a]: +\n- a list\n\nSee [^a].\n')
+  assert.match(html, /<li id="fn1">[\s\S]*<ul>[\s\S]*<li>a list<\/li>/)
+})
 
 test('footnote labels match spaces but keep tabs distinct', () => {
   const definition = '[^a b]: note\n\n'

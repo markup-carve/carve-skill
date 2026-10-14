@@ -21,21 +21,23 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   text and ANSI included (#167).
 - A GFM table separator row is a second header spelling the spec keeps, not an
   alias (#167).
-
 - Quote and footnote first-block markers are now described as supported by the
   0.1.11 engine, and footnote labels with tabs are described as distinct from
-  labels with spaces.
-- Round-trip carrier guidance now names the released 0.1.11 engine.
+  labels with spaces (#173).
+- Footnote references inside links use a bare superscript; blocked table spans
+  report their lint rule in the released engine (#173).
+- Round-trip carrier guidance now names the released 0.1.11 engine (#173).
 
 ### Improvements
 
+- The spec pin moves to the published 0.1.9 revision, 5484177a (#173).
 - Traps 1b and 1c (heading-id punctuation, only the id moves to `<section>`)
   and the `- +` / `: +` / `> +` / `[^a]: +` first-block form (#170).
 - A table-cells section (span limits, head-row alignment, blank-cell rows,
   vertical alignment) (#170).
 - Notes on attribute tabs, footnote references in link text, tight attributed
   paragraphs, `carve render --roundtrip`, the `i.` / `j.` list ambiguity and the
-  soft-deprecated `:name[…]` spelling; spec rules not in 0.1.10 are marked so
+  soft-deprecated `:name[…]` spelling; unreleased spec rules are marked
   (#170).
 - Trap 12 and the migration checklist: Djot's forced quote markers `{"`, `"}`,
   `{'`, `'}` are not Carve (#167).

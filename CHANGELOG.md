@@ -4,27 +4,41 @@ All notable changes to carve-skill are documented in this file.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [0.1.5] - 2026-10-14
 
 ### Fixes
 
-- The table example no longer puts a rowspan `^` in the first row, where it has
-  no cell to extend and renders as an empty cell.
+- The table example no longer puts a rowspan `^` in the first row, where it
+  renders as an empty cell (#170).
 - Trap 7 says a code or raw fence interrupts a paragraph only with a valid
-  opener and a matching closer.
-- Definition examples use the canonical one space after `:`.
-- Smart typography recommends `-->` and `==>`; `->` is listed as deprecated.
+  opener and a matching closer (#170).
+- Definition examples use the canonical one space after `:` (#170).
+- Smart typography recommends `-->` and `==>`; `->` is listed as deprecated
+  (#170).
 - Trap 14 shows the heading id on the `<section>` wrapper, where the engine
-  puts it.
+  puts it (#170).
+- Trap 12 says switching smart typography off applies to every target, plain
+  text and ANSI included (#167).
+- A GFM table separator row is a second header spelling the spec keeps, not an
+  alias (#167).
 
-### Added
+### Improvements
 
-- Traps 1b and 1c (heading-id punctuation, only the id moves to `<section>`),
-  the `- +` / `: +` / `> +` / `[^a]: +` first-block form, a table-cells section
-  (span limits, head-row alignment, blank-cell rows, vertical alignment), and
-  notes on attribute tabs, footnote references in link text, tight attributed
+- Traps 1b and 1c (heading-id punctuation, only the id moves to `<section>`)
+  and the `- +` / `: +` / `> +` / `[^a]: +` first-block form (#170).
+- A table-cells section (span limits, head-row alignment, blank-cell rows,
+  vertical alignment) (#170).
+- Notes on attribute tabs, footnote references in link text, tight attributed
   paragraphs, `carve render --roundtrip`, the `i.` / `j.` list ambiguity and the
-  soft-deprecated `:name[…]` spelling. Spec rules not in 0.1.10 are marked so.
+  soft-deprecated `:name[…]` spelling; spec rules not in 0.1.10 are marked so
+  (#170).
+- Trap 12 and the migration checklist: Djot's forced quote markers `{"`, `"}`,
+  `{'`, `'}` are not Carve (#167).
+- Trap 5: the ordered-list delimiter reaches the output as `data-delim` on the
+  `<ol>` (#165).
+- The safety checklist separates `{#...#}` editorial comments, which plain text
+  and ANSI write into the output, from `%%` comments, and says a suppressed
+  `=html` block renders as a fenced code block (#165).
 
 ## [0.1.4] - 2026-10-08
 

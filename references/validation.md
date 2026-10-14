@@ -118,7 +118,7 @@ two whenever a placement marker is not at document top level.
 shipped one.
 
 The spec's lint table includes rules ahead of the released engine. For
-example, 0.1.10 still reports `table-alignment-run-padding` for `|>text |`; keep
+example, 0.1.11 reports `table-alignment-run-padding` for `|>text |`; keep
 accepting that id until the broader `table-marker-run-padding` replacement
 ships. `table-span-marker-blocked` (a `^` with no cell above it, a `<` in the
 first column, or a span that would cover another cell) ships in 0.1.11. `fence-title-syntax` has closed: invalid fence metadata is recovered, in the

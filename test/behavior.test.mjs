@@ -135,7 +135,7 @@ const PROBES = {
   },
   first_block_marker_footnote: {
     source: '[^a]: +\n- a list\n\nSee [^a].\n',
-    presentBefore: ['<li>a list</li>', '</li>'],
+    presentBefore: ['<li id="fn1">', '<li>a list</li>'],
   },
 }
 

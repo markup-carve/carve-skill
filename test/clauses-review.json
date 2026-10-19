@@ -1,7 +1,7 @@
 {
   "$comment": "Which normative clause TEXTS of spec/resources/grammar.ebnf the skill was last read against, keyed by clause title. The rules ledger next to this one watches what the rules are - id, part, title - and carries no rule text, so on its own a clause can be rewritten into the opposite rule under an unchanged title, which is what happened to divergence section 13 in markup-carve/carve#455. Regenerate with `npm run spec:review` AFTER re-reading the clauses the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/grammar.ebnf",
-  "spec_rev": "646be4dd1138bfab40f9bb9b887e46b5e54c8fab",
+  "spec_rev": "23500f8c3710dc0f8b7da8d1556a46fd61c71928",
   "clauses": {
     "A LEADING BYTE ORDER MARK IS STRIPPED": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -17,7 +17,11 @@
     },
     "EVERY FRAME CARRIES OWNERSHIP AND PARAGRAPH STATE SEPARATELY": {
       "title": "EVERY FRAME CARRIES OWNERSHIP AND PARAGRAPH STATE SEPARATELY",
-      "sha256": "0ec1871436c2400a7a1dbe3419383f907b9c2e54f48a33829a99400b50a5688f"
+      "sha256": "cc67a0ee41b8b5b95279a3bb2637412282e837e16fc7b63b50ef8e4e14a4524f"
+    },
+    "BLOCK STRUCTURE IS ONE ORDERED PROCEDURE": {
+      "title": "BLOCK STRUCTURE IS ONE ORDERED PROCEDURE",
+      "sha256": "41ba5024b8e3282e975015dafcccaded0a15ba71311189f5f50719f30e64aff0"
     },
     "COMMENTS ARE CLASSIFIED BEFORE BLOCK OWNERSHIP": {
       "title": "COMMENTS ARE CLASSIFIED BEFORE BLOCK OWNERSHIP",
@@ -25,7 +29,7 @@
     },
     "NO STORED CONTINUATION CLAIM, NO LAZY LINE": {
       "title": "NO STORED CONTINUATION CLAIM, NO LAZY LINE",
-      "sha256": "b9f1080a775c9b6514dea8564f5119d92ec53dbb9e32f4a8196431fb99e25697"
+      "sha256": "1dc4024aec3d46d9410b21b618f75b34786f82867714e3084d496363f5c80118"
     },
     "A QUOTE'S LAST BLOCK MAY ITSELF BE A QUOTE": {
       "title": "A QUOTE'S LAST BLOCK MAY ITSELF BE A QUOTE",
@@ -33,7 +37,7 @@
     },
     "A LAZY FOLD KEEPS THE CONTAINER OPEN FOR FOLLOWING LINES": {
       "title": "A LAZY FOLD KEEPS THE CONTAINER OPEN FOR FOLLOWING LINES",
-      "sha256": "c029688d0276832476960fdce93b81725eca4e26d4f60b8fb0ef9d478c9c6da6"
+      "sha256": "fe86fe4d25b557efc273faf775ff5d74aeb4df505ca55e289bb1d00eb9ebc5b7"
     },
     "ONE AUTHORED BLOCK BASE": {
       "title": "ONE AUTHORED BLOCK BASE",
@@ -133,7 +137,7 @@
     },
     "LAZY CONTINUATION": {
       "title": "LAZY CONTINUATION",
-      "sha256": "d27c8807fc0d9753d4d7f6e090cd848851edfd335cbbfd73dd89f774d0565ea0"
+      "sha256": "7cc269d8e934641c96fd25cc1e93bd738a6d003886f1799e741f0a80e57c25d1"
     },
     "MARKER REQUIRES CONTENT": {
       "title": "MARKER REQUIRES CONTENT",
@@ -201,7 +205,7 @@
     },
     "CAPTION NUMBER PLACEHOLDER": {
       "title": "CAPTION NUMBER PLACEHOLDER",
-      "sha256": "75cb74ed67b747c1fada75bd320f65afdf04f0aeeef440a40acac4fcb4a1e3a1"
+      "sha256": "6f0d0a4e3edf36eb37722cd8bf90f7345ab81ce5a0e072a97b17eaebf3ae6c25"
     },
     "THE INTERIOR IS VERBATIM, THE OPENING IS PLACED": {
       "title": "THE INTERIOR IS VERBATIM, THE OPENING IS PLACED",
@@ -521,7 +525,7 @@
     },
     "L1b AN INVISIBLE LINE DOES NOT CANCEL THE SEPARATION": {
       "title": "L1b AN INVISIBLE LINE DOES NOT CANCEL THE SEPARATION",
-      "sha256": "be07f8cb5b5701c1abd9385e35f2e9280fc4906321712c2e4d6048f5546204aa"
+      "sha256": "2f721029073e3505c792244bd46f2d857dff2bfab1eaf2e61b2e14d846d39455"
     },
     "CONTINUATION-MARKER FLUSH-LEFT MEANS COLUMN 0": {
       "title": "CONTINUATION-MARKER FLUSH-LEFT MEANS COLUMN 0",
@@ -609,7 +613,7 @@
     },
     "LOCAL HARD-BREAK BLOCK": {
       "title": "LOCAL HARD-BREAK BLOCK",
-      "sha256": "8aa7618c28b536ee2bb96d3dfcebc0827021887c05d212adb335310cea8953aa"
+      "sha256": "3f144098d2d756b492d709fd1b7183e970782877a21aeb2214723aac65301718"
     },
     "THE FOLD PRESUMES AN OPEN PARAGRAPH": {
       "title": "THE FOLD PRESUMES AN OPEN PARAGRAPH",
@@ -621,7 +625,7 @@
     },
     "A COMMENT IS THE ONE EXCEPTION": {
       "title": "A COMMENT IS THE ONE EXCEPTION",
-      "sha256": "f1a4d881899f9023a9567e8dba1eb23cc1f4c1bc42a2398eeb712f7ae4f47804"
+      "sha256": "486c8d7d8be74e537f5defd86517ecffd2a190b2dd2088a2dfa0ab1ead10bd80"
     },
     "SECURITY REQUIREMENTS": {
       "title": "SECURITY REQUIREMENTS",
@@ -813,7 +817,7 @@
     },
     "EQUALITY IS MODULO ESCAPING": {
       "title": "EQUALITY IS MODULO ESCAPING",
-      "sha256": "958d4ae124fe64b9beecb5891a0c270ed8e1dc20b9d6c90ad9ea72b952d87a12"
+      "sha256": "21b5a94bfae220590bb31ff0dafe453ff8ce3e48844d746000c35fc28cb60297"
     },
     "THE INVARIANT OUTRANKS THE PER-CONSTRUCT RULES": {
       "title": "THE INVARIANT OUTRANKS THE PER-CONSTRUCT RULES",
@@ -853,11 +857,11 @@
     },
     "THE SCOPE OF AN ESCALATION IS THE SMALLEST UNIT THAT FAILS": {
       "title": "THE SCOPE OF AN ESCALATION IS THE SMALLEST UNIT THAT FAILS",
-      "sha256": "6f25ba73135d3cf75fa5431b57ac14a17ddd2c7835cf685228915f7c664a7e77"
+      "sha256": "ec5f787bb7326da2ee4f0a19ab61d50deb12dcf4b1104b90ccfde51f1b586f9d"
     },
     "SEARCH COST BELONGS TO THE STRATEGY, NOT THE OUTPUT": {
       "title": "SEARCH COST BELONGS TO THE STRATEGY, NOT THE OUTPUT",
-      "sha256": "1102049bd7fd9a1785840d05f4882b744b00412d9aeb9db9ebe1a5c094d7bb16"
+      "sha256": "260a20464f863a2958d299ecf5258a6915f855881296434b1993ea41145333f1"
     },
     "A FRONTMATTER OPENER IS WRITTEN `---yaml`": {
       "title": "A FRONTMATTER OPENER IS WRITTEN `---yaml`",

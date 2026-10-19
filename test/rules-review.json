@@ -1,7 +1,7 @@
 {
   "$comment": "Which active normative rules of spec/resources/spec/rules.json the skill was last read against, keyed by the stable rule id. The registry is the structured source of the whole normative surface - the grammar clause inventory is its title set and docs/rules/ is generated from it - so a clause added, retired or retitled here is a change to what correct authoring advice looks like. `scope` is not fingerprinted: the views are navigation, and hashing it made a one-off metadata addition read as 242 moved rules. Regenerate with `npm run spec:review` AFTER re-reading the rules the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/spec/rules.json",
-  "spec_rev": "646be4dd1138bfab40f9bb9b887e46b5e54c8fab",
+  "spec_rev": "23500f8c3710dc0f8b7da8d1556a46fd61c71928",
   "rules": {
     "CARVE-P0-001": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -18,6 +18,10 @@
     "CARVE-P0-003": {
       "title": "EVERY FRAME CARRIES OWNERSHIP AND PARAGRAPH STATE SEPARATELY",
       "sha256": "21bc567f8bc61cae83810bec261832d0fd48d081d689a032628a6abaebdfe34e"
+    },
+    "CARVE-P0-024": {
+      "title": "BLOCK STRUCTURE IS ONE ORDERED PROCEDURE",
+      "sha256": "9b2e223507713a4b796a353b8d3eec2a83effe09d4b65ed7c6f3fe7b0f50de82"
     },
     "CARVE-P0-004": {
       "title": "ONE AUTHORED BLOCK BASE",

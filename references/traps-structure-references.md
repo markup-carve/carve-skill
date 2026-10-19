@@ -280,10 +280,12 @@ carve-js 0.1.12.
 `{{ app.js @region:setup }}` includes the lines between a `#region setup` and a
 `#endregion` line, which may sit behind a comment marker such as `//`. The
 marker lines are left out, an end marker may omit the name, and names compare
-exactly. `#section`, `@lines` and `@region` are mutually exclusive. A combined,
-missing, duplicate or unclosed region leaves the directive literal with an
-`include-region-invalid` warning. That warning comes from include expansion,
-so render the document to see it: on carve-js 0.1.12 `carve lint` stays clean.
+exactly. `#section`, `@lines` and `@region` are mutually exclusive. A missing,
+duplicate or unclosed region gives `include-region-invalid`; combining
+`@region` with `#section` or `@lines` gives `include-selection-conflict`.
+Either way the directive stays literal. Both warnings come from include
+expansion, so render the document to see them: on carve-js 0.1.12 `carve lint`
+stays clean.
 
 ## Empty destinations, graphemes and atomic spans
 

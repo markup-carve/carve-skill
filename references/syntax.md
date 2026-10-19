@@ -31,6 +31,7 @@ Mnemonic: **the markup looks like its output.**
 | `\` at end of line | hard break |
 
 Bare delimiters fire only at word boundaries; force one intraword with the brace form: `H{,2,}O`, `mc{^2^}`.
+`[t]()` is a link with `href=""`. See [structure traps](traps-structure-references.md#empty-destinations-graphemes-and-atomic-spans) for empty destinations, whole-grapheme delimiters and atomic autolinks.
 
 ## Headings
 
@@ -137,7 +138,8 @@ inner
 ::::
 ```
 
-`::: |` preserves per-line layout; `::: \` gives local hard breaks.
+`::: |` keeps every line break and leading space, and lists inside are text;
+`::: \` keeps only the line breaks, and lists work.
 
 ## Tables
 
@@ -162,6 +164,16 @@ inner
 ```
 
 Span and alignment rules: [table cells](traps-structure-references.md#table-cells).
+
+````
+{table}                      (csv or tsv fence -> table; without it, code)
+```csv
+Name,Score
+"Lee, A",3
+```
+````
+
+Rules: [delimited tables](traps-structure-references.md#delimited-tables).
 
 ## Captions
 
@@ -203,8 +215,11 @@ tags: [carve, markup]
 ---
 
 {{ chapter.crv#intro @shift:auto }}  (processor include)
+{{ app.js @region:setup }}           (lines between #region/#endregion)
 ```
 
 Core never expands an include and the braces stay, but the bytes inside still
 parse as inline content, so only a directive carrying no inline marker comes back
 verbatim: the `@shift` above renders as a mention.
+
+Files are `.crv`, media type `text/x-carve; charset=utf-8`.

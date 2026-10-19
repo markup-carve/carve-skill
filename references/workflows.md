@@ -106,6 +106,12 @@ unsupported in a particular target. Render only the chosen targets after the
 comparison and report material losses to the writer. Supply every intended
 target explicitly; plain text and ANSI are not part of the default set.
 
+Spec 0.1.10 adds four table loss codes: `table-span-flattened` (Markdown, plain
+text, ANSI), and `table-header-row-demoted`, `table-header-row-hoisted` and
+`table-header-cell-demoted` (Markdown). They join the closed `--allow-loss`
+list, so a tool that matches loss codes against a fixed list must accept them.
+carve-js 0.1.12 reports them under `carve render --report-losses`.
+
 Preview exported Markdown in the intended reader. The pinned spec targets
 GFM: heading links use GFM slugs without `{#id}` suffixes, table cells keep
 their breaks within one row, and headerless tables gain an empty header.

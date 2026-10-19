@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$comment": "Measured, not asserted: test/behavior.test.mjs runs a probe per feature against the engine in testedEngine and fails when a recorded value disagrees. Two values here were stale falses until that probe existed.",
-  "testedEngine": "@markup-carve/carve@0.1.11",
+  "testedEngine": "@markup-carve/carve@0.1.12",
   "policy": "Prefer released-engine behavior. A spec-only construct must not be authored unless the target explicitly supports it.",
   "features": {
     "trailing_comment": {
@@ -90,6 +90,24 @@
       "spec": true,
       "inTestedEngine": true,
       "guidance": "The 0.1.11 engine places the following list inside the footnote."
+    },
+    "delimited_table": {
+      "syntax": "{table} on the line above a csv or tsv fence",
+      "spec": true,
+      "inTestedEngine": true,
+      "guidance": "Spec 0.1.10, carve-js 0.1.12. Without {table}, or with malformed quoting, the fence stays code."
+    },
+    "empty_destination": {
+      "syntax": "[t]() and ![t]() and a bare [label]: definition",
+      "spec": true,
+      "inTestedEngine": true,
+      "guidance": "Spec 0.1.10 (CARVE-P3-024), carve-js 0.1.12: href=\"\" / src=\"\". Lint reports a bare definition as empty-reference-definition."
+    },
+    "grapheme_delimiter": {
+      "syntax": "a delimiter followed by a combining mark, variation selector or U+200D is text",
+      "spec": true,
+      "inTestedEngine": true,
+      "guidance": "Spec 0.1.10 (CARVE-P3-025), carve-js 0.1.12."
     }
   }
 }

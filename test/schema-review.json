@@ -1,7 +1,7 @@
 {
   "$comment": "Which AST node definitions of spec/resources/ast-schema.json the skill was last read against. The schema states language rules in prose - block promotion, resolution timing, which fields survive - so a moved description can make a reference page lie. Regenerate with `npm run spec:review` AFTER re-reading the nodes the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/ast-schema.json",
-  "spec_rev": "5484177ac75dc07355b5d22f3f15a7b9e66b341e",
+  "spec_rev": "646be4dd1138bfab40f9bb9b887e46b5e54c8fab",
   "nodes": {
     "abbreviation": {
       "title": "abbreviation (inline)",
@@ -9,7 +9,7 @@
     },
     "link_reference_definition": {
       "title": "link_reference_definition (block)",
-      "sha256": "3d551fb025f6c2f6f77eef4c7a07e8abf3527d89879d2a63102e60aa1014e88d"
+      "sha256": "5e01707efcf437f7b7691a26250833d0bf0e068c285c1eba4cfb6ced608246f4"
     },
     "abbreviation_def": {
       "title": "abbreviation_def (block)",
@@ -69,7 +69,7 @@
     },
     "comment": {
       "title": "comment (block or inline)",
-      "sha256": "b565b88e803a4ed74c248cd67a3cd71ae981db5bf2c4e6bd8a9bf2847042311f"
+      "sha256": "c9d092582debbe46a0f2d73a0355f2ce17b60356daae87fe5a3898fe609758b4"
     },
     "critic_comment": {
       "title": "critic_comment (inline)",
@@ -101,7 +101,7 @@
     },
     "document": {
       "title": "document (root)",
-      "sha256": "a242233ef192032fb6488b0766fe149434ef8c42995ac6ffbebacbcc0a281fd6"
+      "sha256": "714395980b9621535d07467f952a38e7b52ccadf166833c0713938741209834f"
     },
     "emphasis": {
       "title": "emphasis (inline)",
@@ -149,7 +149,7 @@
     },
     "image": {
       "title": "image (block or inline)",
-      "sha256": "545506355f1a0c912505be26d916a31d25217b8f6c0403be1e52deec8aac3261"
+      "sha256": "b924050ba66daadb41b58157c21f64f05770c27661c0320a229c858eba53a03b"
     },
     "inlineNode": {
       "title": "Any inline node",
@@ -173,7 +173,7 @@
     },
     "link": {
       "title": "link (inline)",
-      "sha256": "4ae3a587b0999d1fb8d8a0d87a24937b52038dcf89d06721b4701b0b8b1906cd"
+      "sha256": "193ef6ddae231f80c4cad362d2ee30e3fc346910c2549a366fa8bd1bb73ed76b"
     },
     "list": {
       "title": "list (block)",
@@ -265,7 +265,7 @@
     },
     "table": {
       "title": "table (block)",
-      "sha256": "584199b3ef0fd854344576f755e8ff9b64136093d8a70a452af4e8856ea89e88"
+      "sha256": "53751b339cd768f24f2197d0a6a25572943b98ec21345aa47891c6ef66e7660a"
     },
     "table_cell": {
       "title": "table_cell (block)",

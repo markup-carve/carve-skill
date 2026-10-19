@@ -129,7 +129,15 @@ reported, so the id is unchanged, but the render is not: a curly-quoted
 container content on 0.1.10, where 0.1.9 left the whole opener line as a
 paragraph (measured on both). Read the render rather than assuming the finding
 is the only consequence; here it is. The spec's measurements of development builds do not establish
-coverage in an npm release. For definition-term folding, see
+coverage in an npm release.
+
+Spec 0.1.10 added three lint findings, and carve-js 0.1.12 reports all three:
+`empty-reference-definition` for a bare `[label]:`, and
+`delimited-table-malformed` and `delimited-table-wide-row` for a `{table}`
+`csv` or `tsv` fence. `include-region-invalid` is an include-expansion warning:
+on 0.1.12 `carve lint` stays clean on a bad `@region`, and the render prints the
+warning and leaves the directive literal. Render a document with includes to see
+it. For definition-term folding, see
 [block trap 9](traps-blocks-containers.md#9-definition-lists-explicit-markers-one-block-per-definition).
 
 When changing

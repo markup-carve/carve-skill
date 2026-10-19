@@ -137,6 +137,11 @@ const PROBES = {
     source: '[^a]: +\n- a list\n\nSee [^a].\n',
     presentBefore: ['<li id="fn1">', '<li>a list</li>'],
   },
+  delimited_table: { source: '{table}\n```csv\nName,Score\n"Lee, A",3\n```\n', present: '<td>Lee, A</td>' },
+  empty_destination: { source: '[t]() and ![i]()\n', presentAll: ['<a href="">t</a>', 'src=""'] },
+  // The closer is the half the guard changed: an opener before a combining
+  // mark was never at a word boundary, so it cannot tell the rule apart.
+  grapheme_delimiter: { source: '*a*\u0301 b\n', present: '*a*\u0301' },
 }
 
 test('attribute tabs stay literal in the published engine', () => {

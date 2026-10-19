@@ -226,8 +226,8 @@ marker and a GFM delimiter colon, the marker wins: `|=> a |` over `|:-- |`
 right-aligns the column.
 
 A row whose cells are all blank is a table row when every cell is delimited:
-`| |` is one empty data cell and `| | |` two. This is a spec rule not in
-0.1.10, which renders `| |` as paragraph text.
+`| |` is one empty data cell and `| | |` two. carve-js 0.1.12 renders `| |`
+as a one-cell table; 0.1.10 rendered it as paragraph text.
 
 A cell marker may carry a second, vertical axis, horizontal first:
 `<^ <~ <v ~^ ~~ ~v >^ >~ >v` are runs, while `v>` and a lone `^` or `v` stay
@@ -252,3 +252,61 @@ vertical one:
 
 `vertical_cell_alignment` in `references/capabilities.json` re-measures this
 each release.
+
+## Delimited tables
+
+A `{table}` attribute line turns a fence whose language is exactly `csv` or
+`tsv` into a table of literal fields. Quoted fields follow RFC 4180 and may hold
+newlines. The first record is the header unless `header-rows=0` is set, other
+table attributes apply, and a `^` caption after the fence captions the table:
+
+````
+{table}
+```csv
+Name,Score
+"Lee, A",3
+```
+^ Results
+````
+
+Without `{table}` the fence stays a code block. Malformed quoting also leaves it
+code and reports `delimited-table-malformed`; a record wider than the first is
+kept and reports `delimited-table-wide-row`. Fields get no inline parsing, spans
+or per-cell attributes, and `fmt` keeps the delimited form. Spec 0.1.10,
+carve-js 0.1.12.
+
+## Include regions
+
+`{{ app.js @region:setup }}` includes the lines between a `#region setup` and a
+`#endregion` line, which may sit behind a comment marker such as `//`. The
+marker lines are left out, an end marker may omit the name, and names compare
+exactly. `#section`, `@lines` and `@region` are mutually exclusive. A combined,
+missing, duplicate or unclosed region leaves the directive literal with an
+`include-region-invalid` warning. That warning comes from include expansion,
+so render the document to see it: on carve-js 0.1.12 `carve lint` stays clean.
+
+## Empty destinations, graphemes and atomic spans
+
+An empty destination is explicit (`CARVE-P3-024`): `[t]()` and `![t]()` are a
+link and an image with `href=""` / `src=""`, and a bare `[label]:` defines an
+empty destination instead of staying paragraph text. Lint reports that
+definition as `empty-reference-definition` in case a URL was lost. Before spec
+0.1.10 all three were literal text.
+
+A delimiter counts only as a whole grapheme (`CARVE-P3-025`). One followed by a
+combining mark, a variation selector or U+200D is text, so `*a*` directly
+followed by U+0301 stays literal. Braced openers and `{%` take the same guard.
+
+Autolinks, cross-references and comments are atomic: no delimiter, closer,
+arrow or bracket outside one reads inside it. `*see <https://a.b/*x> here*` is
+one bold run around an intact link.
+
+All three measured on carve-js 0.1.12.
+
+## Source encoding and media type
+
+Save Carve as `.crv`. The media type is `text/x-carve; charset=utf-8` on every
+transport (`CARVE-P9-071`); a clipboard flavor stays the bare `text/x-carve`.
+Each ill-formed UTF-8 sequence or lone surrogate becomes U+FFFD before the
+first line is read, so bad bytes never reject a document (`CARVE-P0-023`). An
+included file that is not well-formed UTF-8 is refused instead.

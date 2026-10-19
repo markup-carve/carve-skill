@@ -1,7 +1,7 @@
 {
   "$comment": "Which active normative rules of spec/resources/spec/rules.json the skill was last read against, keyed by the stable rule id. The registry is the structured source of the whole normative surface - the grammar clause inventory is its title set and docs/rules/ is generated from it - so a clause added, retired or retitled here is a change to what correct authoring advice looks like. `scope` is not fingerprinted: the views are navigation, and hashing it made a one-off metadata addition read as 242 moved rules. Regenerate with `npm run spec:review` AFTER re-reading the rules the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/spec/rules.json",
-  "spec_rev": "5484177ac75dc07355b5d22f3f15a7b9e66b341e",
+  "spec_rev": "646be4dd1138bfab40f9bb9b887e46b5e54c8fab",
   "rules": {
     "CARVE-P0-001": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -10,6 +10,10 @@
     "CARVE-P0-002": {
       "title": "A NULL IS REPLACED BEFORE THE FIRST LINE IS READ",
       "sha256": "0c713f249796c9c8579f97d437255c77de4ddfac9295c2cb7109937f1d71db09"
+    },
+    "CARVE-P0-023": {
+      "title": "ILL-FORMED INPUT IS REPLACED BEFORE THE FIRST LINE IS READ",
+      "sha256": "a65c7610bbf2f68ce08d308980caf3979d5ec57ba46d60d620b2926a73268087"
     },
     "CARVE-P0-003": {
       "title": "EVERY FRAME CARRIES OWNERSHIP AND PARAGRAPH STATE SEPARATELY",
@@ -364,8 +368,8 @@
       "sha256": "aad3201d5df7c15b0f8590dc7cccc919d615fadea50353a5a56524eb18f36a0b"
     },
     "CARVE-P9-071": {
-      "title": "THE CLIPBOARD TYPE",
-      "sha256": "d3978e7ebdf817dd786fa4bacc673ae176d1266205880be5968c45a2ad42f04f"
+      "title": "THE MEDIA TYPE AND THE FILE EXTENSION",
+      "sha256": "21a90090943042a0a165c1f6067f0389aa87fb474ab157973c4cb042b54b38e9"
     },
     "CARVE-P9-003": {
       "title": "A CONTINUATION ROW LEAVES NO PARAGRAPH OPEN",
@@ -903,6 +907,10 @@
       "title": "THE PLAIN-TEXT TARGET PRESERVES LIST DEPTH",
       "sha256": "94e9d33072743a499799b2efb2f18ab6d033973896b6538d760eb6d797ff01af"
     },
+    "CARVE-P11-072": {
+      "title": "A LIST ITEM'S CONTINUATION BLOCKS SIT AT ITS CONTENT COLUMN",
+      "sha256": "716481c99f45d649e1a06e950950b906130350395b7113335364db2105a57057"
+    },
     "CARVE-P11-047": {
       "title": "THE MARKDOWN TARGET KEEPS A LIST'S TIGHTNESS",
       "sha256": "843257aedb989775ebd91ea95a6238400e6d651d8050feb91d3a78766d057480"
@@ -962,6 +970,18 @@
     "CARVE-P11-068": {
       "title": "THE CARRIER MODE CARRIES AN INLINE CONSTRUCT'S ATTRIBUTES, A SPAN AND A CROSS-REFERENCE IN INLINE MARKERS",
       "sha256": "8e603007f1f13d0c9bc4200ea929c0a9bd15bd0d32bc0c82d27ee33501b3017f"
+    },
+    "CARVE-P11-069": {
+      "title": "THE MARKDOWN TARGET KEEPS AN AUTOLINK'S ANGLE SPELLING",
+      "sha256": "28f6f59c66c05d119e64c84278bb8d4079f8b1711951af6f2a0e80ea75e73c3c"
+    },
+    "CARVE-P11-070": {
+      "title": "EMPTY DESTINATIONS HAVE A CANONICAL SPELLING",
+      "sha256": "f5f15cbe7675c488594e6c9441bb1fc9034031c05b9cfb2343850fea732d6343"
+    },
+    "CARVE-P11-071": {
+      "title": "OPTIONAL TABLE ALIGNMENT",
+      "sha256": "a19a230530a1eb43b81b5e5eddf6ae2dd42102c871f3795c6f26d736b5dad1a4"
     },
     "CARVE-P11-036": {
       "title": "A HARD LIST BOUNDARY IS WRITTEN AS EXACTLY THREE BLANK LINES",
@@ -1092,8 +1112,8 @@
       "sha256": "3c55761a3ed707632ce9ef8f51ae3a2e8c05ca72ebcd59b212c55450a7a1d903"
     },
     "CARVE-P12-024": {
-      "title": "THE DOCUMENT ROOT CARRIES EXACTLY THREE FIELDS",
-      "sha256": "ddd8a5692758dfd419a23dabead4580d760a0fcffb4ad2476c1b3f88e8224815"
+      "title": "THE DOCUMENT ROOT CARRIES THREE FIELDS AND AN OPTIONAL VERSION",
+      "sha256": "a4b8c9fcfccc8b64778612bd7529004370828b2babfc7da00ca5c1697e218ea7"
     },
     "CARVE-P12-025": {
       "title": "CONTENT IS RAW, NOT PARSED",
@@ -1334,6 +1354,14 @@
     "CARVE-P3-023": {
       "title": "SMART QUOTE DIRECTION",
       "sha256": "dbc8a5bb60fb929acb8476935510cd2c2c47487d6b5cd0cd6d7748818d8d4772"
+    },
+    "CARVE-P3-024": {
+      "title": "AN EMPTY DESTINATION IS EXPLICIT",
+      "sha256": "9d2a48b3ad7299d4c3afee4289d6fce1b035200abf6caea76b4e23f56d01c82f"
+    },
+    "CARVE-P3-025": {
+      "title": "A DELIMITER IS A WHOLE GRAPHEME",
+      "sha256": "477d48eb4601c108adf899d6b1dd029405f7676468f8e2024b52a51674f62f7e"
     },
     "CARVE-P9-080": {
       "title": "A STRUCTURAL-ONLY LINE RESETS CAPTION SCOPE",

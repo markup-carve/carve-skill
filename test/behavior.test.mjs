@@ -133,9 +133,11 @@ const PROBES = {
     source: '> +\n- a list\n',
     presentBefore: ['<li>a list</li>', '</blockquote>'],
   },
-  indented_plus_is_text: {
+  // The nested item's own marker column: the quote must land inside `b`, so it
+  // opens before the first `</li>`, which closes `b`.
+  relative_plus_marker: {
     source: '- a\n  - b\n  +\n  > q\n',
-    present: '+</li>',
+    presentBefore: ['<blockquote>', '</li>'],
   },
   first_block_marker_footnote: {
     source: '[^a]: +\n- a list\n\nSee [^a].\n',

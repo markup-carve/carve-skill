@@ -70,7 +70,8 @@ because [foundation trap 3](traps-foundations.md) teaches the construct with an
 example the formatter rewrites. `CARVE-P11-030` (PART 11 §10c) writes a lone
 attached block indented at the item's content column, and keeps the marker only
 where two adjacent children written there would re-parse as one block, and only
-for a top-level item (it never writes an indented `+`). So this
+for a top-level item (a nested item gets an indented `+` only when the
+blank-line spelling would change the tree). So this
 is canonical and `+` survives:
 
 ```
@@ -145,11 +146,14 @@ main, but NOT in 0.1.12 (`carve lint` is clean on both there):
   up to the end of the document, the end of its container, or a continuation
   marker is code. Legal and rarely meant. The finding sits at the opener and
   says where the block ended; add the closing fence where the code should stop.
-- `continuation-marker-refused`: a `+` at a list item's or description's marker
-  position (including `- +`) followed by a blank line or the end of input. The
-  marker is refused, the item ends, and the block below is not attached. Delete
-  the blank line to attach it, or delete the `+`. A `+` in a quote or footnote
-  body, or one followed by a line that is not flush-left, is not reported.
+- `continuation-marker-refused`: a lone `+` at an open container's marker
+  column, or a first-block `- +`, that attaches nothing: a blank line or the end
+  of input follows it, a sibling list item starts at that column, or the next
+  line sits at another column. Since markup-carve/carve#3445 the spec also
+  reports a `+` that no open container claims. The refused `+` stays text (or
+  fence payload at a fence's content column); carve-js 0.1.12 drops it. Delete
+  the blank line to attach the block, move the block to the marker's column, or
+  delete the `+`.
 
 ```
 - item

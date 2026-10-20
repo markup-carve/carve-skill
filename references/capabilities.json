@@ -91,11 +91,11 @@
       "inTestedEngine": true,
       "guidance": "The 0.1.11 engine places the following list inside the footnote."
     },
-    "indented_plus_is_text": {
-      "syntax": "an indented + under a nested item is text, not a continuation marker",
+    "relative_plus_marker": {
+      "syntax": "a lone + at an open nested item's marker column attaches the next block written at that column to the nested item; a + at any other column is text",
       "spec": true,
       "inTestedEngine": false,
-      "guidance": "Spec CARVE-P9-031 (markup-carve/carve#3433). carve-js main ccbbdcc9 follows it; the tested release 0.1.12 predates it and attaches the next block to the nested item. Write the marker at column 0 only."
+      "guidance": "Spec CARVE-P9-031 at relative column 0 (markup-carve/carve#3445). The tested release 0.1.12 attaches the block after an indented + to the outer item and drops a refused +. Write the column-0 form for a top-level item; for a nested item put the block at its content column after a blank line."
     },
     "delimited_table": {
       "syntax": "{table} on the line above a csv or tsv fence",

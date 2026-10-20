@@ -46,9 +46,7 @@ A marker is a list item **only when followed by a space and non-empty content**.
 
 ## 3. `+` is the continuation marker, not a bullet
 
-Bullets are `-` and `*` only. `+` is reserved as the **continuation marker**; `+ text` is just paragraph text. A `+` is the marker in two places only (`CARVE-P9-031`): alone at **column 0** of its quote level (`>+`, `>>+`, `> > +` too), or **first after a block opener run that starts at column 0** (`- +`, `1. +`, `: +`, `> +`, `- - +`). It transfers ONE block, written at column 0, to the container at column 0 (after stacked openers, the innermost one), in a list item, block quote, footnote body or definition description. A second attached block takes a second marker.
-
-An **indented `+` is not a marker**: it is text, placed by its own column. It never attaches to a nested item. Give a nested tight item a block child by writing the block at its content column after a blank line.
+Bullets are `-` and `*` only. `+` is reserved as the **continuation marker**; `+ text` is just paragraph text. A `+` is the marker in two places only (`CARVE-P9-031`): alone at **relative column 0**, the marker column of an open list item or the column right after a quote prefix (`>+`, `> > +` too), or **first after a block opener on its line** (`- +`, `1. +`, `: +`, `> +`, `[^a]: +`, `- [ ] +`; stacked openers such as `- - +` give the innermost). It transfers ONE block, written at the marker's column, to that container. A second attached block takes a second marker.
 
 ```
 - step one
@@ -57,20 +55,22 @@ An **indented `+` is not a marker**: it is text, placed by its own column. It ne
 - step two
 ```
 
-A column-0 `+` under a nested list attaches to the OUTER item:
+A nested item has its own marker column, so `  +` under `  - b` attaches `> q` to `b`, while a column-0 `+` under the nested list attaches `para` to the OUTER item `a`:
 
 ```
 - a
   - b
+  +
+  > q
 +
 para
 ```
 
-Here `para` joins `a`, after the nested list. A `+` followed by a blank line or the end of input is refused, the item ends, and nothing attaches (`continuation-marker-refused`). carve-js 0.1.12 still reads an indented `+` as a marker; carve-js main (ccbbdcc9) reads it as text (`indented_plus_is_text` in [capabilities.json](capabilities.json)). Write the column-0 form.
+Any other `+` is text: at an item's content column (`  +` under `- a`), with no open item at its column, or followed by a list item at its column (a sibling). A marker followed by a blank line, the end of input or a block at another column is refused (`continuation-marker-refused`) and stays text. carve-js 0.1.12 drops a refused `+` and gives the block after `  +` to the outer item (`relative_plus_marker` in [capabilities.json](capabilities.json)); until that changes, give a nested item its block at the content column after a blank line.
 
 `fmt` indents a lone attached block; `+` survives only where indenting would
-merge two blocks in a top-level item (`CARVE-P11-030`). It never writes an indented
-`+`: a nested tight item gets the block at its content column after a blank line.
+merge two blocks in a top-level item (`CARVE-P11-030`), or at a nested item's
+marker column when the blank-line spelling would change the tree.
 
 The marker also works as a container's FIRST block: `- +`, `: +`, `> +` and
 `[^a]: +` open a body whose content is the next flush-left block
@@ -97,7 +97,7 @@ code
 The 0.1.11 engine accepts this first-block form in list items, descriptions,
 quotes and footnotes. `first_block_marker_quote` in
 [capabilities.json](capabilities.json) tests the quote form against the installed
-engine. With no following block, `+` remains plain text.
+engine. With no following block, a list item's first-block `+` leaves the item empty, while in a quote or footnote it is the text `+` (`CARVE-P9-067`).
 
 ## 4. Visual-mnemonic emphasis (the delimiters are swapped)
 

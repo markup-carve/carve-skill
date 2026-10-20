@@ -61,7 +61,7 @@ ATX `#`..`######`. Attributes go on the line **above**:
                     ports to Markdown and Djot.)
 ```
 
-`+` alone at column 0 continues an item (attaches the next column-0 block; an indented `+` is text):
+`+` alone at an open item's marker column continues that item (attaches the next block at that column; a `+` at any other column is text). carve-js 0.1.12 reads only column 0:
 
 ```
 - step one

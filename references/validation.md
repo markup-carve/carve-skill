@@ -69,7 +69,8 @@ The `+` continuation marker is the one worth knowing before you write it,
 because [foundation trap 3](traps-foundations.md) teaches the construct with an
 example the formatter rewrites. `CARVE-P11-030` (PART 11 §10c) writes a lone
 attached block indented at the item's content column, and keeps the marker only
-where two adjacent children written there would re-parse as one block. So this
+where two adjacent children written there would re-parse as one block, and only
+for a top-level item (it never writes an indented `+`). So this
 is canonical and `+` survives:
 
 ```
@@ -134,11 +135,41 @@ coverage in an npm release.
 Spec 0.1.10 added three lint findings, and carve-js 0.1.12 reports all three:
 `empty-reference-definition` for a bare `[label]:`, and
 `delimited-table-malformed` and `delimited-table-wide-row` for a `{table}`
-`csv` or `tsv` fence. `include-region-invalid` is an include-expansion warning:
-on 0.1.12 `carve lint` stays clean on a bad `@region`, and the render prints the
-warning and leaves the directive literal. Render a document with includes to see
-it. For definition-term folding, see
+`csv` or `tsv` fence. For definition-term folding, see
 [block trap 9](traps-blocks-containers.md#9-definition-lists-explicit-markers-one-block-per-definition).
+
+Two findings for fences and continuation markers are in the spec and in carve-js
+main, but NOT in 0.1.12 (`carve lint` is clean on both there):
+
+- `unclosed-code-fence`: a backtick or tilde fence with no closer, so every line
+  up to the end of the document, the end of its container, or a continuation
+  marker is code. Legal and rarely meant. The finding sits at the opener and
+  says where the block ended; add the closing fence where the code should stop.
+- `continuation-marker-refused`: a `+` at a list item's or description's marker
+  position (including `- +`) followed by a blank line or the end of input. The
+  marker is refused, the item ends, and the block below is not attached. Delete
+  the blank line to attach it, or delete the `+`. A `+` in a quote or footnote
+  body, or one followed by a line that is not flush-left, is not reported.
+
+```
+- item
++
+
+Meant for the item.
+```
+
+reports `continuation-marker-refused` at the `+`.
+
+Include findings need an include root. `carve lint --include-root DIR` expands
+includes with the render rules (I16) and reports each warning that leaves a
+directive literal under its own id (`include-region-invalid`,
+`include-unknown-option`, `include-selection-conflict` and the rest), at the
+directive. It also lints the included content, naming the included file and the
+chain that reached it: `delimited-table-malformed` on a `{table}` `@code:csv`
+include shows up at `data/plans.csv:3:1`. `region-marker-renders-as-text` needs no
+root: it flags a `#region` line in a Carve file that renders as text. Without a
+root, lint reads no include target and reports nothing about one; on carve-js
+0.1.12 the option does not exist, so render the document to see include warnings.
 
 When changing
 containers, captions, references, raw target routing, extensions, or generated

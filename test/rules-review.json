@@ -1,7 +1,7 @@
 {
   "$comment": "Which active normative rules of spec/resources/spec/rules.json the skill was last read against, keyed by the stable rule id. The registry is the structured source of the whole normative surface - the grammar clause inventory is its title set and docs/rules/ is generated from it - so a clause added, retired or retitled here is a change to what correct authoring advice looks like. `scope` is not fingerprinted: the views are navigation, and hashing it made a one-off metadata addition read as 242 moved rules. Regenerate with `npm run spec:review` AFTER re-reading the rules the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/spec/rules.json",
-  "spec_rev": "23500f8c3710dc0f8b7da8d1556a46fd61c71928",
+  "spec_rev": "645e46775ee34b6edda4763da12b640f3e83c65e",
   "rules": {
     "CARVE-P0-001": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -122,6 +122,10 @@
     "CARVE-P2-030": {
       "title": "A BARE `---` BLOCK IS IMPORTED AS FRONTMATTER ONLY WHERE IT SHAPES AS A MAPPING",
       "sha256": "d9b1be7d392982660bb39b882c9c76c64aba0a7f2ca5a8ec5979e0e2895a8276"
+    },
+    "CARVE-P2-031": {
+      "title": "MARKDOWN MIGRATION FRAGMENTS",
+      "sha256": "a3f6ec7de95d694ce00ca53fe3d52ecdd7f8490238a4453c9f3658158927c023"
     },
     "CARVE-P2-006": {
       "title": "COLUMN-EXACT DELIMITERS",
@@ -914,6 +918,10 @@
     "CARVE-P11-072": {
       "title": "A LIST ITEM'S CONTINUATION BLOCKS SIT AT ITS CONTENT COLUMN",
       "sha256": "716481c99f45d649e1a06e950950b906130350395b7113335364db2105a57057"
+    },
+    "CARVE-P11-073": {
+      "title": "A REGION MARKER KEEPS ITS LINE",
+      "sha256": "7c5d2b58303d610c51eb4b1abce3356bb47af596b1d17573fa1244eb58306a06"
     },
     "CARVE-P11-047": {
       "title": "THE MARKDOWN TARGET KEEPS A LIST'S TIGHTNESS",

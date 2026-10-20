@@ -38,5 +38,11 @@
   requires an administrator-only opt-in and explicit root to enable it;
   front-end rendering must not inherit that opt-in.
   A containment denial must not disclose whether an outside-root path exists.
+  Containment does not limit reads inside the root, so an author who controls an
+  include can pull any readable text under it into the output: choose a root
+  without credentials or private files (an editor rooted at a workspace holding
+  `.env` may need a narrower one). A resolver that checks a path and opens it
+  later can be raced by a symlink swap; a network resolver must check the
+  resolved address at connect time and after every redirect.
 - Ensure a document remains understandable when a Tier-3 renderer is unavailable.
 - Preview issue and PR bodies containing nested fences before submission.

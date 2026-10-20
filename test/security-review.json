@@ -1,7 +1,7 @@
 {
   "$comment": "Which preamble/H2/H3 sections of spec/docs/security.md references/quality-and-safety.md was last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/security.md",
-  "spec_rev": "23500f8c3710dc0f8b7da8d1556a46fd61c71928",
+  "spec_rev": "645e46775ee34b6edda4763da12b640f3e83c65e",
   "sections": {
     "Preamble": {
       "title": "Preamble",
@@ -33,7 +33,7 @@
     },
     "File inclusion": {
       "title": "File inclusion",
-      "sha256": "0765f1be762f10b0da35ee7b10d64b8d7a4a8651989b075708f7f42838b83036"
+      "sha256": "3ce7ce82839706aa0dc6f3f53f431edb0ba91f7d4be8ae608b87d1ea8aceca34"
     },
     "Non-HTML render targets": {
       "title": "Non-HTML render targets",

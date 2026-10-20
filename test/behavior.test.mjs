@@ -133,6 +133,10 @@ const PROBES = {
     source: '> +\n- a list\n',
     presentBefore: ['<li>a list</li>', '</blockquote>'],
   },
+  indented_plus_is_text: {
+    source: '- a\n  - b\n  +\n  > q\n',
+    present: '+</li>',
+  },
   first_block_marker_footnote: {
     source: '[^a]: +\n- a list\n\nSee [^a].\n',
     presentBefore: ['<li id="fn1">', '<li>a list</li>'],

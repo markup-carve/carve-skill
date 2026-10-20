@@ -1,7 +1,7 @@
 {
   "$comment": "Which rows of spec/docs/cheatsheet.md the syntax card in references/syntax.md was last read against. The card is the source that page is derived from, and a row keeps its construct token while its meaning is rewritten - so presence of the token proves nothing and the row is fingerprinted instead. Regenerate with `npm run spec:review` AFTER re-reading the rows the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/cheatsheet.md",
-  "spec_rev": "23500f8c3710dc0f8b7da8d1556a46fd61c71928",
+  "spec_rev": "645e46775ee34b6edda4763da12b640f3e83c65e",
   "rows": {
     "#preamble / prose 1": {
       "title": "---",
@@ -14,6 +14,10 @@
     "Inline / heading": {
       "title": "Inline",
       "sha256": "7e0276aa74fc501cebcc3031eb973012b786fdbc4702f9ca59002d403331377f"
+    },
+    "Inline / prose 1": {
+      "title": "### Formatting",
+      "sha256": "8b568a086c25a081cae23fb6ff6911ab29d158995147c0dce7a22402a5d7d837"
     },
     "Inline / row: Write": {
       "title": "Write | Get | Mnemonic",
@@ -63,6 +67,18 @@
       "title": "`` !`/kaet/` `` | /kaet/ | inline literal — verbatim prose, no `code` styling; `!` mirrors `$`-math",
       "sha256": "6aef5e395de082552b95a720381914a195904ab3d452607dd1190dc1aedff16b"
     },
+    "Inline / prose 2": {
+      "title": "### Links, references, and extensions",
+      "sha256": "bdc2e3c024777f4fb288c968e59e5f4255a3454cc88ece937edeeefc9b5db349"
+    },
+    "Inline / row: Write #2": {
+      "title": "Write | Get | Mnemonic",
+      "sha256": "8ce083e232a006affcc6b2cc6f95c29b4747fed99c062afae569492087032fdd"
+    },
+    "Inline / delimiter 2": {
+      "title": "default | default | default",
+      "sha256": "d17fa344017c599657ee878434fd1c7cc356a8bcbc9a1811ab233902aa9e1dc4"
+    },
     "Inline / row: `[text](url)`": {
       "title": "`[text](url)` | link | ",
       "sha256": "1d109b7520189bf6cb04c8f9542fdf4685ad69d352a97c0811dd69349c887640"
@@ -103,13 +119,25 @@
       "title": "`@user` `#tag` | mention / tag | social conventions",
       "sha256": "d451596fcd33947b89df08adf3e5ba7f471864085a3b185f12217c98184c939a"
     },
+    "Inline / prose 3": {
+      "title": "### Escapes and typography",
+      "sha256": "4e0287a413e757ad97ff6cfc6a7026824526c58f6683dc972e5ed35875cb2e50"
+    },
+    "Inline / row: Write #3": {
+      "title": "Write | Get | Mnemonic",
+      "sha256": "8ce083e232a006affcc6b2cc6f95c29b4747fed99c062afae569492087032fdd"
+    },
+    "Inline / delimiter 3": {
+      "title": "default | default | default",
+      "sha256": "d17fa344017c599657ee878434fd1c7cc356a8bcbc9a1811ab233902aa9e1dc4"
+    },
     "Inline / row: `\\*literal\\*`": {
       "title": "`\\*literal\\*` | escape | backslash + any ASCII punctuation",
       "sha256": "94e317fa7cc519d52f1835ecc682752fb923341f87e390b070116e4516eeafa2"
     },
     "Inline / row: `--` `---` `...` `-->` `==>` `(c)`": {
-      "title": "`--` `---` `...` `-->` `==>` `(c)` | – — … → ⇒ © | smart typography; a bare HYPHEN RUN with a space before it and a non-space after it is a CLI flag and stays literal (`x --next`) - the arrows are matched before that guard and still convert there (`x -->next` is `x →next`)",
-      "sha256": "93360d1042eedddf2e56a528f4784b5aef734cf0d974bc80387ad0065687d80c",
+      "title": "`--` `---` `...` `-->` `==>` `(c)` | – — … → ⇒ © | smart typography; see the note below",
+      "sha256": "9540ed06760c7f8d4f38269a353d7f7187276d6479150f428dddd88a2a38b14c",
       "note": "Re-measured 2026-08-28 on published `@markup-carve/carve` 0.1.5: the doubled family is now IN the release (`==>` renders U+21D2), and `=>` stopped converting in the same release. The row's ASCII spellings still render, so it stands; references/traps-blocks-containers.md 12 carries the measurement and `doubled_arrows` in references/capabilities.json now probes it, which is what this note used to be doing by hand."
     },
     "Inline / row: `{--}`": {
@@ -129,9 +157,9 @@
       "title": "`` `<br>`{=html} `` | raw inline | emitted only in HTML output; other format names are retained for external converters ([security and configuration](/security))",
       "sha256": "dc799a8539c80f1dda4b78538d58acfcaf5140c5404764541418c4ced1e1a627"
     },
-    "Inline / prose 1": {
-      "title": "Bare delimiters work only at word boundaries; force one intraword wit...",
-      "sha256": "da0f1e1a6d75247f8026c2395778b320b7d97a44ac42c1a0789148484a5c4de0"
+    "Inline / prose 4": {
+      "title": "A bare hyphen run stays literal when it looks like a CLI flag: `x --n...",
+      "sha256": "44fa3e1cb8dc019eef2285a492ac3b71a1af5ee161e6fdc8a3291e0bbbf9c63a"
     },
     "Blocks / heading": {
       "title": "Blocks",
@@ -176,6 +204,54 @@
     "Tables / prose 4": {
       "title": "`<v` overrides both axes for that cell; `?v` moves only the vertical ...",
       "sha256": "3239c137735e928f5fc338e9b9cb174b11945df37341ddc366efe6621615fe6a"
+    },
+    "Tables / prose 5": {
+      "title": "### CSV and TSV data",
+      "sha256": "3e6949ad8c73761919646f48b40e80be20d6cbf095d720e60287e1f76cd7fc48"
+    },
+    "Tables / fence 4 (carve)": {
+      "title": "carve block",
+      "sha256": "8216ddcbeac8f6ad6f0e3b0efac16d700205d5a203fcbe852dd55a959f05a0e0"
+    },
+    "Tables / prose 6": {
+      "title": "renders as",
+      "sha256": "a40594060a0c64b035766e3691297d07b6ad9a1b9cbb13e92bd865391445121a"
+    },
+    "Tables / fence 5 (html)": {
+      "title": "html block",
+      "sha256": "65367c7bd6f0dfcf56dc8bd9917deeb0a3550e6f248306a784d3189dc277a1d3"
+    },
+    "Tables / prose 7": {
+      "title": "A `tsv` fence splits on TAB and quotes the same way. The other table ...",
+      "sha256": "7043300d559a316359c6bf848324e2bee815cb55146f25f9e01ac8eeb1aadf65"
+    },
+    "Tables / fence 6 (carve)": {
+      "title": "carve block",
+      "sha256": "39052ee118f9ee73062511529b02de5c43733ce5645bedc374e92838a567b72e"
+    },
+    "Tables / prose 8": {
+      "title": "Fields are literal text: no inline markup, span markers or cell attri...",
+      "sha256": "46c6fbad312c694db464ca7bec8b83dfdd02222e06d82c561ff9dbba5208f88c"
+    },
+    "Tables / prose 9": {
+      "title": "### Aligned source formatting",
+      "sha256": "9cf5c7d4d9033532d65bf334bb213dd4da2aaeea03280f0d6cc9c164ff3226b5"
+    },
+    "Tables / fence 7 (carve)": {
+      "title": "carve block",
+      "sha256": "3b65909cb90bdc46bcdf05fefbdf7e3e20d0b47e97010d5a3e4e67b3db1e0d7c"
+    },
+    "Tables / prose 10": {
+      "title": "`carve fmt --align-tables` writes",
+      "sha256": "3efdd595c9d5d26e4727ad6f235562363224e934629c21f84f763dfbe8eae2e2"
+    },
+    "Tables / fence 8 (carve)": {
+      "title": "carve block",
+      "sha256": "b0294f414250b337781d333abd5c01896ad70439f66baaba4139e58f29e1af90"
+    },
+    "Tables / prose 11": {
+      "title": "Padding goes after the content, also in right-aligned columns. Width ...",
+      "sha256": "34c6d45d225536a7d6c6e2cd764eec49562217d4a5a6c02abcb7e7cac5b17fae"
     },
     "Captions (images, quotes, tables, code listings, equations, figure groups) / heading": {
       "title": "Captions (images, quotes, tables, code listings, equations, figure groups)",

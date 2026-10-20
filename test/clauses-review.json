@@ -1,7 +1,7 @@
 {
   "$comment": "Which normative clause TEXTS of spec/resources/grammar.ebnf the skill was last read against, keyed by clause title. The rules ledger next to this one watches what the rules are - id, part, title - and carries no rule text, so on its own a clause can be rewritten into the opposite rule under an unchanged title, which is what happened to divergence section 13 in markup-carve/carve#455. Regenerate with `npm run spec:review` AFTER re-reading the clauses the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/grammar.ebnf",
-  "spec_rev": "23500f8c3710dc0f8b7da8d1556a46fd61c71928",
+  "spec_rev": "645e46775ee34b6edda4763da12b640f3e83c65e",
   "clauses": {
     "A LEADING BYTE ORDER MARK IS STRIPPED": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -37,7 +37,7 @@
     },
     "A LAZY FOLD KEEPS THE CONTAINER OPEN FOR FOLLOWING LINES": {
       "title": "A LAZY FOLD KEEPS THE CONTAINER OPEN FOR FOLLOWING LINES",
-      "sha256": "fe86fe4d25b557efc273faf775ff5d74aeb4df505ca55e289bb1d00eb9ebc5b7"
+      "sha256": "462ddaca68b8d049158e72a90d75b173c897194e9bba4d98148e44fcb3128a2a"
     },
     "ONE AUTHORED BLOCK BASE": {
       "title": "ONE AUTHORED BLOCK BASE",
@@ -113,7 +113,11 @@
     },
     "HEADING IDENTIFIERS": {
       "title": "HEADING IDENTIFIERS",
-      "sha256": "f8f965288ca88c56f278108efb2805ce3c64faf41b86fb62c1a5e8b9f7f0b56d"
+      "sha256": "b02178c263e1e65a5a429c53b409737c1dccb526aea73568d90fc014b6739ed2"
+    },
+    "MARKDOWN MIGRATION FRAGMENTS": {
+      "title": "MARKDOWN MIGRATION FRAGMENTS",
+      "sha256": "e6781dad3523a5c9add41c529a29935b62778ec2dfa007f2076dbde2c8bd44ea"
     },
     "A BARE `---` BLOCK IS IMPORTED AS FRONTMATTER ONLY WHERE IT SHAPES AS A MAPPING": {
       "title": "A BARE `---` BLOCK IS IMPORTED AS FRONTMATTER ONLY WHERE IT SHAPES AS A MAPPING",
@@ -133,7 +137,7 @@
     },
     "TABS IN CODE": {
       "title": "TABS IN CODE",
-      "sha256": "da09a722078b90221df67af4a528cc1916adff202303d979a286dc1b10a8db92"
+      "sha256": "9829bb91897de76c4d4d1ce5174d7a96d89744ce110010b2809577809662c445"
     },
     "LAZY CONTINUATION": {
       "title": "LAZY CONTINUATION",
@@ -169,7 +173,7 @@
     },
     "MARKER-LINE NESTED LIST": {
       "title": "MARKER-LINE NESTED LIST",
-      "sha256": "16ec927b8fce6631939906f3e025b77d9e96553efd8c77c5dbb6a880e68b644c"
+      "sha256": "86bff46bebe91f102fcc31e08f3e1ab7cf6df6a287beb48025b096aa8ce50ff4"
     },
     "THE TASK BOX CARRIES AN ACCESSIBLE NAME": {
       "title": "THE TASK BOX CARRIES AN ACCESSIBLE NAME",
@@ -349,11 +353,11 @@
     },
     "AN IMPORTER READS A BRACE RUN'S CONTINUATION ONLY WHERE IT IS INDENTED": {
       "title": "AN IMPORTER READS A BRACE RUN'S CONTINUATION ONLY WHERE IT IS INDENTED",
-      "sha256": "189549fcc67f0f2b0a6f609254a2061bc0a230cf4b66a4152c0c807793e789e1"
+      "sha256": "d989baa40ef2e7389c39eab1ce8c45b1f8b62335555af2efab5e7751d32ed292"
     },
     "FILE INCLUSION SEMANTICS": {
       "title": "FILE INCLUSION SEMANTICS",
-      "sha256": "0fcd940382d469cc6e336065a3c54cd82491dc20b83267d579969021a3489e08"
+      "sha256": "91d0080926a9083f32a8a760eaa393f94c0039e38f455e48574b72741311af24"
     },
     "A TAB IS SYNTAX ONLY IN THE LEADING RUN": {
       "title": "A TAB IS SYNTAX ONLY IN THE LEADING RUN",
@@ -525,11 +529,11 @@
     },
     "L1b AN INVISIBLE LINE DOES NOT CANCEL THE SEPARATION": {
       "title": "L1b AN INVISIBLE LINE DOES NOT CANCEL THE SEPARATION",
-      "sha256": "2f721029073e3505c792244bd46f2d857dff2bfab1eaf2e61b2e14d846d39455"
+      "sha256": "6ea86c18e11aa0a4ea024e03fd3df1105703ec4c8d1e6f3985697e396bbbd0c6"
     },
     "CONTINUATION-MARKER FLUSH-LEFT MEANS COLUMN 0": {
       "title": "CONTINUATION-MARKER FLUSH-LEFT MEANS COLUMN 0",
-      "sha256": "e7c5283af243a111b5ecbbfbec47d7a562090b45034e592d067762ec592d1854"
+      "sha256": "3ee34290eee5da8fff589c01f132544f7f740f49c80c898b73402050b5c664db"
     },
     "ONE IS A COUNT AND THE BOUNDARY IS NOT": {
       "title": "ONE IS A COUNT AND THE BOUNDARY IS NOT",
@@ -537,11 +541,11 @@
     },
     "THE MARKER IS ONE OPERATION IN EVERY CONTAINER": {
       "title": "THE MARKER IS ONE OPERATION IN EVERY CONTAINER",
-      "sha256": "8952db351ff087c9352d667be1b9f45170a862760f27a522f2fa36a55cb72757"
+      "sha256": "ed4871189cf88bd22e2d7d43c81f5dd0f556be474a8a15992de0aba7eaa6805b"
     },
     "EVERY CONTAINER THAT TAKES THE MARKER TAKES THE FIRST-BLOCK FORM": {
       "title": "EVERY CONTAINER THAT TAKES THE MARKER TAKES THE FIRST-BLOCK FORM",
-      "sha256": "8c4d6fa169896e83c3914de8a24dbf915ac39e0192d3e4e56d3338770fa3960b"
+      "sha256": "44050e278bb6d5355ea89ebd0411f1a9fe6ddee4b3efc79e52e2b2b7bfca25dc"
     },
     "L6 A COLLECTED DEFINITION LEAVES NO TRACE": {
       "title": "L6 A COLLECTED DEFINITION LEAVES NO TRACE",
@@ -929,7 +933,11 @@
     },
     "A BLOCK THAT OPENS A TIGHT ITEM IS WRITTEN ON THE MARKER LINE": {
       "title": "A BLOCK THAT OPENS A TIGHT ITEM IS WRITTEN ON THE MARKER LINE",
-      "sha256": "d4b6fb11ed2294d98e2235669a451e3c637dee51dbbc6335a82161f66d422041"
+      "sha256": "aea767438d029395bf29c3ba87475e94ccd7961634354cc68e1f8d1608ee10aa"
+    },
+    "A REGION MARKER KEEPS ITS LINE": {
+      "title": "A REGION MARKER KEEPS ITS LINE",
+      "sha256": "82e88fdb10be56a1d314fb80842e25883039697b8b806c474a86f26ab5dc00b7"
     },
     "THE MARKDOWN TARGET'S ESCAPING": {
       "title": "THE MARKDOWN TARGET'S ESCAPING",
@@ -1017,7 +1025,7 @@
     },
     "ADJACENT BLOCKS THAT WOULD MERGE KEEP THE CONTINUATION MARKER": {
       "title": "ADJACENT BLOCKS THAT WOULD MERGE KEEP THE CONTINUATION MARKER",
-      "sha256": "97d8b1dbd5c14a4db898760428996b7264aa8eee8ff67be530a35f21eb2bbfc7"
+      "sha256": "f3eada7bd1367073cd9c7dc7d34689a3b8099c81c78c980e8c8d5bbf7788abc4"
     },
     "MULTIPLE CARVE HEADER ROWS SURVIVE THE MARKDOWN TARGET": {
       "title": "MULTIPLE CARVE HEADER ROWS SURVIVE THE MARKDOWN TARGET",

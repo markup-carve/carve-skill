@@ -46,9 +46,9 @@ A marker is a list item **only when followed by a space and non-empty content**.
 
 ## 3. `+` is the continuation marker, not a bullet
 
-Bullets are `-` and `*` only. `+` is reserved as the **continuation marker**: a lone `+` on its own line transfers the next flush-left block to the container whose marker column it sits at, without deep indentation. `+ text` is just paragraph text.
+Bullets are `-` and `*` only. `+` is reserved as the **continuation marker**; `+ text` is just paragraph text. A `+` is the marker in two places only (`CARVE-P9-031`): alone at **column 0** of its quote level (`>+`, `>>+`, `> > +` too), or **first after a block opener run that starts at column 0** (`- +`, `1. +`, `: +`, `> +`, `- - +`). It transfers ONE block, written at column 0, to the container at column 0 (after stacked openers, the innermost one), in a list item, block quote, footnote body or definition description. A second attached block takes a second marker.
 
-It is ONE block, and the same operation in every container that takes the marker - a list item, a block quote, a footnote body and a definition description. The attached block is written at COLUMN 0, not indented under the marker.
+An **indented `+` is not a marker**: it is text, placed by its own column. It never attaches to a nested item. Give a nested tight item a block child by writing the block at its content column after a blank line.
 
 ```
 - step one
@@ -57,8 +57,20 @@ It is ONE block, and the same operation in every container that takes the marker
 - step two
 ```
 
+A column-0 `+` under a nested list attaches to the OUTER item:
+
+```
+- a
+  - b
++
+para
+```
+
+Here `para` joins `a`, after the nested list. A `+` followed by a blank line or the end of input is refused, the item ends, and nothing attaches (`continuation-marker-refused`). carve-js 0.1.12 still reads an indented `+` as a marker (`indented_plus_is_text` in [capabilities.json](capabilities.json)), so write the column-0 form.
+
 `fmt` indents a lone attached block; `+` survives only where indenting would
-merge two blocks (`CARVE-P11-030`).
+merge two blocks in a top-level item (`CARVE-P11-030`). It never writes an indented
+`+`: a nested tight item gets the block at its content column after a blank line.
 
 The marker also works as a container's FIRST block: `- +`, `: +`, `> +` and
 `[^a]: +` open a body whose content is the next flush-left block

@@ -78,11 +78,11 @@ one relevant topic instead of an 8,032-token monolith:
 | Path | Total tokens |
 | --- | ---: |
 | Default only | 800 |
-| Default + syntax card | 2,662 |
-| Default + foundation traps | 4,175 |
+| Default + syntax card | 2,780 |
+| Default + foundation traps | 4,434 |
 | Default + block/container traps | 4,224 |
-| Default + structure/reference traps | 3,998 |
-| Default + syntax + largest relevant trap guide + migration checklist | 6,420 |
+| Default + structure/reference traps | 4,283 |
+| Default + syntax + largest relevant trap guide + migration checklist | 6,748 |
 
 The command discovers and reports every shipped reference separately so
 deferred context remains visible.

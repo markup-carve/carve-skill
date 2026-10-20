@@ -61,7 +61,7 @@ ATX `#`..`######`. Attributes go on the line **above**:
                     ports to Markdown and Djot.)
 ```
 
-`+` on its own line continues an item (attaches the next flush-left block, no deep indent):
+`+` alone at column 0 continues an item (attaches the next column-0 block; an indented `+` is text):
 
 ```
 - step one
@@ -120,6 +120,8 @@ code
 ```
 ````
 
+`{.scroll}` above a fence or `@code` include scrolls it at 25 lines. It is a carve-css recipe, not syntax; `style="--carve-scroll-lines: 20"` sets the height.
+
 ## Divs and admonitions
 
 ```
@@ -173,6 +175,13 @@ Name,Score
 ```
 ````
 
+`{table}` also goes above a data file included as code:
+
+```
+{table}
+{{ data/plans.csv @code:csv }}
+```
+
 Rules: [delimited tables](traps-structure-references.md#delimited-tables).
 
 ## Captions
@@ -215,7 +224,8 @@ tags: [carve, markup]
 ---
 
 {{ chapter.crv#intro @shift:auto }}  (processor include)
-{{ app.js @region:setup }}           (lines between #region/#endregion)
+{{ app.js @region:setup @code:js }}  (region of a source file, as one code block)
+{{ ch.crv @region:setup }}           (region of a Carve file, marked %% #region setup)
 ```
 
 Core never expands an include and the braces stay, but the bytes inside still

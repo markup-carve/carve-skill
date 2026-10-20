@@ -95,7 +95,7 @@
       "syntax": "an indented + under a nested item is text, not a continuation marker",
       "spec": true,
       "inTestedEngine": false,
-      "guidance": "Spec CARVE-P9-031 (markup-carve/carve#3433). Engines that predate it attach the next block to the nested item. Write the marker at column 0 only."
+      "guidance": "Spec CARVE-P9-031 (markup-carve/carve#3433). carve-js main ccbbdcc9 follows it; the tested release 0.1.12 predates it and attaches the next block to the nested item. Write the marker at column 0 only."
     },
     "delimited_table": {
       "syntax": "{table} on the line above a csv or tsv fence",

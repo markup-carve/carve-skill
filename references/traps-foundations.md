@@ -66,7 +66,7 @@ A column-0 `+` under a nested list attaches to the OUTER item:
 para
 ```
 
-Here `para` joins `a`, after the nested list. A `+` followed by a blank line or the end of input is refused, the item ends, and nothing attaches (`continuation-marker-refused`). carve-js 0.1.12 still reads an indented `+` as a marker (`indented_plus_is_text` in [capabilities.json](capabilities.json)), so write the column-0 form.
+Here `para` joins `a`, after the nested list. A `+` followed by a blank line or the end of input is refused, the item ends, and nothing attaches (`continuation-marker-refused`). carve-js 0.1.12 still reads an indented `+` as a marker; carve-js main (ccbbdcc9) reads it as text (`indented_plus_is_text` in [capabilities.json](capabilities.json)). Write the column-0 form.
 
 `fmt` indents a lone attached block; `+` survives only where indenting would
 merge two blocks in a top-level item (`CARVE-P11-030`). It never writes an indented

@@ -32,7 +32,7 @@ test('published progressive-disclosure profiles stay exact', () => {
         Math.max(...trapTokens) +
         tokens('traps-migration.md'),
     },
-    { routine: 2798, foundations: 4493, blocks: 4228, structure: 4283, largestMigration: 6825 },
+    { routine: 2798, foundations: 4498, blocks: 4228, structure: 4283, largestMigration: 6830 },
     'update the published profile table when routed references change',
   )
 })

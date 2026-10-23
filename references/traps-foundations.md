@@ -46,7 +46,7 @@ A marker is a list item **only when followed by a space and non-empty content**.
 
 ## 3. `+` is the continuation marker, not a bullet
 
-Bullets are `-` and `*` only. `+` is reserved as the **continuation marker**; `+ text` is just paragraph text. A `+` is the marker in two places only (`CARVE-P9-031`): alone at **relative column 0**, the marker column of an open list item or the column right after a quote prefix (`>+`, `> > +` too), or **first after a block opener on its line** (`- +`, `1. +`, `: +`, `> +`, `[^a]: +`, `- [ ] +`; stacked openers such as `- - +` give the innermost). It transfers ONE block, written at the marker's column, to that container. A second attached block takes a second marker.
+Bullets are `-` and `*` only. `+` is reserved as the **continuation marker**; `+ text` is just paragraph text. A `+` is the marker in two places only (`CARVE-P9-031`): alone at **relative column 0**, the marker column of an open list item or the column right after a quote prefix (`> +`, `> > +`; `>+` is text), or **first after a block opener on its line** (`- +`, `1. +`, `: +`, `> +`, `[^a]: +`, `- [ ] +`; stacked openers such as `- - +` give the innermost). It transfers ONE block, written at the marker's column, to that container. A second attached block takes a second marker.
 
 ```
 - step one

@@ -4,6 +4,31 @@ All notable changes to carve-skill are documented in this file.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.1.6] - 2026-10-23
+
+### Fixes
+
+- Include regions follow the include mode: a Carve include takes only
+  `%% #region name`, source files are included with `@code`, and a `#region`
+  line in a Carve file is reported as `region-marker-renders-as-text` (#181,
+  #182).
+- The continuation marker is taught at relative column 0: a nested item's own
+  marker column, or right after `> `. `>+`, `>>+` and `>> +` are text (#182).
+- The first-block form (`> +`, `: +`, `[^a]: +`) pulls one non-list block at
+  column 0 or the opener's column; a column-0 list stays outside (#182).
+- `include-selection-conflict` is named for combined include selectors (#178).
+
+### Improvements
+
+- Read against spec 0.1.11 and tested on carve-js 0.1.13: code includes,
+  `{table}` above a `csv` or `tsv` include, include lint under
+  `--include-root`, and the lint rules `unclosed-code-fence`,
+  `continuation-marker-refused`, `list-marker-below-content-column`,
+  `ordered-list-split-by-indent` and
+  `description-separator-below-content-column` (#175, #177, #182).
+- The `.scroll` carve-css recipe and the include trust boundary in the safety
+  guide (#182).
+
 ## [0.1.5] - 2026-10-14
 
 ### Fixes

@@ -1,7 +1,7 @@
 {
   "$comment": "Which active normative rules of spec/resources/spec/rules.json the skill was last read against, keyed by the stable rule id. The registry is the structured source of the whole normative surface - the grammar clause inventory is its title set and docs/rules/ is generated from it - so a clause added, retired or retitled here is a change to what correct authoring advice looks like. `scope` is not fingerprinted: the views are navigation, and hashing it made a one-off metadata addition read as 242 moved rules. Regenerate with `npm run spec:review` AFTER re-reading the rules the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/spec/rules.json",
-  "spec_rev": "23500f8c3710dc0f8b7da8d1556a46fd61c71928",
+  "spec_rev": "a610f775af20e92fd08bf988416b91721fd2954c",
   "rules": {
     "CARVE-P0-001": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -122,6 +122,10 @@
     "CARVE-P2-030": {
       "title": "A BARE `---` BLOCK IS IMPORTED AS FRONTMATTER ONLY WHERE IT SHAPES AS A MAPPING",
       "sha256": "d9b1be7d392982660bb39b882c9c76c64aba0a7f2ca5a8ec5979e0e2895a8276"
+    },
+    "CARVE-P2-031": {
+      "title": "MARKDOWN MIGRATION FRAGMENTS",
+      "sha256": "a3f6ec7de95d694ce00ca53fe3d52ecdd7f8490238a4453c9f3658158927c023"
     },
     "CARVE-P2-006": {
       "title": "COLUMN-EXACT DELIMITERS",
@@ -500,8 +504,8 @@
       "sha256": "195e81901944ea71f74913fbbe2be81b56164c47bdb934ef7aa4816f66729b6b"
     },
     "CARVE-P9-031": {
-      "title": "CONTINUATION-MARKER FLUSH-LEFT MEANS COLUMN 0",
-      "sha256": "46e65a8c8aa046d88be4a92f14d25471a7275eba0972dbb7d11e66090815d38c"
+      "title": "CONTINUATION-MARKER REACHES ITS OWN COLUMN",
+      "sha256": "db96306b245c7123298642df4e505be52228b4553bb00613c784787de19224e4"
     },
     "CARVE-P9-032": {
       "title": "ONE IS A COUNT AND THE BOUNDARY IS NOT",
@@ -915,6 +919,10 @@
       "title": "A LIST ITEM'S CONTINUATION BLOCKS SIT AT ITS CONTENT COLUMN",
       "sha256": "716481c99f45d649e1a06e950950b906130350395b7113335364db2105a57057"
     },
+    "CARVE-P11-073": {
+      "title": "A REGION MARKER KEEPS ITS LINE",
+      "sha256": "7c5d2b58303d610c51eb4b1abce3356bb47af596b1d17573fa1244eb58306a06"
+    },
     "CARVE-P11-047": {
       "title": "THE MARKDOWN TARGET KEEPS A LIST'S TIGHTNESS",
       "sha256": "843257aedb989775ebd91ea95a6238400e6d651d8050feb91d3a78766d057480"
@@ -1018,6 +1026,10 @@
     "CARVE-P11-042": {
       "title": "A BLOCK THAT OPENS A TIGHT ITEM IS WRITTEN ON THE MARKER LINE",
       "sha256": "c76f0e5bf2c183ae808fac9010601f73a343050fa59ff90f4237eab02defde94"
+    },
+    "CARVE-P11-074": {
+      "title": "A FENCE A DEDENT ENDED IN A NESTED CHILD IS WRITTEN CLOSED",
+      "sha256": "0373843e1d86a454678d4389ec6e5c64e8200782638c348c5f363ef098351650"
     },
     "CARVE-P11-043": {
       "title": "THE ROUND-TRIP COMPARISON NORMALIZES A NAMED LIST",

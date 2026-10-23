@@ -1,7 +1,7 @@
 {
   "$comment": "Which preamble/H2/H3 sections of spec/docs/validation.md references/validation.md was last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/validation.md",
-  "spec_rev": "23500f8c3710dc0f8b7da8d1556a46fd61c71928",
+  "spec_rev": "a610f775af20e92fd08bf988416b91721fd2954c",
   "sections": {
     "Preamble": {
       "title": "Preamble",
@@ -11,13 +11,17 @@
       "title": "Command Line",
       "sha256": "e99987807b27e8e9979a971c40f3a98f3a3c01f8bffd93a89e04e32b7d6066ee"
     },
+    "Command Line / Included content": {
+      "title": "Included content",
+      "sha256": "09b247d0b97562425378c23802fc729402f14363bdfadaa9f958a0462a1432cd"
+    },
     "Automatic Repair": {
       "title": "Automatic Repair",
       "sha256": "04406a0133aa2ccdf592dc1b56facf7f31055daf1e4dea466ac57cb6eebf4619"
     },
     "Programmatic API": {
       "title": "Programmatic API",
-      "sha256": "183baee3de4608fa499f260ade77d1bf034266c92d58861918424d55ff36cd71"
+      "sha256": "4b7a39f6cf84eb5bf657c820ce46a1222d8f3a6af55f70e9021453cde9d599be"
     },
     "Editor Diagnostics": {
       "title": "Editor Diagnostics",
@@ -25,7 +29,31 @@
     },
     "Rules": {
       "title": "Rules",
-      "sha256": "9b21c353b6aeb5c13cf1ad24497933cfb5ad5358a7614dad5937cba67f72bcc8"
+      "sha256": "a99597039bd313952a6f32c70df88863a02578862c11ebd5516b5e9bb527df90"
+    },
+    "Rules / Consumed key near misses": {
+      "title": "Consumed key near misses",
+      "sha256": "34d86b97aa4505bf55bc5eb0ec1f111a4a698601225657332002c0101c332c07"
+    },
+    "Rules / Unclosed code fences": {
+      "title": "Unclosed code fences",
+      "sha256": "44abd811ee867f935f611e4c0e1e502bfb5ced79f4e4945bf47b689c6f3d56d5"
+    },
+    "Rules / Refused continuation markers": {
+      "title": "Refused continuation markers",
+      "sha256": "1710d81fd0c101219fd283ed84c3fd73b511e9b3393bc5ccabaedbf3f73b719c"
+    },
+    "Rules / List markers below the content column": {
+      "title": "List markers below the content column",
+      "sha256": "e4cdd601505580b236697036014a7a0ced763fe2e1a9c893632b58ea1c043444"
+    },
+    "Rules / Description separators below the list column": {
+      "title": "Description separators below the list column",
+      "sha256": "0f087c65e8b0e8257f92766385e1d6bd09e434827745c34fb4d34e62da726aa4"
+    },
+    "Rules / Ordered lists split by indentation": {
+      "title": "Ordered lists split by indentation",
+      "sha256": "aa8d8c8a87b3239a002b2e093ef10a7abaf2f03f97a6c45991a3396da85dd867"
     },
     "Rules / Declaring a target version": {
       "title": "Declaring a target version",
@@ -41,7 +69,7 @@
     },
     "Rules / Which implementations provide these rules": {
       "title": "Which implementations provide these rules",
-      "sha256": "3e70dd073614944681089b3be678715860fbeecce86cfcb64bc273c4158694eb"
+      "sha256": "b470b6ddadf7db080a5a44e5755b4e2087817e2b3cd31bbff69f82548e393fac"
     },
     "Rules / A rule id is a contract": {
       "title": "A rule id is a contract",

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$comment": "Measured, not asserted: test/behavior.test.mjs runs a probe per feature against the engine in testedEngine and fails when a recorded value disagrees. Two values here were stale falses until that probe existed.",
-  "testedEngine": "@markup-carve/carve@0.1.12",
+  "testedEngine": "@markup-carve/carve@0.1.13",
   "policy": "Prefer released-engine behavior. A spec-only construct must not be authored unless the target explicitly supports it.",
   "features": {
     "trailing_comment": {
@@ -80,16 +80,22 @@
       "guidance": "Shipped in 0.1.5, and `=>` STOPPED converting in the same release. Write -->, <--, <-->, ==>, <== or <=>. The single-dash ->, <- and <-> are deprecated but still convert; `=>` is literal text now."
     },
     "first_block_marker_quote": {
-      "syntax": "> + or [^a]: + over a flush-left block",
+      "syntax": "> + over a non-list block at column 0",
       "spec": true,
       "inTestedEngine": true,
-      "guidance": "Spec rule CARVE-P9-067. The 0.1.11 engine accepts the first-block form in lists, descriptions, quotes and footnotes."
+      "guidance": "Spec rule CARVE-P9-067. carve-js 0.1.13 accepts the first-block form in lists, descriptions, quotes and footnotes. It pulls a non-list block only: a column-0 list below > +, : + or [^a]: + stays outside and lint reports continuation-marker-refused."
     },
     "first_block_marker_footnote": {
-      "syntax": "[^a]: + over a flush-left list",
+      "syntax": "[^a]: + over a non-list block at column 0",
       "spec": true,
       "inTestedEngine": true,
-      "guidance": "The 0.1.11 engine places the following list inside the footnote."
+      "guidance": "carve-js 0.1.13 places the following code block inside the footnote. A column-0 list is not pulled (markup-carve/carve#3482); 0.1.11 and 0.1.12 still pulled it."
+    },
+    "relative_plus_marker": {
+      "syntax": "a lone + at an open nested item's marker column attaches the next block written at that column to the nested item; a + at any other column is text",
+      "spec": true,
+      "inTestedEngine": true,
+      "guidance": "Spec CARVE-P9-031 at relative column 0 (markup-carve/carve#3445). carve-js 0.1.13 implements it. 0.1.12 and earlier attach the block after an indented + to the outer item and drop a refused +; for those targets put a nested item's block at its content column after a blank line."
     },
     "delimited_table": {
       "syntax": "{table} on the line above a csv or tsv fence",

@@ -1,7 +1,7 @@
 {
   "$comment": "Which preamble/H2/H3 sections of spec/docs/extensions.md references/extensions.md was last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/extensions.md",
-  "spec_rev": "23500f8c3710dc0f8b7da8d1556a46fd61c71928",
+  "spec_rev": "a610f775af20e92fd08bf988416b91721fd2954c",
   "sections": {
     "Preamble": {
       "title": "Preamble",
@@ -9,11 +9,11 @@
     },
     "What is available {#feature-tiers-quick-reference}": {
       "title": "What is available {#feature-tiers-quick-reference}",
-      "sha256": "d3c120d766c001a50c22e659556ebbdf3b1f3a99aa41a0d35169ce78625ad7f2"
+      "sha256": "70858d0c402daacc3774449750c46edf778478ec1a45d46f55cc30abde88cfed"
     },
     "Frequently used optional features": {
       "title": "Frequently used optional features",
-      "sha256": "84e1ee4a35fd2ea3de0f033e8a7f78131838844efeaa7a6907bc06112ac0785e"
+      "sha256": "b3d77433f5aa79a977c4d6e12777779f310f6d7298550e85c88fee46a55c7c74"
     },
     "Features supplied by applications": {
       "title": "Features supplied by applications",

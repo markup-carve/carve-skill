@@ -226,7 +226,7 @@ marker and a GFM delimiter colon, the marker wins: `|=> a |` over `|:-- |`
 right-aligns the column.
 
 A row whose cells are all blank is a table row when every cell is delimited:
-`| |` is one empty data cell and `| | |` two. carve-js 0.1.12 renders `| |`
+`| |` is one empty data cell and `| | |` two. carve-js 0.1.12 and 0.1.13 render `| |`
 as a one-cell table; 0.1.10 rendered it as paragraph text.
 
 A cell marker may carry a second, vertical axis, horizontal first:
@@ -275,17 +275,40 @@ kept and reports `delimited-table-wide-row`. Fields get no inline parsing, spans
 or per-cell attributes, and `fmt` keeps the delimited form. Spec 0.1.10,
 carve-js 0.1.12.
 
-## Include regions
+The data can live in its own file: put `{table}` above `{{ data/plans.csv @code:csv }}`.
+Lint then reports `delimited-table-*` at the data file's line when given an include
+root.
 
-`{{ app.js @region:setup }}` includes the lines between a `#region setup` and a
-`#endregion` line, which may sit behind a comment marker such as `//`. The
-marker lines are left out, an end marker may omit the name, and names compare
-exactly. `#section`, `@lines` and `@region` are mutually exclusive. A missing,
-duplicate or unclosed region gives `include-region-invalid`; combining
-`@region` with `#section` or `@lines` gives `include-selection-conflict`.
-Either way the directive stays literal. Both warnings come from include
-expansion, so render the document to see them: on carve-js 0.1.12 `carve lint`
-stays clean.
+## Include regions and code includes
+
+`@region:name` selects the lines between a `#region name` line and a `#endregion`
+line, marker lines excluded. Keywords are lowercase, names compare exactly and occur
+once per file, and an end marker may omit the name. Which comment spells a marker
+depends on what the include becomes, and `fmt` keeps a marker on its own line (`CARVE-P11-073`):
+
+- **Read as Carve**: only `%% #region name`, which renders nothing. A bare
+  `#region`, `// #region` or `{% #region %}` line is text in a Carve file; lint
+  reports `region-marker-renders-as-text` and an include naming it gives
+  `include-region-invalid`.
+- **Read as code** (`@code:lang`): the comments source files use, one per line:
+  `#`, `//`, `--`, `/* */`, `<!-- -->`, and `%%`.
+
+`@code:lang` includes the selection (whole file, `@lines` or `@region`) as ONE code
+block and parses nothing as Carve. The language is never guessed from the
+extension. An attribute line above the directive lands on the block:
+
+```
+{.scroll}
+{{ src/server.js @region:start @code:js }}
+```
+
+`#section` with `@code` is `include-selection-conflict`, as is combining `#section`,
+`@lines` and `@region`; `@code` in a sentence is `include-block-in-inline`. A missing,
+duplicate or unclosed region is `include-region-invalid`. The directive stays literal.
+
+`@code` and Carve-only region markers arrived in carve-js 0.1.13, whose lint also
+expands includes under `--include-root`. carve-js 0.1.12 reports `@code` as
+`include-unknown-option`, so render with the target engine first.
 
 ## Empty destinations, graphemes and atomic spans
 

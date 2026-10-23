@@ -1,7 +1,7 @@
 {
   "$comment": "Which preamble/H2/H3 sections of spec/docs/extension-contract.md references/extensions.md was last read against. This is where the tier table and the normative behavior of each standard extension live since carve#1932. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/extension-contract.md",
-  "spec_rev": "23500f8c3710dc0f8b7da8d1556a46fd61c71928",
+  "spec_rev": "a610f775af20e92fd08bf988416b91721fd2954c",
   "sections": {
     "Preamble": {
       "title": "Preamble",
@@ -277,7 +277,7 @@
     },
     "Wikilinks and HeadingReference (Tier-2) / Wikilinks: a link to another page": {
       "title": "12.1 Wikilinks: a link to another page",
-      "sha256": "2a3cebec47491786e68d3a03c2143269bf472876dc661e6a065ddc9fef4c64db"
+      "sha256": "68595b91b92554276b87c49afa19579a9f6c44ff996ec094cc2e6dfb2a9cc0a7"
     },
     "Wikilinks and HeadingReference (Tier-2) / HeadingReference: a link to a heading in THIS document": {
       "title": "12.2 HeadingReference: a link to a heading in THIS document",

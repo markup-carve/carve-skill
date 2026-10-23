@@ -61,7 +61,7 @@ ATX `#`..`######`. Attributes go on the line **above**:
                     ports to Markdown and Djot.)
 ```
 
-`+` on its own line continues an item (attaches the next flush-left block, no deep indent):
+`+` alone at an open item's marker column continues that item (attaches the next block at that column; a `+` at any other column is text). A nested item works the same way at its own marker column, from carve-js 0.1.13 on:
 
 ```
 - step one
@@ -86,7 +86,7 @@ Definition list:
 ^ Attribution           (^ prefix = caption/attribution)
 
 > quoted
-+                       (+ at column 0 attaches the next flush-left block to the quote)
++                       (+ at the quote's column attaches the next block there to the quote)
 - a list now inside the quote
 ```
 
@@ -119,6 +119,8 @@ code
 <div>passed through</div>
 ```
 ````
+
+`{.scroll}` above a fence or `@code` include scrolls it at 25 lines. It is a carve-css recipe, not syntax; `style="--carve-scroll-lines: 20"` sets the height.
 
 ## Divs and admonitions
 
@@ -173,6 +175,13 @@ Name,Score
 ```
 ````
 
+`{table}` also goes above a data file included as code:
+
+```
+{table}
+{{ data/plans.csv @code:csv }}
+```
+
 Rules: [delimited tables](traps-structure-references.md#delimited-tables).
 
 ## Captions
@@ -215,7 +224,8 @@ tags: [carve, markup]
 ---
 
 {{ chapter.crv#intro @shift:auto }}  (processor include)
-{{ app.js @region:setup }}           (lines between #region/#endregion)
+{{ app.js @region:setup @code:js }}  (region of a source file, as one code block)
+{{ ch.crv @region:setup }}           (region of a Carve file, marked %% #region setup)
 ```
 
 Core never expands an include and the braces stay, but the bytes inside still

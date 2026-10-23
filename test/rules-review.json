@@ -1,7 +1,7 @@
 {
   "$comment": "Which active normative rules of spec/resources/spec/rules.json the skill was last read against, keyed by the stable rule id. The registry is the structured source of the whole normative surface - the grammar clause inventory is its title set and docs/rules/ is generated from it - so a clause added, retired or retitled here is a change to what correct authoring advice looks like. `scope` is not fingerprinted: the views are navigation, and hashing it made a one-off metadata addition read as 242 moved rules. Regenerate with `npm run spec:review` AFTER re-reading the rules the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/spec/rules.json",
-  "spec_rev": "645e46775ee34b6edda4763da12b640f3e83c65e",
+  "spec_rev": "a610f775af20e92fd08bf988416b91721fd2954c",
   "rules": {
     "CARVE-P0-001": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -504,8 +504,8 @@
       "sha256": "195e81901944ea71f74913fbbe2be81b56164c47bdb934ef7aa4816f66729b6b"
     },
     "CARVE-P9-031": {
-      "title": "CONTINUATION-MARKER FLUSH-LEFT MEANS COLUMN 0",
-      "sha256": "46e65a8c8aa046d88be4a92f14d25471a7275eba0972dbb7d11e66090815d38c"
+      "title": "CONTINUATION-MARKER REACHES ITS OWN COLUMN",
+      "sha256": "db96306b245c7123298642df4e505be52228b4553bb00613c784787de19224e4"
     },
     "CARVE-P9-032": {
       "title": "ONE IS A COUNT AND THE BOUNDARY IS NOT",
@@ -1026,6 +1026,10 @@
     "CARVE-P11-042": {
       "title": "A BLOCK THAT OPENS A TIGHT ITEM IS WRITTEN ON THE MARKER LINE",
       "sha256": "c76f0e5bf2c183ae808fac9010601f73a343050fa59ff90f4237eab02defde94"
+    },
+    "CARVE-P11-074": {
+      "title": "A FENCE A DEDENT ENDED IN A NESTED CHILD IS WRITTEN CLOSED",
+      "sha256": "0373843e1d86a454678d4389ec6e5c64e8200782638c348c5f363ef098351650"
     },
     "CARVE-P11-043": {
       "title": "THE ROUND-TRIP COMPARISON NORMALIZES A NAMED LIST",

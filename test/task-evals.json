@@ -8,7 +8,7 @@
     "forbiddenSource": ["**strong**", "*lean*"],
     "maxChangedLines": 1,
     "loadedReferences": ["syntax.md"],
-    "maxContextTokens": 2800
+    "maxContextTokens": 2900
   },
   {
     "name": "make the smallest local list edit",
@@ -19,7 +19,7 @@
     "forbiddenSource": ["1. keep", "2. replacement"],
     "maxChangedLines": 1,
     "loadedReferences": ["traps-foundations.md"],
-    "maxContextTokens": 4500
+    "maxContextTokens": 4600
   },
   {
     "name": "attach a fenced block to a list item",

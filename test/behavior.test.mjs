@@ -130,8 +130,8 @@ const PROBES = {
   // this entry and read as a regression rather than the feature.
   doubled_arrows: { source: 'a ==> b', present: '⇒' },
   first_block_marker_quote: {
-    source: '> +\n- a list\n',
-    presentBefore: ['<li>a list</li>', '</blockquote>'],
+    source: '> +\n```\ncode\n```\n',
+    presentBefore: ['<pre><code>code', '</blockquote>'],
   },
   // The nested item's own marker column: the quote must land inside `b`, so it
   // opens before the first `</li>`, which closes `b`.
@@ -140,8 +140,8 @@ const PROBES = {
     presentBefore: ['<blockquote>', '</li>'],
   },
   first_block_marker_footnote: {
-    source: '[^a]: +\n- a list\n\nSee [^a].\n',
-    presentBefore: ['<li id="fn1">', '<li>a list</li>'],
+    source: '[^a]: +\n```\ncode\n```\n\nSee [^a].\n',
+    presentBefore: ['<li id="fn1">', '<pre><code>code'],
   },
   delimited_table: { source: '{table}\n```csv\nName,Score\n"Lee, A",3\n```\n', present: '<td>Lee, A</td>' },
   empty_destination: { source: '[t]() and ![i]()\n', presentAll: ['<a href="">t</a>', 'src=""'] },
@@ -162,9 +162,12 @@ test('a footnote in link text renders without a nested link', () => {
   assert.doesNotMatch(html, /<a href="\/u">[^<]*<a /)
 })
 
-test('first-block marker keeps the list inside the footnote', () => {
-  const html = carveToHtml('[^a]: +\n- a list\n\nSee [^a].\n')
-  assert.match(html, /<li id="fn1">[\s\S]*<ul>[\s\S]*<li>a list<\/li>/)
+test('first-block marker in a footnote pulls a block but not a column-0 list', () => {
+  const code = carveToHtml('[^a]: +\n```\ncode\n```\n\nSee [^a].\n')
+  assert.match(code, /<li id="fn1">[\s\S]*<pre><code>code/)
+  const list = carveToHtml('[^a]: +\n- a list\n\nSee [^a].\n')
+  assert.match(list, /^<ul>\n  <li>a list<\/li>/)
+  assert.ok(lintCarve('[^a]: +\n- a list\n\nSee [^a].\n').some((finding) => finding.rule === 'continuation-marker-refused'))
 })
 
 test('footnote labels match spaces but keep tabs distinct', () => {

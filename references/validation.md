@@ -139,8 +139,8 @@ Spec 0.1.10 added three lint findings, and carve-js 0.1.12 reports all three:
 `csv` or `tsv` fence. For definition-term folding, see
 [block trap 9](traps-blocks-containers.md#9-definition-lists-explicit-markers-one-block-per-definition).
 
-Two findings for fences and continuation markers are in the spec and in carve-js
-main, but NOT in 0.1.12 (`carve lint` is clean on both there):
+Two findings for fences and continuation markers arrived in carve-js 0.1.13;
+`carve lint` 0.1.12 is clean on both:
 
 - `unclosed-code-fence`: a backtick or tilde fence with no closer, so every line
   up to the end of the document, the end of its container, or a continuation
@@ -150,10 +150,12 @@ main, but NOT in 0.1.12 (`carve lint` is clean on both there):
   column, or a first-block `- +`, that attaches nothing: a blank line or the end
   of input follows it, a sibling list item starts at that column, or the next
   line sits at another column. Since markup-carve/carve#3445 the spec also
-  reports a `+` that no open container claims. The refused `+` stays text (or
-  fence payload at a fence's content column); carve-js 0.1.12 drops it. Delete
-  the blank line to attach the block, move the block to the marker's column, or
-  delete the `+`.
+  reports a `+` that no open container claims, and a column-0 list below a
+  first-block `> +`, `: +` or `[^a]: +`, which pulls only non-list blocks. The
+  refused `+` stays text (or fence payload at a fence's content column), except
+  that a refused first-block `- +` or `: +` leaves its item or description
+  empty; carve-js 0.1.12 drops it. Delete the blank line to attach the block,
+  move the block to the marker's column, or delete the `+`.
 
 ```
 - item
@@ -164,6 +166,24 @@ Meant for the item.
 
 reports `continuation-marker-refused` at the `+`.
 
+Three column findings for lists arrived in carve-js 0.1.13. Carve keeps the
+strict column model, so none of them is fixed by aligning markers on their
+delimiter:
+
+- `list-marker-below-content-column`: a marker past an item's marker column
+  but below its content column. Without a blank line it folds into the item's
+  paragraph as text; after one it starts a separate list. Under `10. c`, a
+  `   - d` at column 3 is text. Indent it to the content column (4) to nest it,
+  or start it at column 0 for a sibling. The auto-numbered `.` marker avoids
+  the trap because it never widens.
+- `ordered-list-split-by-indent`: ` 9. nine` over `10. ten` renders two lists
+  because the first markers start in different columns. Start them in the
+  same column, or write `{start=9}` above an auto-numbered `.` list.
+- `description-separator-below-content-column`: a `:` or `::` left of the
+  definition list it seems to continue inside a list item or other indented
+  container adds no entry; it folds into the open term or description as
+  text, or ends the item at the marker column. Indent it to the list's column.
+
 Include findings need an include root. `carve lint --include-root DIR` expands
 includes with the render rules (I16) and reports each warning that leaves a
 directive literal under its own id (`include-region-invalid`,
@@ -172,8 +192,9 @@ directive. It also lints the included content, naming the included file and the
 chain that reached it: `delimited-table-malformed` on a `{table}` `@code:csv`
 include shows up at `data/plans.csv:3:1`. `region-marker-renders-as-text` needs no
 root: it flags a `#region` line in a Carve file that renders as text. Without a
-root, lint reads no include target and reports nothing about one; on carve-js
-0.1.12 the option does not exist, so render the document to see include warnings.
+root, lint reads no include target and reports nothing about one. The option
+arrived in carve-js 0.1.13; on 0.1.12, render the document to see include
+warnings.
 
 When changing
 containers, captions, references, raw target routing, extensions, or generated

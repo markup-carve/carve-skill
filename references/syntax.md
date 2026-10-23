@@ -61,7 +61,7 @@ ATX `#`..`######`. Attributes go on the line **above**:
                     ports to Markdown and Djot.)
 ```
 
-`+` alone at an open item's marker column continues that item (attaches the next block at that column; a `+` at any other column is text). carve-js 0.1.12 reads only column 0:
+`+` alone at an open item's marker column continues that item (attaches the next block at that column; a `+` at any other column is text). A nested item works the same way at its own marker column, from carve-js 0.1.13 on:
 
 ```
 - step one
@@ -86,7 +86,7 @@ Definition list:
 ^ Attribution           (^ prefix = caption/attribution)
 
 > quoted
-+                       (+ at column 0 attaches the next flush-left block to the quote)
++                       (+ at the quote's column attaches the next block there to the quote)
 - a list now inside the quote
 ```
 

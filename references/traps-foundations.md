@@ -66,15 +66,18 @@ A nested item has its own marker column, so `  +` under `  - b` attaches `> q` t
 para
 ```
 
-Any other `+` is text: at an item's content column (`  +` under `- a`), with no open item at its column, or followed by a list item at its column (a sibling). A marker followed by a blank line, the end of input or a block at another column is refused (`continuation-marker-refused`) and stays text. carve-js 0.1.12 drops a refused `+` and gives the block after `  +` to the outer item (`relative_plus_marker` in [capabilities.json](capabilities.json)); until that changes, give a nested item its block at the content column after a blank line.
+Any other `+` is text: at an item's content column (`  +` under `- a`), with no open item at its column, or followed by a list item at its column (a sibling). A marker followed by a blank line, the end of input or a block at another column is refused (`continuation-marker-refused`) and stays text. carve-js 0.1.13 implements this relative rule (`relative_plus_marker` in [capabilities.json](capabilities.json)); 0.1.12 and earlier dropped a refused `+` and gave the block after `  +` to the outer item, so for an older target give a nested item its block at the content column after a blank line.
 
 `fmt` indents a lone attached block; `+` survives only where indenting would
 merge two blocks in a top-level item (`CARVE-P11-030`), or at a nested item's
 marker column when the blank-line spelling would change the tree.
 
 The marker also works as a container's FIRST block: `- +`, `: +`, `> +` and
-`[^a]: +` open a body whose content is the next flush-left block
-(`CARVE-P9-067`).
+`[^a]: +` open a body whose content is the next block at column 0 or at the
+opener line's own column (`CARVE-P9-067`). The pull takes a non-list block
+only: a list at column 0 below `> +`, `: +` or `[^a]: +` stays outside, and a
+list item at an open list's column is a sibling. Lint reports both as
+`continuation-marker-refused`.
 
 ````
 - +
@@ -94,10 +97,10 @@ code
 </ul>
 ````
 
-The 0.1.11 engine accepts this first-block form in list items, descriptions,
-quotes and footnotes. `first_block_marker_quote` in
-[capabilities.json](capabilities.json) tests the quote form against the installed
-engine. With no following block, a list item's first-block `+` leaves the item empty, while in a quote or footnote it is the text `+` (`CARVE-P9-067`).
+carve-js 0.1.13 accepts this first-block form in list items, descriptions,
+quotes and footnotes. `first_block_marker_quote` and
+`first_block_marker_footnote` in [capabilities.json](capabilities.json) test the
+quote and footnote forms against the installed engine. With no following block, a list item's first-block `+` leaves the item empty, while in a quote or footnote it is the text `+` (`CARVE-P9-067`).
 
 ## 4. Visual-mnemonic emphasis (the delimiters are swapped)
 

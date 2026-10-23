@@ -226,7 +226,7 @@ marker and a GFM delimiter colon, the marker wins: `|=> a |` over `|:-- |`
 right-aligns the column.
 
 A row whose cells are all blank is a table row when every cell is delimited:
-`| |` is one empty data cell and `| | |` two. carve-js 0.1.12 renders `| |`
+`| |` is one empty data cell and `| | |` two. carve-js 0.1.12 and 0.1.13 render `| |`
 as a one-cell table; 0.1.10 rendered it as paragraph text.
 
 A cell marker may carry a second, vertical axis, horizontal first:
@@ -306,9 +306,9 @@ extension. An attribute line above the directive lands on the block:
 `@lines` and `@region`; `@code` in a sentence is `include-block-in-inline`. A missing,
 duplicate or unclosed region is `include-region-invalid`. The directive stays literal.
 
-carve-js 0.1.12 does not know `@code` (it reports `include-unknown-option`); carve-js
-main does, and its lint expands includes under `--include-root`. Render with the
-target engine first.
+`@code` and Carve-only region markers arrived in carve-js 0.1.13, whose lint also
+expands includes under `--include-root`. carve-js 0.1.12 reports `@code` as
+`include-unknown-option`, so render with the target engine first.
 
 ## Empty destinations, graphemes and atomic spans
 

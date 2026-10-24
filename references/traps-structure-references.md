@@ -219,11 +219,16 @@ A `^` extends the cell above it and a `<` the cell to its left. With nothing to
 extend (a `^` in the first row, a `<` in the first column) or where the span
 would cover another cell, the marker renders as an empty cell and the span does
 not happen. The 0.1.11 engine reports `table-span-marker-blocked`.
+Spaces around a lone marker do not change the span: `|<|`, `| <|`, `|< |`,
+and `| < |` all merge. The same holds for `^`. A consumed alignment run takes
+precedence, so `|= <|` is a header cell containing `<`.
 
-An alignment marker on a head-row cell sets the whole column, header and body
-cells. A marker on a body cell sets that cell only. Where a column has both a
-marker and a GFM delimiter colon, the marker wins: `|=> a |` over `|:-- |`
-right-aligns the column.
+An alignment marker on a native head-row `|=` cell sets the default for its
+starting physical column, including body cells. A later row-header `|=` marker
+sets that cell only. A colspan does not copy the default into covered columns.
+A plain `|` marker stays local even if `header-rows` promotes its row to the
+header. Where a column has both a head-row marker and a GFM delimiter colon,
+the marker wins: `|=> a |` over `|:-- |` right-aligns the column.
 
 A row whose cells are all blank is a table row when every cell is delimited:
 `| |` is one empty data cell and `| | |` two. carve-js 0.1.12 and 0.1.13 render `| |`

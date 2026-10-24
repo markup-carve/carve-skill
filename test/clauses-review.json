@@ -1,7 +1,7 @@
 {
   "$comment": "Which normative clause TEXTS of spec/resources/grammar.ebnf the skill was last read against, keyed by clause title. The rules ledger next to this one watches what the rules are - id, part, title - and carries no rule text, so on its own a clause can be rewritten into the opposite rule under an unchanged title, which is what happened to divergence section 13 in markup-carve/carve#455. Regenerate with `npm run spec:review` AFTER re-reading the clauses the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/grammar.ebnf",
-  "spec_rev": "c9b207160f943fb1785d2cf5a3a6ee857a6a0ac8",
+  "spec_rev": "192f6e0a5e98e0d1e38ce3c47149f1bdc2a5d9ef",
   "clauses": {
     "A LEADING BYTE ORDER MARK IS STRIPPED": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -33,7 +33,7 @@
     },
     "A QUOTE'S LAST BLOCK MAY ITSELF BE A QUOTE": {
       "title": "A QUOTE'S LAST BLOCK MAY ITSELF BE A QUOTE",
-      "sha256": "b464868a1d3cc1f2100930f9e91c905ee7aaa0dd7af9b27ab85e3fc7bcc4ed97"
+      "sha256": "a9b7246a5cf415a2c837b637b0565fa8457ec9fef883d204a928136c48f3adea"
     },
     "A LAZY FOLD KEEPS THE CONTAINER OPEN FOR FOLLOWING LINES": {
       "title": "A LAZY FOLD KEEPS THE CONTAINER OPEN FOR FOLLOWING LINES",
@@ -349,7 +349,7 @@
     },
     "A QUOTED VALUE STOPS AT THE NEWLINE": {
       "title": "A QUOTED VALUE STOPS AT THE NEWLINE",
-      "sha256": "f4bee0b4a5d722bdee8f0f30bbdeeb69870cd6ee29a3d1d8e1f6432ddd36d621"
+      "sha256": "80e0d9175aeb697e3a8718b5479d1cb4642b1c262a89ca565b57f8562592662b"
     },
     "AN IMPORTER READS A BRACE RUN'S CONTINUATION ONLY WHERE IT IS INDENTED": {
       "title": "AN IMPORTER READS A BRACE RUN'S CONTINUATION ONLY WHERE IT IS INDENTED",
@@ -385,7 +385,7 @@
     },
     "A CELL SLOT IS COUNTED, NOT WEIGHED": {
       "title": "A CELL SLOT IS COUNTED, NOT WEIGHED",
-      "sha256": "2066f1caf41bb27614a15a61c65be88e070a71adffd8a8c63648f43c29bd6930"
+      "sha256": "5c56b78327577e5f8ef3c8c81d6d3abc6a03451c5abe5726dda1aba7bf7ee348"
     },
     "T5 SPAN WALK": {
       "title": "T5 SPAN WALK",
@@ -401,7 +401,7 @@
     },
     "T7 GFM DELIMITER ROW": {
       "title": "T7 GFM DELIMITER ROW",
-      "sha256": "b5497ff527bc6dd887fa02869c3db36360b6ade43305ae064eef638a2e04ecb7"
+      "sha256": "bc92556f8b4f5e775db0ab3a071bb70b0a29ff845a558f65cc8908d97960217f"
     },
     "T8 ROW ATTRIBUTES": {
       "title": "T8 ROW ATTRIBUTES",
@@ -825,7 +825,7 @@
     },
     "THE INVARIANT OUTRANKS THE PER-CONSTRUCT RULES": {
       "title": "THE INVARIANT OUTRANKS THE PER-CONSTRUCT RULES",
-      "sha256": "b26d186e15f336f8a7e1fbfd889457fee221804766efeddd2f31fad614112c42"
+      "sha256": "7acd5f17c88594dea8d7c6e4a37210cad6b5a36139addc1a17c6c4b34861293c"
     },
     "A FLATTEN PRESERVES THE BOUNDARY IT DISSOLVES": {
       "title": "A FLATTEN PRESERVES THE BOUNDARY IT DISSOLVES",
@@ -1269,7 +1269,7 @@
     },
     "A TABLE MAY CARRY AN OPTIONAL ROW GROUPING": {
       "title": "A TABLE MAY CARRY AN OPTIONAL ROW GROUPING",
-      "sha256": "b52bf66e88a42550bdd8502d7b8eff4b043b6d5920176e7597b3f9d553b29eba"
+      "sha256": "6a528fa9985f8931868446d9fd723d10feb7e04f30bd886ccff46574d258fd75"
     },
     "A COMPOSITE FIGURE IS ITS OWN NODE TYPE": {
       "title": "A COMPOSITE FIGURE IS ITS OWN NODE TYPE",
@@ -1289,11 +1289,11 @@
     },
     "A TABLE MAY CARRY OPTIONAL POSITIONAL COLUMN METADATA": {
       "title": "A TABLE MAY CARRY OPTIONAL POSITIONAL COLUMN METADATA",
-      "sha256": "592e7a82bce78ff597aa98ca2ae59479dd8957c1015806416f418eed1b3bbba6"
+      "sha256": "788de1f95a889d92c5482913b791006e6ad5135c07ad3e2195341f97767ce988"
     },
     "TABLE ALIGNMENT RUNS CARRY TWO INDEPENDENT AXES": {
       "title": "TABLE ALIGNMENT RUNS CARRY TWO INDEPENDENT AXES",
-      "sha256": "eb62e7da4e1076976764c75ba15cee488e3329aae797d7a75e1d0e907faf189c"
+      "sha256": "d5f4a29b77f2eebc5ee1261bd1372ed783f44c04110e19a7387098aa8c632ce2"
     },
     "U+0000 IS REPLACED ON INGEST": {
       "title": "U+0000 IS REPLACED ON INGEST",

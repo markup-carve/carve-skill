@@ -1,7 +1,7 @@
 {
   "$comment": "Which normative clause TEXTS of spec/resources/grammar.ebnf the skill was last read against, keyed by clause title. The rules ledger next to this one watches what the rules are - id, part, title - and carries no rule text, so on its own a clause can be rewritten into the opposite rule under an unchanged title, which is what happened to divergence section 13 in markup-carve/carve#455. Regenerate with `npm run spec:review` AFTER re-reading the clauses the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/grammar.ebnf",
-  "spec_rev": "a610f775af20e92fd08bf988416b91721fd2954c",
+  "spec_rev": "c9b207160f943fb1785d2cf5a3a6ee857a6a0ac8",
   "clauses": {
     "A LEADING BYTE ORDER MARK IS STRIPPED": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -217,7 +217,7 @@
     },
     "RENDER-LOSS REPORTING": {
       "title": "RENDER-LOSS REPORTING",
-      "sha256": "3bddc91b0aeef37780b78506ad1667eb39b4d39ae315b7ae490dd01cb4325929"
+      "sha256": "2619a55712726fcc071c2762f13166437a0e456a215c81e9435146db65f23b3b"
     },
     "NO TRAILING WHITESPACE": {
       "title": "NO TRAILING WHITESPACE",
@@ -317,7 +317,7 @@
     },
     "SMART QUOTE DIRECTION": {
       "title": "SMART QUOTE DIRECTION",
-      "sha256": "533ac5927846640a6366a1ad2402365d3a7e5c5f23209bb9fdcd7d754d8123ec"
+      "sha256": "68203da0269225185d4b9ad2a232e8de894039ce68ca03743fc1cf5c7c754fcc"
     },
     "THE DOUBLED RUN IS THE CANONICAL ARROW, IN BOTH FAMILIES": {
       "title": "THE DOUBLED RUN IS THE CANONICAL ARROW, IN BOTH FAMILIES",
@@ -629,7 +629,7 @@
     },
     "A COMMENT IS THE ONE EXCEPTION": {
       "title": "A COMMENT IS THE ONE EXCEPTION",
-      "sha256": "486c8d7d8be74e537f5defd86517ecffd2a190b2dd2088a2dfa0ab1ead10bd80"
+      "sha256": "c5c729fafca59730f223565026b465f713845ba2a30f11f466e6984df12561eb"
     },
     "SECURITY REQUIREMENTS": {
       "title": "SECURITY REQUIREMENTS",

@@ -17,7 +17,8 @@
   `Options::with_raw_html(false)` (carve-rs), or `SafeMode` (carve-php).
   Escaping keeps the content visible rather than discarding it: a suppressed
   `` ```=html `` block renders as a fenced code block whose language is the raw
-  format, and that escape is not a render loss (`CARVE-P10-013`). A policy that
+  format, and that HTML escape is not a render loss (`CARVE-P10-013`).
+  Markdown export reports escaped raw HTML as `raw-html-escaped`. A policy that
   omits the block instead reports `raw-format-dropped`.
 - Validate remote media/embed schemes and domains against the host policy.
 - Canonical Carve source is not a sanitized artifact. `carve fmt` and the `carve`

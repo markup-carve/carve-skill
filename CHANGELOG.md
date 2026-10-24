@@ -4,6 +4,16 @@ All notable changes to carve-skill are documented in this file.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.1.7] - 2026-10-24
+
+The skill now describes the pinned spec's Markdown export losses and how to check whether an installed engine reports them.
+
+### Fixes
+
+- Markdown export guidance distinguishes default losses from roundtrip carriers, including escaped raw HTML, and explains when source checks can report an unattached attribute run (#188).
+
+**Full Changelog**: https://github.com/markup-carve/carve-skill/compare/0.1.6...0.1.7
+
 ## [0.1.6] - 2026-10-23
 
 ### Fixes

@@ -4,6 +4,16 @@ All notable changes to carve-skill are documented in this file.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+Table guidance now follows the current rules for spans and alignment defaults.
+
+### Fixes
+
+- Padded span markers remain spans, while only native head-row alignment sets a column default (#185).
+
+**Full Changelog**: https://github.com/markup-carve/carve-skill/compare/0.1.7...HEAD
+
 ## [0.1.7] - 2026-10-24
 
 The skill now describes the pinned spec's Markdown export losses and how to check whether an installed engine reports them.

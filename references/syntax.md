@@ -145,25 +145,33 @@ inner
 
 ## Tables
 
+`|=` marks a header cell, including a row header in a body row.
+
 ```
-|= Header |= Header |        (|= = header cell, also for row headers in body rows)
+|= Header |= Header |
 | Cell    | Cell    |
 ^ Table caption
 
-|= Name |=> Age |=~ City |   (alignment glued to |=: < ~ >)
-| Sum    |< 12   | NYC    |   (a data-cell marker overrides per cell)
-|=<^ Top |=>v Low |          (vertical second axis, horizontal first;
-|?v x |                       ? keeps the column's horizontal)
+|= Name |=> Age |=~ City |
+| Sum    |< 12   | NYC    |
+|=<^ Top |=>v Low |
+|?v x |
 
-| Name  | Age |              (GFM separator row, a second header spelling)
+| Name  | Age |
 |-------|----:|
 | Alice |  30 |
 
 |= Item |= Qty |= Note |
 | Apple | 12 | fresh |
-+       |    | picked today |  (+ = continuation)
-| ^     |  3 | <     |          (^ = rowspan, < = colspan)
++       |    | picked today |
+| ^     |  3 | <     |
 ```
+
+Alignment markers attach to `|=`: `<`, `~`, and `>` set the horizontal axis.
+A data-cell marker overrides the column alignment for that cell. The second
+axis sets vertical alignment; `?` keeps the column's horizontal alignment.
+The separator row is another header spelling. `+` continues the cell above;
+`^` spans rows and `<` spans columns.
 
 Span and alignment rules: [table cells](traps-structure-references.md#table-cells).
 

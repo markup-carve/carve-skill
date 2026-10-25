@@ -235,8 +235,8 @@ A row whose cells are all blank is a table row when every cell is delimited:
 as a one-cell table; 0.1.10 rendered it as paragraph text.
 
 A cell marker may carry a second, vertical axis, horizontal first:
-`<^ <~ <v ~^ ~~ ~v >^ >~ >v` are runs, while `v>` and a lone `^` or `v` stay
-ordinary cell content. `?` keeps the column's horizontal axis and sets only the
+`<^ <~ <v ~^ ~~ ~v >^ >~ >v` are runs. `v>` and a lone `v` stay ordinary cell
+content; a lone `^` is a row span marker, as described above. `?` keeps the column's horizontal axis and sets only the
 vertical one:
 
 ````

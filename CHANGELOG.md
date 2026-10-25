@@ -14,7 +14,7 @@ The skill now covers the task states in the published Carve 0.1.13 spec and give
 
 ### Improvements
 
-- Task-list guidance names progress `[/]`, blocked `[!]`, and the open alias `[_]`, with behavior checked against carve-js 0.1.15 (#197).
+- Task-list guidance names progress `[/]`, blocked `[!]`, and the open alias `[_]`, with behavior checked against carve-js 0.1.15 (#197, #200).
 
 **Full Changelog**: https://github.com/markup-carve/carve-skill/compare/0.1.7...0.1.8
 

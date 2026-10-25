@@ -4,6 +4,20 @@ All notable changes to carve-skill are documented in this file.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.1.8] - 2026-10-25
+
+The skill now covers the task states in the published Carve 0.1.13 spec and gives working guidance for table spans and attributes.
+
+### Fixes
+
+- Table examples show when a span marker consumes a cell and how attributes stay attached (#196).
+
+### Improvements
+
+- Task-list guidance names progress `[/]`, blocked `[!]`, and the open alias `[_]`, with behavior checked against carve-js 0.1.15 (#197).
+
+**Full Changelog**: https://github.com/markup-carve/carve-skill/compare/0.1.7...0.1.8
+
 ## [0.1.7] - 2026-10-24
 
 The skill now covers Markdown export losses and the current table span and alignment rules for the pinned spec.

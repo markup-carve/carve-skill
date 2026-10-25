@@ -52,7 +52,8 @@ ATX `#`..`######`. Attributes go on the line **above**:
 - unordered        * also unordered      1. ordered      1) ordered
 - [ ] task         - [x] done            a. A. i. I. dialects
                    (i. then j. is alphabetic, from 9)
-                   (more task states: [_] [-] [/] [!] [>] [?])
+                   (other states: [_] open, [/] progress, [!] blocked,
+                    [-] dropped, [>] deferred, [?] uncertain)
 -{.c} styled item  (attributes abutting the marker target the <li>)
 
 . auto-numbered    (the preferred native form: a bare dot counts from 1 and

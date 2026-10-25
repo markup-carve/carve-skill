@@ -44,6 +44,11 @@ class, or wrap the region in a div to style the section.
 
 A marker is a list item **only when followed by a space and non-empty content**. A lone `-`, `- `, or `-   ` is ordinary paragraph text (Markdown/Djot would make an empty list item). So a dash used as a prose separator does not become a bullet, and trailing whitespace is never load-bearing.
 
+A task marker has one state character after the bullet: `[ ]` and `[_]` are
+open, `[/]` is progress, `[!]` is blocked, `[x]` and `[X]` are done, `[-]` is
+dropped, `[>]` is deferred, and `[?]` is uncertain. Only done is checked.
+`[_]` keeps its authored spelling when formatted, but its state is open.
+
 ## 3. `+` is the continuation marker, not a bullet
 
 Bullets are `-` and `*` only. `+` is reserved as the **continuation marker**; `+ text` is just paragraph text. A `+` is the marker in two places only (`CARVE-P9-031`): alone at **relative column 0**, the marker column of an open list item or the column right after a quote prefix (`> +`, `> > +`; `>+` is text), or **first after a block opener on its line** (`- +`, `1. +`, `: +`, `> +`, `[^a]: +`, `- [ ] +`; stacked openers such as `- - +` give the innermost). It transfers ONE block, written at the marker's column, to that container. A second attached block takes a second marker.

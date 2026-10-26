@@ -21,6 +21,8 @@ Beyond the core (Tier-1) syntax, Carve has opt-in extensions. **The syntax is st
 | Heading numbers | opt-in section auto-numbering (`1.1`) | Tier-3 |
 | Mermaid / chart / MathBlock fences | ` ```mermaid `, ` ```chart `, ` ```math ` | Tier-3 (renderer); core `$$…$$` display math needs no extension |
 
+A citation definition such as `[@key]: Entry` takes one or more ASCII spaces after `]:`. A tab alone does not separate the marker from its content. This matches the other definition markers.
+
 ## Placement markers place only at document top level
 
 `::: footnotes`, `::: bibliography` and `::: references` move a document-wide

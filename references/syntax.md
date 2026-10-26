@@ -32,6 +32,7 @@ Mnemonic: **the markup looks like its output.**
 
 Bare delimiters fire only at word boundaries; force one intraword with the brace form: `H{,2,}O`, `mc{^2^}`.
 `[t]()` is a link with `href=""`. See [structure traps](traps-structure-references.md#empty-destinations-graphemes-and-atomic-spans) for empty destinations, whole-grapheme delimiters and atomic autolinks.
+For a quoted link or image title, use one ASCII space before the quote. ASCII spaces may follow the closing quote before `)`: `[t](/url "Title"  )`. Tabs and Unicode whitespace do not fill that padding slot.
 
 ## Headings
 

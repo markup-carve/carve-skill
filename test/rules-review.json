@@ -1,7 +1,7 @@
 {
   "$comment": "Which active normative rules of spec/resources/spec/rules.json the skill was last read against, keyed by the stable rule id. The registry is the structured source of the whole normative surface - the grammar clause inventory is its title set and docs/rules/ is generated from it - so a clause added, retired or retitled here is a change to what correct authoring advice looks like. `scope` is not fingerprinted: the views are navigation, and hashing it made a one-off metadata addition read as 242 moved rules. Regenerate with `npm run spec:review` AFTER re-reading the rules the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/spec/rules.json",
-  "spec_rev": "236ec12b5ac5ad9aba5ce034cbcb9aec2f2dd20c",
+  "spec_rev": "ff509a78ded780e4f7e2bf96839896112eaffb76",
   "rules": {
     "CARVE-P0-001": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -836,12 +836,12 @@
       "sha256": "8fa88e2dfec9364a2a8ceb7571dc74ff3d675bb8d01f20354b3088fab3cd6839"
     },
     "CARVE-P11-024": {
-      "title": "M1e `<` IS ESCAPED WHEN THE EMITTED LINE WOULD READ IT AS MARKUP",
-      "sha256": "a87bb6ced253244fab1d4233b118b8a1d247185bb3459b54fa53fa2fdde84c2c"
+      "title": "M1f `<` IS ESCAPED WHEN THE EMITTED LINE WOULD READ IT AS MARKUP",
+      "sha256": "7497f3545fed74683b45dead6fc18a0298dea17129835aebf4c8f58c1deb6ad0"
     },
     "CARVE-P11-044": {
-      "title": "M1f `#` IS ESCAPED WHERE THE EMITTED LINE WOULD OPEN OR CLOSE AN ATX HEADING",
-      "sha256": "cb54bbc5041a4d0d3e4e19c0dfcd660ef84eead36bb80f02dd036c121c601e98"
+      "title": "M1h `#` IS ESCAPED WHERE THE EMITTED LINE WOULD OPEN OR CLOSE AN ATX HEADING",
+      "sha256": "e00a2f58b1f0093e24d151b046cf32e777ed834f9c89a792d30422eee50d3f0e"
     },
     "CARVE-P11-025": {
       "title": "THE MARKDOWN TARGET'S AUTHORED ESCAPE NARROWS TOO",
@@ -987,6 +987,10 @@
       "title": "THE MARKDOWN TARGET KEEPS AN AUTOLINK'S ANGLE SPELLING",
       "sha256": "28f6f59c66c05d119e64c84278bb8d4079f8b1711951af6f2a0e80ea75e73c3c"
     },
+    "CARVE-P11-075": {
+      "title": "THE MARKDOWN TARGET ENCODES LINK AND IMAGE DESTINATIONS",
+      "sha256": "984c0631606ed113db32e343cf8ca36c2895e0c3b4f4e0e8b8c06b32ad20c93c"
+    },
     "CARVE-P11-070": {
       "title": "EMPTY DESTINATIONS HAVE A CANONICAL SPELLING",
       "sha256": "f5f15cbe7675c488594e6c9441bb1fc9034031c05b9cfb2343850fea732d6343"
@@ -1034,6 +1038,10 @@
     "CARVE-P11-043": {
       "title": "THE ROUND-TRIP COMPARISON NORMALIZES A NAMED LIST",
       "sha256": "c87ac3ca885de3174bfadf832e80534d835130169fbf49662c4e876d90efe7e3"
+    },
+    "CARVE-P11-076": {
+      "title": "REPEATED EMPHASIS KINDS ARE WRITTEN BRACED",
+      "sha256": "99109f114d7abe88d159b03b62a70463fa10f8ef8aac17f9e0f253880ef171fd"
     },
     "CARVE-P12-001": {
       "title": "AST TYPE NAMES FOLLOW THE PROFILE VOCABULARY",
@@ -1310,6 +1318,10 @@
     "CARVE-P12-069": {
       "title": "A CONTINUATION LINE IS A MARKER IN THE JOINED CELL",
       "sha256": "7059ead0c49779e6db26ccd459ae54afc6205a1ebd32eb53afdbb1b5d067c1b6"
+    },
+    "CARVE-P12-070": {
+      "title": "FOOTNOTE AND LINK REFERENCE DEFINITIONS HOIST TO THE DOCUMENT",
+      "sha256": "545be23b1d7cb616053d9102d9ed1a61ac4f10b2bec73a5889364343992d8c41"
     },
     "CARVE-P9-076": {
       "title": "A MARKER IN A TOC BODY RETAINS ITS CONTAINER SCOPE",

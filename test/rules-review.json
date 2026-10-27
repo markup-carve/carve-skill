@@ -1,7 +1,7 @@
 {
   "$comment": "Which active normative rules of spec/resources/spec/rules.json the skill was last read against, keyed by the stable rule id. The registry is the structured source of the whole normative surface - the grammar clause inventory is its title set and docs/rules/ is generated from it - so a clause added, retired or retitled here is a change to what correct authoring advice looks like. `scope` is not fingerprinted: the views are navigation, and hashing it made a one-off metadata addition read as 242 moved rules. Regenerate with `npm run spec:review` AFTER re-reading the rules the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/spec/rules.json",
-  "spec_rev": "ff509a78ded780e4f7e2bf96839896112eaffb76",
+  "spec_rev": "d3e84371f2f3bedb03e3caca6ee51907d806f7be",
   "rules": {
     "CARVE-P0-001": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -126,6 +126,10 @@
     "CARVE-P2-031": {
       "title": "MARKDOWN MIGRATION FRAGMENTS",
       "sha256": "a3f6ec7de95d694ce00ca53fe3d52ecdd7f8490238a4453c9f3658158927c023"
+    },
+    "CARVE-P2-032": {
+      "title": "UNRESOLVED MARKDOWN REFERENCES KEEP THEIR SYNTAX ON IMPORT",
+      "sha256": "f08a049dcea1aea8fa0ee7e92875aa7cc913ff3e3b1411d4fff885070f59aa54"
     },
     "CARVE-P2-006": {
       "title": "COLUMN-EXACT DELIMITERS",
@@ -572,12 +576,12 @@
       "sha256": "dbbd961802dfd23496443f745743d84fc147a46036e01a3756c9b0668e581c16"
     },
     "CARVE-P9-045": {
-      "title": "A BACKSLASH BREAK IS NOT ADDITIVE",
-      "sha256": "e4390198cfa880fdea703574bc4e5f98e9715b4dc999faa21e684bc3c3b5cea1"
+      "title": "AN EXISTING HARD BREAK",
+      "sha256": "4df7986e64abfe1b7fcfb3e41e2683bdd4d070c5e63c3a9745845396c2e4da9d"
     },
     "CARVE-P9-046": {
-      "title": "AN INLINE CONSTRUCT IS NOT A DEPTH THE RULE STOPS AT",
-      "sha256": "e74209eb25f19de4061be5278e85a8512a85256f1836b976510e3346ee0ce486"
+      "title": "AT ANY INLINE DEPTH",
+      "sha256": "b4dca85ba1d675c314b44c608c03d74d44166aa67a5a53a5275f107c93d8e97d"
     },
     "CARVE-P9-047": {
       "title": "NO BLOCK CONSTRUCT IS RECOGNIZED INSIDE ONE",
@@ -812,8 +816,8 @@
       "sha256": "c4eee58778716ea8e966a76075c389b9becd0aea6a17ee562a19d2663450d2d7"
     },
     "CARVE-P11-018": {
-      "title": "AN EMPTY CONTAINER BODY IS A BLANK LINE HERE TOO",
-      "sha256": "981a35b1857d6e95cbaf2927b3e4072944ff861a1af0cda7e8232b384811a627"
+      "title": "AN EMPTY COLON FENCE BODY IS A BLANK LINE",
+      "sha256": "556b76b374143c6e11634f97c8e5e727da1441c6166c74bad7a442afbebdec8f"
     },
     "CARVE-P11-019": {
       "title": "A FOOTNOTE DEFINITION WITH NO BLOCKS IS WRITTEN WITH THE SENTINEL `{empty}`",
@@ -1050,10 +1054,6 @@
     "CARVE-P12-002": {
       "title": "ADJACENT TEXT RUNS ARE COALESCED",
       "sha256": "72fe9d56c2378f92be78234bafe38115b3a83a94a114008350270ed29814a2ff"
-    },
-    "CARVE-P12-003": {
-      "title": "TEXT COALESCING OCCURS DURING `parse(x)`, NOT SERIALIZATION",
-      "sha256": "91303638dc3fa99dd9a11b295bd499d7ec83cd3531477f6a0625c822f2a8e7ad"
     },
     "CARVE-P12-004": {
       "title": "GENERATED NONBREAKING SPACES ARE NODES",

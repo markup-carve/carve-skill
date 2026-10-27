@@ -122,10 +122,12 @@ two whenever a placement marker is not at document top level.
 `footnotes_placement_lint` in `references/capabilities.json` re-measures the
 shipped one.
 
-The spec's lint table includes rules ahead of the released engine. For
-example, 0.1.11 reports `table-alignment-run-padding` for `|>text |`; keep
-accepting that id until the broader `table-marker-run-padding` replacement
-ships. `table-span-marker-blocked` (a `^` with no cell above it, a `<` in the
+The spec's lint table includes rules ahead of the released engine. The
+`table-marker-run-padding` finding replaces `table-alignment-run-padding` and
+`table-cell-attribute-before-marker` in the current spec. It covers an
+unterminated marker run such as `|>text |` and an attribute block before its
+alignment marker. Check the installed engine's rule id when interpreting older
+output. `table-span-marker-blocked` (a `^` with no cell above it, a `<` in the
 first column, or a span that would cover another cell) ships in 0.1.11. `fence-title-syntax` has closed: invalid fence metadata is recovered, in the
 spec and in the engine since 0.1.10 - a recognized fence or type word keeps its
 container and children while the metadata is dropped. The finding is still

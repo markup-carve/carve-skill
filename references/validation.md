@@ -61,11 +61,14 @@ lint accepts lenient spellings such as ```` ``` js ```` (canonical ```` ```js ``
 and reports nothing for them. Others only `fmt` reports: a bare `---`
 frontmatter opener (canonical `---yaml`), a definition separator padded past
 one space, and table cells padded to align a column. None of them is wrong -
-the formatter has one spelling for each. A GFM separator row is the exception
-in the spec, which keeps it where the author wrote one (`CARVE-P11-066`);
-0.1.10 rewrites it to `|=` header cells. A project that keeps its tables
-aligned checks with `carve fmt --align-tables --check` instead: that opt-in mode
-pads every cell to its column's width, wide characters counting two
+the formatter has one spelling for each. For tables, author header cells with
+`|=` and glue alignment to the marker (`|=<`, `|=~`, `|=>`). The current
+canonical writer keeps a recorded GFM separator row where the author wrote it
+(`CARVE-P11-066`), so neither lint nor `fmt --check` flags one. The ruling in
+markup-carve/carve#3784 (2026-10-27) will make `carve fmt` rewrite these rows
+to `|=` header cells; `--roundtrip` will still preserve them. A project that
+keeps its tables aligned checks with `carve fmt --align-tables --check` instead:
+that opt-in mode pads every cell to its column's width, wide characters counting two
 (`CARVE-P11-071`, carve-js 0.1.12 and later).
 
 The `+` continuation marker is the one worth knowing before you write it,

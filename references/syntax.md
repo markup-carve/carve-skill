@@ -159,7 +159,7 @@ inner
 |=<^ Top |=>v Low |
 |?v x |
 
-| Name  | Age |
+| Name  | Age |              (accepted GFM spelling; do not author it)
 |-------|----:|
 | Alice |  30 |
 
@@ -172,7 +172,11 @@ inner
 Alignment markers attach to `|=`: `<`, `~`, and `>` set the horizontal axis.
 A data-cell marker overrides the column alignment for that cell. The second
 axis sets vertical alignment; `?` keeps the column's horizontal alignment.
-The separator row is another header spelling. `+` continues the cell above;
+Write headers with `|=` cells and glue alignment to the marker (`|=<`, `|=~`,
+`|=>`). The current canonical writer keeps a recorded GFM separator row
+(`CARVE-P11-066`), so lint and `fmt --check` do not flag it. Under the ruling
+in markup-carve/carve#3784 (2026-10-27), `carve fmt` will rewrite that row;
+`--roundtrip` will still preserve it. `+` continues the cell above;
 `^` spans rows and `<` spans columns.
 
 Span and alignment rules: [table cells](traps-structure-references.md#table-cells).

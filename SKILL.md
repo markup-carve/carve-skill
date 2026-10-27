@@ -17,7 +17,7 @@ procedures.
 
 ## Essential dialect differences
 
-Do not rely on Markdown/Djot habits. In Carve:
+Carve differs from Markdown/Djot:
 
 - `/italic/` is italic, `*bold*` is bold, `_underline_` is underline,
   `~strike~` is strikethrough, and `=highlight=` is highlight; these use single
@@ -32,24 +32,24 @@ Do not rely on Markdown/Djot habits. In Carve:
   must be longer than any bare same-character fence line inside it.
 - a fence has no space before its language (```` ```js ````); attributes like
   `{.diff}` go on the line above.
+- table headers use `|=`; glue alignment on (`|=<`, `|=~`, `|=>`).
 
-For unfamiliar syntax, use [syntax.md](references/syntax.md) or a relevant trap
+For syntax, use [syntax.md](references/syntax.md) or a trap
 guide: [foundations](references/traps-foundations.md)
 for ids/lists/emphasis/comments; [blocks](references/traps-blocks-containers.md)
 for interruption/symbols/definitions/raw/columns/typography/containers/fences;
 [structure](references/traps-structure-references.md) for
 headings/attributes/admonitions/footnotes; then
 [migration](references/traps-migration.md) for a final Djot conversion pass.
-Use [extensions.md](references/extensions.md) only for host-dependent Tier-2 or
-Tier-3 features.
+Use [extensions.md](references/extensions.md) for host-dependent extensions.
 
 ## Validate
 
-When Carve MCP is available, prefer its versioned resources and `carve_lint`;
-preview structural edits with its AST patch tools. Otherwise run the project's
+When Carve MCP is available, use its resources and `carve_lint`;
+Preview edits with its AST tools. Otherwise run the project's
 `carve lint` on touched files and `carve fmt --check` on text you wrote; lint
 accepts non-canonical spellings. Use the matching version,
-never install one, and confirm it can fail before trusting a clean run.
+never install one, and verify failures are detected.
 Report command and version. See [validation.md](references/validation.md).
 
 ## Preserve intent and safety

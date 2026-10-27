@@ -5,34 +5,37 @@ description: Author, edit, review, lint, explain, render, publish, or migrate Ca
 
 # Working with Carve
 
+## Before drafting
+
+- Write table headers as `|= Name |= Qty |`, never with a `|---|` separator.
+- Put `^ Caption` directly after its block.
+- Write definitions as `:: term` followed by `: definition`.
+- Leave a blank line between prose and a list.
+- Use `/italic/` and `*bold*`; `**bold**` is literal and `_italic_` underlines.
+- Use `::: warning` or `::: note`, never `> [!WARNING]`.
+- Run `carve fmt` on what you wrote, then `carve fmt --check`.
+
 ## Route
 
-New documents use `.crv`.
-
-Determine the version, target, extensions, and spelling preservation. Default
-to core syntax. See [syntax.md](references/syntax.md) for unfamiliar constructs,
-[capabilities.json](references/capabilities.json) for version boundaries, and
-[workflows.md](references/workflows.md) for review, migration, publishing, and
-procedures.
+Use `.crv` and core syntax by default. Check version boundaries in
+[capabilities.json](references/capabilities.json), syntax in
+[syntax.md](references/syntax.md), and review or migration steps in
+[workflows.md](references/workflows.md).
 
 ## Essential dialect differences
 
-Carve differs from Markdown/Djot:
+Carve differs from Markdown/Djot in other ways:
 
-- `/italic/` is italic, `*bold*` is bold, `_underline_` is underline,
-  `~strike~` is strikethrough, and `=highlight=` is highlight; these use single
-  delimiters, while `**bold**` and `~~strike~~` are literal.
+- `~strike~` is strikethrough and `=highlight=` is highlight; `~~strike~~` is literal.
 - superscript and subscript are braced-only: `{^sup^}` and `{,sub,}`; bare
   `^sup^` and `,sub,` are literal.
 - heading attributes precede the heading; `+` continues a container and is not
-  a bullet; definition entries are `:: term` then `: definition`.
-- a list needs a blank line before it because list markers do not interrupt a
-  paragraph, and a lone `-` without content is paragraph text.
+  a bullet; a lone `-` is paragraph text.
 - cross-references are `</#id>`, comments are `%%` or fenced `%%%`, and a fence
   must be longer than any bare same-character fence line inside it.
 - a fence has no space before its language (```` ```js ````); attributes like
   `{.diff}` go on the line above.
-- table headers use `|=`; glue alignment on (`|=<`, `|=~`, `|=>`).
+- glue table alignment to the header marker (`|=<`, `|=~`, `|=>`).
 
 For syntax, use [syntax.md](references/syntax.md) or a trap
 guide: [foundations](references/traps-foundations.md)
@@ -46,21 +49,18 @@ Use [extensions.md](references/extensions.md) for host-dependent extensions.
 ## Validate
 
 When Carve MCP is available, use its resources and `carve_lint`;
-Preview edits with its AST tools. Otherwise run the project's
-`carve lint` on touched files and `carve fmt --check` on text you wrote; lint
-accepts non-canonical spellings. Use the matching version,
-never install one, and verify failures are detected.
+preview edits with its AST tools. Otherwise run the project's
+`carve lint` on touched files; lint accepts non-canonical spellings.
+Use the matching version, never install one, and verify failures are detected.
 Report command and version. See [validation.md](references/validation.md).
 
 ## Preserve intent and safety
 
-Make the smallest local edit. Preserve nearby delimiters, attributes,
-indentation, line endings, and container widths unless asked to canonicalize.
+Preserve nearby syntax and layout unless asked to canonicalize.
 For issue, PR, or chat bodies, widen the outer Markdown fence beyond every bare
 fence in the Carve sample and preview it.
 
-Use logical headings, useful link/alt text, and table headers/captions. Treat
-raw output, remote embeds, templates, and extension renderers as host trust
-boundaries. Read [quality-and-safety.md](references/quality-and-safety.md) for
-accessibility/security or [reader-focused.md](references/reader-focused.md) for
-editorial review.
+Use logical headings and useful link/alt text. Treat raw output, embeds, and
+renderers as trust boundaries. Read
+[quality-and-safety.md](references/quality-and-safety.md) for safety or
+[reader-focused.md](references/reader-focused.md) for editorial review.

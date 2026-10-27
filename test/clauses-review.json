@@ -1,7 +1,7 @@
 {
   "$comment": "Which normative clause TEXTS of spec/resources/grammar.ebnf the skill was last read against, keyed by clause title. The rules ledger next to this one watches what the rules are - id, part, title - and carries no rule text, so on its own a clause can be rewritten into the opposite rule under an unchanged title, which is what happened to divergence section 13 in markup-carve/carve#455. Regenerate with `npm run spec:review` AFTER re-reading the clauses the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/grammar.ebnf",
-  "spec_rev": "ff509a78ded780e4f7e2bf96839896112eaffb76",
+  "spec_rev": "d3e84371f2f3bedb03e3caca6ee51907d806f7be",
   "clauses": {
     "A LEADING BYTE ORDER MARK IS STRIPPED": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -97,7 +97,7 @@
     },
     "DEFINITION BODIES FOLLOW THE SAME CONTAINER REACH RULE": {
       "title": "DEFINITION BODIES FOLLOW THE SAME CONTAINER REACH RULE",
-      "sha256": "fafa6d985511ffc150bc3b448dadabbe69a47857e7702f66aba484b525dd572a"
+      "sha256": "a2954ce71de08988bf4d3f14c55aaf8c3d4277cc32d2c34ad1beea49714337d9"
     },
     "A HEADING MARKER STARTS AT ITS CONTAINER'S CONTENT COLUMN": {
       "title": "A HEADING MARKER STARTS AT ITS CONTAINER'S CONTENT COLUMN",
@@ -117,7 +117,11 @@
     },
     "MARKDOWN MIGRATION FRAGMENTS": {
       "title": "MARKDOWN MIGRATION FRAGMENTS",
-      "sha256": "e6781dad3523a5c9add41c529a29935b62778ec2dfa007f2076dbde2c8bd44ea"
+      "sha256": "55385c6f0e69642e1e5b290d2dee4062ee4601b701d344de770cffd2a9413076"
+    },
+    "UNRESOLVED MARKDOWN REFERENCES KEEP THEIR SYNTAX ON IMPORT": {
+      "title": "UNRESOLVED MARKDOWN REFERENCES KEEP THEIR SYNTAX ON IMPORT",
+      "sha256": "a21946bd0a89a87098acb0cb6b9d7b4db2da92ca52ff36b23c6b2d877d86d66a"
     },
     "A BARE `---` BLOCK IS IMPORTED AS FRONTMATTER ONLY WHERE IT SHAPES AS A MAPPING": {
       "title": "A BARE `---` BLOCK IS IMPORTED AS FRONTMATTER ONLY WHERE IT SHAPES AS A MAPPING",
@@ -205,7 +209,7 @@
     },
     "MULTI-LINE CAPTIONS": {
       "title": "MULTI-LINE CAPTIONS",
-      "sha256": "fa229635d6bfb4432ad6eca57e214653feb30d76cac05230fd259cd63ff1fc8a"
+      "sha256": "79fc5c7e21d962ae3be3f2da2d7ccb679668639a6c40d371945593c90996bca5"
     },
     "CAPTION NUMBER PLACEHOLDER": {
       "title": "CAPTION NUMBER PLACEHOLDER",
@@ -589,15 +593,15 @@
     },
     "LINE BLOCK (VERSE)": {
       "title": "LINE BLOCK (VERSE)",
-      "sha256": "7b92b509773300c64ea6ca41b652247337720a9a6e487d4a0d2bde002a87ee94"
+      "sha256": "2534c9774996abde0fbe113da599ae8a262bed68fb0cf5836fcddbca1b3f2c5c"
     },
-    "A BACKSLASH BREAK IS NOT ADDITIVE": {
-      "title": "A BACKSLASH BREAK IS NOT ADDITIVE",
-      "sha256": "fe88f9afd8d4c05fc5d4e19472795ee29ea227d83a609d9a21597a88660967f0"
+    "AN EXISTING HARD BREAK": {
+      "title": "AN EXISTING HARD BREAK",
+      "sha256": "082bd756b17268dc1c656954a7a40e67ddfb76bd3512eb3f1ac0741662d21837"
     },
-    "AN INLINE CONSTRUCT IS NOT A DEPTH THE RULE STOPS AT": {
-      "title": "AN INLINE CONSTRUCT IS NOT A DEPTH THE RULE STOPS AT",
-      "sha256": "f0248ade1362731a717d14790c38fcdb3fcb55c08734a5e2cbcd4368aaf08197"
+    "AT ANY INLINE DEPTH": {
+      "title": "AT ANY INLINE DEPTH",
+      "sha256": "2e0a795492a57b4f371a1d42ea772ca29ee34bc492cd9e13289cfaceaa3e0afe"
     },
     "NO BLOCK CONSTRUCT IS RECOGNIZED INSIDE ONE": {
       "title": "NO BLOCK CONSTRUCT IS RECOGNIZED INSIDE ONE",
@@ -613,7 +617,7 @@
     },
     "LOCAL HARD-BREAK BLOCK": {
       "title": "LOCAL HARD-BREAK BLOCK",
-      "sha256": "3f144098d2d756b492d709fd1b7183e970782877a21aeb2214723aac65301718"
+      "sha256": "cd7212a34b26cd98d5b54b08c02130c00a20f9a01deaf2fd632a4572fc8b64c7"
     },
     "THE FOLD PRESUMES AN OPEN PARAGRAPH": {
       "title": "THE FOLD PRESUMES AN OPEN PARAGRAPH",
@@ -729,7 +733,7 @@
     },
     "R7 BLOCK IMAGE PROMOTION": {
       "title": "R7 BLOCK IMAGE PROMOTION",
-      "sha256": "1e491f7f07fc706186360436db7a09759a718499c97b93e8f0b731b6be99c732"
+      "sha256": "358d731e6656770015956254e5e60ce0ebd4b343bacae7314f9f96f7c4f952de"
     },
     "DIRECTIVE CLASSES FOLLOW ELEMENT OWNERSHIP": {
       "title": "DIRECTIVE CLASSES FOLLOW ELEMENT OWNERSHIP",
@@ -745,7 +749,7 @@
     },
     "A PLACED ELEMENT'S OWN TAGS CARRY THE PER-IMPLEMENTATION INDENTATION": {
       "title": "A PLACED ELEMENT'S OWN TAGS CARRY THE PER-IMPLEMENTATION INDENTATION",
-      "sha256": "29e4faa5c65b5660a3e1c83be56193852529e8948b0687ba7bb7332de3e794d8"
+      "sha256": "eeae46ab3416750ee604caf39967dc5056667b043b1e19dd3a6b699c80e09adf"
     },
     "AN ESCAPED RAW BLOCK IS WRITTEN AS CODE": {
       "title": "AN ESCAPED RAW BLOCK IS WRITTEN AS CODE",
@@ -825,7 +829,7 @@
     },
     "A FLATTEN PRESERVES THE BOUNDARY IT DISSOLVES": {
       "title": "A FLATTEN PRESERVES THE BOUNDARY IT DISSOLVES",
-      "sha256": "3de18aa19eeb62b9c867d2f168482a93dbfbc00acb18938f1b3525da20249b01"
+      "sha256": "47a2d48432a46f21fe81404de28ff5b7d5ad8b4e929f3c51f46f03f0eb6ec712"
     },
     "A WRAPPER ITS OWN CONTENT SPELLS AWAY IS A DECLARED CEILING": {
       "title": "A WRAPPER ITS OWN CONTENT SPELLS AWAY IS A DECLARED CEILING",
@@ -909,11 +913,11 @@
     },
     "THE SAME LINE DECIDES WHAT AN IMPORT KEEPS": {
       "title": "THE SAME LINE DECIDES WHAT AN IMPORT KEEPS",
-      "sha256": "35e6bc62a5ddfdb2bc7f289db9a39b5824dea6b33e0a125c715c09bfe92e0de3"
+      "sha256": "db6bbcc837473c169fdd35c5880b6e31167c540fd544891e7847d69ab6f53f44"
     },
-    "AN EMPTY CONTAINER BODY IS A BLANK LINE HERE TOO": {
-      "title": "AN EMPTY CONTAINER BODY IS A BLANK LINE HERE TOO",
-      "sha256": "da5d8500e20a94b72a9e389fd21608edec89436e7261aab2a3f41a3b027bb12d"
+    "AN EMPTY COLON FENCE BODY IS A BLANK LINE": {
+      "title": "AN EMPTY COLON FENCE BODY IS A BLANK LINE",
+      "sha256": "4bcd4fad8c9a22cfaa1d9f3fa324802da53520cf6b8760ad22215b56d200a121"
     },
     "A FOOTNOTE DEFINITION WITH NO BLOCKS IS WRITTEN WITH THE SENTINEL `{empty}`": {
       "title": "A FOOTNOTE DEFINITION WITH NO BLOCKS IS WRITTEN WITH THE SENTINEL `{empty}`",
@@ -1009,7 +1013,7 @@
     },
     "A HARD BREAK IN A TABLE CELL IS `<br>`": {
       "title": "A HARD BREAK IN A TABLE CELL IS `<br>`",
-      "sha256": "2cb947194f9157c28995902f59c82ada3b0167eed47658b4d3f1ccbe10c74766"
+      "sha256": "1cd86a10b20c5e3581133f878e8557b99fa52af2a4d935bd52d3af436611ac0e"
     },
     "A SOFT BREAK IN A TABLE CELL IS ONE SPACE": {
       "title": "A SOFT BREAK IN A TABLE CELL IS ONE SPACE",
@@ -1129,15 +1133,11 @@
     },
     "ADJACENT TEXT RUNS ARE COALESCED": {
       "title": "ADJACENT TEXT RUNS ARE COALESCED",
-      "sha256": "4537cd14b2e45a59725a6c3aabf275ac287cbd81e484b5e48f5e779ca1a9dc0c"
-    },
-    "TEXT COALESCING OCCURS DURING `parse(x)`, NOT SERIALIZATION": {
-      "title": "TEXT COALESCING OCCURS DURING `parse(x)`, NOT SERIALIZATION",
-      "sha256": "8a5e8d61849f65c8226a6f6c6561477fce1b8be93679d39c58e7faa6438e9ed6"
+      "sha256": "8b455d9f6cf654f0cc2e4b377071880f74de7ee1809975971f2978d4dd842148"
     },
     "GENERATED NONBREAKING SPACES ARE NODES": {
       "title": "GENERATED NONBREAKING SPACES ARE NODES",
-      "sha256": "f6077e3d45ff30f13401d1581d68be43df3137ceda7b55c0ddd16728171b10ff"
+      "sha256": "59f975e3073f4a2d03c76d1b385741eb741f14e75e50b4d4f59603ac234a8ece"
     },
     "CODE BLOCK CONTENT IS LITERAL PAYLOAD TEXT": {
       "title": "CODE BLOCK CONTENT IS LITERAL PAYLOAD TEXT",

@@ -1,7 +1,7 @@
 {
   "$comment": "Which spec divergence sections the topic guides in references/traps-*.md were last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/divergence-from-djot.md",
-  "spec_rev": "ff509a78ded780e4f7e2bf96839896112eaffb76",
+  "spec_rev": "d3e84371f2f3bedb03e3caca6ee51907d806f7be",
   "sections": {
     "1": {
       "title": "Case-preserving heading ids, matched exactly",

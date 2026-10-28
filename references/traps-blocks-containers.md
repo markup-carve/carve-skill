@@ -49,8 +49,13 @@ An attribute line between the prose and the block is the one place the two diffe
 
 The separator is a run of ONE OR MORE spaces, and its width sets the body's content column (`: x` establishes column 2, `:  x` column 3). **One space is canonical** - a wider separator parses and means the same thing, and `carve fmt` narrows it, carrying every continuation line inside that body down by the same amount.
 
-A description can hold several blocks, including paragraphs separated by
-blank lines, when continuations reach its content column. Djot's `: term`
+A description uses the same marker-body reach rule as list items and footnote
+definitions (`CARVE-P9-083`). A nonblank continuation at or past its content
+column belongs to the description. A blank run of any length stays inside it
+when the next nonblank line reaches that column; otherwise the body ends before
+that line. A line below the column can lazily continue its deepest open
+paragraph. A recognized block opener at or past the column starts a child
+block. Djot's `: term`
 with an indented body is a plain paragraph in Carve.
 
 A term has no content column of its own (`CARVE-P2-028`). A block opener
@@ -69,7 +74,7 @@ reported nothing, so on an older engine only the render shows the fold.
 
 ## 11. List continuation has Carve's minimum content column
 
-A block belongs to a list item only if it reaches the item's content column, the column the BARE marker and its separator end at (`- ` is 2, `1. ` is 3, `10. ` is 4). Bare is the operative word: a marker-attached attribute block and a task checkbox are both worth zero columns, so `-{.averylongclass} x` and `- [x] x` keep the column at 2 even though their text starts further right (see trap 17). A block below that column moves to the nearest enclosing container it reaches, the document for a top-level list (or lazily continues the paragraph). A block indented PAST the column still nests: like Djot, Carve accepts a recognized opener at any deeper indent and treats its authored column as that block's temporary base. The column is a MINIMUM, not an exact match. The blank line before the block only decides tight vs loose, not attachment. TOP-LEVEL OPENERS STAY COLUMN-STRICT, which is the part that is not a minimum: at the top level a leading-indented ` # h`, ` > q`, `` ` ``` ` ``, or ` :::` is literal paragraph text, not a block. The `+` continuation marker (trap 3) still attaches a block written at its own marker column regardless.
+A block belongs to a list item only if it reaches the item's content column, the column the BARE marker and its separator end at (`- ` is 2, `1. ` is 3, `10. ` is 4). Bare is the operative word: a marker-attached attribute block and a task checkbox are both worth zero columns, so `-{.averylongclass} x` and `- [x] x` keep the column at 2 even though their text starts further right (see trap 17). A line below that column moves to the nearest enclosing container it reaches, the document for a top-level list, unless it lazily continues the deepest open paragraph. A block opener indented PAST the column still nests: Carve uses its authored column as that block's temporary base. The column is a MINIMUM, not an exact match. Blank runs stay in the item when a later nonblank line reaches the content column. TOP-LEVEL OPENERS STAY COLUMN-STRICT: at the top level a leading-indented ` # h`, ` > q`, `` ` ``` ` ``, or ` :::` is literal paragraph text, not a block. The `+` continuation marker (trap 3) still attaches a block written at its own marker column regardless.
 
 ## 12. Smart typography always runs, and keeps your source
 
@@ -146,11 +151,11 @@ Inner.
 ::::
 ```
 
-**Equal length nests too, and an opener you never close is closed for you.**
+**Equal length nests too, and an opener you never close ends at its host boundary.**
 Spec section 13 (markup-carve/carve#455) closes a fence on an *exact* length
 match rather than reading the width as a depth count, so a `:::` container holds
 a `::: tip`, holds a `:::: tip`, and an opener with no closer ends at end of
-input instead of degrading to paragraph text. A bare closer still closes **one**
+its enclosing container's end, or the document's end at top level. A bare closer still closes **one**
 container, not every one open above it.
 
 Measured against the published 0.1.11 engine:

@@ -78,10 +78,11 @@ merge two blocks in a top-level item (`CARVE-P11-030`), or at a nested item's
 marker column when the blank-line spelling would change the tree.
 
 The marker also works as a container's FIRST block: `- +`, `: +`, `> +` and
-`[^a]: +` open a body whose content is the next block at column 0 or at the
-opener line's own column (`CARVE-P9-067`). The pull takes a non-list block
-only: a list at column 0 below `> +`, `: +` or `[^a]: +` stays outside, and a
-list item at an open list's column is a sibling. Lint reports both as
+`[^a]: +` offer the next block to the new container (`CARVE-P9-067`). A list
+item can take its next owned block at its content column as well as at its
+marker column. Other first-block hosts take a non-list block at column 0 or
+their own marker column. A list at column 0 below `> +`, `: +` or `[^a]: +`
+stays outside, and a list item at an open list's column is a sibling. Lint reports both as
 `continuation-marker-refused`.
 
 ````

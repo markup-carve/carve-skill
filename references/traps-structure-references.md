@@ -311,6 +311,15 @@ extension. An attribute line above the directive lands on the block:
 `@lines` and `@region`; `@code` in a sentence is `include-block-in-inline`. A missing,
 duplicate or unclosed region is `include-region-invalid`. The directive stays literal.
 
+The current spec also allows `@rows:N-M` on a `{table}` code include for CSV or
+TSV. It selects parsed records, while `@cols:"Name,Other"` projects columns by
+header name. With `header-rows=0`, `@cols:N-M` selects a numeric column range.
+`@rows` is exclusive with `#section`, `@lines`, and `@region`; `@cols` may
+accompany a valid selection. Invalid ranges, missing names, and duplicate
+selected columns leave the directive literal with an include warning. A
+caption after a block code include attaches to the resulting table or code
+block. Check support in the target engine before using these newer options.
+
 `@code` and Carve-only region markers arrived in carve-js 0.1.13, whose lint also
 expands includes under `--include-root`. carve-js 0.1.12 reports `@code` as
 `include-unknown-option`, so render with the target engine first.

@@ -1,7 +1,7 @@
 {
   "$comment": "Which preamble/H2/H3 sections of spec/docs/validation.md references/validation.md was last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/validation.md",
-  "spec_rev": "d3e84371f2f3bedb03e3caca6ee51907d806f7be",
+  "spec_rev": "9fa661fb5182fd5d6d211ff8bb2eb695ea8de481",
   "sections": {
     "Preamble": {
       "title": "Preamble",
@@ -9,7 +9,7 @@
     },
     "Command Line": {
       "title": "Command Line",
-      "sha256": "e99987807b27e8e9979a971c40f3a98f3a3c01f8bffd93a89e04e32b7d6066ee"
+      "sha256": "ba500d9ceeda706d9fd98a0aad0c3c642294a9e0e6a3e5d5f6acc4bc22eceb30"
     },
     "Command Line / Included content": {
       "title": "Included content",
@@ -29,7 +29,7 @@
     },
     "Rules": {
       "title": "Rules",
-      "sha256": "c205d5b292505f17a5d3fa862236a74c4c92c9c63b4e75eb712cf37cb9248358"
+      "sha256": "02fd101e88373410239fe7967a6fbff0345e875e5900439aaaf1c0b26dbcbdb7"
     },
     "Rules / Consumed key near misses": {
       "title": "Consumed key near misses",
@@ -73,11 +73,15 @@
     },
     "Rules / A rule id is a contract": {
       "title": "A rule id is a contract",
-      "sha256": "81d2e30ad3da06135c03f68dbe3c21c1255b98eeda79baf91162b2468b9f2e94"
+      "sha256": "4539b89a4ddfdac24fb1bf0968e981ce45bbed9ecea270fc3afd3f54d1f605f8"
+    },
+    "Rules / Suppressing lint findings": {
+      "title": "Suppressing lint findings",
+      "sha256": "c92776b05803a990086286e6abe9ab1456c7ffe71bfab639e4b986070530d085"
     },
     "Rules / Accessibility checks": {
       "title": "Accessibility checks",
-      "sha256": "943b44f565c0339d4b767a552b8b717c0843fc27d3ad8271299ae915894ac713"
+      "sha256": "2ef1dfe149b513c828539200b6236490b80e1e6e7708c5576ba8342edb0276a6"
     }
   }
 }

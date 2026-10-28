@@ -1,7 +1,7 @@
 {
   "$comment": "Which active normative rules of spec/resources/spec/rules.json the skill was last read against, keyed by the stable rule id. The registry is the structured source of the whole normative surface - the grammar clause inventory is its title set and docs/rules/ is generated from it - so a clause added, retired or retitled here is a change to what correct authoring advice looks like. `scope` is not fingerprinted: the views are navigation, and hashing it made a one-off metadata addition read as 242 moved rules. Regenerate with `npm run spec:review` AFTER re-reading the rules the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/spec/rules.json",
-  "spec_rev": "d3e84371f2f3bedb03e3caca6ee51907d806f7be",
+  "spec_rev": "9fa661fb5182fd5d6d211ff8bb2eb695ea8de481",
   "rules": {
     "CARVE-P0-001": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -71,17 +71,9 @@
       "title": "A LAZY FOLD KEEPS THE CONTAINER OPEN FOR FOLLOWING LINES",
       "sha256": "88cbb8e9040768a13bb67f9eb6dcfaa0bfe1ff4856175d15f898cc44a45a5290"
     },
-    "CARVE-P0-016": {
-      "title": "A REAL DIV IS A CONTAINER LIKE ANY OTHER",
-      "sha256": "afce51b8fc7774488703f1e5db3f4827d2ddb7ae217ffcf01df27ac9bc604def"
-    },
     "CARVE-P0-017": {
       "title": "CONTAINER KIND DOES NOT DETERMINE CONTAINER REACH",
       "sha256": "674649360e90bfb7ef6b7e15f2735f9a5479164e65d5ff723caf60f5376d75ad"
-    },
-    "CARVE-P0-018": {
-      "title": "DEFINITION BODIES FOLLOW THE SAME CONTAINER REACH RULE",
-      "sha256": "e7168dd9e7abb3e57676aa5fd1edd3c27f9f366e8788dcb75eaf657eaf58c1e5"
     },
     "CARVE-P0-019": {
       "title": "A NEW MARKER DOES NOT REACH A DEAD CONTAINER'S COLUMN",
@@ -184,12 +176,8 @@
       "sha256": "b1b2c1f110a70db65014a3f87ac2f32081eb38bbb67d11db31bb85fdfe881813"
     },
     "CARVE-P2-016": {
-      "title": "INDENTATION IS COLUMNS, NOT CHARACTERS",
-      "sha256": "ec379ed66a5ad721e5348f9723937bbb54f3858d2b495886dc84856e33ffe73e"
-    },
-    "CARVE-P2-017": {
-      "title": "BELOW THE BODY'S COLUMN THE BODY ENDS",
-      "sha256": "46e2aec536a9bc9c7b0aa3ecdb34c6c0cce75b68dc1ec0fa15088343e4c3ad43"
+      "title": "DEFINITION SEPARATOR SETS THE BODY COLUMN",
+      "sha256": "dc3eb1a46ec05fa742d067386c0834af468e1587d6842ce805ad9d0b6e07f6c7"
     },
     "CARVE-P2-018": {
       "title": "AUTHORED BLOCK BASES",
@@ -278,10 +266,6 @@
     "CARVE-P3-014": {
       "title": "AN EMPTY BRACE PAIR IS NOT A CONSTRUCT",
       "sha256": "fc9d3764e4df3ec18e37f3877b0d962bd1636cf7e844cf725553d6479342f673"
-    },
-    "CARVE-P3-015": {
-      "title": "INDENTATION IS COLUMNS, NOT CHARACTERS",
-      "sha256": "15456f26ad070ca72e1644593e33fa4cc0541007335dfc23a7e5a6beffd703db"
     },
     "CARVE-P3-016": {
       "title": "EDITORIAL COMMENT CONTENT IS LITERAL",
@@ -1402,6 +1386,14 @@
     "CARVE-P9-082": {
       "title": "A CELL SLOT IS COUNTED, NOT WEIGHED",
       "sha256": "2b815d9b72b82830254c606faa20b18c8ef8ccf11e8eff5c525f70768795dbe1"
+    },
+    "CARVE-P9-083": {
+      "title": "C3 MARKER-BODY COLUMN AND EXTENT",
+      "sha256": "5b6be837dac3870adb497f9775c0d14a86765b68a79baba531120b445c69d508"
+    },
+    "CARVE-P9-084": {
+      "title": "ONE COLON-FENCE FRAME",
+      "sha256": "8e17683eb8b6a5e8ee538e3ea3584cd51772012929d9398f542bdd41c345f7d7"
     }
   }
 }

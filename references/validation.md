@@ -41,8 +41,8 @@ rule-specific details instead of display text.
 
 ## Modes and host checks
 
-- **Default** targets hand-written Carve. Its checks include constructs that mis-render: `**bold**`, `~~strike~~`, `^sup^`, `+` bullets, broken `</#id>` cross-references, duplicate heading ids, unresolved reference links, missing/duplicate/unused footnotes, trailing `{…}` attributes on a heading line, and legacy `` ```raw FORMAT `` fences.
-- **`--from-djot`** additionally flags valid Carve whose meaning merely *differs* from Djot — `_x_` (underline), `~x~` (strikethrough), `{=x=}` (highlight). Use it **only** when checking a document migrated from Djot; on hand-written Carve those are intentional and flagging them is noise.
+- **Default** targets hand-written Carve. It checks semantic errors and source that looks like intended markup but renders differently: `**bold**`, `~~strike~~`, `^sup^`, `+` bullets, a list marker folded into a paragraph, a table-shaped line missing its closing pipe, and `_word_` when italic may have been intended. The `markdown-italic-underline` hint is suppressible when underline is intentional. The current spec also names `heading-level-skip` for skipped heading levels; `a11y/heading-jump` is a deprecated input alias, and findings use the new id.
+- **`--from-djot`** flags valid Carve whose meaning differs from Djot, including `~x~` (strikethrough) and `{=x=}` (highlight). Use it when checking a document migrated from Djot.
 - **`--platform github`** enables host-specific checks for bare `@mention` and
   `#123` tokens that GitHub may relinkify after rendering. It is repeatable and
   these checks are off unless a platform is named.
@@ -97,6 +97,36 @@ If lint or `fmt --check` is not clean, fix per the finding and re-run. Most fixe
 map to [foundation traps](traps-foundations.md): `**b**` → `*b*`,
 `~~s~~` → `~s~`, `^x^` → `{^x^}`, and `+ item` → `- item`. For a trailing
 heading `{#id}`, use [structure trap 18](traps-structure-references.md).
+
+The current spec adds default authoring findings for malformed table rows and
+near-miss separators, unclosed emphasis, a gap before a link destination,
+unused link definitions, empty inline link destinations, bare HTML tags,
+Markdown-style definition paragraphs, and GitHub alert markers. The optional
+checks are `duplicate-reference-url`, `non-descriptive-link-text`,
+`emphasis-as-heading`, and `caption-looking-paragraph`. These names describe
+the spec; use the installed engine's rule set when interpreting its output.
+
+Suppress an intentional finding with a Carve line comment. `disable-line`
+applies to its own physical line; `disable-next-line` applies to the next one.
+`disable` lasts until a matching `enable` or the end of that file. Separate
+rule ids with spaces or commas; leaving them out selects all rules:
+
+````carve
+# Overview
+
+### Detail %% carve-lint-disable-line heading-level-skip
+
+%% carve-lint-disable markdown-italic-underline
+
+This _word_ is underlined.
+
+%% carve-lint-enable markdown-italic-underline
+````
+
+The directive must be a recognized line comment. Text inside code, raw content,
+an inline comment, or a fenced comment body is inert. Suppression in an included
+file stays in that file. Source-pattern checks ignore recognized comments;
+source-safety checks such as `bidi-control-in-source` still inspect them.
 
 Lint checks known hazards; it does not prove semantic intent. It is also
 silent when a fence opener is not an opener at all: ```` ```js {.diff} ```` has

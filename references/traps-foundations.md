@@ -51,7 +51,7 @@ dropped, `[>]` is deferred, and `[?]` is uncertain. Only done is checked.
 
 ## 3. `+` is the continuation marker, not a bullet
 
-Bullets are `-` and `*` only. `+` is reserved as the **continuation marker**; `+ text` is just paragraph text. A `+` is the marker in two places only (`CARVE-P9-031`): alone at **relative column 0**, the marker column of an open list item or the column right after a quote prefix (`> +`, `> > +`; `>+` is text), or **first after a block opener on its line** (`- +`, `1. +`, `: +`, `> +`, `[^a]: +`, `- [ ] +`; stacked openers such as `- - +` give the innermost). It transfers ONE block, written at the marker's column, to that container. A second attached block takes a second marker.
+Bullets are `-` and `*` only. `+` is reserved as the **continuation marker**; `+ text` is just paragraph text. A `+` is a marker in two places only (`CARVE-P9-067`): alone on its line at the marker column of an open list item, quote, description or footnote body, or alone on a marker line (`- +`, `1. +`, `: +`, `> +`, `[^a]: +`, `- [ ] +`; stacked openers such as `- - +` give the innermost; `>+` is text). It transfers ONE block to that container. A second block takes a second marker.
 
 ```
 - step one
@@ -71,19 +71,21 @@ A nested item has its own marker column, so `  +` under `  - b` attaches `> q` t
 para
 ```
 
-Any other `+` is text: at an item's content column (`  +` under `- a`), with no open item at its column, or followed by a list item at its column (a sibling). A marker followed by a blank line, the end of input or a block at another column is refused (`continuation-marker-refused`) and stays text. carve-js 0.1.13 implements this relative rule (`relative_plus_marker` in [capabilities.json](capabilities.json)); 0.1.12 and earlier dropped a refused `+` and gave the block after `  +` to the outer item, so for an older target give a nested item its block at the content column after a blank line.
+A `spec` fence in these guides holds spec-model output where released engines still differ.
 
-`fmt` indents a lone attached block; `+` survives only where indenting would
-merge two blocks in a top-level item (`CARVE-P11-030`), or at a nested item's
-marker column when the blank-line spelling would change the tree.
+**One attach rule for every host** (markup-carve/carve#4409). The next line's block attaches only when that line:
 
-The marker also works as a container's FIRST block: `- +`, `: +`, `> +` and
-`[^a]: +` offer the next block to the new container (`CARVE-P9-067`). A list
-item can take its next owned block at its content column as well as at its
-marker column. Other first-block hosts take a non-list block at column 0 or
-their own marker column. A list at column 0 below `> +`, `: +` or `[^a]: +`
-stays outside, and a list item at an open list's column is a sibling. Lint reports both as
-`continuation-marker-refused`.
+- is not blank, and carries the prefixes of the quotes around the host;
+- stands at the host's marker column, measured through those prefixes (and at the `+`'s own column for a lone `+`);
+- is not the host's sibling (a list marker under a list item, a `: ` or `:: ` line under a description) or the closer of an open div.
+
+No other column reaches. So a list attaches in every host except a list item, and `- +` over `  para` (content column) is refused:
+
+```
+:: t
+: +
+- a list inside the description
+```
 
 ````
 - +
@@ -93,20 +95,28 @@ code
 - next
 ````
 
-````html
-<ul>
-  <li>
-    <pre><code>code
-</code></pre>
-  </li>
-  <li>next</li>
-</ul>
-````
+**A refused `+` is a plain letter and ends nothing** (`CARVE-P9-085`, markup-carve/carve#4396): replacing it with `x` changes that one character, and `continuation-marker-refused` reports it. An empty item is written `- {empty}`.
 
-carve-js 0.1.13 accepts this first-block form in list items, descriptions,
-quotes and footnotes. `first_block_marker_quote` and
-`first_block_marker_footnote` in [capabilities.json](capabilities.json) test the
-quote and footnote forms against the installed engine. With no following block, a list item's first-block `+` leaves the item empty, while in a quote or footnote it is the text `+` (`CARVE-P9-067`).
+```
+- +
+
+para
+```
+
+```spec
+<ul>
+  <li>+</li>
+</ul>
+<p>para</p>
+```
+
+**Invisible lines after a `+` are skipped** (markup-carve/carve#4449): the test reads the first visible line after comments, definitions and attribute lines. Ruled; the spec at this pin still hides the `+` when a blank line follows them.
+
+**Released engines predate this.** carve-js through 0.1.15 pulls only non-list blocks into `> +`, `: +` and `[^a]: +`, takes `- +` over `  para`, and leaves a refused `- +` or `: +` empty; [capabilities.json](capabilities.json) measures it. A non-list block at the marker column reads the same everywhere, so prefer that.
+
+`fmt` indents a lone attached block; `+` survives only where indenting would
+merge two blocks in a top-level item (`CARVE-P11-030`), or at a nested item's
+marker column when the blank-line spelling would change the tree.
 
 ## 4. Visual-mnemonic emphasis (the delimiters are swapped)
 
@@ -128,24 +138,28 @@ quote and footnote forms against the installed engine. With no following block, 
 
 **Two bare marks may sit directly against each other**, which the word-boundary
 rule alone reads as forbidden - the character before a delimiter may not be `_`
-or `/`. PART 3's guard exempts the nesting case: a delimiter opens directly
-after a `_` or `/` when that character itself opens a span that CLOSES. So no
-brace form is needed to wrap one whole-word mark in another, and a half-written
-pair stays text.
+or `/`. PART 3's guard exempts the nesting case (`CARVE-P9-043`): a delimiter opens
+directly after a `_` or `/` that is an open entry on the stack, closed later or
+not. So no brace form is needed to wrap one whole-word mark in another.
 
 ````
 _*both*_ marks land.
-
-_*only one* closes.
 ````
 
 ````html
 <p><u><strong>both</strong></u> marks land.</p>
-<p>_*only one* closes.</p>
 ````
 
-Measured against `@markup-carve/carve` 0.1.10 and recorded as
-`nested_bare_emphasis` in `references/capabilities.json`.
+````
+_*only one* closes.
+````
+
+````spec
+<p>_<strong>only one</strong> closes.</p>
+````
+
+0.1.15 leaves the half-written pair as text (`nested_bare_emphasis` in
+`references/capabilities.json`).
 
 ## 5. No parenthesized ordered markers
 
@@ -207,7 +221,7 @@ b</p>
 </div>
 ````
 
-This is not trap 15's column strictness reaching one construct further; it is
+This is not a column rule reaching one construct further; it is
 the opposite. Verse has no indentation to skip, because a leading run is content
 the block preserves. The writer side says the same thing from the other end: the
 comment stays a node and `carve fmt` writes it back at the same column, so a
@@ -233,7 +247,9 @@ c
 
 ````html
 <div class="line-block">
-  <p>a <code>b c</code></p>
+  <p>a <code>b
+
+c</code></p>
 </div>
 ````
 
@@ -273,8 +289,9 @@ first character, S2 makes a line verbatim as soon as the innermost matched
 container is a fenced body, and section 28 makes a comment fence's body verbatim
 and invisible. None of the three is scoped to column 0, so a definition inside an
 indented comment fence registers nothing and a reference to it stays literal.
-This is not an exception to traps 11 and 15 - the fence still has to reach its
-container's content column to be a fence at all.
+A matched span is a comment at any column (`CARVE-P0-005`): below its container's
+content column it hides its body and closes that container. An opener with no
+exact-width closer is one `%%` line.
 
 The rule is pinned by corpus documents `335` to `341`
 (markup-carve/carve#1311), and `@markup-carve/carve` 0.1.5 carries it: a

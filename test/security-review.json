@@ -1,7 +1,7 @@
 {
   "$comment": "Which preamble/H2/H3 sections of spec/docs/security.md references/quality-and-safety.md was last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/security.md",
-  "spec_rev": "9fa661fb5182fd5d6d211ff8bb2eb695ea8de481",
+  "spec_rev": "b97ffd30a3071c7bc067d4cc6825789a1e1f6eea",
   "sections": {
     "Preamble": {
       "title": "Preamble",
@@ -21,7 +21,7 @@
     },
     "Attribute hardening (always on)": {
       "title": "Attribute hardening (always on)",
-      "sha256": "9854bd321ce33b6eef4ff374de16dcd8f5a3a6e10590dbd21e5f351c00183862"
+      "sha256": "0d49fc7c034ffb3690f55ac38e5e56a561bbb6747cb5169cb0b2fdf03effd27d"
     },
     "Invisible Unicode and Trojan Source (always on)": {
       "title": "Invisible Unicode and Trojan Source (always on)",

@@ -31,18 +31,18 @@ heading-then-prose now answer the same way.
 What you lose is source-wrapping a long heading. Keep headings short; there is
 no continuation form.
 
-## 15. Block markers are column-strict, and the separator is a literal space
+## 15. A block marker's separator is a literal space
 
-A top-level block opener must start at column 0, and a marker's separator is a
-literal space that a tab does not satisfy.
+A marker's separator is a literal space that a tab does not satisfy. Leading
+indentation does not stop an opener: ` # H` is a heading, and lint reports it as
+`block-opener-overindented` (carve-js through 0.1.15 reads it as prose).
 
 ```
- # H           ->  <p># H</p>          (leading space: prose, not a heading)
 >	q           ->  <p>&gt;	q</p>       (tab after the marker: prose, not a quote)
 ```
 
-Both are invisible in a diff and in most editors, so search for them rather than
-reading for them. Trap 11 is the same rule seen from the list-item side.
+A tab is invisible in a diff and in most editors, so search for one rather than
+reading for it. Trap 11 covers indented openers from the list-item side.
 
 ## 16. Attribute names are strict, but class and id values are not
 
@@ -58,8 +58,9 @@ block at all - it stays literal text.
 ```
 
 The failure is loud rather than silent: you see the braces in the output.
-GENERATED heading ids stay conservative either way - a digit-leading slug still
-takes the `s-` prefix.
+GENERATED heading ids stay conservative either way - a slug starting with a
+Unicode number (`\p{N}`, not only an ASCII digit) takes the `s-` prefix: `# ½ cup`
+gets `s-½-cup`.
 
 `class=VALUE` also writes the class slot, in source order with `.class`
 tokens in the spec (`CARVE-P4-007`). 0.1.10 merges the two into one HTML class

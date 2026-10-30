@@ -11,7 +11,7 @@ and 14–21 open the structure/reference guide. It is sourced from the spec's
 
 A **visible** block marker directly under a line of prose starts a block with no blank line before it: `#` heading, `>` quote, `|` table row, `:::` container, or a fence. (Djot would keep it in the paragraph.)
 
-A code or raw fence interrupts only when its opener is valid and a matching closer follows in the same context. An unclosed fence, or one whose info string is not valid, stays paragraph text:
+A code or raw fence with a valid opener always interrupts (markup-carve/carve#4018), closer or not. An unclosed fence runs to the end of its container, and `unclosed-code-fence` reports it:
 
 ````
 intro
@@ -19,11 +19,13 @@ intro
 code
 ````
 
-````html
-<p>intro
-<code>js
-code</code></p>
+````spec
+<p>intro</p>
+<pre><code class="language-js">code
+</code></pre>
 ````
+
+An invalid info string (```` ```js {.diff} ````) stays paragraph text, and so does an unclosed fence under prose through carve-js 0.1.15, so close every fence.
 
 ```
 intro
@@ -50,23 +52,33 @@ An attribute line between the prose and the block is the one place the two diffe
 The separator is a run of ONE OR MORE spaces, and its width sets the body's content column (`: x` establishes column 2, `:  x` column 3). **One space is canonical** - a wider separator parses and means the same thing, and `carve fmt` narrows it, carrying every continuation line inside that body down by the same amount.
 
 A description uses the same marker-body reach rule as list items and footnote
-definitions (`CARVE-P9-083`). A nonblank continuation at or past its content
-column belongs to the description. A blank run of any length stays inside it
-when the next nonblank line reaches that column; otherwise the body ends before
-that line. A line below the column can lazily continue its deepest open
+definitions (`CARVE-P9-083`). A nonblank line at or past its content
+column belongs to the description. A blank run stays inside it
+when the next nonblank line reaches that column. A line below the column can lazily continue its deepest open
 paragraph. A recognized block opener at or past the column starts a child
 block. Djot's `: term`
 with an indented body is a plain paragraph in Carve.
 
-A term has no content column of its own (`CARVE-P2-028`). A block opener
-indented past the containing block's content column folds into the term as
-text. Indented link and footnote definitions fold too and register nothing;
-comments stay hidden and leave the term open. At the containing column these
-lines end the term. List markers are the
-exception: they end the term at any column. Put a term's blocks in its `: `
-description. In `:: term` followed by `  # H`, 0.1.10 renders `# H` inside the
-term and reports `definition-term-block-folded`; 0.1.7 rendered the same and
-reported nothing, so on an older engine only the render shows the fold.
+A description list has no marker column of its own (markup-carve/carve#4180): a
+`: ` line below the open body's column is the next description at any column, also
+after a body a `+` filled (markup-carve/carve#4408). At or past that column it is
+text in the body.
+
+```
+:: t
+: a
+ : a second description
+```
+
+A term has no ownership of its own (`CARVE-P0-024`, markup-carve/carve#3885). A
+block opener, list marker, definition or comment under a term ends it, at any
+column, and an opener opens in the enclosing container: `:: term` over `  # H` is a
+one-term list, then a heading.
+
+Put a term's blocks in its `: ` description. Only plain text continues a term, and
+a lazy line does what it would do without the container (markup-carve/carve#4300):
+`> :: t` over ` : d` ends the quote, and `: d` is a paragraph. carve-js through
+0.1.15 folds these into the term and reports `definition-term-block-folded`.
 
 ## 10. Raw passthrough is target-routed
 
@@ -74,7 +86,9 @@ reported nothing, so on an older engine only the render shows the fold.
 
 ## 11. List continuation has Carve's minimum content column
 
-A block belongs to a list item only if it reaches the item's content column, the column the BARE marker and its separator end at (`- ` is 2, `1. ` is 3, `10. ` is 4). Bare is the operative word: a marker-attached attribute block and a task checkbox are both worth zero columns, so `-{.averylongclass} x` and `- [x] x` keep the column at 2 even though their text starts further right (see trap 17). A line below that column moves to the nearest enclosing container it reaches, the document for a top-level list, unless it lazily continues the deepest open paragraph. A block opener indented PAST the column still nests: Carve uses its authored column as that block's temporary base. The column is a MINIMUM, not an exact match. Blank runs stay in the item when a later nonblank line reaches the content column. TOP-LEVEL OPENERS STAY COLUMN-STRICT: at the top level a leading-indented ` # h`, ` > q`, `` ` ``` ` ``, or ` :::` is literal paragraph text, not a block. The `+` continuation marker (trap 3) still attaches a block written at its own marker column regardless.
+A block belongs to a list item only if it reaches the item's content column, the column the BARE marker and its separator end at (`- ` is 2, `1. ` is 3, `10. ` is 4). Bare is the operative word: a marker-attached attribute block and a task checkbox are both worth zero columns, so `-{.averylongclass} x` and `- [x] x` keep the column at 2 even though their text starts further right (see trap 17). A line below that column moves to the nearest enclosing container it reaches, the document for a top-level list, unless it lazily continues the deepest open paragraph. A block opener indented PAST the column still nests: Carve uses its authored column as that block's temporary base. The column is a MINIMUM, not an exact match. Blank runs stay in the item when a later nonblank line reaches the content column. An indented opener also opens at the top level (markup-carve/carve#3885): ` # h` and ` > q` are blocks, and lint reports `block-opener-overindented`; carve-js through 0.1.15 reads them as text. The `+` (trap 3) attaches a block only at its marker column.
+
+A definition line (`[r]: /u`, `*[A]: b`) that misses every frame ends the containers and defines (markup-carve/carve#4412); at or past a content column it stays text. Write it at column 0: the model at this pin still folds the columns between, and carve-js through 0.1.15 folds an abbreviation under an item.
 
 ## 12. Smart typography always runs, and keeps your source
 
@@ -117,24 +131,21 @@ literal text, because `key => value` is prose about code. A bare hyphen run in
 the flag position (`x --next`) stays literal, and `{--}` is the braced en dash
 that still converts there.
 
-| source | published 0.1.4 | 0.1.5 and later |
-| --- | --- | --- |
-| `a --> b` | en dash then a literal `>` | → |
-| `a ==> b` | `=` then ⇒ | ⇒ |
-| `a => b` | ⇒ | **literal `=>`** |
-| `a <=> b` | ≤ then `>` | ⇔ |
-| `{--}` | empty CriticMarkup delete | – |
-| `x --next` | en dash | `--next`, left alone |
+| source | 0.1.5 and later |
+| --- | --- |
+| `a --> b` | → |
+| `a ==> b` | ⇒ |
+| `a => b` | **literal `=>`** |
+| `a <=> b` | ⇔ |
+| `{--}` | – |
+| `x --next` | `--next`, left alone |
 
-Use the single-dash family only for an engine older than 0.1.5. `<==>` is not a
+`<==>` is not a
 spelling: it renders `⇐` followed by a literal `>`, because `<==` matches first.
-`doubled_arrows` in `references/capabilities.json` re-measures this each
-release.
+`doubled_arrows` in `references/capabilities.json` measures this.
 
-**Do not identify the build by its version field.** A published release and a
-git install of carve-js `main` can report the same `package.json` version,
-because that field only moves at a release cut, and the spec repository pins a
-git SHA rather than the npm package.
+**The version field does not identify a build:** a git install of carve-js `main` can
+report a release's version.
 
 ## 13. Containers nest, and an unclosed one closes at the end
 
@@ -157,8 +168,6 @@ match rather than reading the width as a depth count, so a `:::` container holds
 a `::: tip`, holds a `:::: tip`, and an opener with no closer ends at end of
 its enclosing container's end, or the document's end at top level. A bare closer still closes **one**
 container, not every one open above it.
-
-Measured against the published 0.1.11 engine:
 
 ```
 ::: note        →  a tip nested inside a note

@@ -21,6 +21,9 @@
   Markdown export reports escaped raw HTML as `raw-html-escaped`. A policy that
   omits the block instead reports `raw-format-dropped`.
 - Validate remote media/embed schemes and domains against the host policy.
+- An authored attribute value whose scheme is on the URL denylist is blanked,
+  so `{title="Shell: bash"}` renders `title=""`. Text the renderer derives a value
+  from (a link title, an image's alt text) stays as written.
 - Canonical Carve source is not a sanitized artifact. `carve fmt` and the `carve`
   render target preserve authored destinations, denied schemes included, because
   they owe a round trip of the parsed document; the HTML, Markdown and ANSI

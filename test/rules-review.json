@@ -1,7 +1,7 @@
 {
   "$comment": "Which active normative rules of spec/resources/spec/rules.json the skill was last read against, keyed by the stable rule id. The registry is the structured source of the whole normative surface - the grammar clause inventory is its title set and docs/rules/ is generated from it - so a clause added, retired or retitled here is a change to what correct authoring advice looks like. `scope` is not fingerprinted: the views are navigation, and hashing it made a one-off metadata addition read as 242 moved rules. Regenerate with `npm run spec:review` AFTER re-reading the rules the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/spec/rules.json",
-  "spec_rev": "9fa661fb5182fd5d6d211ff8bb2eb695ea8de481",
+  "spec_rev": "b97ffd30a3071c7bc067d4cc6825789a1e1f6eea",
   "rules": {
     "CARVE-P0-001": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -23,10 +23,6 @@
       "title": "BLOCK STRUCTURE IS ONE ORDERED PROCEDURE",
       "sha256": "9b2e223507713a4b796a353b8d3eec2a83effe09d4b65ed7c6f3fe7b0f50de82"
     },
-    "CARVE-P0-004": {
-      "title": "ONE AUTHORED BLOCK BASE",
-      "sha256": "0ffc76edc969e14b90a639b9717d8ff51aabde6ace37f0e1727621c98eadcbc9"
-    },
     "CARVE-P0-005": {
       "title": "COMMENTS ARE CLASSIFIED BEFORE BLOCK OWNERSHIP",
       "sha256": "b119fd812cbd029c473d65d1eb3ea94cc1909d4e8bda04f21cc91feb93873ca3"
@@ -42,10 +38,6 @@
     "CARVE-P0-008": {
       "title": "A FLOATING ATTRIBUTE BLOCK DOES NOT CHANGE THE CONTENT COLUMN",
       "sha256": "d2c5a98c137fd2725fd44a64009829699189d5b6cc2e57c84775c67b4353409e"
-    },
-    "CARVE-P0-009": {
-      "title": "A QUOTE'S LAST BLOCK MAY ITSELF BE A QUOTE",
-      "sha256": "321090b331d4796e2e73a19fb324227d65c3269f5fe2440ea0de76347ca39877"
     },
     "CARVE-P0-010": {
       "title": "A DEFINITION AT THE CONTENT COLUMN ENDS THE PARAGRAPH, NOT THE CONTAINER",
@@ -83,10 +75,6 @@
       "title": "AT OR PAST MEANS THE DEEPEST COLUMN THE LINE REACHES",
       "sha256": "5ac110a5d6934326ea026a3281ac710eb65d8a3d9b23c666d86e71a53033113d"
     },
-    "CARVE-P0-021": {
-      "title": "A BLOCK OPENER IN THE BAND FOLDS ON THE SAME TERMS",
-      "sha256": "e48f7c9a08b2834577a68f1f5fc4e8d895e261b9999f41fb35d4c31a7c5c3c18"
-    },
     "CARVE-P2-001": {
       "title": "A HEADING MARKER STARTS AT ITS CONTAINER'S CONTENT COLUMN",
       "sha256": "fa1e23ff7850230b97d613bd42fdba758c2fd86f306a123301b28081f44a278d"
@@ -123,6 +111,10 @@
       "title": "UNRESOLVED MARKDOWN REFERENCES KEEP THEIR SYNTAX ON IMPORT",
       "sha256": "f08a049dcea1aea8fa0ee7e92875aa7cc913ff3e3b1411d4fff885070f59aa54"
     },
+    "CARVE-P2-033": {
+      "title": "A GITHUB ALERT IMPORTS AS AN ADMONITION",
+      "sha256": "f3c3fbdc7cc186525f910689ba7c72f25a690623d1d6971cc09b272e0d2b2dd5"
+    },
     "CARVE-P2-006": {
       "title": "COLUMN-EXACT DELIMITERS",
       "sha256": "1fbebd53c713beb7a490c5e5a0090d706db884c71fb409dfb8f3a0852610e26a"
@@ -146,10 +138,6 @@
     "CARVE-P2-027": {
       "title": "WHICH CHARACTERS THE CONTENT TEST IGNORES",
       "sha256": "d26957c69de2371d8e810d1ae46f3691e1d7ecc3d2726cd6611522490b339f2d"
-    },
-    "CARVE-P2-028": {
-      "title": "A TERM HAS NO CONTENT COLUMN",
-      "sha256": "84c9ae4569e74e9342d9a405c47d199f1faf863991736f4783787593178fd6f7"
     },
     "CARVE-P2-010": {
       "title": "A LEADING CONTENT TAB FOLLOWS NORMAL INDENTATION",
@@ -491,21 +479,13 @@
       "title": "L1b AN INVISIBLE LINE DOES NOT CANCEL THE SEPARATION",
       "sha256": "195e81901944ea71f74913fbbe2be81b56164c47bdb934ef7aa4816f66729b6b"
     },
-    "CARVE-P9-031": {
-      "title": "CONTINUATION-MARKER REACHES ITS OWN COLUMN",
-      "sha256": "db96306b245c7123298642df4e505be52228b4553bb00613c784787de19224e4"
-    },
-    "CARVE-P9-032": {
-      "title": "ONE IS A COUNT AND THE BOUNDARY IS NOT",
-      "sha256": "0a78f5955b7bf58c132b359cb4dd4290f1d6cb6db2d3a0ba9c89e44c68783cd4"
-    },
-    "CARVE-P9-033": {
-      "title": "THE MARKER IS ONE OPERATION IN EVERY CONTAINER",
-      "sha256": "1b562f395adfa22b88c9ae5d5554ff86190137816f3783be1036ceee39632d5e"
-    },
     "CARVE-P9-067": {
-      "title": "EVERY CONTAINER THAT TAKES THE MARKER TAKES THE FIRST-BLOCK FORM",
-      "sha256": "0af09cbb746532778ec4d9aea5a9ef192e9667ec20572da36f24ce91f4d837d3"
+      "title": "ONE ATTACH RULE FOR EVERY HOST",
+      "sha256": "c7398e14bd174c13fc25536334251a47be8e4791d4f56ee6427ad7b8503b940b"
+    },
+    "CARVE-P9-085": {
+      "title": "A REFUSED `+` IS A PLAIN LETTER",
+      "sha256": "c4adc872d33123ea78fde74211281d8e22e1e9c52ea8cb286cd0788b303be127"
     },
     "CARVE-P9-068": {
       "title": "A RETURNED DOCUMENT NEVER SILENTLY LACKS AUTHORED TEXT",
@@ -552,8 +532,8 @@
       "sha256": "3a72d74bfdb63cac5d2bb164a92f680bdbcf3bd1e42a105e0c715987a00d359d"
     },
     "CARVE-P9-043": {
-      "title": "FORCED EMPHASIS AND EXPLICIT SAME-TYPE NESTING",
-      "sha256": "ec01db579d9b61094c90a4e630779fa638644272fb7cac228af99e21f3262601"
+      "title": "INLINE PAIRING",
+      "sha256": "7f8ecd5d43fd39e91309042968f543a02ed039553fe446f1327532e1141ef973"
     },
     "CARVE-P9-044": {
       "title": "LINE BLOCK (VERSE)",
@@ -588,12 +568,8 @@
       "sha256": "d329321cc1cf4b4a83a06a9f5c8289736d35d9bfe507bf99ab966050561e83fe"
     },
     "CARVE-P9-052": {
-      "title": "AN INVISIBLE LINE FOLDS LIKE ANY OTHER",
-      "sha256": "fc69973931f5d88db2ca4a0dc3721486edf46a6c00f00f240144788633d3ba75"
-    },
-    "CARVE-P9-053": {
-      "title": "A COMMENT IS THE ONE EXCEPTION",
-      "sha256": "631c5b4cc17bd99609d4e602056fc36a2624dc1cb228ff3e2be7dba265bd1045"
+      "title": "AN INVISIBLE LINE BELOW THE COLUMN INTERRUPTS",
+      "sha256": "286a30c3bc118a00035d021fdb13fb2d8459347cdb8dc3ca68c5d4b934ab9b9f"
     },
     "CARVE-P9-054": {
       "title": "SECURITY REQUIREMENTS",
@@ -744,8 +720,8 @@
       "sha256": "a6ad5ad598743fc4bbda4e6547e971bab91b1ee7ffce4c780e0738d04e2001c4"
     },
     "CARVE-P11-005": {
-      "title": "WRAPPER LOSS IS THE ONLY EQUALITY CARVE-OUT",
-      "sha256": "d23e15224112e835504da4f675dc4a1b19c0d6ad69cb0413fd9eabb82d476df8"
+      "title": "WRAPPER LOSS IS THE ONLY STRUCTURAL EQUALITY CARVE-OUT",
+      "sha256": "d8350940685d62fc78f566c4068619543b52b348724fdc49a06f24940202c51c"
     },
     "CARVE-P11-046": {
       "title": "THE CONVERSION-DIAGNOSTICS CHANNEL",
@@ -960,8 +936,8 @@
       "sha256": "e366881a196c0874ab2d60839aa9be9d46645db81b90b2db27c41f6066e0afba"
     },
     "CARVE-P11-066": {
-      "title": "A TABLE'S SEPARATOR ROW IS WRITTEN WHERE THE AUTHOR WROTE ONE",
-      "sha256": "ccd8bbef1a06060e9a4ed64d57d761f37af0eaf6dad743e96ea4a8839cc0a33a"
+      "title": "THE ROUNDTRIP WRITER PRESERVES A TABLE'S SEPARATOR ROW",
+      "sha256": "c9cd61222f3eb20fc072f63247192d798378d5e5674941c60005273b2c740299"
     },
     "CARVE-P11-067": {
       "title": "THE CARRIER MODE ALSO CARRIES AN ATTRIBUTE LINE, A DEFINITION LIST AND A CAPTION",
@@ -1030,6 +1006,14 @@
     "CARVE-P11-076": {
       "title": "REPEATED EMPHASIS KINDS ARE WRITTEN BRACED",
       "sha256": "99109f114d7abe88d159b03b62a70463fa10f8ef8aac17f9e0f253880ef171fd"
+    },
+    "CARVE-P11-077": {
+      "title": "A PARAGRAPH LINE OF DASHES ALONE IS WRITTEN WITH THE GLYPH",
+      "sha256": "02efb800e3f5ad026170c32b3df3540ceee43f9993ffbd4610c90f8551aae872"
+    },
+    "CARVE-P11-078": {
+      "title": "A VERBATIM VALUE LINE THAT OPENS A BLOCK IS SPELLED OR REFUSED",
+      "sha256": "ab9e1ea4f46f3a507daf3ab224ce408b793c9ef7ebbcf3e0f18114b092cbfc67"
     },
     "CARVE-P12-001": {
       "title": "AST TYPE NAMES FOLLOW THE PROFILE VOCABULARY",
@@ -1323,10 +1307,6 @@
       "title": "A MATCHING RAW BLOCK KEEPS ITS PLACEMENT SLOT",
       "sha256": "34c7975adb3df72a4e4486e617a76adf2eeb2cf729887f828096d901537ef71e"
     },
-    "CARVE-P0-022": {
-      "title": "AN OPAQUE MARKER-LINE QUOTE PRESERVES THE BAND AS TEXT",
-      "sha256": "e3a0c1f303b975c2f845bb0e3d0312526ad02ab9b754d61902f0ed680d596956"
-    },
     "CARVE-P10-013": {
       "title": "AN ESCAPED RAW BLOCK IS WRITTEN AS CODE",
       "sha256": "889f8402af502d1ee9eaa4f79200347821039b0c70eb9b230fa21eb15e2c86ca"
@@ -1374,6 +1354,14 @@
     "CARVE-P3-025": {
       "title": "A DELIMITER IS A WHOLE GRAPHEME",
       "sha256": "477d48eb4601c108adf899d6b1dd029405f7676468f8e2024b52a51674f62f7e"
+    },
+    "CARVE-P3-026": {
+      "title": "GENERIC EXTENSION CONTENT IS INLINE CONTENT",
+      "sha256": "9c796b8a0fe558b36f7aca575ad32d3ab9b79afc7873b08981c49c4b94401e3c"
+    },
+    "CARVE-P3-027": {
+      "title": "AN INERT MENTION OR TAG RENDERS ITS FULL SPELLING IN STRONG",
+      "sha256": "ba3e0b9e1cd7c0f1871989515e40027e20a0cdcaf135af843c080e3e390dc3de"
     },
     "CARVE-P9-080": {
       "title": "A STRUCTURAL-ONLY LINE RESETS CAPTION SCOPE",

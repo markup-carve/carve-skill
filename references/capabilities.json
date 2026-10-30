@@ -53,7 +53,7 @@
       "syntax": "_*x*_, one bare mark directly inside another",
       "spec": true,
       "inTestedEngine": true,
-      "guidance": "PART 3's word-boundary guard exempts a delimiter that opens directly after a `_` or `/` which itself opens a span that closes. `_*x*_` nests; `_*x* q` stays literal."
+      "guidance": "PART 3's word-boundary guard (CARVE-P9-043) exempts a delimiter that opens directly after a `_` or `/` that is an open entry on the stack, closed later or not. `_*x*_` nests. `_*x* q` nests the strong in the spec; 0.1.15 leaves it literal."
     },
     "fence_opener_fallback_lint": {
       "syntax": "carve lint reporting a fence opener whose info string is not valid",
@@ -80,22 +80,22 @@
       "guidance": "Shipped in 0.1.5, and `=>` STOPPED converting in the same release. Write -->, <--, <-->, ==>, <== or <=>. The single-dash ->, <- and <-> are deprecated but still convert; `=>` is literal text now."
     },
     "first_block_marker_quote": {
-      "syntax": "> + over a non-list block at column 0",
+      "syntax": "> + over a block at the quote's marker column",
       "spec": true,
       "inTestedEngine": true,
-      "guidance": "Spec rule CARVE-P9-067. carve-js 0.1.13 accepts the first-block form in lists, descriptions, quotes and footnotes. It pulls a non-list block only: a column-0 list below > +, : + or [^a]: + stays outside and lint reports continuation-marker-refused."
+      "guidance": "Spec rule CARVE-P9-067 (markup-carve/carve#4409): one attach rule, and a list attaches in every host except a list item. carve-js 0.1.13 to 0.1.15 accepts the first-block form in lists, descriptions, quotes and footnotes but pulls a non-list block only: a column-0 list below > +, : + or [^a]: + stays outside and lint reports continuation-marker-refused."
     },
     "first_block_marker_footnote": {
-      "syntax": "[^a]: + over a non-list block at column 0",
+      "syntax": "[^a]: + over a block at the note's marker column",
       "spec": true,
       "inTestedEngine": true,
-      "guidance": "carve-js 0.1.13 places the following code block inside the footnote. A column-0 list is not pulled (markup-carve/carve#3482); 0.1.11 and 0.1.12 still pulled it."
+      "guidance": "carve-js 0.1.13 to 0.1.15 places the following code block inside the footnote. A column-0 list attaches under the spec (markup-carve/carve#4409) and is not pulled in those releases; 0.1.11 and 0.1.12 still pulled it."
     },
     "relative_plus_marker": {
       "syntax": "a lone + at an open nested item's marker column attaches the next block written at that column to the nested item; a + at any other column is text",
       "spec": true,
       "inTestedEngine": true,
-      "guidance": "Spec CARVE-P9-031 at relative column 0 (markup-carve/carve#3445). carve-js 0.1.13 implements it. 0.1.12 and earlier attach the block after an indented + to the outer item and drop a refused +; for those targets put a nested item's block at its content column after a blank line."
+      "guidance": "Spec CARVE-P9-067 (markup-carve/carve#3445, #4409). carve-js 0.1.13 implements it. 0.1.12 and earlier attach the block after an indented + to the outer item and drop a refused +; for those targets put a nested item's block at its content column after a blank line."
     },
     "delimited_table": {
       "syntax": "{table} on the line above a csv or tsv fence",

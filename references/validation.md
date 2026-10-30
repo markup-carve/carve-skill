@@ -62,11 +62,11 @@ and reports nothing for them. Others only `fmt` reports: a bare `---`
 frontmatter opener (canonical `---yaml`), a definition separator padded past
 one space, and table cells padded to align a column. None of them is wrong -
 the formatter has one spelling for each. For tables, author header cells with
-`|=` and glue alignment to the marker (`|=<`, `|=~`, `|=>`). The current
-canonical writer keeps a recorded GFM separator row where the author wrote it
-(`CARVE-P11-066`), so neither lint nor `fmt --check` flags one. The ruling in
-markup-carve/carve#3784 (2026-10-27) will make `carve fmt` rewrite these rows
-to `|=` header cells; `--roundtrip` will still preserve them. A project that
+`|=` and glue alignment to the marker (`|=<`, `|=~`, `|=>`). `carve fmt` rewrites
+a GFM separator row to `|=` header cells, except a spanned header the native form
+cannot spell, and `--roundtrip` preserves it (`CARVE-P11-066`). carve-js 0.1.15 and
+carve-rs 0.1.13 still keep the row, so neither lint nor `fmt --check` flags one
+there. A project that
 keeps its tables aligned checks with `carve fmt --align-tables --check` instead:
 that opt-in mode pads every cell to its column's width, wide characters counting two
 (`CARVE-P11-071`, carve-js 0.1.12 and later).
@@ -101,7 +101,10 @@ heading `{#id}`, use [structure trap 18](traps-structure-references.md).
 The current spec adds default authoring findings for malformed table rows and
 near-miss separators, unclosed emphasis, a gap before a link destination,
 unused link definitions, empty inline link destinations, bare HTML tags,
-Markdown-style definition paragraphs, and GitHub alert markers. The optional
+Markdown-style definition paragraphs, GitHub alert markers,
+`block-opener-overindented` for an opener indented past its owner's content column,
+and `emphasis-marker-before-attributes` for a bare marker glued to an attribute
+block whose attachment is not the visible one. The optional
 checks are `duplicate-reference-url`, `non-descriptive-link-text`,
 `emphasis-as-heading`, and `caption-looking-paragraph`. These names describe
 the spec; use the installed engine's rule set when interpreting its output.
@@ -174,7 +177,8 @@ coverage in an npm release.
 Spec 0.1.10 added three lint findings, and carve-js 0.1.12 reports all three:
 `empty-reference-definition` for a bare `[label]:`, and
 `delimited-table-malformed` and `delimited-table-wide-row` for a `{table}`
-`csv` or `tsv` fence. For definition-term folding, see
+`csv` or `tsv` fence. `definition-term-block-folded` retires as engines adopt
+markup-carve/carve#3885; see
 [block trap 9](traps-blocks-containers.md#9-definition-lists-explicit-markers-one-block-per-definition).
 
 Two findings for fences and continuation markers arrived in carve-js 0.1.13;
@@ -185,15 +189,16 @@ Two findings for fences and continuation markers arrived in carve-js 0.1.13;
   marker is code. Legal and rarely meant. The finding sits at the opener and
   says where the block ended; add the closing fence where the code should stop.
 - `continuation-marker-refused`: a lone `+` at an open container's marker
-  column, or a first-block `- +`, that attaches nothing: a blank line or the end
-  of input follows it, a sibling list item starts at that column, or the next
-  line sits at another column. Since markup-carve/carve#3445 the spec also
-  reports a `+` that no open container claims, and a column-0 list below a
-  first-block `> +`, `: +` or `[^a]: +`, which pulls only non-list blocks. The
-  refused `+` stays text (or fence payload at a fence's content column), except
-  that a refused first-block `- +` or `: +` leaves its item or description
-  empty; carve-js 0.1.12 drops it. Delete the blank line to attach the block,
-  move the block to the marker's column, or delete the `+`.
+  column, or a `+` that is the whole content of a marker line (`- +`, `: +`,
+  `[^a]: +`, `> +`), that attaches nothing: the next line is blank or missing,
+  lacks the prefix of a quote around the host, stands at another column, is the
+  host's sibling or closes an open div (`CARVE-P9-067`, markup-carve/carve#4409).
+  It also reports a `+` that no open container claims. The refused `+` is a plain
+  letter (or fence payload at a fence's content column), also on a marker line:
+  `- +` over a blank line renders `<li>+</li>`. carve-js through 0.1.15 leaves a
+  refused `- +` or `: +` empty and reports a column-0 list below `> +`, `: +` or
+  `[^a]: +`, which now attaches. Delete the blank line to attach the block, move
+  the block to the marker's column, or delete the `+`.
 
 ```
 - item
@@ -204,9 +209,7 @@ Meant for the item.
 
 reports `continuation-marker-refused` at the `+`.
 
-Three column findings for lists arrived in carve-js 0.1.13. Carve keeps the
-strict column model, so none of them is fixed by aligning markers on their
-delimiter:
+Three column findings for lists arrived in carve-js 0.1.13:
 
 - `list-marker-below-content-column`: a marker past an item's marker column
   but below its content column. Without a blank line it folds into the item's
@@ -214,9 +217,10 @@ delimiter:
   `   - d` at column 3 is text. Indent it to the content column (4) to nest it,
   or start it at column 0 for a sibling. The auto-numbered `.` marker avoids
   the trap because it never widens.
-- `ordered-list-split-by-indent`: ` 9. nine` over `10. ten` renders two lists
-  because the first markers start in different columns. Start them in the
-  same column, or write `{start=9}` above an auto-numbered `.` list.
+- `ordered-list-split-by-indent`: ` 9. nine` over `10. ten` rendered two lists
+  through carve-js 0.1.15. Since markup-carve/carve#3885 siblings group by
+  container, not column, so that is one list and the rule retires as engines
+  adopt the ruling. Start the markers in the same column for older engines.
 - `description-separator-below-content-column`: a `:` or `::` left of the
   definition list it seems to continue inside a list item or other indented
   container adds no entry; it folds into the open term or description as

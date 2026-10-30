@@ -63,7 +63,7 @@ ATX `#`..`######`. Attributes go on the line **above**:
                     ports to Markdown and Djot.)
 ```
 
-`+` alone at an open item's marker column continues that item (attaches the next block at that column; a `+` at any other column is text). A nested item works the same way at its own marker column, from carve-js 0.1.13 on:
+`+` alone at an open item's marker column, or alone on its marker line (`- +`), hands the item the next block at that column, unless it is a sibling item. Every other `+` is a letter ([trap 3](traps-foundations.md)):
 
 ```
 - step one
@@ -173,10 +173,8 @@ Alignment markers attach to `|=`: `<`, `~`, and `>` set the horizontal axis.
 A data-cell marker overrides the column alignment for that cell. The second
 axis sets vertical alignment; `?` keeps the column's horizontal alignment.
 Write headers with `|=` cells and glue alignment to the marker (`|=<`, `|=~`,
-`|=>`). The current canonical writer keeps a recorded GFM separator row
-(`CARVE-P11-066`), so lint and `fmt --check` do not flag it. Under the ruling
-in markup-carve/carve#3784 (2026-10-27), `carve fmt` will rewrite that row;
-`--roundtrip` will still preserve it. `+` continues the cell above;
+`|=>`). `carve fmt` rewrites a GFM separator row to `|=` cells where they can
+spell it (`CARVE-P11-066`); released engines still keep it. `+` continues the cell above;
 `^` spans rows and `<` spans columns.
 
 Span and alignment rules: [table cells](traps-structure-references.md#table-cells).
@@ -243,7 +241,7 @@ tags: [carve, markup]
 ```
 
 Core never expands an include and the braces stay, but the bytes inside still
-parse as inline content, so only a directive carrying no inline marker comes back
-verbatim: the `@shift` above renders as a mention.
+parse as inline content, so the `@shift` above renders as a mention. A directive
+with no inline marker, or invalid on its face (a bad `@lines`), comes back verbatim.
 
 Files are `.crv`, media type `text/x-carve; charset=utf-8`.

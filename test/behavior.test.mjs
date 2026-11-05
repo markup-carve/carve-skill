@@ -97,13 +97,15 @@ const PROBES = {
   // engine emitted that before the second axis existed. `vertical-align` is the
   // half that only appears once the feature does.
   vertical_cell_alignment: { source: '|=<^ A |\n| x |', present: 'vertical-align: top' },
+  // The braced spelling of the same feature; a pre-D3 engine prints `={&lt;^}` as text.
+  braced_cell_alignment: { source: '|={<^} A |\n| x |', present: 'vertical-align: top' },
   // The CLOSING half is what tells the exemption from its absence: `_*x*_`
   // marking proves a bare `*` opened against a `_`, and the second line proves
   // the exemption is conditional on the outer span closing rather than a blanket
   // relaxation of the guard.
   nested_bare_emphasis: {
     source: '_*x*_\n\n_*y* q',
-    presentAll: ['<u><strong>x</strong></u>', '_*y* q'],
+    presentAll: ['<u><strong>x</strong></u>', '_<strong>y</strong> q'],
   },
   // A LINT probe, not a render one. The claim is about what the LINTER reports;
   // rendering this sample would only re-measure the degradation the skill
@@ -111,7 +113,7 @@ const PROBES = {
   // records `false`, so this reads "no finding names it" and flips on its own
   // the release the engine starts emitting it.
   fence_opener_fallback_lint: {
-    source: 'Intro.\n\n```js {.diff}\nx\n```\n',
+    source: 'Intro.\n\n```{.x}\nx\n```\n',
     lintRule: 'fence-opener-fallback',
   },
   // The PLACING path is the probe, because the degraded `<div>` already carries
@@ -162,12 +164,12 @@ test('a footnote in link text renders without a nested link', () => {
   assert.doesNotMatch(html, /<a href="\/u">[^<]*<a /)
 })
 
-test('first-block marker in a footnote pulls a block but not a column-0 list', () => {
+test('first-block marker in a footnote pulls a block and a column-0 list', () => {
   const code = carveToHtml('[^a]: +\n```\ncode\n```\n\nSee [^a].\n')
   assert.match(code, /<li id="fn1">[\s\S]*<pre><code>code/)
   const list = carveToHtml('[^a]: +\n- a list\n\nSee [^a].\n')
-  assert.match(list, /^<ul>\n  <li>a list<\/li>/)
-  assert.ok(lintCarve('[^a]: +\n- a list\n\nSee [^a].\n').some((finding) => finding.rule === 'continuation-marker-refused'))
+  assert.match(list, /<li id="fn1">\s*<ul>\s*<li>a list<\/li>/)
+  assert.ok(!lintCarve('[^a]: +\n- a list\n\nSee [^a].\n').some((finding) => finding.rule === 'continuation-marker-refused'))
 })
 
 test('footnote labels match spaces but keep tabs distinct', () => {

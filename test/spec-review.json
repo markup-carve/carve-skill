@@ -1,11 +1,11 @@
 {
   "$comment": "Which spec divergence sections the topic guides in references/traps-*.md were last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/divergence-from-djot.md",
-  "spec_rev": "b97ffd30a3071c7bc067d4cc6825789a1e1f6eea",
+  "spec_rev": "5c697a891c7a2f820e1f194402645954615713aa",
   "sections": {
     "1": {
       "title": "Case-preserving heading ids, matched exactly",
-      "sha256": "0dcfe3428c6ac3aeb6bb8a115a70927368132201416ca96004206740d26bae6a"
+      "sha256": "418b349f1e58281a413f9eb35dea829ad0b6ac5b343364efc1f54ae4021060b2"
     },
     "2": {
       "title": "A list marker must have content",
@@ -13,7 +13,7 @@
     },
     "3": {
       "title": "`+` is the continuation marker, not a bullet",
-      "sha256": "fbe6d8403646aa6452f6b377cd3575ef440aac835d17f45b41e5d3aca02c79b7"
+      "sha256": "f559ddb4a78a022dc05b24c74e38fa0a103cd2294213f251eced76e4f669d3c2"
     },
     "4": {
       "title": "Visual-mnemonic emphasis",
@@ -37,7 +37,7 @@
     },
     "9": {
       "title": "Definition lists use explicit markers",
-      "sha256": "0fd73ee77d99e671f3df60b77a22852b175527585ce9d8a4c78e7d4483e9cb1e"
+      "sha256": "3bf1b0e966fd4945ab0658fedbc7a4eff1d772030cadc5cf991838e88956b3d3"
     },
     "10": {
       "title": "Raw passthrough is target-routed (and the pandoc boundary)",
@@ -45,11 +45,11 @@
     },
     "11": {
       "title": "List continuation has Carve's minimum content column",
-      "sha256": "9f17639bca2a0fac9ee210ed0495d816406596aa4dbed6e4cd48e32cc742e714"
+      "sha256": "63c832c0ac07a8e636d0edbba0a8e3dc6b4227f937fec074e5dfc7cfd0364e5d"
     },
     "12": {
       "title": "Smart punctuation is one leaf node, not three container types",
-      "sha256": "b92a045dd0a5950aa035ef3a518d651698cb870c88ecc09b2f0b8004c3c2d164"
+      "sha256": "8ceab688069dd37b07b6fd141382f9c55b34caf0814dcdb3ce9ef5f85aabff33"
     },
     "13": {
       "title": "A colon fence closes on an exact length match",
@@ -73,11 +73,11 @@
     },
     "18": {
       "title": "An attribute line in inline position is preserved, not consumed",
-      "sha256": "2dc9868a3c9dbc29ae3ffa87724f8444bfc85f1f9878e8b41797dc77749963da"
+      "sha256": "1ed2c2cdadbf6b14c6e649e52f67a17a496d16d4b8d2a1c6c36e30dc5b8ce78e"
     },
     "19": {
-      "title": "An attached sub-block leaves the item tight",
-      "sha256": "1d620d9109d1d74cea8122d718eec6bf299776b96ce129ce6aa351aab67de2aa"
+      "title": "A blank line before a nested list loosens the item",
+      "sha256": "6ff0fa81d5ec51abbf3b6e0889cbd2fb022c1ede4f7cb91e7224afa701462796"
     },
     "20": {
       "title": "A typed container is a native admonition",

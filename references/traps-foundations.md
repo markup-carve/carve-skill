@@ -95,7 +95,7 @@ code
 - next
 ````
 
-**A refused `+` is a plain letter and ends nothing** (`CARVE-P9-085`, markup-carve/carve#4396): replacing it with `x` changes that one character, and `continuation-marker-refused` reports it. An empty item is written `- {empty}`.
+**A refused `+` renders nothing and ends nothing** (`CARVE-P9-067`, markup-carve/carve#5013): PART 9 §17 L3 consumes the marker without attaching a block, and `continuation-marker-refused` reports it. A `+` off every marker column, at document level or past a quote's marker column stays a plain letter and is not reported. An empty item is written `- {empty}`.
 
 ```
 - +
@@ -105,14 +105,14 @@ para
 
 ```spec
 <ul>
-  <li>+</li>
+  <li></li>
 </ul>
 <p>para</p>
 ```
 
 **Invisible lines after a `+` are skipped** (markup-carve/carve#4449): the test reads the first visible line after comments, definitions and attribute lines. Ruled; the spec at this pin still hides the `+` when a blank line follows them.
 
-**Released engines predate this.** carve-js through 0.1.15 pulls only non-list blocks into `> +`, `: +` and `[^a]: +`, takes `- +` over `  para`, and leaves a refused `- +` or `: +` empty; [capabilities.json](capabilities.json) measures it. A non-list block at the marker column reads the same everywhere, so prefer that.
+**Released engines predate this.** carve-js through 0.1.15 pulls only non-list blocks into `> +`, `: +` and `[^a]: +`, and takes `- +` over `  para`; [capabilities.json](capabilities.json) measures it. A non-list block at the marker column reads the same everywhere, so prefer that.
 
 `fmt` indents a lone attached block; `+` survives only where indenting would
 merge two blocks in a top-level item (`CARVE-P11-030`), or at a nested item's
@@ -167,7 +167,12 @@ Ordered lists use `.` and `)` only (`1.` / `1)`). `(1)`, `(a)`, `(i)` stay liter
 
 ## 6. Plain-text comments
 
-`%%` to end of line, `text %% trailing`, or a `%%%` fenced block. Not `<!-- -->`.
+`%%` to end of line, `text %% trailing`, or a `%%%` fenced block. Not `<!-- -->`
+(`html-comment-renders-as-text` reports it).
+
+A comment line is erased before layout: `a`, `%% c`, `b` is one paragraph
+(markup-carve/carve#5012; 0.1.15 split it). An unclosed `%%%` hides the rest of
+its container (markup-carve/carve#4907).
 
 `%%` runs to the end of its inline **run**, so prose cannot resume after it on the
 same line. Structure supplies a boundary where there is one — a table cell ends at
@@ -232,10 +237,7 @@ publish the very text the comment exists to hide.
 rules above meet in one document, and the spec settles it at the block layer
 (markup-carve/carve#1333, shipped as markup-carve/carve#1339): the comment is
 gone before the run exists, and the run carries the emptied line as a newline -
-so the run STAYS OPEN across it. `@markup-carve/carve` 0.1.5 carries it, and so
-does the build the spec pins. 0.1.3 hid the comment but closed the run at the
-end of its line, which is why this entry claimed a different rendering until it
-was re-measured.
+so the run STAYS OPEN across it.
 
 ````
 ::: |
@@ -259,12 +261,7 @@ two paragraphs up, and the whole of the difference between the two constructs.
 
 **Status: shipped, in every released engine.** Spec section 21a
 (markup-carve/carve#1239) takes Djot's `{% … %}` unchanged, so `foo {% bar %} baz`
-renders `<p>foo  baz</p>`. This entry previously said no released engine had it,
-measured against `@markup-carve/carve` 0.1.3; the 2026-08-18 round shipped it in
-all three. Re-measured against the PUBLISHED packages on that date:
-`@markup-carve/carve` 0.1.5 renders `<p>a  b</p>` for `a {% hidden %} b`, and
-carve-php 0.1.5 and carve-rs 0.1.3 each record the same behavior change in the
-CHANGELOG of their released tag.
+renders `<p>foo  baz</p>`.
 
 So **`{% … %}` is safe to write.** `%%` remains correct and is still the right
 choice for a whole-line or end-of-line comment; the delimited form is for the

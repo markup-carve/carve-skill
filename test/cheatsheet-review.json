@@ -1,7 +1,7 @@
 {
   "$comment": "Which rows of spec/docs/cheatsheet.md the syntax card in references/syntax.md was last read against. The card is the source that page is derived from, and a row keeps its construct token while its meaning is rewritten - so presence of the token proves nothing and the row is fingerprinted instead. Regenerate with `npm run spec:review` AFTER re-reading the rows the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/cheatsheet.md",
-  "spec_rev": "b97ffd30a3071c7bc067d4cc6825789a1e1f6eea",
+  "spec_rev": "5c697a891c7a2f820e1f194402645954615713aa",
   "rows": {
     "#preamble / prose 1": {
       "title": "---",
@@ -135,10 +135,9 @@
       "title": "`\\*literal\\*` | escape | backslash + any ASCII punctuation",
       "sha256": "94e317fa7cc519d52f1835ecc682752fb923341f87e390b070116e4516eeafa2"
     },
-    "Inline / row: `--` `---` `...` `-->` `==>` `(c)`": {
-      "title": "`--` `---` `...` `-->` `==>` `(c)` | – — … → ⇒ © | smart typography; see the note below",
-      "sha256": "9540ed06760c7f8d4f38269a353d7f7187276d6479150f428dddd88a2a38b14c",
-      "note": "Re-measured 2026-08-28 on published `@markup-carve/carve` 0.1.5: the doubled family is now IN the release (`==>` renders U+21D2), and `=>` stopped converting in the same release. The row's ASCII spellings still render, so it stands; references/traps-blocks-containers.md 12 carries the measurement and `doubled_arrows` in references/capabilities.json now probes it, which is what this note used to be doing by hand."
+    "Inline / row: `--` `---` `...` `-->` `==>` `(tm)`": {
+      "title": "`--` `---` `...` `-->` `==>` `(tm)` | – — … → ⇒ ™ | smart typography; see the note below",
+      "sha256": "930f0ccfe6b220768a64f3eac2c2875b101aa63e3dd111ccba0c63b770a18be1"
     },
     "Inline / row: `{--}`": {
       "title": "`{--}` | – | braced en dash — converts in the flag position the bare run refuses",
@@ -159,7 +158,7 @@
     },
     "Inline / prose 4": {
       "title": "A bare hyphen run stays literal when it looks like a CLI flag: `x --n...",
-      "sha256": "44fa3e1cb8dc019eef2285a492ac3b71a1af5ee161e6fdc8a3291e0bbbf9c63a"
+      "sha256": "db3b4dcab9f7403a48cc3146887130ac52259786527bcc0ba648fbe88af530f0"
     },
     "Blocks / heading": {
       "title": "Blocks",
@@ -167,11 +166,11 @@
     },
     "Blocks / fence 1 (text)": {
       "title": "text block",
-      "sha256": "ff4503a289c38e1a719e52d013a969bc572492e4803d11692b957da0fccc00c8"
+      "sha256": "cecd1e3503dcbf3b0ab68adc8d66e9ad4daba4523f629aafcf43dbda250655cb"
     },
     "Blocks / prose 1": {
-      "title": "> Block markers must start at column 0 (or, inside a list, at the ite...",
-      "sha256": "5235ca6e3405634a17e7dda35a2cfb5775ac4f0e0a529bc4aa93d46446e673e6"
+      "title": "> Block markers belong at column 0 (or, inside a list, at the item's ...",
+      "sha256": "00e66f436332fa6667f78dffa99d48cd4c933993382ee72bb8e403c917beb9ee"
     },
     "Tables / heading": {
       "title": "Tables",
@@ -195,15 +194,15 @@
     },
     "Tables / prose 3": {
       "title": "### Alignment",
-      "sha256": "bee9cb983b31de30aab332b01ce7172331d3af3bb2c722611115c2c3f7c3e914"
+      "sha256": "ad85fcb1662182691b0001390b5c001eaafdbfb75e4049839007bb81d450a2ce"
     },
     "Tables / fence 3 (carve)": {
       "title": "carve block",
-      "sha256": "19a3d8e540bf2a4603c2211ae3372ad65d131cf7dfcfc12f2ce97082e4b0f55f"
+      "sha256": "42ff076de7a4367a4723d21d6d26cb6c99c381fb1879d1c91d260fee27f3fa8f"
     },
     "Tables / prose 4": {
-      "title": "`<v` overrides both axes for that cell; `?v` moves only the vertical ...",
-      "sha256": "8c0ee2f5d760548e888889b38d62271b676f1fb13a040a67d7eceaa1c9222b76"
+      "title": "`{<v}` overrides both axes for that cell; `{?v}` moves only the verti...",
+      "sha256": "187f79b3eafd4e2bedd1f906732302c7d724a2ddeab364794b306e58f87925dd"
     },
     "Tables / prose 5": {
       "title": "### CSV and TSV data",

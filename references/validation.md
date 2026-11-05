@@ -62,11 +62,12 @@ and reports nothing for them. Others only `fmt` reports: a bare `---`
 frontmatter opener (canonical `---yaml`), a definition separator padded past
 one space, and table cells padded to align a column. None of them is wrong -
 the formatter has one spelling for each. For tables, author header cells with
-`|=` and glue alignment to the marker (`|=<`, `|=~`, `|=>`). `carve fmt` rewrites
-a GFM separator row to `|=` header cells, except a spanned header the native form
-cannot spell, and `--roundtrip` preserves it (`CARVE-P11-066`). carve-js 0.1.15 and
-carve-rs 0.1.13 still keep the row, so neither lint nor `fmt --check` flags one
-there. A project that
+`|=` and put alignment in the cell's leading braces (`|={<}`, `|={~}`, `|={>}`).
+`carve fmt` rewrites a GFM separator row to `|=` header cells, except a spanned
+header the native form cannot spell, and `--roundtrip` preserves it
+(`CARVE-P11-066`). carve-js 0.1.15 and carve-rs 0.1.13 still keep the row, so
+neither lint nor `fmt --check` flags one there; the release after 0.1.15
+rewrites it. A project that
 keeps its tables aligned checks with `carve fmt --align-tables --check` instead:
 that opt-in mode pads every cell to its column's width, wide characters counting two
 (`CARVE-P11-071`, carve-js 0.1.12 and later).
@@ -104,7 +105,21 @@ unused link definitions, empty inline link destinations, bare HTML tags,
 Markdown-style definition paragraphs, GitHub alert markers,
 `block-opener-overindented` for an opener indented past its owner's content column,
 and `emphasis-marker-before-attributes` for a bare marker glued to an attribute
-block whose attachment is not the visible one. The optional
+block whose attachment is not the visible one. The spec after 0.1.13 adds more
+default findings, reported by carve-js after 0.1.15:
+
+- `deprecated-cell-alignment`: a 0.1.13 alignment prefix such as `|=> Price |`
+  or `|?v x |`; `carve fmt` writes `|={>} Price |` and `|{?v} x |`.
+- `thematic-break-spelling` (hint): a break other than `***`.
+- `unclosed-comment-fence`: a `%%%` fence with no closer of the same width,
+  which hides every later line of its container, at top level the rest of the
+  document.
+- `html-comment-renders-as-text`: `<!-- ... -->` in prose is visible text.
+- `setext-heading-underline`, `heading-closing-hashes`, `indented-code-block`,
+  `comment-shaped-emphasis` (hint) and `glob-shaped-strong` (hint) for
+  Markdown habits that render differently in Carve.
+
+The optional
 checks are `duplicate-reference-url`, `non-descriptive-link-text`,
 `emphasis-as-heading`, and `caption-looking-paragraph`. These names describe
 the spec; use the installed engine's rule set when interpreting its output.
@@ -131,19 +146,17 @@ an inline comment, or a fenced comment body is inert. Suppression in an included
 file stays in that file. Source-pattern checks ignore recognized comments;
 source-safety checks such as `bidi-control-in-source` still inspect them.
 
-Lint checks known hazards; it does not prove semantic intent. It is also
-silent when a fence opener is not an opener at all: ```` ```js {.diff} ```` has
-an attribute after the language, so the whole block degrades to an inline code
-span. Put the attribute on its own line above the fence, and check the render
-when a block matters.
+Lint checks known hazards; it does not prove semantic intent. A fence opener
+that is not an opener at all, such as ```` ```{.x} ```` with no language before
+the attribute, degrades to an inline code span. Put the attribute on its own
+line above the fence, and check the render when a block matters.
 
-The spec names a rule for exactly that shape - `fence-opener-fallback`, for an
-opener whose info string is not a language plus an optional `"title"` and
-`[label]` - and it SHIPPED in 0.1.9. Measured on `@markup-carve/carve` 0.1.10,
-the sample above reports `fence-opener-fallback` and still renders as one
-`<code>` span: the finding names the degradation, it does not prevent it, so
-move the attribute to its own line rather than treating a reported document as
-fixed. Through 0.1.7 the same sample linted clean.
+`fence-opener-fallback` reports that shape (shipped in 0.1.9): the finding
+names the degradation, it does not prevent it, so move the attribute rather
+than treating a reported document as fixed. Through carve-js 0.1.15
+```` ```js {.diff} ```` degraded the same way. The spec after 0.1.13 recovers
+it: the fence opens with its language, drops the attributes and reports
+`fence-title-syntax`.
 `references/capabilities.json` records it as `fence_opener_fallback_lint`.
 
 The placement diagnostics are a PARTIAL gap. The spec's rule table names one
@@ -193,11 +206,11 @@ Two findings for fences and continuation markers arrived in carve-js 0.1.13;
   `[^a]: +`, `> +`), that attaches nothing: the next line is blank or missing,
   lacks the prefix of a quote around the host, stands at another column, is the
   host's sibling or closes an open div (`CARVE-P9-067`, markup-carve/carve#4409).
-  It also reports a `+` that no open container claims. The refused `+` is a plain
-  letter (or fence payload at a fence's content column), also on a marker line:
-  `- +` over a blank line renders `<li>+</li>`. carve-js through 0.1.15 leaves a
-  refused `- +` or `: +` empty and reports a column-0 list below `> +`, `: +` or
-  `[^a]: +`, which now attaches. Delete the blank line to attach the block, move
+  A refused `+` is consumed and renders nothing, also on a marker line: `- +`
+  over a blank line renders `<li></li>` (markup-carve/carve#5013). A `+` off
+  every marker column, at document level or past a quote's marker column is a
+  plain letter and is not reported. carve-js through 0.1.15 reports a column-0
+  list below `> +`, `: +` or `[^a]: +`, which now attaches. Delete the blank line to attach the block, move
   the block to the marker's column, or delete the `+`.
 
 ```
@@ -212,19 +225,22 @@ reports `continuation-marker-refused` at the `+`.
 Three column findings for lists arrived in carve-js 0.1.13:
 
 - `list-marker-below-content-column`: a marker past an item's marker column
-  but below its content column. Without a blank line it folds into the item's
-  paragraph as text; after one it starts a separate list. Under `10. c`, a
-  `   - d` at column 3 is text. Indent it to the content column (4) to nest it,
+  but below its content column. It reads as it would at the marker column,
+  before and after a blank line: a marker of another kind starts a separate
+  list, one of the same kind is a sibling item (markup-carve/carve#4835). Under
+  `10. c`, a `   - d` at column 3 starts a bullet list after the ordered one.
+  carve-js through 0.1.15 folds it into the item's paragraph as text. Indent it to the content column (4) to nest it,
   or start it at column 0 for a sibling. The auto-numbered `.` marker avoids
   the trap because it never widens.
 - `ordered-list-split-by-indent`: ` 9. nine` over `10. ten` rendered two lists
   through carve-js 0.1.15. Since markup-carve/carve#3885 siblings group by
-  container, not column, so that is one list and the rule retires as engines
-  adopt the ruling. Start the markers in the same column for older engines.
+  container, not column, so that is one list and the rule is retired, as are
+  `fence-delimiter-indentation` and `raw-block-syntax`. Start the markers in the same column for older engines.
 - `description-separator-below-content-column`: a `:` or `::` left of the
   definition list it seems to continue inside a list item or other indented
-  container adds no entry; it folds into the open term or description as
-  text, or ends the item at the marker column. Indent it to the list's column.
+  container adds no entry; it folds into an open description as text, ends
+  the container after a term (markup-carve/carve#4861), or ends the item at
+  the marker column. Indent it to the list's column.
 
 Include findings need an include root. `carve lint --include-root DIR` expands
 includes with the render rules (I16) and reports each warning that leaves a
@@ -237,6 +253,14 @@ root: it flags a `#region` line in a Carve file that renders as text. Without a
 root, lint reads no include target and reports nothing about one. The option
 arrived in carve-js 0.1.13; on 0.1.12, render the document to see include
 warnings.
+
+When a block lands in an unexpected container, carve-js after 0.1.15 explains
+why: `carve trace file.crv` prints one JSON line per block decision (the layout
+step, the owner and the rule id), and the API exports `decisionTrace` and
+`decisionTraceJsonLines`. The same release adds `--rule ID` (and
+`enabledRules`) to turn on an optional rule, `--ignore ID` (`ignoredFiles`,
+`fileId`) to skip findings for one source file, a `Hint` severity, and
+`filterLintWarnings` for callers that apply suppression comments themselves.
 
 When changing
 containers, captions, references, raw target routing, extensions, or generated
@@ -254,7 +278,7 @@ top-level document; do not reinterpret included offsets as parent-file offsets.
 
 A programmatic caller needs BOTH halves, because the CLI runs both and
 `lintCarve` is only one of them. `lintCarve(source)` carries the semantic rules
-- `broken-crossref`, the footnote rules, `raw-block-syntax`, the table rules.
+- `broken-crossref`, the footnote rules, the table rules.
 The Markdown-habit family this skill exists to prevent is not in it:
 `djotMigrationWarnings(source)` carries that, and the CLI's default mode keeps
 the entries whose `category` is `carve-breakage`, adding `--from-djot` to keep

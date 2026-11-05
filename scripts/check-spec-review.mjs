@@ -92,8 +92,8 @@ function coverage(root) {
   }
   if (findings.length === 0) {
     process.stdout.write(
-      'normative rule surface: the clause inventory, the grammar and the generated views all ' +
-        'agree with the rules registry\n',
+      'normative rule surface: the clause inventory, the grammar and the generated views (where ' +
+        'the checkout has them) all agree with the rules registry\n',
     )
     return true
   }

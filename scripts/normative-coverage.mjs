@@ -92,6 +92,9 @@ export function coverageFindings(checkout) {
   try {
     views = readdirSync(join(checkout, VIEWS)).filter((name) => name.endsWith('.md'))
   } catch (error) {
+    // Since carve#4546 the views are docs-build output and gitignored, so a
+    // plain checkout has none: built from the registry, they add no rule to it.
+    if (error.code === 'ENOENT' && viewsAreBuildOutput(checkout)) return findings
     return [...findings, `${VIEWS}: ${error.message}`]
   }
   if (views.length < 5) findings.push(`${VIEWS}: ${views.length} view(s), expected at least 5`)
@@ -141,6 +144,16 @@ export function coverageFindings(checkout) {
     ),
   )
   return findings
+}
+
+function viewsAreBuildOutput(checkout) {
+  let ignore
+  try {
+    ignore = readFileSync(join(checkout, '.gitignore'), 'utf8')
+  } catch {
+    return false
+  }
+  return ignore.split('\n').some((line) => /^\/?docs\/rules\/?$/.test(line.trim()))
 }
 
 function floor(label, actual, of) {

@@ -25,7 +25,7 @@ code
 </code></pre>
 ````
 
-An invalid info string (```` ```js {.diff} ````) stays paragraph text, and so does an unclosed fence under prose through carve-js 0.1.15, so close every fence.
+An opener with no language before its attributes (```` ```{.x} ````) stays paragraph text; ```` ```js {.diff} ```` keeps its language and drops the attributes (`fence-title-syntax`; text through carve-js 0.1.15, as is an unclosed fence under prose). Put attributes on the line above and close every fence.
 
 ```
 intro
@@ -75,8 +75,11 @@ block opener, list marker, definition or comment under a term ends it, at any
 column, and an opener opens in the enclosing container: `:: term` over `  # H` is a
 one-term list, then a heading.
 
-Put a term's blocks in its `: ` description. Only plain text continues a term, and
-a lazy line does what it would do without the container (markup-carve/carve#4300):
+A term is one line and does not wrap (markup-carve/carve#4894); carve-js
+through 0.1.15 folds the next text line into it.
+
+Put a term's blocks in its `: ` description. A lazy line does what it would do
+without the container (markup-carve/carve#4300):
 `> :: t` over ` : d` ends the quote, and `: d` is a paragraph. carve-js through
 0.1.15 folds these into the term and reports `definition-term-block-folded`.
 
@@ -108,8 +111,7 @@ host API, not syntax, so each engine spells it its own way:
 
 carve-php and carve-rs also take `--smart-typography source` on the command
 line, and reject an unknown mode rather than ignoring it. The switch applies to
-every target (`CARVE-P9-011`): on `@markup-carve/carve` 0.1.10 plain text and
-ANSI write the source run too.
+every target (`CARVE-P9-011`).
 Heading ids are identical either way: the id pass normalizes the glyphs back to
 ASCII before slugging.
 
@@ -125,11 +127,12 @@ a {"b c
 ````
 
 **Write the doubled arrows.** Since 0.1.5 (markup-carve/carve#1442) the
-canonical arrows are `-->` `<--` `<-->` and `==>` `<==` `<=>`. The single-dash
-`->` `<-` `<->` are deprecated and still convert; `=>` was removed and is
-literal text, because `key => value` is prose about code. A bare hyphen run in
-the flag position (`x --next`) stays literal, and `{--}` is the braced en dash
-that still converts there.
+canonical arrows are `-->` `<--` `<-->` and `==>` `<==` `<=>`. `=>` was removed
+and is literal text, because `key => value` is prose about code. The spec after
+0.1.13 removes the single-dash `->` `<-` `<->` too, and `(c)` and `(r)` stay
+text; `(tm)` still becomes ™. carve-js through 0.1.15 still converts all four. A
+bare hyphen run in the flag position (`x --next`, also `x (--next)`) stays
+literal, and `{--}` is the braced en dash that still converts there.
 
 | source | 0.1.5 and later |
 | --- | --- |
@@ -277,12 +280,6 @@ Two things that look like fixes and are not:
 Some breakage is not a width problem at all: an example missing its own closing
 fence, or an info string that itself contains backticks (```` ```js `x` ````,
 which opens no fence and degrades to an inline code span), needs a line fixed
-rather than a wider wrapper. That is also why the two obvious detection
-signatures - a fence line followed by one of the same or shorter length, and an
-odd total fence count - over-flag by about a third: an odd count is legitimate
-when a lone three-backtick line sits inside a four-backtick wrapper, and
-same-length neighbors are harmless when the inner one carries an info string.
-Parse the document and require a real defect instead.
+rather than a wider wrapper.
 
-The spec and 0.1.5 agree: equal-length containers nest; equal-length code
-fences close. Re-measured 2026-08-28.
+Equal-length containers nest; equal-length code fences close.

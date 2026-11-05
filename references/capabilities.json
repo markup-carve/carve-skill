@@ -49,17 +49,23 @@
       "inTestedEngine": true,
       "guidance": "Shipped in 0.1.5. Was prose-only guidance saying 0.1.4 left the markers as literal cell text, which stayed in the skill for a release after it stopped being true."
     },
+    "braced_cell_alignment": {
+      "syntax": "|={>} and |{<v}, alignment symbols leading the cell's attribute block",
+      "spec": true,
+      "inTestedEngine": true,
+      "guidance": "markup-carve/carve#5091 D3. carve-js 0.1.15 renders the braced block as cell text and reads only the 0.1.13 prefixes (|=>, |<v), which stay readable through 0.1.x and are removed in 0.2.0. Write the braces only for an engine released after 0.1.15."
+    },
     "nested_bare_emphasis": {
       "syntax": "_*x*_, one bare mark directly inside another",
       "spec": true,
       "inTestedEngine": true,
-      "guidance": "PART 3's word-boundary guard (CARVE-P9-043) exempts a delimiter that opens directly after a `_` or `/` that is an open entry on the stack, closed later or not. `_*x*_` nests. `_*x* q` nests the strong in the spec; 0.1.15 leaves it literal."
+      "guidance": "PART 3's word-boundary guard (CARVE-P9-043) exempts a delimiter that opens directly after a `_` or `/` that is an open entry on the stack, closed later or not. `_*x*_` nests. `_*x* q` nests the strong and leaves the `_` literal; 0.1.15 leaves the whole run literal."
     },
     "fence_opener_fallback_lint": {
       "syntax": "carve lint reporting a fence opener whose info string is not valid",
       "spec": true,
       "inTestedEngine": true,
-      "guidance": "Shipped in 0.1.9: ```js {.diff} now reports `fence-opener-fallback`. It still degrades to an inline code span, so the finding names the degradation rather than preventing it. 0.1.7 reported nothing."
+      "guidance": "Shipped in 0.1.9: an opener that does not recover, such as ```{.x}, reports `fence-opener-fallback` and still degrades to an inline code span, so the finding names the degradation rather than preventing it. ```js {.diff} is recovered after 0.1.15: the fence keeps its language, drops the attributes and reports `fence-title-syntax`. 0.1.7 reported nothing."
     },
     "directive_title": {
       "syntax": "::: footnotes \"Title\" - a quoted title on a placement marker",

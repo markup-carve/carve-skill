@@ -35,7 +35,7 @@ Carve differs from Markdown/Djot in other ways:
   must be longer than any bare same-character fence line inside it.
 - a fence has no space before its language (```` ```js ````); attributes like
   `{.diff}` go on the line above.
-- glue table alignment to the header marker (`|=<`, `|=~`, `|=>`).
+- table alignment goes in the cell's braces (`|={<}`, `|={~}`, `|={>}`).
 
 For syntax, use [syntax.md](references/syntax.md) or a trap
 guide: [foundations](references/traps-foundations.md)

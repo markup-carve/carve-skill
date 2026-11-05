@@ -100,19 +100,33 @@ the block below. This is the one porting case that silently CHANGES meaning
 rather than becoming visible - the Djot output was well-formed and merely
 missing something.
 
-## 19. An attached sub-block leaves the item tight
+## 19. A blank line before a nested list loosens the item
 
-A blank line inside an item attaches what follows; it does not loosen the item.
+A blank line between two of an item's blocks loosens the list, whatever the
+second block is (§17 L1, markup-carve/carve#5015):
 
 ```
 - a
 
-  > q          ->  <li>a<blockquote><p>q</p></blockquote></li>   (lead stays bare)
+  - b
+- c
 ```
 
-Djot makes that item loose, wrapping the lead in `<p>`. Holds for an attached
-quote, fence, div, heading and table. It does NOT hold for a nested list, which
-is tight in both, and a plain paragraph after the blank is loose in both.
+```html
+<ul>
+  <li><p>a</p>
+    <ul>
+      <li>b</li>
+    </ul>
+  </li>
+  <li><p>c</p></li>
+</ul>
+```
+
+Djot keeps that item tight before a nested list. A quote, fence, div, heading
+or table after the blank is loose in both. To keep the list tight, drop the
+blank line: a nested list needs none. carve-js through 0.1.15 kept an item
+tight before an attached quote, fence, div, heading or table.
 
 A tight item's paragraph that carries block attributes keeps its `<p>`, and the
 item stays tight (`CARVE-P9-081`):
@@ -222,27 +236,39 @@ would cover another cell, the marker renders as an empty cell and the span does
 not happen. The 0.1.11 engine reports `table-span-marker-blocked`.
 Spaces around a lone marker do not change the span: `|<|`, `| <|`, `|< |`,
 and `| < |` all merge. The same holds for `^`. A consumed alignment run takes
-precedence, so `|= <|` is a header cell containing `<`.
+`|= < |` and `|= ^ |` are header-kind span placeholders.
 
-An alignment marker on a native head-row `|=` cell sets the default for its
-starting physical column, including body cells. A later row-header `|=` marker
-sets that cell only. A colspan does not copy the default into covered columns.
-A plain `|` marker stays local even if `header-rows` promotes its row to the
-header. Where a column has both a head-row marker and a GFM delimiter colon,
-the marker wins: `|=> a |` over `|:-- |` right-aligns the column.
+Alignment symbols lead the cell's attribute block, before ordinary attributes:
+`|={>} Price |`, `|{> .num} 12.50 |`. The symbols on a head-row `|=` cell set
+the default for its starting physical column, including body cells. A later
+row-header `|=` cell or a body cell sets that cell only. A colspan does not
+copy the default into covered columns, and an alignment-only block on a span
+placeholder sets its own column's default. A plain `|` cell stays local even
+if `header-rows` promotes its row to the header. Where a column has both a
+head-row symbol and a GFM delimiter colon, the symbol wins: `|={>} a |` over
+`|:-- |` right-aligns the column.
+
+The 0.1.13 prefixes glued to the pipe (`|=>`, `|<`, `|?v`) are deprecated:
+they read through 0.1.x, are removed in 0.2.0, `deprecated-cell-alignment`
+reports them, and `carve fmt` moves them into braces. The deprecated `|=< |`
+remains an empty left-aligned header cell. carve-js through 0.1.15 reads only
+the prefixes and renders a braced block as cell text, so check the engine
+version before relying on the braces (`braced_cell_alignment` in
+`references/capabilities.json`).
 
 A row whose cells are all blank is a table row when every cell is delimited:
 `| |` is one empty data cell and `| | |` two. carve-js 0.1.12 and 0.1.13 render `| |`
 as a one-cell table; 0.1.10 rendered it as paragraph text.
 
-A cell marker may carry a second, vertical axis, horizontal first:
-`<^ <~ <v ~^ ~~ ~v >^ >~ >v` are runs. `v>` and a lone `v` stay ordinary cell
-content; a lone `^` is a row span marker, as described above. `?` keeps the column's horizontal axis and sets only the
+An alignment may carry a second, vertical axis, horizontal first:
+`<^ <~ <v ~^ ~~ ~v >^ >~ >v`. A vertical symbol needs a horizontal partner, so
+`{v>}` and `{v}` are not alignments; a lone `^` cell is a row span marker, as
+described above. `?` keeps the column's horizontal axis and sets only the
 vertical one:
 
 ````
-|=>^ Qty |
-|?v 15 |
+|={>^} Qty |
+|{?v} 15 |
 ````
 
 ````html

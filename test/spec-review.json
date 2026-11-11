@@ -1,7 +1,7 @@
 {
   "$comment": "Which spec divergence sections the topic guides in references/traps-*.md were last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/divergence-from-djot.md",
-  "spec_rev": "5c697a891c7a2f820e1f194402645954615713aa",
+  "spec_rev": "efb398f9f642bce1c9f4e0b8e6868eabde5cacd4",
   "sections": {
     "1": {
       "title": "Case-preserving heading ids, matched exactly",
@@ -77,7 +77,7 @@
     },
     "19": {
       "title": "A blank line before a nested list loosens the item",
-      "sha256": "6ff0fa81d5ec51abbf3b6e0889cbd2fb022c1ede4f7cb91e7224afa701462796"
+      "sha256": "94ae946a37d67513dab04badfd4beb31d55635c35ddbbab25513e7b8062891e1"
     },
     "20": {
       "title": "A typed container is a native admonition",

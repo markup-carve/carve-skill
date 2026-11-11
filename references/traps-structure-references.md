@@ -123,8 +123,9 @@ second block is (§17 L1, markup-carve/carve#5015):
 </ul>
 ```
 
-Djot keeps that item tight before a nested list. A quote, fence, div, heading
-or table after the blank is loose in both. To keep the list tight, drop the
+Djot keeps that item tight before a nested list, and also when a blank and a
+quote, fence, div, heading or table follow the nested list; Carve loosens both.
+Directly after the lead and a blank, those blocks are loose in both. To keep the list tight, drop the
 blank line: a nested list needs none. carve-js through 0.1.15 kept an item
 tight before an attached quote, fence, div, heading or table.
 

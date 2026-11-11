@@ -95,7 +95,7 @@ code
 - next
 ````
 
-**A refused `+` renders nothing and ends nothing** (`CARVE-P9-067`, markup-carve/carve#5013): PART 9 §17 L3 consumes the marker without attaching a block, and `continuation-marker-refused` reports it. A `+` off every marker column, at document level or past a quote's marker column stays a plain letter and is not reported. An empty item is written `- {empty}`.
+**A refused `+` renders nothing and ends nothing** (`CARVE-P9-067`, markup-carve/carve#5013): PART 9 §17 L3 consumes the marker without attaching a block, and lint reports it (`refused-continuation-marker` for an own-line `+`, `continuation-marker-refused` for `- +`). A `+` off every marker column, at document level or past a quote's marker column stays a plain letter and is not reported. An empty item is written `- {empty}`.
 
 ```
 - +

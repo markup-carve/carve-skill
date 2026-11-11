@@ -41,7 +41,7 @@ rule-specific details instead of display text.
 
 ## Modes and host checks
 
-- **Default** targets hand-written Carve. It checks semantic errors and source that looks like intended markup but renders differently: `**bold**`, `~~strike~~`, `^sup^`, `+` bullets, a list marker folded into a paragraph, a table-shaped line missing its closing pipe, and `_word_` when italic may have been intended. The `markdown-italic-underline` hint is suppressible when underline is intentional. The current spec also names `heading-level-skip` for skipped heading levels; `a11y/heading-jump` is a deprecated input alias, and findings use the new id.
+- **Default** targets hand-written Carve. It checks semantic errors and source that looks like intended markup but renders differently: `**bold**`, `~~strike~~`, `^sup^`, `+` bullets, a list marker folded into a paragraph, a table-shaped line missing its closing pipe, and `_word_` when italic may have been intended. The `markdown-italic-underline` hint is suppressible when underline is intentional. `heading-level-skip` reports a skipped heading level; the `a11y/heading-jump` alias is gone from the current spec.
 - **`--from-djot`** flags valid Carve whose meaning differs from Djot, including `~x~` (strikethrough) and `{=x=}` (highlight). Use it when checking a document migrated from Djot.
 - **`--platform github`** enables host-specific checks for bare `@mention` and
   `#123` tokens that GitHub may relinkify after rendering. It is repeatable and
@@ -201,9 +201,11 @@ Two findings for fences and continuation markers arrived in carve-js 0.1.13;
   up to the end of the document, the end of its container, or a continuation
   marker is code. Legal and rarely meant. The finding sits at the opener and
   says where the block ended; add the closing fence where the code should stop.
-- `continuation-marker-refused`: a lone `+` at an open container's marker
-  column, or a `+` that is the whole content of a marker line (`- +`, `: +`,
-  `[^a]: +`, `> +`), that attaches nothing: the next line is blank or missing,
+- `refused-continuation-marker` (default-on hint, markup-carve/carve#5736): a
+  lone `+` on its own line at an open container's marker column that attaches
+  nothing, for the reasons listed in the next entry. carve-js through 0.1.15 reports it as `continuation-marker-refused`.
+- `continuation-marker-refused`: a `+` that is the whole content of a marker
+  line (`- +`, `: +`, `[^a]: +`, `> +`) and attaches nothing: the next line is blank or missing,
   lacks the prefix of a quote around the host, stands at another column, is the
   host's sibling or closes an open div (`CARVE-P9-067`, markup-carve/carve#4409).
   A refused `+` is consumed and renders nothing, also on a marker line: `- +`
@@ -220,7 +222,7 @@ Two findings for fences and continuation markers arrived in carve-js 0.1.13;
 Meant for the item.
 ```
 
-reports `continuation-marker-refused` at the `+`.
+reports `refused-continuation-marker` at the `+`.
 
 Three column findings for lists arrived in carve-js 0.1.13:
 

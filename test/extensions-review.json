@@ -1,7 +1,7 @@
 {
   "$comment": "Which preamble/H2/H3 sections of spec/docs/extensions.md references/extensions.md was last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/extensions.md",
-  "spec_rev": "5c697a891c7a2f820e1f194402645954615713aa",
+  "spec_rev": "efb398f9f642bce1c9f4e0b8e6868eabde5cacd4",
   "sections": {
     "Preamble": {
       "title": "Preamble",

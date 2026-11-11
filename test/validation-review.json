@@ -1,7 +1,7 @@
 {
   "$comment": "Which preamble/H2/H3 sections of spec/docs/validation.md references/validation.md was last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/validation.md",
-  "spec_rev": "5c697a891c7a2f820e1f194402645954615713aa",
+  "spec_rev": "efb398f9f642bce1c9f4e0b8e6868eabde5cacd4",
   "sections": {
     "Preamble": {
       "title": "Preamble",
@@ -29,7 +29,7 @@
     },
     "Rules": {
       "title": "Rules",
-      "sha256": "e4ce2d58bba75429c49aa183a46bf858ff9b03c43d7e13aa9ccd020991a75e58"
+      "sha256": "3813e55aff2ac25cc25eed1b45b09f0af343d8bd44d4bfe216d1c8c14a48e205"
     },
     "Rules / Consumed key near misses": {
       "title": "Consumed key near misses",
@@ -45,7 +45,7 @@
     },
     "Rules / Refused continuation markers": {
       "title": "Refused continuation markers",
-      "sha256": "ac32280273606ac62d97183cf5890347b7e70e70cb6043cd64680dc0d62455c3"
+      "sha256": "4e655d4424636d8344f40408746db8fc658b0f472daa7fd765d3db2908cdd2b7"
     },
     "Rules / List markers below the content column": {
       "title": "List markers below the content column",
@@ -93,7 +93,7 @@
     },
     "Rules / Accessibility checks": {
       "title": "Accessibility checks",
-      "sha256": "2ef1dfe149b513c828539200b6236490b80e1e6e7708c5576ba8342edb0276a6"
+      "sha256": "4ab8fb88ce1148e7fe0e900e83bb0c2eef81e158359d415bde2958c396593e8f"
     }
   }
 }

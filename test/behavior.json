@@ -25,5 +25,16 @@
     "name": "raw HTML is routed to the HTML target",
     "source": "`<mark>safe fixture</mark>`{=html}",
     "htmlIncludes": ["<mark>safe fixture</mark>"]
+  },
+  {
+    "name": "a letter marker opens a list only with two spaces",
+    "source": "a. x\nb. y\n\ni.  first\nj.  second",
+    "htmlIncludes": ["<p>a. x\nb. y</p>", "<ol type=\"a\" start=\"9\">", "<li>first</li>"]
+  },
+  {
+    "name": "a first-line bare dash run opens frontmatter, not a thematic break",
+    "source": "---\ntitle: x\n---\n\n***",
+    "htmlIncludes": ["<hr"],
+    "htmlExcludes": ["title"]
   }
 ]

@@ -4,6 +4,25 @@ All notable changes to carve-skill are documented in this file.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.1.9] - 2026-11-12
+
+The skill teaches the Carve 0.1.14 spec, checked against carve-js 0.1.16.
+
+### Fixes
+
+- The references teach the 0.1.14 rulings on `+` attachment, lazy lines and fences instead of the per-host follower columns and closer lookahead (#213, #217).
+- Canonical table headers are native `|=` cells, and cell alignment is written braced (`|={>}`); the glued `|=>` is deprecated (#207, #217).
+- The trap guide no longer says an unclosed code fence stays in its paragraph or that an unclosed guard blocks a nested strong (#219, #220, #223).
+- The references stop teaching the removed `->`, `(c)` and `(r)` conversions; every letter and roman marker with a dot needs two spaces, and `***` is the thematic break `carve fmt` writes (#221, #223).
+- The safety reference covers the importer rule for denied link and image destinations (#217).
+
+### Improvements
+
+- A Carve conversion checklist for migrating Markdown and Djot documents (#208).
+- The guidance was reviewed against the pinned spec, and the skill names the engine floor for braced table alignment (#204, #206, #210, #217).
+
+**Full Changelog**: https://github.com/markup-carve/carve-skill/compare/0.1.8...0.1.9
+
 ## [0.1.8] - 2026-10-25
 
 The skill now covers the task states in the published Carve 0.1.13 spec and gives working guidance for table spans and attributes.

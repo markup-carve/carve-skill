@@ -83,7 +83,7 @@
       "syntax": "==> <== <=> smart-punctuation arrows",
       "spec": true,
       "inTestedEngine": true,
-      "guidance": "Shipped in 0.1.5, and `=>` STOPPED converting in the same release. Write -->, <--, <-->, ==>, <== or <=>. The single-dash ->, <- and <-> are deprecated but still convert; `=>` is literal text now."
+      "guidance": "Shipped in 0.1.5, and `=>` STOPPED converting in the same release. Write -->, <--, <-->, ==>, <== or <=>. The single-dash ->, <- and <-> stay literal text after 0.1.15 (they converted through 0.1.15); `=>` is literal text too."
     },
     "first_block_marker_quote": {
       "syntax": "> + over a block at the quote's marker column",

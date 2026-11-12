@@ -38,7 +38,7 @@
     "spec:review": "node scripts/record-spec-review.mjs"
   },
   "devDependencies": {
-    "@markup-carve/carve": "github:markup-carve/carve-js#3cd4a788411df629fac5560cc1e83e2472b8871d",
+    "@markup-carve/carve": "0.1.16",
     "gpt-tokenizer": "4.0.0"
   }
 }

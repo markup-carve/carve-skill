@@ -1,7 +1,7 @@
 {
   "$comment": "Which normative clause TEXTS of spec/resources/grammar.ebnf the skill was last read against, keyed by clause title. The rules ledger next to this one watches what the rules are - id, part, title - and carries no rule text, so on its own a clause can be rewritten into the opposite rule under an unchanged title, which is what happened to divergence section 13 in markup-carve/carve#455. Regenerate with `npm run spec:review` AFTER re-reading the clauses the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/grammar.ebnf",
-  "spec_rev": "efb398f9f642bce1c9f4e0b8e6868eabde5cacd4",
+  "spec_rev": "51c5631541efb60faad51f81ac7dbf881150b757",
   "clauses": {
     "A LEADING BYTE ORDER MARK IS STRIPPED": {
       "title": "A LEADING BYTE ORDER MARK IS STRIPPED",
@@ -581,7 +581,7 @@
     },
     "SECURITY REQUIREMENTS": {
       "title": "SECURITY REQUIREMENTS",
-      "sha256": "27d99d4acfb84135bbf859d0c8299ca00061250c035078febb6d3017f4af633c"
+      "sha256": "f801d92b34c81e82a67bac71da1ecdf1d1356d0e0a2099488446840bc5e0ac57"
     },
     "A URL-LIST ATTRIBUTE IS PROBED TOKEN-WISE, NOT AT ITS HEAD": {
       "title": "A URL-LIST ATTRIBUTE IS PROBED TOKEN-WISE, NOT AT ITS HEAD",

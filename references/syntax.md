@@ -45,15 +45,15 @@ ATX `#`..`######`. Attributes go on the line **above**:
 
 ## Thematic break
 
-`***` on its own line (`---` and `___` also read; `carve fmt` writes `***`).
+`***` on its own line (`___` and, after line 1, `---` also read; `carve fmt` writes `***`).
 
 ## Lists
 
 ```
 - unordered        * also unordered      1. ordered      1) ordered
 - [ ] task         - [x] done            a. A. i. I. dialects
-                   (i. then j. is alphabetic, from 9; a. needs two
-                    spaces, a.  item)
+                   (i. then j. is alphabetic, from 9; letter and
+                    roman dots need two spaces, a.  item)
                    (other states: [_] open, [/] progress, [!] blocked,
                     [-] dropped, [>] deferred, [?] uncertain)
 -{.c} styled item  (attributes abutting the marker target the <li>)

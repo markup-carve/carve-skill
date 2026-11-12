@@ -1,7 +1,7 @@
 {
   "$comment": "Which preamble/H2/H3 sections of spec/docs/security.md references/quality-and-safety.md was last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/security.md",
-  "spec_rev": "b97ffd30a3071c7bc067d4cc6825789a1e1f6eea",
+  "spec_rev": "51c5631541efb60faad51f81ac7dbf881150b757",
   "sections": {
     "Preamble": {
       "title": "Preamble",
@@ -29,7 +29,7 @@
     },
     "Resource limits (denial-of-service)": {
       "title": "Resource limits (denial-of-service)",
-      "sha256": "f9b71b8736f1860941775cbefcd939ac5201b95c4009e888933a5c5a6a355098"
+      "sha256": "8c1a8770252d1dd4fd1c1db01c3843a96ea8496703de78bb1f2fb46255d61484"
     },
     "File inclusion": {
       "title": "File inclusion",
@@ -57,7 +57,7 @@
     },
     "Real-world Markdown CVEs, and where Carve stands / Embedded HTML → script execution (CVE-2025-65716, Markdown Preview Enhanced)": {
       "title": "Embedded HTML → script execution (CVE-2025-65716, Markdown Preview Enhanced)",
-      "sha256": "3c1c515c68654903903adb3bdc29565093a5fdbf6bba54952cb4e898a59babc3"
+      "sha256": "7930f2beb27805bdbde1fa9ba90ce214b014a84b02849797af734e74548a8f32"
     },
     "Real-world Markdown CVEs, and where Carve stands / Dangerous URI scheme in a link → OS command (CVE-2026-20841, Windows Notepad)": {
       "title": "Dangerous URI scheme in a link → OS command (CVE-2026-20841, Windows Notepad)",

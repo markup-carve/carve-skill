@@ -1,7 +1,7 @@
 {
   "$comment": "Which preamble/H2/H3 sections of spec/docs/validation.md references/validation.md was last read against. Regenerate with `npm run spec:review` AFTER re-reading the sections the drift guard names - see README, \"Not drifting\".",
   "source": "spec/docs/validation.md",
-  "spec_rev": "b97ffd30a3071c7bc067d4cc6825789a1e1f6eea",
+  "spec_rev": "51c5631541efb60faad51f81ac7dbf881150b757",
   "sections": {
     "Preamble": {
       "title": "Preamble",
@@ -29,7 +29,7 @@
     },
     "Rules": {
       "title": "Rules",
-      "sha256": "10e2576efefb9929d4c4a526fd9f50ff4e5078e82ab8ed3349cba0a2e170aec6"
+      "sha256": "3813e55aff2ac25cc25eed1b45b09f0af343d8bd44d4bfe216d1c8c14a48e205"
     },
     "Rules / Consumed key near misses": {
       "title": "Consumed key near misses",
@@ -37,19 +37,23 @@
     },
     "Rules / Unclosed code fences": {
       "title": "Unclosed code fences",
-      "sha256": "e83e472b34202bc6c4c77f0b18000e551b251b44a5dd3c693b236ed9268e6a96"
+      "sha256": "58299aed6a6f0a02c0eb22f47eed0838e9c6e877f6d70a461f51409a24066794"
+    },
+    "Rules / Unclosed comment fences": {
+      "title": "Unclosed comment fences",
+      "sha256": "6e424178a283c03fe9fb1e4455d719436805f62739e9b3154d4a0d9fad3a30dd"
     },
     "Rules / Refused continuation markers": {
       "title": "Refused continuation markers",
-      "sha256": "0d02a5451e85ab5f138937b694587361da984f6db529a6adceba4eea81f50596"
+      "sha256": "4e655d4424636d8344f40408746db8fc658b0f472daa7fd765d3db2908cdd2b7"
     },
     "Rules / List markers below the content column": {
       "title": "List markers below the content column",
-      "sha256": "e4cdd601505580b236697036014a7a0ced763fe2e1a9c893632b58ea1c043444"
+      "sha256": "5614a7715dce50a0ad2305113bdc40886efd4f98aeeb33445d7773dd8a20ad1d"
     },
     "Rules / Description separators below the list column": {
       "title": "Description separators below the list column",
-      "sha256": "0f087c65e8b0e8257f92766385e1d6bd09e434827745c34fb4d34e62da726aa4"
+      "sha256": "40277caf29cff0f7b6fb705a8279a4004d3d1a3ba9520709b088fab5ce5a70c6"
     },
     "Rules / Ordered lists split by indentation": {
       "title": "Ordered lists split by indentation",
@@ -58,6 +62,10 @@
     "Rules / Fragile spellings": {
       "title": "Fragile spellings",
       "sha256": "1a93e6388493e2366d67c826cb64a9559a2ba84c989c500cb36e3fc48a9f9c35"
+    },
+    "Rules / Thematic break spelling": {
+      "title": "Thematic break spelling",
+      "sha256": "cbc0355a524fff6bec6c797b87d892a1e3bc23b19e098ad89de7593088739947"
     },
     "Rules / Declaring a target version": {
       "title": "Declaring a target version",
@@ -73,7 +81,7 @@
     },
     "Rules / Which implementations provide these rules": {
       "title": "Which implementations provide these rules",
-      "sha256": "48b533ae9f51a1c537e04d240325dab880563429014a7638e6520cc1ae6e8438"
+      "sha256": "36e6595805eb83f18616713a05cbcd806c55f856f360f35a6ec47da5bf138fbb"
     },
     "Rules / A rule id is a contract": {
       "title": "A rule id is a contract",
@@ -85,7 +93,7 @@
     },
     "Rules / Accessibility checks": {
       "title": "Accessibility checks",
-      "sha256": "2ef1dfe149b513c828539200b6236490b80e1e6e7708c5576ba8342edb0276a6"
+      "sha256": "4ab8fb88ce1148e7fe0e900e83bb0c2eef81e158359d415bde2958c396593e8f"
     }
   }
 }

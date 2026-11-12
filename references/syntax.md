@@ -26,7 +26,7 @@ Mnemonic: **the markup looks like its output.**
 | `[span]{.class}` | span with attributes |
 | `@user` `#tag` | mention / tag |
 | `\*literal\*` | escape (backslash + any ASCII punctuation) |
-| `--` `---` `...` `-->` `==>` `(c)` | – — … → ⇒ © (smart typography; `->` deprecated) |
+| `--` `---` `...` `-->` `==>` `(tm)` | – — … → ⇒ ™ (smart typography; `->`, `(c)` and `(r)` stay text) |
 | `` `<br>`{=html} `` | raw inline (only for the matching output format) |
 | `\` at end of line | hard break |
 
@@ -45,14 +45,15 @@ ATX `#`..`######`. Attributes go on the line **above**:
 
 ## Thematic break
 
-`---`, `***`, or `___` on their own line.
+`***` on its own line (`---` and `___` also read; `carve fmt` writes `***`).
 
 ## Lists
 
 ```
 - unordered        * also unordered      1. ordered      1) ordered
 - [ ] task         - [x] done            a. A. i. I. dialects
-                   (i. then j. is alphabetic, from 9)
+                   (i. then j. is alphabetic, from 9; a. needs two
+                    spaces, a.  item)
                    (other states: [_] open, [/] progress, [!] blocked,
                     [-] dropped, [>] deferred, [?] uncertain)
 -{.c} styled item  (attributes abutting the marker target the <li>)
@@ -93,8 +94,7 @@ Definition list:
 ```
 
 A colon fence whose separator is followed by `>` builds the same quote with
-no marker on any line - the third member of the sigil family beside the line
-block's `|` and the local hard-break block's backslash:
+no marker on any line:
 
 ```
 ::: >
@@ -132,7 +132,7 @@ body
 :::
 ```
 
-Types: `note tip warning danger info success example quote`. Any other word → `<div class="word">`, except `footnotes toc glossary index bibliography references`, which **place** generated content and fall back to that `<div>` (see [extensions.md](extensions.md)). Title must be **straight-quoted**; unquoted or curly-quoted is invalid (`fence-title-syntax`). The bad title is dropped and the container kept (0.1.9 dropped the whole line to a paragraph). Longer fences nest shorter ones:
+Types: `note tip warning danger info success example quote`. Any other word → `<div class="word">`, except `footnotes toc glossary index bibliography references`, which **place** generated content and fall back to that `<div>` (see [extensions.md](extensions.md)). Title must be **straight-quoted**; unquoted or curly-quoted is invalid (`fence-title-syntax`). The bad title is dropped and the container kept. Longer fences nest shorter ones:
 
 ```
 :::: outer
@@ -154,10 +154,11 @@ inner
 | Cell    | Cell    |
 ^ Table caption
 
-|= Name |=> Age |=~ City |
-| Sum    |< 12   | NYC    |
-|=<^ Top |=>v Low |
-|?v x |
+|= Name |={>} Age |={~} City |
+| Sum    |{<} 12   | NYC    |
+|={<^} Top |={>v} Low |
+|{?v} x |
+|{> .num} 12.50 |
 
 | Name  | Age |              (accepted GFM spelling; do not author it)
 |-------|----:|
@@ -169,12 +170,11 @@ inner
 | ^     |  3 | <     |
 ```
 
-Alignment markers attach to `|=`: `<`, `~`, and `>` set the horizontal axis.
-A data-cell marker overrides the column alignment for that cell. The second
-axis sets vertical alignment; `?` keeps the column's horizontal alignment.
-Write headers with `|=` cells and glue alignment to the marker (`|=<`, `|=~`,
-`|=>`). `carve fmt` rewrites a GFM separator row to `|=` cells where they can
-spell it (`CARVE-P11-066`); released engines still keep it. `+` continues the cell above;
+Alignment leads the cell's braces: `<` `~` `>`, then `^` `~` `v` vertical; `?`
+keeps the column's horizontal axis. A head-row `|=` cell sets its column's
+default, any other cell only itself. The 0.1.13 prefixes (`|=>`, `|<v`) are
+deprecated until 0.2.0; `carve fmt` moves them into braces. `carve fmt` rewrites a GFM separator row to `|=` cells where they can
+spell it (`CARVE-P11-066`). `+` continues the cell above;
 `^` spans rows and `<` spans columns.
 
 Span and alignment rules: [table cells](traps-structure-references.md#table-cells).
@@ -215,7 +215,7 @@ Inline $`e^{i\pi}+1=0`        Display $$`\int_0^1 x\,dx`
 
 %% line comment
 text %% trailing comment
-before {% delimited %} after      (spec 21a; live in every released engine)
+before {% delimited %} after      (spec 21a)
 %%%
 block comment                     (hides its body at any column, including a
 %%%                                definition inside it - trap 6)

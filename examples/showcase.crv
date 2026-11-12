@@ -10,7 +10,7 @@ A short document exercising core Carve constructs. It passes `carve lint` and
 `carve fmt --check`, so it doubles as the skill's round-trip check and as the
 one place the instruction SKILL.md gives agents is run on this repository.
 
-Inline: /italic/, *bold*, /*bold italic*/, _underline_, ~strike~, =highlight=,
+Inline: /italic/, *bold*, /*bold italic*/, _underline_, ~strike~, =highlight=, %% carve-lint-disable-line markdown-italic-underline
 `code`, water is H{,2,}O and energy is E = mc{^2^}. See </#tables> below,
 and a footnote here.[^note] An inline aside too.^[Inline footnotes number into
 the same endnotes.]
@@ -37,9 +37,9 @@ the same endnotes.]
 {#tables}
 ## Tables
 
-|= Name |=> Score |
-| Alice |< 30 |
-| Bob |< 42 |
+|= Name |={>} Score |
+| Alice |{<} 30 |
+| Bob |{<} 42 |
 ^ Table: a small scoreboard.
 
 ## Code and math

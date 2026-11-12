@@ -1,7 +1,7 @@
 {
   "$comment": "Which AST node definitions of spec/resources/ast-schema.json the skill was last read against. The schema states language rules in prose - block promotion, resolution timing, which fields survive - so a moved description can make a reference page lie. Regenerate with `npm run spec:review` AFTER re-reading the nodes the drift guard names - see README, \"Not drifting\".",
   "source": "spec/resources/ast-schema.json",
-  "spec_rev": "b97ffd30a3071c7bc067d4cc6825789a1e1f6eea",
+  "spec_rev": "51c5631541efb60faad51f81ac7dbf881150b757",
   "nodes": {
     "abbreviation": {
       "title": "abbreviation (inline)",
@@ -29,7 +29,7 @@
     },
     "blockNode": {
       "title": "Any block node a `children` array may hold",
-      "sha256": "a425ba0db82a96ef9e8340bc61a2a805613a2628ef12fa8d1130e3b81351ed63"
+      "sha256": "e9a71c8960f4790d8eb4ec6d87cb3fbe6968470c077767e0b95f01be80eebfaf"
     },
     "block_quote": {
       "title": "block_quote (block)",
@@ -197,7 +197,7 @@
     },
     "paragraph": {
       "title": "paragraph (block)",
-      "sha256": "b0c4fc97f5ae53f6878ce600ead025de2108fe8079a97b6c05d7156568fb04e6"
+      "sha256": "11d84ba7fcad34d8aa15d6e52c6f2b5cc97cfb31d3c4b477177bfb38f465acd2"
     },
     "pos": {
       "title": "Source span",
@@ -265,11 +265,11 @@
     },
     "table": {
       "title": "table (block)",
-      "sha256": "53751b339cd768f24f2197d0a6a25572943b98ec21345aa47891c6ef66e7660a"
+      "sha256": "cd1e2c28ab362aa7d1016063fd9fe6aa4f86099d3fc633e29286b1dc36d40ccf"
     },
     "table_cell": {
       "title": "table_cell (block)",
-      "sha256": "5dcb0cb60d0717f48fb1f76c567ad07dc33bfbbb4b2c91afc718c90cfd4b0b43"
+      "sha256": "e70dceb86f83d85354ff7ec0325f62d461af3a8c35aacaf8186526c45355ef48"
     },
     "table_row": {
       "title": "table_row (block)",
@@ -285,7 +285,7 @@
     },
     "thematic_break": {
       "title": "thematic_break (block)",
-      "sha256": "4e2f84f7eda7c896a3258b3d959efced087d9dfb15b8c75c47243bb8f4f0ff11"
+      "sha256": "ed6748b3addbca33636a67ca2f54376f3d6ce3997871e0cf464e021bc6fa1318"
     },
     "underline": {
       "title": "underline (inline)",

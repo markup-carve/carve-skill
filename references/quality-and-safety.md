@@ -30,6 +30,9 @@
   targets are the ones that blank a denied destination. A tool that reads
   formatted source or an exported AST and wires a destination into a URL sink
   applies the denylist itself.
+- Importers do not carry a denied destination into Carve: the HTML and Markdown
+  importers write the link or image as its content only and report
+  `attribute-dropped` (markup-carve/carve#6010).
 - Treat Mermaid, chart, math, template, Liquid, and Nunjucks processing as code or
   template execution controlled by the host, not as harmless core markup.
 - Treat file inclusion as host I/O, not syntax sugar. The parser must stay pure;

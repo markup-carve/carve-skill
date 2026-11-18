@@ -1,247 +1,105 @@
-# Carve syntax reference
+# Carve 0.2 syntax
 
-The whole core syntax. Everything here is **core** (Tier-1, on by default) unless it points to [extensions.md](extensions.md). Sourced from the spec's `docs/cheatsheet.md`; the drift test keeps the construct list in sync.
-
-Mnemonic: **the markup looks like its output.**
+This card summarizes the `next2` [block](../spec/spec/0.2/syntax-blocks.md) and [inline](../spec/spec/0.2/syntax-inline.md) chapters. The chapters decide edge cases. The 0.2 [cheat sheet](../spec/docs/cheatsheet.md) is the short upstream card.
 
 ## Inline
 
-| Write | Result |
-|-------|--------|
-| `/italic/` | italic (slashes lean) |
-| `*bold*` | bold (heavy) |
-| `/*bold italic*/` | bold italic |
-| `_underline_` | underline (line sits below) |
-| `~strike~` | strikethrough (tilde runs through) |
-| `{^super^}` | superscript (braced only) |
-| `{,sub,}` | subscript (braced only) |
-| `=highlight=` | highlight |
-| `` `code` `` | inline code |
-| `[text](url)` | link |
-| `[Page Name][]` | wiki-style link → resolves to a heading |
-| `<https://url>` | autolink |
-| `</#section-id>` | cross-reference (link text cloned from the target) |
-| `![alt](img.jpg)` | image |
-| `[^1]` / `^[inline note]` | footnote (reference / inline) |
-| `[span]{.class}` | span with attributes |
-| `@user` `#tag` | mention / tag |
-| `\*literal\*` | escape (backslash + any ASCII punctuation) |
-| `--` `---` `...` `-->` `==>` `(tm)` | – — … → ⇒ ™ (smart typography; `->`, `(c)` and `(r)` stay text) |
-| `` `<br>`{=html} `` | raw inline (only for the matching output format) |
-| `\` at end of line | hard break |
+| Meaning | Source |
+| --- | --- |
+| Emphasis | `/word/` or `{/word/}` |
+| Strong | `*word*` or `{*word*}` |
+| Underline | `{_word_}` |
+| Strike | `{~word~}` |
+| Highlight | `{=word=}` |
+| Superscript, subscript | `{^2^}`, `{,2,}` |
+| Code, math | `` `code` ``, `` $`x + y` `` |
+| Link, image | `[label](https://example.com)`, `![alt](image.png)` |
+| Reference, cross-reference | `[label][]`, `</#heading-id>` |
+| Footnote | `[^note]`, `^[inline note]` |
+| Attribute span | `[text]{.class}` |
+| Raw HTML | `` `<b>x</b>`{=html} ``; host must enable it |
 
-Bare delimiters fire only at word boundaries; force one intraword with the brace form: `H{,2,}O`, `mc{^2^}`.
-`[t]()` is a link with `href=""`. See [structure traps](traps-structure-references.md#empty-destinations-graphemes-and-atomic-spans) for empty destinations, whole-grapheme delimiters and atomic autolinks.
-For a quoted link or image title, use one ASCII space before the quote. ASCII spaces may follow the closing quote before `)`: `[t](/url "Title"  )`. Tabs and Unicode whitespace do not fill that padding slot.
+Bare `_`, `~`, and `=` are literal. Braces also supply unambiguous emphasis and strong inside words. Escape ASCII punctuation with a backslash when it should be text. A code span preserves its contents. See the [inline chapter](../spec/spec/0.2/syntax-inline.md) for pairing, references, symbols, citations, and typography.
 
-## Headings
+## Blocks
 
-ATX `#`..`######`. Attributes go on the line **above**:
+```crv
+= Heading
 
-```
-{#intro .featured}
-# Introduction
+A paragraph with /emphasis/ and *strong text*.
+
+> A quote.
+
+- First item
+- Second item
+
+1. First step
+2. Second step
+
+***
 ```
 
-## Thematic break
+A heading may also use `#` through `######`. Most block openers need a blank line after paragraph text. Table rows, code fences, and star breaks can interrupt. An attribute line attaches to the next eligible block when no blank line separates them.
 
-`***` on its own line (`___` and, after line 1, `---` also read; `carve fmt` writes `***`).
+## Lists and descriptions
 
-## Lists
+```crv
+- Parent
+  - Child
+- Sibling
 
-```
-- unordered        * also unordered      1. ordered      1) ordered
-- [ ] task         - [x] done            a. A. i. I. dialects
-                   (i. then j. is alphabetic, from 9; letter and
-                    roman dots need two spaces, a.  item)
-                   (other states: [_] open, [/] progress, [!] blocked,
-                    [-] dropped, [>] deferred, [?] uncertain)
--{.c} styled item  (attributes abutting the marker target the <li>)
-
-. auto-numbered    (the preferred native form: a bare dot counts from 1 and
-. and again         keeps nested indentation stable at 10, 100, ... because
-. and again         the marker never widens. The `1.` form is the one that
-                    ports to Markdown and Djot.)
+:: Term
+: Definition
 ```
 
-`+` alone at an open item's marker column, or alone on its marker line (`- +`), hands the item the next block at that column, unless it is a sibling item. Every other `+` is a letter ([trap 3](traps-foundations.md)):
+A list item needs text or a block on the marker line. Indent later blocks to the item's content column. A blank line between items makes the list loose. Ordered markers include decimal, alphabetic, and Roman styles; use the [block chapter](../spec/spec/0.2/syntax-blocks.md) for start and style rules. `+` has no attachment role.
 
-```
-- step one
-+
-> a note for step one
-- step two
-```
+## Fences and divs
 
-Definition list:
-
-```
-:: term
-:: another term
-: definition       (one space after `:`)
-: another definition
+````crv
+```js
+const answer = 42
 ```
 
-## Blockquotes
-
-```
-> quoted text
-^ Attribution           (^ prefix = caption/attribution)
-
-> quoted
-+                       (+ at the quote's column attaches the next block there to the quote)
-- a list now inside the quote
-```
-
-A colon fence whose separator is followed by `>` builds the same quote with
-no marker on any line:
-
-```
-::: >
-A quote written as a fence.
-
-It needs no marker per line, and holds any block.
+::: note "Remember"
+An admonition.
 :::
-```
-
-## Code fences
-
-Canonical is ` ```language ` — **no space** after the backticks.
-
-````
-```python "src/app.py" [pip]
-code
-```
 ````
 
-`"Header"` → `<pre title>`; `[Label]` → code-group tab name. Both optional, space-separated, in that order. Raw pass-through (emitted only when the output format matches):
+Backtick fences make code. A language follows the opener without a space. Colon fences make divs; `::: |` and `::: \` are line-preserving forms. A raw HTML fence uses ` ```=html ` and renders raw only when allowed by the host. Comment blocks use `%%%`.
 
-````
-```=html
-<div>passed through</div>
-```
-````
+## Tables and captions
 
-`{.scroll}` above a fence or `@code` include scrolls it at 25 lines. It is a carve-css recipe, not syntax; `style="--carve-scroll-lines: 20"` sets the height.
-
-## Divs and admonitions
-
-```
-::: note "Custom Title"
-body
-:::
+```crv
+|= Name |={>} Qty |
+| Apples | 3 |
+^ Inventory
 ```
 
-Types: `note tip warning danger info success example quote`. Any other word → `<div class="word">`, except `footnotes toc glossary index bibliography references`, which **place** generated content and fall back to that `<div>` (see [extensions.md](extensions.md)). Title must be **straight-quoted**; unquoted or curly-quoted is invalid (`fence-title-syntax`). The bad title is dropped and the container kept. Longer fences nest shorter ones:
+`|=` marks a header cell; the brace prefix holds alignment. A GFM separator row is data in 0.2. Captions follow an eligible table, image, code, or math block. See the [table rules](../spec/spec/0.2/syntax-blocks.md#tables) for spans, attributes, and delimited CSV or TSV tables.
 
-```
-:::: outer
-::: note
-inner
-:::
-::::
-```
+## Attributes, definitions, includes
 
-`::: |` keeps every line break and leading space, and lists inside are text;
-`::: \` keeps only the line breaks, and lists work.
+```crv
+{.lead}
+An introduction.
 
-## Tables
+[guide]: https://example.com/guide
 
-`|=` marks a header cell, including a row header in a body row.
-
-```
-|= Header |= Header |
-| Cell    | Cell    |
-^ Table caption
-
-|= Name |={>} Age |={~} City |
-| Sum    |{<} 12   | NYC    |
-|={<^} Top |={>v} Low |
-|{?v} x |
-|{> .num} 12.50 |
-
-| Name  | Age |              (accepted GFM spelling; do not author it)
-|-------|----:|
-| Alice |  30 |
-
-|= Item |= Qty |= Note |
-| Apple | 12 | fresh |
-+       |    | picked today |
-| ^     |  3 | <     |
+Read [guide][].
 ```
 
-Alignment leads the cell's braces: `<` `~` `>`, then `^` `~` `v` vertical; `?`
-keeps the column's horizontal axis. A head-row `|=` cell sets its column's
-default, any other cell only itself. The 0.1.13 prefixes (`|=>`, `|<v`) are
-deprecated until 0.2.0; `carve fmt` moves them into braces. `carve fmt` rewrites a GFM separator row to `|=` cells where they can
-spell it (`CARVE-P11-066`). `+` continues the cell above;
-`^` spans rows and `<` spans columns.
+Attribute lines attach forward without an intervening blank line. Reference definitions require their own block boundary. An include looks like `{{ chapter.crv #intro }}` and expands only when the host enables a resolver and root. See [includes](../spec/spec/0.2/includes.md).
 
-Span and alignment rules: [table cells](traps-structure-references.md#table-cells).
+## Changed in 0.2
 
-````
-{table}                      (csv or tsv fence -> table; without it, code)
-```csv
-Name,Score
-"Lee, A",3
+`+` continuation, bare underline/strike/highlight, hyphen or underscore thematic breaks, tilde code fences, and GFM separator headers no longer have their 0.1 meanings. For source migration, read [migration](traps-migration.md).
+
+## Rendered example
+
+```crv
+A paragraph with /emphasis/.
 ```
-````
-
-`{table}` also goes above a data file included as code:
-
+```html
+<p>A paragraph with <em>emphasis</em>.</p>
 ```
-{table}
-{{ data/plans.csv @code:csv }}
-```
-
-Rules: [delimited tables](traps-structure-references.md#delimited-tables).
-
-## Captions
-
-A `^ Caption` line after an image, table, fenced code block, or `$$`-math block adds a semantic `<figcaption>` (a listing / equation when after code / math). `^ Figure #:` auto-numbers; `</#id>` to a captioned block renders the number.
-
-```
-{#fig-sun}
-![A sunset](sun.jpg)
-^ Figure #: A sunset
-```
-
-Captions fold following lines like a paragraph until a blank line.
-
-## Math, comments, editorial
-
-```
-Inline $`e^{i\pi}+1=0`        Display $$`\int_0^1 x\,dx`
-
-%% line comment
-text %% trailing comment
-before {% delimited %} after      (spec 21a)
-%%%
-block comment                     (hides its body at any column, including a
-%%%                                definition inside it - trap 6)
-
-{+inserted+}  {-deleted-}  {~old~>new~}  {#a comment#}   (CriticMarkup)
-```
-
-## Attributes & metadata
-
-```
-{#id .class key=value}        (attach to the preceding/following element; bare word = boolean attr)
-
-*[HTML]: HyperText Markup Language   (abbreviation definition)
-
----
-title: My Document            (frontmatter; ---toml / ---json for other formats)
-tags: [carve, markup]
----
-
-{{ chapter.crv#intro @shift:auto }}  (processor include)
-{{ app.js @region:setup @code:js }}  (region of a source file, as one code block)
-{{ ch.crv @region:setup }}           (region of a Carve file, marked %% #region setup)
-```
-
-Core never expands an include and the braces stay, but the bytes inside still
-parse as inline content, so the `@shift` above renders as a mention. A directive
-with no inline marker, or invalid on its face (a bad `@lines`), comes back verbatim.
-
-Files are `.crv`, media type `text/x-carve; charset=utf-8`.

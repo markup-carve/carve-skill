@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, next2]
   pull_request:
 
 # Only PR runs share a group; every other run gets its own so none is dropped.
@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   test:
-    name: Drift guard + round-trip lint
+    name: Spec source and Carve 0.2 samples
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -30,14 +30,16 @@ jobs:
 
       - run: npm ci
 
-      # Drift guard: the skill must not diverge from the vendored spec docs.
       - run: npm test
+      - run: npm run spec:check
 
-      # Round-trip: the showcase must lint clean with hand-written Carve rules
-      # (no --from-djot). If the skill taught wrong syntax, this would fail.
-      - run: npm run lint:examples
-
-      # The instruction SKILL.md gives agents, run on this repository's own
-      # Carve. Lint accepts lenient spellings the formatter rewrites, so a
-      # clean lint above says nothing about this (#129).
-      - run: npm run fmt:examples
+      - uses: actions/checkout@v7
+        with:
+          repository: markup-carve/carve-js
+          ref: 0ad3b847aafd6c92bf8d83ae116e1107a4f5b122
+          path: carve-js-next2
+      - run: npm ci && npm run build
+        working-directory: carve-js-next2
+      - run: npm run samples:check
+        env:
+          CARVE2_CLI: ${{ github.workspace }}/carve-js-next2/dist/cli2.js

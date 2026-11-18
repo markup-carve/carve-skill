@@ -1,67 +1,27 @@
 ---
 name: carve-authoring
-description: Author, edit, review, lint, explain, render, publish, or migrate Carve (`.crv`) files or snippets in issues, PRs, and chat. Use for Carve syntax, diagnostics, outputs, or conversion; not ordinary Markdown/Djot, whose emphasis and sup/sub differ.
+description: Write, edit, validate, or migrate Carve 0.2 documents and snippets. Use for .crv syntax, HTML output, diagnostics, and 0.1 upgrades; not for ordinary Markdown.
 ---
 
-# Working with Carve
+# Working with Carve 0.2
 
-## Before drafting
-
-- Write table headers as `|= Name |= Qty |`, never with a `|---|` separator.
-- Put `^ Caption` directly after its block.
-- Write definitions as `:: term` followed by `: definition`.
-- Leave a blank line between prose and a list.
-- Use `/italic/` and `*bold*`; `**bold**` is literal and `_italic_` underlines.
-- Use `::: warning` or `::: note`, never `> [!WARNING]`.
-- Run `carve fmt` on what you wrote, then `carve fmt --check`.
+Carve 0.2 is a development version. Use the `next2` specification and a 0.2 engine for 0.2 work. The 0.1 package root and CLI teach different syntax. Check [capabilities](references/capabilities.json) before choosing a target.
 
 ## Route
 
-Use `.crv` and core syntax by default. Check version boundaries in
-[capabilities.json](references/capabilities.json), syntax in
-[syntax.md](references/syntax.md), and review or migration steps in
-[workflows.md](references/workflows.md).
+Read [syntax](references/syntax.md) for source forms. Use the focused [foundation](references/traps-foundations.md), [block](references/traps-blocks-containers.md), or [structure](references/traps-structure-references.md) guide when a construct is ambiguous. Use [extensions](references/extensions.md) for host-dependent features, [workflows](references/workflows.md) for document work, and [migration](references/traps-migration.md) when upgrading 0.1 source.
 
-## Essential dialect differences
+## Essential forms
 
-Carve differs from Markdown/Djot in other ways:
-
-- `~strike~` is strikethrough and `=highlight=` is highlight; `~~strike~~` is literal.
-- superscript and subscript are braced-only: `{^sup^}` and `{,sub,}`; bare
-  `^sup^` and `,sub,` are literal.
-- heading attributes precede the heading; `+` continues a container and is not
-  a bullet; a lone `-` is paragraph text.
-- cross-references are `</#id>`, comments are `%%` or fenced `%%%`, and a fence
-  must be longer than any bare same-character fence line inside it.
-- a fence has no space before its language (```` ```js ````); attributes like
-  `{.diff}` go on the line above.
-- table alignment goes in the cell's braces (`|={>}`); carve-js 0.1.15 and
-  older read only `|=>`.
-
-For syntax, use [syntax.md](references/syntax.md) or a trap
-guide: [foundations](references/traps-foundations.md)
-for ids/lists/emphasis/comments; [blocks](references/traps-blocks-containers.md)
-for interruption/symbols/definitions/raw/columns/typography/containers/fences;
-[structure](references/traps-structure-references.md) for
-headings/attributes/admonitions/footnotes; then
-[migration](references/traps-migration.md) for a final Djot conversion pass.
-Use [extensions.md](references/extensions.md) for host-dependent extensions.
+- `/emphasis/` and `*strong*` are distinct. Underline, strike, and highlight use `{_x_}`, `{~x~}`, and `{=x=}`. Bare `_`, `~`, and `=` are text.
+- Headings begin with `=` or `#` followed by one space. Put a blank line before a heading, quote, definition, or attribute line following paragraph text.
+- A list marker needs content. `+` is ordinary text in 0.2; indent later blocks to the item's content column. List tightness follows blank lines between items.
+- A thematic break is `***`. Use backtick code fences and native `|=` table headers; GFM separator rows are data.
+- Attribute lines precede the block they decorate without a blank line. Cell alignment uses a brace prefix such as `|={>}`.
+- Raw HTML is escaped by default. Includes need a resolver and an allowed root.
 
 ## Validate
 
-When Carve MCP is available, use its resources and `carve_lint`;
-preview edits with its AST tools. Otherwise run the project's
-`carve lint` on touched files; lint accepts non-canonical spellings.
-Use the matching version, never install one, and verify failures are detected.
-Report command and version. See [validation.md](references/validation.md).
+From a built `carve-js` `next2` checkout, use `node dist/cli2.js lint FILE`, `fmt --check FILE`, and `render FILE`. Check `--help` in that checkout for actual flags. `lint` reports parse and lint findings; rendering and writing may report additional losses. The 0.2 library entry point is `v2/src/index.ts`. See [validation](references/validation.md).
 
-## Preserve intent and safety
-
-Preserve nearby syntax and layout unless asked to canonicalize.
-For issue, PR, or chat bodies, widen the outer Markdown fence beyond every bare
-fence in the Carve sample and preview it.
-
-Use logical headings and useful link/alt text. Treat raw output, embeds, and
-renderers as trust boundaries. Read
-[quality-and-safety.md](references/quality-and-safety.md) for safety or
-[reader-focused.md](references/reader-focused.md) for editorial review.
+Preserve the author's meaning when editing. For new source, write the canonical form that `fmt` emits. For a shown HTML result, render the exact source with the target 0.2 engine. Check accessibility, URLs, raw HTML, and includes with [quality and safety](references/quality-and-safety.md). Use [reader-focused review](references/reader-focused.md) when prose is the task.

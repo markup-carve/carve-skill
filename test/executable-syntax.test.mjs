@@ -33,7 +33,7 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { carveToHtml } from '@markup-carve/carve'
+import { render as carveToHtml } from '@markup-carve/carve'
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)))
 const syntax = readFileSync(join(root, 'references', 'syntax.md'), 'utf8')
@@ -41,15 +41,16 @@ const syntax = readFileSync(join(root, 'references', 'syntax.md'), 'utf8')
 // A word in a row's RESULT column, and the element the engine must produce for
 // that row's source. The key is matched against the lowercased result text, so
 // "bold italic" names both `<strong>` and `<em>` and is checked for both.
+// The 0.2 card (#225) names the meanings `Emphasis`, `Strong` and `Code, math`.
 const CONCEPTS = [
-  ['italic', '<em>'],
-  ['bold', '<strong>'],
+  ['emphasis', '<em>'],
+  ['strong', '<strong>'],
   ['underline', '<u>'],
   ['strike', '<s>'],
   ['superscript', '<sup>'],
   ['subscript', '<sub>'],
   ['highlight', '<mark>'],
-  ['inline code', '<code>'],
+  ['code', '<code>'],
 ]
 
 /**
@@ -64,17 +65,34 @@ const firstCodeSpan = (cell) => {
   return single ? single[1] : null
 }
 
-/** Every `| write | result |` row of the reference's tables. */
+/** The code spans of a table cell, joined: a 0.2 row such as `{^2^}`, `{,2,}` names two sources. */
+const codeSpans = (cell) => {
+  const found = []
+  for (const match of cell.matchAll(/``\s?(.+?)\s?``|`([^`]+)`/g)) found.push(match[1] ?? match[2])
+  return found.length ? found.join(' ') : null
+}
+
+/**
+ * Every two-column row of the reference's tables, as source and result. The 0.2
+ * card (#225) puts the meaning first (`| Meaning | Source |`); a `| Write | Result |`
+ * table keeps the source first.
+ */
 const rows = () => {
   const found = []
+  let meaningFirst = false
   for (const line of syntax.split('\n')) {
     const trimmed = line.trim()
     if (!trimmed.startsWith('|') || !trimmed.endsWith('|')) continue
     const cells = trimmed.slice(1, -1).split('|')
     if (cells.length !== 2) continue
-    const [write, result] = cells.map((c) => c.trim())
-    if (!write || /^-+$/.test(write) || write === 'Write') continue
-    const source = firstCodeSpan(write)
+    const [first, second] = cells.map((c) => c.trim())
+    if (first === 'Meaning' || first === 'Write') {
+      meaningFirst = first === 'Meaning'
+      continue
+    }
+    if (!first || /^-+$/.test(first)) continue
+    const [write, result] = meaningFirst ? [second, first] : [first, second]
+    const source = meaningFirst ? codeSpans(write) : firstCodeSpan(write)
     if (source === null) continue
     found.push({ source, result, line: trimmed })
   }
@@ -99,7 +117,8 @@ test('the syntax reference is a table this test can read', () => {
   // this suite passes silently, which is exactly the state being removed.
   const all = rows()
   assert.ok(
-    all.length >= 20,
+    // The 0.2 card (#225) has 12 inline rows; the 0.1 reference had more than 20.
+    all.length >= 10,
     `references/syntax.md yielded ${all.length} two-column rows, which is fewer than ` +
       'the reference has ever had. Either the file was emptied or its table format ' +
       'changed and this test is now reading nothing.',

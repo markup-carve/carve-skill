@@ -27,7 +27,7 @@
     "scripts/check-installed-version.mjs"
   ],
   "scripts": {
-    "test": "node --test test/skill-02.test.mjs",
+    "test": "node --test test/*.test.mjs",
     "lint:examples": "node scripts/check-samples.mjs",
     "fmt:examples": "node scripts/check-samples.mjs",
     "test:behavior": "node --test test/behavior.test.mjs",
@@ -39,7 +39,7 @@
     "samples:check": "node scripts/check-samples.mjs"
   },
   "devDependencies": {
-    "@markup-carve/carve": "0.1.16",
+    "@markup-carve/carve": "github:markup-carve/carve-js#11de2ad3652448277905e0980e72a49936139c0b",
     "gpt-tokenizer": "4.0.0"
   }
 }

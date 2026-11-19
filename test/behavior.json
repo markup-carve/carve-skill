@@ -1,7 +1,8 @@
 [
   {
     "name": "Carve emphasis instead of Markdown doubles",
-    "source": "A /lean/ and *strong* and ~gone~.",
+    "source": "A /lean/ and *strong* and {~gone~}.",
+    "note": "0.2 U-066: a bare strike needs braces",
     "htmlIncludes": ["<em>lean</em>", "<strong>strong</strong>", "<s>gone</s>"],
     "htmlExcludes": ["**", "~~"]
   },
@@ -11,8 +12,9 @@
     "htmlIncludes": ["<section id=\"target\">", "<a href=\"#target\">Target</a>"]
   },
   {
-    "name": "a continuation marker attaches a fenced block to its list item",
-    "source": "- first\n+\n```js\nx\n```",
+    "name": "an indented fenced block belongs to its list item",
+    "source": "- first\n\n  ```js\n  x\n  ```",
+    "note": "0.2 C2-B-059 (U-123): no continuation marker; the fence is indented to the item content column",
     "htmlIncludes": ["<li>first", "<pre><code class=\"language-js\">x"]
   },
   {
@@ -24,12 +26,15 @@
   {
     "name": "raw HTML is routed to the HTML target",
     "source": "`<mark>safe fixture</mark>`{=html}",
+    "options": { "rawHtml": true },
+    "note": "0.2 C2-H-051, C2-H-053: raw HTML passes only with rawHtml on",
     "htmlIncludes": ["<mark>safe fixture</mark>"]
   },
   {
-    "name": "a letter marker opens a list only with two spaces",
-    "source": "a. x\nb. y\n\ni.  first\nj.  second",
-    "htmlIncludes": ["<p>a. x\nb. y</p>", "<ol type=\"a\" start=\"9\">", "<li>first</li>"]
+    "name": "an uppercase letter marker opens a list only with two spaces",
+    "source": "A. x\nB. y\n\nC.  first\nD.  second",
+    "note": "0.2 C2-B-040: only an uppercase marker with a dot needs two spaces",
+    "htmlIncludes": ["<p>A. x\nB. y</p>", "<ol type=\"A\" start=\"3\">", "<li>first</li>"]
   },
   {
     "name": "a first-line bare dash run opens frontmatter, not a thematic break",

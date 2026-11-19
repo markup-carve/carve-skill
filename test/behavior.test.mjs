@@ -3,23 +3,11 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { LIB_VERSION, carveToHtml, djotMigrationWarnings, lintCarve } from '@markup-carve/carve'
+import { lint, render as carveToHtml } from '@markup-carve/carve'
 
-// WHAT `carve lint` MEANS, PROGRAMMATICALLY. The CLI's default mode is two
-// calls, not one: `lintCarve` for the semantic rules and `djotMigrationWarnings`
-// for the Markdown-habit family, filtered to the `carve-breakage` category
-// (`--from-djot` keeps `djot-shift` as well). `lintCarve` alone cannot see
-// `**bold**`, `~~strike~~`, `^sup^` or a `+` bullet - the four mistakes this
-// skill exists to prevent - so a fixture written with one of them passed the
-// clean-lint assertion below. Measured on 0.1.9: `lintCarve('a **x** b')` is
-// `[]` while `carve lint` on the same bytes reports
-// `markdown-strong-double-star`.
-const defaultLint = (source) => [
-  ...lintCarve(source).map((finding) => finding.rule),
-  ...djotMigrationWarnings(source)
-    .filter((warning) => warning.category === 'carve-breakage')
-    .map((warning) => warning.rule),
-]
+// 0.2 `lint` is one call: the Markdown-habit rules are catalog rules of
+// data/lint-rules.json, so nothing is composed any more.
+const defaultLint = (source, rules) => lint(source, rules ? { rules } : undefined).map((finding) => finding.code)
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)))
 const cases = JSON.parse(readFileSync(join(root, 'test', 'behavior.json'), 'utf8'))
@@ -28,7 +16,7 @@ for (const fixture of cases) {
   test(`behavior: ${fixture.name}`, () => {
     const findings = defaultLint(fixture.source)
     assert.deepEqual(findings, [], `unexpected lint findings: ${JSON.stringify(findings)}`)
-    const html = carveToHtml(fixture.source)
+    const html = carveToHtml(fixture.source, fixture.options)
     for (const fragment of fixture.htmlIncludes) assert.ok(
       html.includes(fragment),
       `rendered HTML did not include ${JSON.stringify(fragment)}:\n${html}`,
@@ -40,29 +28,23 @@ for (const fixture of cases) {
   })
 }
 
-// THE CLEAN-LINT ASSERTION ABOVE HAS TO BE ABLE TO FAIL. It was written against
-// `lintCarve` alone, which is blind to the whole Markdown-habit family, so for
-// every fixture in this file it could only ever pass. Both halves are asserted:
-// that the composed call reports the mistake, and that the single call does not,
-// because the day `lintCarve` absorbs these rules this test should say so rather
-// than keep composing a call that no longer needs composing.
+// THE CLEAN-LINT ASSERTION ABOVE HAS TO BE ABLE TO FAIL: the default rules
+// report the two Markdown habits on their own. `djot-superscript-caret` and
+// `djot-plus-bullet` are opt-in in 0.2 (data/lint-rules.json), so they report
+// once turned on.
 test('the clean-lint assertion sees the mistakes this skill exists to prevent', () => {
   for (const [source, rule] of [
     ['a **x** b', 'markdown-strong-double-star'],
     ['a ~~x~~ b', 'markdown-strikethrough-double-tilde'],
+  ]) {
+    assert.ok(defaultLint(source).includes(rule), `${JSON.stringify(source)} should report ${rule}, got ${JSON.stringify(defaultLint(source))}`)
+  }
+  for (const [source, rule] of [
     ['a ^x^ b', 'djot-superscript-caret'],
     ['+ item', 'djot-plus-bullet'],
   ]) {
-    assert.ok(
-      defaultLint(source).includes(rule),
-      `${JSON.stringify(source)} should report ${rule}, got ${JSON.stringify(defaultLint(source))}`,
-    )
-    assert.deepEqual(
-      lintCarve(source).map((finding) => finding.rule),
-      [],
-      `lintCarve now reports ${JSON.stringify(source)} on its own; drop the composition in defaultLint ` +
-        'and the paragraph about it in references/validation.md',
-    )
+    assert.ok(!defaultLint(source).includes(rule), `${rule} is on by default now; move it to the list above`)
+    assert.ok(defaultLint(source, { [rule]: 'on' }).includes(rule), `${JSON.stringify(source)} should report ${rule} when it is on`)
   }
 })
 
@@ -160,27 +142,29 @@ test('attribute tabs stay literal in the published engine', () => {
 
 test('a footnote in link text renders without a nested link', () => {
   const html = carveToHtml('[see[^1]](/u)\n\n[^1]: note\n')
-  assert.match(html, /<a href="\/u">see<sup/)
+  // 0.2 C2-H-088 (U-154): the mark follows the closing anchor.
+  assert.match(html, /<a href="\/u">see<\/a><a id="fnref1"/)
   assert.doesNotMatch(html, /<a href="\/u">[^<]*<a /)
 })
 
-test('first-block marker in a footnote pulls a block and a column-0 list', () => {
+test('first-block marker in a footnote pulls a block and a column-0 list', { skip: '0.2 C2-B-059 (U-123): the `+` continuation marker is gone' }, () => {
   const code = carveToHtml('[^a]: +\n```\ncode\n```\n\nSee [^a].\n')
   assert.match(code, /<li id="fn1">[\s\S]*<pre><code>code/)
   const list = carveToHtml('[^a]: +\n- a list\n\nSee [^a].\n')
   assert.match(list, /<li id="fn1">\s*<ul>\s*<li>a list<\/li>/)
-  assert.ok(!lintCarve('[^a]: +\n- a list\n\nSee [^a].\n').some((finding) => finding.rule === 'continuation-marker-refused'))
+  assert.ok(!defaultLint('[^a]: +\n- a list\n\nSee [^a].\n').includes('continuation-marker-refused'))
 })
 
-test('footnote labels match spaces but keep tabs distinct', () => {
+test('footnote labels fold spaces and tabs alike', () => {
   const definition = '[^a b]: note\n\n'
   const spaced = carveToHtml(definition + 'See [^a  b].\n')
   const tabbed = carveToHtml(definition + 'See [^a\tb].\n')
   assert.match(spaced, /role="doc-noteref"/)
-  assert.doesNotMatch(tabbed, /role="doc-noteref"/)
+  // 0.2 C2-I-079: a label folds tabs like spaces.
+  assert.match(tabbed, /role="doc-noteref"/)
 })
 
-test('every capability the matrix records is true of the engine', () => {
+test('every capability the matrix records is true of the engine', { skip: 'the 0.2 references/capabilities.json records no per-feature matrix (carve-skill#225)' }, () => {
   const capabilities = JSON.parse(
     readFileSync(join(root, 'references', 'capabilities.json'), 'utf8'),
   )
@@ -251,7 +235,7 @@ test('every capability the matrix records is true of the engine', () => {
 // at a release cut. Trap 12 in the block/container guide names the discriminator for that
 // (the SMART_PUNCTUATION_GLYPHS arrow count), and the scheduled workflow checks
 // the lockfile against the newest published release.
-test('the capability matrix names the engine the probes actually ran', () => {
+test('the capability matrix names the engine the probes actually ran', { skip: 'the 0.2 references/capabilities.json names no tested engine version (carve-skill#225)' }, () => {
   const capabilities = JSON.parse(
     readFileSync(join(root, 'references', 'capabilities.json'), 'utf8'),
   )
@@ -260,7 +244,7 @@ test('the capability matrix names the engine the probes actually ran', () => {
 
   assert.equal(
     capabilities.testedEngine,
-    `@markup-carve/carve@${LIB_VERSION}`,
+    '@markup-carve/carve',
     'references/capabilities.json names an engine other than the one these tests imported, ' +
       'so every value it records is attributed to a version that did not produce it',
   )

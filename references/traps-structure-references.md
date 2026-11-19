@@ -19,3 +19,20 @@ An attribute line sits immediately before its target; an inline attribute block 
 ## Includes
 
 Includes need a resolver and an allowed root. Selection by section, lines, region, or code mode changes which content is read. `fmt` does not expand directives. A failed resolution is diagnostic information. See [includes](../spec/spec/0.2/includes.md) and [tooling](../spec/spec/0.2/tooling.md).
+
+## Worked 0.2 example
+
+```crv
+|= Name |
+| Ada |
+```
+```html
+<table>
+  <thead>
+    <tr><th scope="col">Name</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Ada</td></tr>
+  </tbody>
+</table>
+```

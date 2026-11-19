@@ -19,3 +19,17 @@ Use `|=` for header cells and a brace prefix for alignment, such as `|={>}`. A G
 ## Line-preserving content
 
 `::: |` retains source lines as a line block; `::: \` is a hard-break block. They differ in how their bodies parse. Use the [sigil div clauses](../spec/spec/0.2/syntax-blocks.md#sigil-divs) when a line break affects meaning.
+
+## Worked 0.2 example
+
+```crv
+= Heading
+
+A paragraph.
+```
+```html
+<section id="Heading">
+  <h1>Heading</h1>
+  <p>A paragraph.</p>
+</section>
+```

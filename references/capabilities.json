@@ -10,9 +10,24 @@
   "carveWriter": true,
   "htmlImport": true,
   "astSchema": "2.0",
-  "referenceOnly": ["upgrade", "Markdown/GFM/Djot/BBCode importers (@markup-carve/carve/import)", "Markdown/plain/ANSI exports (@markup-carve/carve/export)", "standard extensions (@markup-carve/carve/extensions)"],
-  "removedFromShared02": ["Markdown writer", "plain writer", "ANSI writer", "0.1 editor APIs"],
-  "hostDependent": ["raw HTML", "include resolver and root", "registered extensions", "URL policy"],
+  "referenceOnly": [
+    "upgrade",
+    "Markdown/GFM/Djot/BBCode importers (@markup-carve/carve/import)",
+    "Markdown/plain/ANSI exports (@markup-carve/carve/export)",
+    "standard extensions (@markup-carve/carve/extensions)"
+  ],
+  "removedFromShared02": [
+    "Markdown writer",
+    "plain writer",
+    "ANSI writer",
+    "0.1 editor APIs"
+  ],
+  "hostDependent": [
+    "raw HTML",
+    "include resolver and root",
+    "registered extensions",
+    "URL policy"
+  ],
   "source": {
     "blocks": "spec/0.2/syntax-blocks.md",
     "inline": "spec/0.2/syntax-inline.md",
@@ -25,5 +40,39 @@
     "upgrade": "spec/0.2/UPGRADING.md",
     "lineShapes": "spec/0.2/data/line-shapes.json",
     "lintRules": "spec/0.2/data/lint-rules.json"
+  },
+  "testedEngine": "@markup-carve/carve",
+  "testedRevision": "a2f3334f393c88b0e5b36e339c615b2460a91025",
+  "features": {
+    "plus_is_text": {
+      "clause": "C2-B-059",
+      "source": "A paragraph.\n\n+\n",
+      "html": "<p>+</p>"
+    },
+    "emphasis": {
+      "clause": "C2-I-046",
+      "source": "A /word/.\n",
+      "html": "<em>word</em>"
+    },
+    "strong": {
+      "clause": "C2-I-046",
+      "source": "A *word*.\n",
+      "html": "<strong>word</strong>"
+    },
+    "braced_underline": {
+      "clause": "C2-I-055",
+      "source": "A {_word_}.\n",
+      "html": "<u>word</u>"
+    },
+    "star_break": {
+      "clause": "C2-B-159",
+      "source": "A\n\n***\n",
+      "html": "<hr"
+    },
+    "native_table_header": {
+      "clause": "C2-B-171",
+      "source": "|= Name |\n| A |\n",
+      "html": "<th scope=\"col\">Name</th>"
+    }
   }
 }

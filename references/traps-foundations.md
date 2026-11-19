@@ -19,3 +19,12 @@ A list marker needs content; `+` is text, not a bullet or a continuation. Indent
 ## Typography and symbols
 
 Smart punctuation and named symbols are specified in [inline syntax](../spec/spec/0.2/syntax-inline.md) and [smart punctuation data](../spec/spec/0.2/data/smart-punctuation.json). Render a symbol example before promising a particular glyph. Escape a punctuation run when literal bytes matter.
+
+## Worked 0.2 example
+
+```crv
+A /word/ and *word*.
+```
+```html
+<p>A <em>word</em> and <strong>word</strong>.</p>
+```

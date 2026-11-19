@@ -25,3 +25,7 @@ Read [syntax](references/syntax.md) for source forms. Use the focused [foundatio
 From a built `carve-js` `next2` checkout, use `node dist/cli.js lint FILE`, `fmt --check FILE`, and `render FILE`. Check `--help` in that checkout for actual flags. `lint` reports parse and lint findings; rendering and writing may report additional losses. The library entry is the package root `@markup-carve/carve`; `/import`, `/export`, and `/extensions` are separate entries. See [validation](references/validation.md).
 
 Preserve the author's meaning when editing. For new source, write the canonical form that `fmt` emits. For a shown HTML result, render the exact source with the target 0.2 engine. Check accessibility, URLs, raw HTML, and includes with [quality and safety](references/quality-and-safety.md). Use [reader-focused review](references/reader-focused.md) when prose is the task.
+
+## Carve MCP
+
+When Carve MCP is available for the target version, use its versioned resources and `carve_lint` for a first check. Read [MCP routing](references/workflows.md#mcp-routing) for task-specific tools. Confirm that the server serves 0.2 before applying edits, since a 0.1 server teaches different syntax. When MCP is unavailable, use the pinned 0.2 engine described above.

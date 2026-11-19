@@ -170,7 +170,7 @@ test('every worked example renders to the HTML it claims', () => {
   assert.deepEqual(wrong, [], `worked example(s) claim HTML the engine does not produce:\n  ${wrong.join('\n  ')}`)
 })
 
-test('every claimed-HTML block belongs to a worked example this test runs', { skip: 'the 0.2 trap guides (#225) carry no HTML worked examples; samples:check renders every Carve fence against the 0.2 engine' }, () => {
+test('every claimed-HTML block belongs to a worked example this test runs', () => {
   // The population guard, derived rather than written down: an `html` block that
   // is NOT preceded by a Carve block is a claim nobody checks, and it would drop
   // out of the arm above in silence. Equality is the assertion, so both a new
@@ -179,7 +179,7 @@ test('every claimed-HTML block belongs to a worked example this test runs', { sk
   const trapHtmlBlocks = trapFiles
     .flatMap((file) => fencedBlocks(read(file)))
     .filter((block) => block.lang === 'html').length
-  assert.ok(trapHtmlBlocks >= 7, `only ${trapHtmlBlocks} trap-guide HTML claims remain executable`)
+  assert.ok(trapHtmlBlocks >= trapFiles.length, `only ${trapHtmlBlocks} trap-guide HTML claims remain executable`)
   assert.equal(
     pairs.length,
     htmlBlocks,
@@ -275,15 +275,23 @@ test('every formatting rule stated in prose is true of the engine', () => {
 // ---------------------------------------------------------------------------
 // Coverage: a rule that stops being extractable must fail rather than vanish.
 
-test('no documented concept has dropped out of the tables and prose', { skip: 'the 0.2 references (#225) state the inline rules only in the syntax card, which executable-syntax.test.mjs runs' }, () => {
-  const exercised = new Set([...carveColumnClaims(), ...proseClaims()].flatMap(({ tags }) => tags))
-  const WANTED = ['<em>', '<strong>', '<u>', '<s>', '<mark>', '<sup>', '<sub>', 'LITERAL']
-  const missing = WANTED.filter((tag) => !exercised.has(tag))
-  assert.deepEqual(
-    missing,
-    [],
-    `no table or prose claim outside references/syntax.md exercises ${missing.join(', ')} any more. ` +
-      'Rewording a rule past recognition removes the claim instead of falsifying it, which reads ' +
-      'as a pass - so the concept going unexercised is itself the failure.',
-  )
+test('the 0.2 syntax card keeps every formatting concept executable', () => {
+  const card = read('references/syntax.md')
+  const cases = [
+    ['Emphasis', '/word/', '<em>'],
+    ['Strong', '*word*', '<strong>'],
+    ['Underline', '{_word_}', '<u>'],
+    ['Strike', '{~word~}', '<s>'],
+    ['Highlight', '{=word=}', '<mark>'],
+    ['Superscript', '{^2^}', '<sup>'],
+    ['subscript', '{,2,}', '<sub>'],
+  ]
+  for (const [concept, source, tag] of cases) {
+    assert.ok(card.includes(concept) && card.includes(source), `${concept} is absent from the syntax card`)
+    assert.ok(carveToHtml(`A ${source}.`).includes(tag), `${concept} is not rendered by the pinned engine`)
+  }
+  for (const source of ['_word_', '~word~', '=word=']) {
+    const html = carveToHtml(`A ${source}.`)
+    assert.ok(!MARKUP.some(tag => html.includes(tag)), `${source} is no longer literal`)
+  }
 })

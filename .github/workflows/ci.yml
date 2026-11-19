@@ -33,13 +33,6 @@ jobs:
       - run: npm test
       - run: npm run spec:check
 
-      - uses: actions/checkout@v7
-        with:
-          repository: markup-carve/carve-js
-          ref: 11de2ad3652448277905e0980e72a49936139c0b
-          path: carve-js-next2
-      - run: npm ci && npm run build
-        working-directory: carve-js-next2
       - run: npm run samples:check
         env:
-          CARVE_CLI: ${{ github.workspace }}/carve-js-next2/dist/cli.js
+          CARVE_CLI: ${{ github.workspace }}/node_modules/@markup-carve/carve/dist/cli.js

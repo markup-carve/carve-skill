@@ -4,6 +4,13 @@ All notable changes to carve-skill are documented in this file.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Improvements
+
+- The skill teaches Carve 0.2 against the renamed carve-js `next2` engine: the CLI is `carve` (`dist/cli.js`) and the library is the package root `@markup-carve/carve`, with the `/import`, `/export` and `/extensions` entries.
+- The references name the carve-js Markdown, GFM, Djot and BBCode importers, the Markdown, plain-text and ANSI exports, and the provisional standard extensions.
+
 ## [0.1.9] - 2026-11-12
 
 The skill teaches the Carve 0.1.14 spec, checked against carve-js 0.1.16.

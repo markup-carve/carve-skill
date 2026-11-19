@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { spawnSync } from 'node:child_process'
-import { existsSync, mkdtempSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -96,22 +96,28 @@ test('every reference page is watched or deliberately exempt from spec review', 
 // pattern-matched for a path that could be re-spelled correctly and still be
 // wrong on the next release.
 test('the round-trip lint script reports a document it must reject', () => {
+  // On next2 `lint:examples` is scripts/check-samples.mjs, which lints every Carve
+  // fence of SKILL.md and the references through the 0.2 CLI. It runs here on a
+  // copy whose SKILL.md holds `**x**`, so the gate is shown to fail.
   const script = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')).scripts['lint:examples']
-  assert.ok(script.includes('examples/*.crv'), 'lint:examples no longer lints the examples directory')
+  assert.ok(script.includes('scripts/check-samples.mjs'), 'lint:examples no longer runs the sample check')
 
-  const probe = join(mkdtempSync(join(tmpdir(), 'carve-skill-lint-')), 'bad.crv')
-  writeFileSync(probe, 'a **x** b\n')
-  const run = spawnSync(script.replace('examples/*.crv', probe), {
-    cwd: root,
-    shell: true,
+  const copy = mkdtempSync(join(tmpdir(), 'carve-skill-lint-'))
+  for (const dir of ['scripts', 'references', 'examples']) mkdirSync(join(copy, dir))
+  writeFileSync(join(copy, 'scripts', 'check-samples.mjs'), readFileSync(join(root, 'scripts', 'check-samples.mjs')))
+  writeFileSync(join(copy, 'SKILL.md'), '```crv\na **x** b\n```\n')
+  writeFileSync(join(copy, 'examples', 'showcase.crv'), 'Fine.\n')
+  const cli = process.env.CARVE_CLI ?? join(root, 'node_modules', '@markup-carve', 'carve', 'dist', 'cli.js')
+  const run = spawnSync(process.execPath, [join(copy, 'scripts', 'check-samples.mjs')], {
     encoding: 'utf8',
+    env: { ...process.env, CARVE_CLI: cli },
   })
 
   assert.notEqual(
     run.status,
     0,
-    'lint:examples exited 0 on a document holding `**x**`, so the CI round-trip gate cannot fail. ' +
+    'lint:examples exited 0 on a sample holding `**x**`, so the CI round-trip gate cannot fail. ' +
       `stdout: ${JSON.stringify(run.stdout)} stderr: ${JSON.stringify(run.stderr)}`,
   )
-  assert.match(run.stdout, /markdown-strong-double-star/)
+  assert.match(run.stdout + run.stderr, /markdown-strong-double-star/)
 })

@@ -14,7 +14,7 @@ Use [migration](traps-migration.md). Work on a copy, run the reference engine's 
 
 ## HTML import
 
-The 0.2 shared CLI imports HTML. Inspect the diagnostics and render-loss record before accepting the generated Carve source. HTML input has no guarantee of retaining every source distinction. For Markdown source, first render it to HTML with the intended Markdown renderer and then import HTML; the old 0.1 Markdown importer is not a 0.2 core workflow.
+The 0.2 shared CLI imports HTML. Inspect the diagnostics and render-loss record before accepting the generated Carve source. HTML input has no guarantee of retaining every source distinction. For Markdown, GFM, Djot, or BBCode source, carve-js offers `carve import --from markdown` (or `gfm`, `djot`, `bbcode`) and `importDocument` from `@markup-carve/carve/import`. These importers are reference-engine features outside the shared 0.2 contract; check another engine before relying on them.
 
 ## Includes
 
@@ -26,4 +26,4 @@ The enclosing GitHub or chat body is Markdown even when its sample is Carve. Use
 
 ## Publishing
 
-Publish the HTML result with an explicit URL policy, raw HTML setting, and extension set. Check headings, alt text, links, captions, tables, and responsive reading order. The 0.2 shared writer produces Carve; 0.1 Markdown, plain, and ANSI writer claims do not apply.
+Publish the HTML result with an explicit URL policy, raw HTML setting, and extension set. Check headings, alt text, links, captions, tables, and responsive reading order. The 0.2 shared writer produces Carve. carve-js also exports a tree as Markdown, plain text, or ANSI through `toMarkdown`, `toPlainText`, and `toAnsi` from `@markup-carve/carve/export`; each returns `output` and render-loss `diagnostics`, so read the losses before publishing. These exports are outside the shared 0.2 contract.

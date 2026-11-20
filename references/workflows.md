@@ -14,7 +14,7 @@ Use [migration](traps-migration.md). Work on a copy, run the reference engine's 
 
 ## HTML import
 
-The 0.2 shared CLI imports HTML. Inspect the diagnostics and render-loss record before accepting the generated Carve source. HTML input has no guarantee of retaining every source distinction. For Markdown, GFM, Djot, or BBCode source, carve-js offers `carve import --from markdown` (or `gfm`, `djot`, `bbcode`) and `importDocument` from `@markup-carve/carve/import`. These importers are reference-engine features outside the shared 0.2 contract; check another engine before relying on them.
+The 0.2 shared CLI imports HTML. Inspect the diagnostics and render-loss record before accepting the generated Carve source. HTML input has no guarantee of retaining every source distinction. For Markdown, GFM, Djot, or BBCode source, carve-js offers `carve import --from markdown` (or `gfm`, `djot`, `bbcode`) and `importDocument` from `@markup-carve/carve/import`. The 0.1 Markdown importer read GFM, so use `gfm` when migrating a 0.1 Markdown import; `markdown` now reads strict CommonMark and leaves tables and task markers as text. These importers are reference-engine features outside the shared 0.2 contract; check another engine before relying on them.
 
 ## Includes
 

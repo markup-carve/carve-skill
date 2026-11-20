@@ -2,7 +2,7 @@
 
 ## Sections and headings
 
-0.2 HTML renders headings and sections according to [C2-H](../spec/spec/0.2/html.md#paragraphs-headings-and-sections). Generated ids, section boundaries, and repeated headings need actual render checks. A source heading can use `=` or `#`; `=` is the simple canonical spelling. Put attributes above the heading.
+0.2 HTML renders headings and sections according to [C2-H](../spec/spec/0.2/html.md#paragraphs-headings-and-sections). Generated ids, section boundaries, and repeated headings need actual render checks. `lint` reads `headingIds` (`--heading-ids`), so `broken-fragment-link` checks against the ids your render option generates; lint with the same value. A source heading can use `=` or `#`; `=` is the simple canonical spelling. Put attributes above the heading.
 
 ## Definitions and links
 
@@ -18,7 +18,7 @@ An attribute line sits immediately before its target; an inline attribute block 
 
 ## Includes
 
-Includes need a resolver and an allowed root. Selection by section, lines, region, or code mode changes which content is read. `fmt` does not expand directives. A failed resolution is diagnostic information. See [includes](../spec/spec/0.2/includes.md) and [tooling](../spec/spec/0.2/tooling.md).
+Includes need a resolver and an allowed root. Selection by section, lines, region, or code mode changes which content is read. `fmt` does not expand directives; `carve flatten` is the one source-writing command that does. A failed resolution is diagnostic information. See [includes](../spec/spec/0.2/includes.md) and [tooling](../spec/spec/0.2/tooling.md).
 
 ## Worked 0.2 example
 

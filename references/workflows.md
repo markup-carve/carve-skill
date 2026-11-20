@@ -18,7 +18,7 @@ The 0.2 shared CLI imports HTML. Inspect the diagnostics and render-loss record 
 
 ## Includes
 
-Choose a permitted root and resolver. Verify selectors, heading shifts, dependencies, and failed resolutions under [include rules](../spec/spec/0.2/includes.md). `fmt` leaves include directives unexpanded. A host without a resolver cannot promise expanded content.
+Choose a permitted root and resolver. Verify selectors, heading shifts, dependencies, and failed resolutions under [include rules](../spec/spec/0.2/includes.md). `fmt` leaves include directives unexpanded; `carve flatten` writes the expanded document as canonical source and fails with `include-unresolved` or `flatten-changed` instead of writing a changed result. A host without a resolver cannot promise expanded content.
 
 ## Issue, PR, or chat body
 
@@ -26,7 +26,7 @@ The enclosing GitHub or chat body is Markdown even when its sample is Carve. Use
 
 ## Publishing
 
-Publish the HTML result with an explicit URL policy, raw HTML setting, and extension set. Check headings, alt text, links, captions, tables, and responsive reading order. The 0.2 shared writer produces Carve. carve-js also exports a tree as Markdown, plain text, or ANSI through `toMarkdown`, `toPlainText`, and `toAnsi` from `@markup-carve/carve/export`; each returns `output` and render-loss `diagnostics`, so read the losses before publishing. These exports are outside the shared 0.2 contract.
+Publish the HTML result with an explicit URL policy, raw HTML setting, and extension set. Check headings, alt text, links, captions, tables, and responsive reading order. The 0.2 shared writer produces Carve. carve-js also exports a tree as Markdown, plain text, or ANSI through `toMarkdown`, `toPlainText`, and `toAnsi` from `@markup-carve/carve/export`; each returns `output` and render-loss `diagnostics`, so read the losses before publishing. Every engine offers these exports, also as `carve render --to markdown`, `plain`, or `ansi`, but their output and loss codes are outside the shared 0.2 contract.
 
 ## MCP routing
 

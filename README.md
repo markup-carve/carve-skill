@@ -1,98 +1,11 @@
 # carve-skill
 
-A Claude Code / agent skill for authoring, reviewing, publishing, and migrating
-[Carve](https://github.com/markup-carve/carve) — teaches AI coding tools to work
-with valid, idiomatic `.crv` instead of importing Markdown habits.
+A skill for authoring, reviewing, validating, and migrating Carve 0.2 documents. The 0.2 dialect is a development freeze candidate on the `next2` branches of [carve](https://github.com/markup-carve/carve) and [carve-js](https://github.com/markup-carve/carve-js).
 
-Carve deliberately diverges from Markdown/Djot (the emphasis delimiters are swapped, sup/sub are braced-only, `+` is a continuation marker, and more). An agent that defaults to Markdown habits emits Carve that silently mis-renders. This skill front-loads the correct syntax and the traps, and points the agent at `carve lint` to verify.
+Install this directory as a `SKILL.md` bundle with its `references/` and `agents/` directories. The skill and references are hand-written against the pinned `spec` submodule. They are not generated from upstream prose. The source inventory in `references/capabilities.json`, the pinned submodule, and the sample checker keep the hand-written guidance reviewable as 0.2 changes.
 
-## Contents
+The 0.2 reference CLI is `node dist/cli.js` (installed name `carve`) in a built `carve-js` `next2` checkout. Check `--help` for commands and flags. The 0.2 library is the package root `@markup-carve/carve`, with the separate entries `@markup-carve/carve/import`, `@markup-carve/carve/export`, and `@markup-carve/carve/extensions`.
 
-- **[SKILL.md](SKILL.md)** — discovery and routing, essential dialect traps, and the validation loop.
-- **Trap topic guides** — [foundations](references/traps-foundations.md),
-  [blocks and containers](references/traps-blocks-containers.md),
-  [structure and references](references/traps-structure-references.md), and the
-  [Djot migration checklist](references/traps-migration.md).
-- **[references/syntax.md](references/syntax.md)** — the full core syntax card.
-- **[references/extensions.md](references/extensions.md)** — Tier-2/Tier-3 opt-in constructs.
-- **[references/validation.md](references/validation.md)** — the `carve lint` round-trip.
-- **[references/capabilities.json](references/capabilities.json)** — machine-readable released/spec/host support boundaries.
-- **[references/workflows.md](references/workflows.md)** — authoring, migration, MCP editing, workspace-review, and publishing playbooks.
-- **[references/quality-and-safety.md](references/quality-and-safety.md)** — accessibility, raw-output, embed, and host-safety checks.
-- **[references/reader-focused.md](references/reader-focused.md)** — concise editorial checks for clear, human-centered documentation.
+Run `npm test` for the repository checks and `npm run samples:check` with `CARVE_CLI` set to an absolute path to a built carve-js `next2` `dist/cli.js`. The sample checker extracts every `crv` fence in `SKILL.md` and `references/`, then lints, formats, and renders each. It compares adjacent `html` fences when present. The 0.2 source inventory check hashes the pinned chapters and data catalogs; update it after reading changed clauses.
 
-## Install
-
-Install or link this directory as a skill in Claude Code, Codex, or another agent
-that accepts `SKILL.md` bundles. The package deliberately has no runtime hook:
-`SKILL.md`, the complete `references/` directory, and the optional Codex UI
-metadata in `agents/` must remain together.
-
-## Not drifting
-
-The syntax, traps, extensions, validation, and quality-and-safety reference pages are sourced from the canonical spec docs, vendored as the `spec` submodule. A [drift guard](test/drift.test.mjs) fails CI if the skill falls behind the spec, and a round-trip test lints an [example document](examples/showcase.crv) to prove the taught syntax is valid Carve.
-
-The guard has to catch nine different failures, because a check that reads its own pinned input cannot see that input move, a check that names its inputs cannot see the ones it did not name, a check that looks for a token cannot see the meaning around it change, and a value nothing reads is not a check at all:
-
-- **The skill fell behind its pin.** The trap list must have a section for every numbered divergence in the pinned spec, and every essential construct must still appear both in the spec cheatsheet and in [`references/syntax.md`](references/syntax.md), the one page that undertakes to name every core construct. A mention on another page does not stand in for it: the check used to read all five pages concatenated, so a construct could leave the page that teaches it and stay green.
-- **A divergence was rewritten under the same heading number.** [`test/spec-review.json`](test/spec-review.json) records which *text* of each numbered section the trap list was last read against. A submodule bump that rewrites a section fails until someone re-reads it — the case that slipped through when the spec inverted the container rule inside section 13 without renumbering it.
-- **A rule stated in the AST schema moved.** [`test/schema-review.json`](test/schema-review.json) does the same per node definition of `spec/resources/ast-schema.json`, which states language rules in prose — block promotion, resolution timing, which fields survive a round trip. A pin bump that rewrites a node description fails until someone re-reads it and confirms no reference page now teaches the old rule.
-- **The normative rule surface moved.** [`test/rules-review.json`](test/rules-review.json) fingerprints `spec/resources/spec/rules.json` per active rule id, and [`test/clauses-review.json`](test/clauses-review.json) fingerprints the text of every `-- NORMATIVE` clause of `spec/resources/grammar.ebnf`. Two ledgers, because the registry says which rules exist and carries no rule text, and the grammar carries the text and no stable id — one alone would let a clause be rewritten into the opposite rule under an unchanged title, which is what happened to divergence section 13. Every earlier ledger watched prose or a schema, so the normative surface itself was unwatched: `CARVE-P0-020`, the rule deciding which container owns a line landing between two open content columns, was added in the exact area trap 11 of [the block/container guide](references/traps-blocks-containers.md) teaches, and every gate here stayed green. The rule fingerprint is part and title, not scope — the scopes are navigation views, and hashing them made one metadata addition read as 242 moved rules, which is the kind of ledger that gets recorded without being read. `spec/resources/normative-clauses.txt` and the six generated views under `spec/docs/rules/` get no ledger of their own because they carry no rule these two do not, and that is checked against the spec in hand rather than assumed.
-- **A cheat-sheet row was rewritten around its token.** [`test/cheatsheet-review.json`](test/cheatsheet-review.json) fingerprints `spec/docs/cheatsheet.md` per row — table row, notation fence, and the prose between them. The cheat sheet is the source [`references/syntax.md`](references/syntax.md) is written from, and it used to be checked only for whether thirteen construct tokens were PRESENT, so a row could keep `{,sub,}` while the columns explaining it were rewritten into the opposite rule and every gate stayed green. The parse is total — every line of the card lands in exactly one row — and a test asserts that, because a ledger that covers most of a document has the same blind spot in miniature.
-- **A topic source was rewritten under the same heading.** [`test/extensions-review.json`](test/extensions-review.json), [`test/validation-review.json`](test/validation-review.json), and [`test/security-review.json`](test/security-review.json) fingerprint the preamble and H2/H3 sections behind the extension, validation, and quality-and-safety reference pages. H3 identity includes its H2 parent, numbering-only churn is ignored, and a fenced example that contains heading syntax remains part of its real section rather than becoming a false ledger entry.
-- **A review was recorded against something other than the pin.** Every ledger stamps the `spec_rev` it was read against, and [`scripts/review-revision.mjs`](scripts/review-revision.mjs) checks that stamp against the revision this repository pins - the gitlink, not the submodule's checked-out HEAD, so a review recorded from a working copy left behind by a half-applied bump is named rather than agreeing with itself. It is a comparison the fingerprints cannot make, because they answer *did the watched text change* and stay green whenever two revisions happen to agree on every watched surface. That is not hypothetical either: the field had one write and no reads, and six of the eight ledgers on main named `f59cc880` under a pin of `2775b6df`, recorded by a pull request whose last commit moved the pin again. The check runs against the pin only - the scheduled workflow reads carve main, where naming the older pinned revision is the normal state and the lag is what that job reports separately. `npm run spec:review` also refuses to write a ledger when the spec checkout is dirty or its revision cannot be read, so the stamp describes real bytes rather than falling back to `unknown`.
-- **The pin itself fell behind.** `npm test` cannot see that; the scheduled [spec-drift workflow](.github/workflows/spec-drift.yml) runs the same comparison against `markup-carve/carve` main. When one has moved it files or updates one tracking issue naming the documents to re-read, and the run stays green; it goes red only when the check itself cannot run.
-- **The ENGINE pin fell behind.** The spec pin and the engine are two different pins. The trap topic guides carry version-dated measurements, and a dated note is only evidence while its premise holds, so the scheduled workflow reports it in the same tracking issue when the lockfile's `@markup-carve/carve` is not the newest published release. It was added after a claim was written up as a gap the newest release did not have, measured against a lockfile one release behind.
-
-What the guard watches is a list, [`scripts/review-ledgers.mjs`](scripts/review-ledgers.mjs), read by the test, the offline checker and the workflow alike. A guard that names its inputs can only see what is named, so the list is in one place and adding a document to it is one entry.
-
-```sh
-git submodule update --init
-npm ci
-npm test              # drift guard, against the pinned spec
-npm run lint:examples # round-trip: the showcase must lint clean
-npm run eval:tasks     # score task outcomes across five quality dimensions
-# score a real candidate and its disclosed context:
-npm run eval:tasks -- --task "author Carve emphasis without Markdown habits" --candidate /path/to/output.crv --references syntax.md
-
-npm run spec:check    # what moved, without the test harness
-npm run spec:review   # record the review — AFTER re-reading what it names
-npm run version:check # compare an installed Codex copy with the latest release
-```
-
-`version:check` exits nonzero when `~/.codex/skills/carve-authoring` is behind
-the latest GitHub release, making it suitable for a user timer or other local
-monitor. It reports an update but never modifies the installed skill.
-
-## Context budget
-
-The entrypoint keeps only routing, essential dialect differences, validation,
-and editing constraints in default context. Detailed syntax, traps, extensions,
-and specialist workflows load only when the request needs them.
-
-Measured with `gpt-tokenizer` 4.0.0's GPT-5/o200k tokenizer, default-loaded
-`SKILL.md` is **797 tokens**, down from the original 2,189 (**63.6%**), of which
-70 tokens are discovery metadata. The trap material is split so a task opens
-one relevant topic instead of an 8,032-token monolith:
-
-| Path | Total tokens |
-| --- | ---: |
-| Default only | 797 |
-| Default + syntax card | 2,995 |
-| Default + foundation traps | 4,612 |
-| Default + block/container traps | 4,378 |
-| Default + structure/reference traps | 4,898 |
-| Default + syntax + largest relevant trap guide + migration checklist | 7,430 |
-
-The command discovers and reports every shipped reference separately so
-deferred context remains visible.
-
-Reproduce the comparison against the branch base with:
-
-```sh
-npm run context:measure -- --baseline-ref origin/main
-```
-
-`npm test` enforces an 800-token default-context ceiling, pins the published
-profile totals, and discovers every supporting reference to ensure it remains
-explicitly routed from the entrypoint.
+The entrypoint routes to focused references for syntax, traps, extensions, validation, migration, workflows, and safety. Use the [0.2 spec](https://github.com/markup-carve/carve/tree/next2/spec/0.2) for exact behavior and the [upgrade guide](https://github.com/markup-carve/carve/blob/next2/spec/0.2/UPGRADING.md) for 0.1 source.

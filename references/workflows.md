@@ -1,147 +1,48 @@
-# Carve workflows
-
-## MCP routing
-
-Use Carve MCP as the execution layer when the host exposes it:
-
-| Need | MCP capability |
-| --- | --- |
-| Confirm unfamiliar syntax | Read `carve://guide`, then the narrow `carve://rules/{ruleId}` resource |
-| Validate touched source | `carve_lint`; read only the returned `carve://lint-rules/{ruleName}` resources |
-| Repair automatic diagnostics | `carve_diagnose_and_fix`; choose explicit `automatic` fix IDs and retain its undo patch |
-| Change structure | `carve_parse`, `carve_select_ast_nodes`, then `carve_plan_ast_edit` for a reversible source patch |
-| Migrate Markdown, HTML, or Djot | `carve_migrate`, review fidelity diagnostics, then lint the result |
-| Compare publishing outputs | `carve_check_targets`; list every target and inspect unsupported features and losses |
-| Check workspace authorization | `carve_workspace_info`; filesystem tools need a configured root and writes need `--allow-write` |
-| Review a documentation root | `carve_review_workspace`; lint files and check local links/anchors before forming a fix plan |
-| Review document references | `carve_reference_graph`; inspect broken edges and orphaned definitions before cross-file edits |
-| Preview canonical formatting | `carve_prepare_edit`, or `carve_prepare_workspace_edits` for several files |
-| Edit an authorized file | `carve_read_file`, `carve_plan_ast_edit`, `carve_apply_reversible_ast_patch`, then dry-run and confirm `carve_write_file` |
-
-Do not load every resource pre-emptively. MCP results determine the next narrow
-resource or tool. If MCP is absent, use the matching-version project CLI paths
-described in [validation](validation.md).
+# Carve 0.2 workflows
 
 ## New document
 
-1. Discover the implementation, version, renderer, and enabled extensions.
-2. Start with core syntax and a logical heading hierarchy.
-3. Add host-dependent constructs only when the target declares support.
-4. Lint every new file and preview structure-sensitive output.
+Choose the 0.2 target, HTML host options, include resolver, and extensions. Draft with [syntax](syntax.md), then run the 0.2 CLI `lint`, `fmt --check`, and `render`. Check source structure and rendered HTML. Use a blank line before a block that should start after prose.
 
 ## Local edit
 
-Read the complete containing block before editing. Preserve authored spellings,
-attribute placement, indentation, newline style, and fence widths. Change only
-the requested region. Do not run a whole-document formatter unless asked.
+Read the nearby paragraph, list, quote, fence, and attribute boundaries. Make the smallest edit that preserves the intended tree. Run `lint` and `fmt --check` on the touched document; render around any change to structure, references, table spans, or raw content. `fmt --write` is a source rewrite, so review its diff.
 
-### Safe diagnostic repairs
+## 0.1 migration
 
-Run `carve_diagnose_and_fix` to separate automatic repairs from findings that
-need writer judgment. Preview first, pass only explicitly chosen `automatic` IDs,
-and retain the returned undo patch. Never turn an ambiguous recommendation into
-an automatic rewrite.
+Use [migration](traps-migration.md). Work on a copy, run the reference engine's `upgrade --check` and `upgrade --json`, inspect silent HTML changes, then apply once and compare 0.1 and 0.2 HTML. Migrate integrations and stored trees separately.
 
-### Atomic structural edits
+## HTML import
 
-Prefer `carve_plan_ast_edit` over constructing patches by hand. Select headings
-by ID, footnotes by label, or nodes by type; use a returned `ast-path` only to
-disambiguate the current source. Put linked selector-and-intent pairs in `then`:
-all selectors resolve against the original document and the plan succeeds or
-fails as one unit. This is appropriate for transferring a heading ID, removing
-a footnote reference with its definition, or changing several siblings whose
-indices would otherwise move. Review the consolidated source patch and notices.
+The 0.2 shared CLI imports HTML. Inspect the diagnostics and render-loss record before accepting the generated Carve source. HTML input has no guarantee of retaining every source distinction. For editor HTML, use `--adapter word` or `--adapter google-docs` to read note patterns as footnotes; `generic` is the default. For Markdown, GFM, Djot, or BBCode source, carve-js offers `carve import --from markdown` (or `gfm`, `djot`, `bbcode`) and `importDocument` from `@markup-carve/carve/import`. The 0.1 Markdown importer read GFM, so use `gfm` when migrating a 0.1 Markdown import; `markdown` now reads strict CommonMark and leaves tables and task markers as text. These importers are reference-engine features outside the shared 0.2 contract; check another engine before relying on them.
 
-### Authorized workspace changes
+## Includes
 
-Workspace tools exist only when the MCP server has an authorized root. Check
-`carve_workspace_info` first; writes additionally require `--allow-write`.
-Use this chain for a semantic change: `carve_read_file` → inspect/select →
-`carve_plan_ast_edit` → `carve_apply_reversible_ast_patch` → a dry-run
-`carve_write_file` → confirmed write → re-lint. Preserve the read hash and use
-it as `expectedSha256` when overwriting. Omit that field when creating a file.
-Re-read and re-plan after a stale-hash refusal.
-
-A semantic plan preserves bytes outside its returned source-edit span but may
-canonicalize unrelated formatting inside that span. Inspect the complete patch
-or diff before writing. When exact authored spelling matters, make a narrow
-manual edit or use byte-ranged automatic diagnostic fixes instead.
-
-`carve_prepare_edit` and `carve_prepare_workspace_edits` specifically preview
-canonical formatting; use the batch form to review several formatting-only
-proposals together. A lossy item requires writer review and deliberately has no
-applicable patch.
-
-## Markdown or Djot migration
-
-Use the project's converter when available, then lint with `--from-djot`. Review
-emphasis, underline, strike, sup/sub, lists, heading attributes, definitions,
-comments, raw blocks, and cross-references manually. Finish with ordinary lint;
-`--from-djot` is a migration audit, not the steady-state authoring mode.
+Choose a permitted root and resolver. Verify selectors, heading shifts, dependencies, and failed resolutions under [include rules](../spec/spec/0.2/includes.md). `fmt` leaves include directives unexpanded; `carve flatten` writes the expanded document as canonical source and fails with `include-unresolved` or `flatten-changed` instead of writing a changed result. A host without a resolver cannot promise expanded content.
 
 ## Issue, PR, or chat body
 
-The enclosing body is Markdown even when the sample is Carve. Find the longest
-bare backtick fence line in the sample and make the outer Markdown fence longer.
-Do the same recursively for `:::` containers inside the Carve sample. Preview
-the submitted body and verify that prose after the sample did not enter it.
+The enclosing GitHub or chat body is Markdown even when its sample is Carve. Use a `crv` fence longer than any backtick fence inside the sample. Lint and format the Carve bytes inside it. When showing HTML, render the exact source with the named options.
 
-## Complex containers and tables
+## Publishing
 
-Determine each container's effective content column before inserting a child
-block. Keep list continuations (`+`) on their own line. For tables, verify header,
-rowspan/colspan, continuation cells, and caption output rather than relying on a
-clean lint alone.
+Publish the HTML result with an explicit URL policy, raw HTML setting, and extension set. Check headings, alt text, links, captions, tables, and responsive reading order. The 0.2 shared writer produces Carve. carve-js also exports a tree as Markdown, plain text, or ANSI through `toMarkdown`, `toPlainText`, and `toAnsi` from `@markup-carve/carve/export`; each returns `output` and render-loss `diagnostics`, so read the losses before publishing. Every engine offers these exports, also as `carve render --to markdown`, `plain`, or `ansi`, but their output and loss codes are outside the shared 0.2 contract.
 
-## Extensions
+## MCP routing
 
-Check the host feature table and renderer. Include a readable fallback for
-Tier-3 content. Never infer extension support solely because the syntax parses.
+Read the server's version first. The routes below apply when the server exposes 0.2 behavior; otherwise use the pinned 0.2 CLI and library. Choose only the resources and tools the task needs.
 
-## Publishing to several targets
+| Task | MCP route |
+| --- | --- |
+| Learn a rule | `carve://guide`, then `carve://rules/{ruleId}` for that rule |
+| Check a source file | `carve_lint`; use `carve_parse` when the tree matters |
+| Migrate 0.1 source | `carve_migrate`, then inspect diagnostics and output |
+| Repair diagnostics | `carve_diagnose_and_fix` for proposed safe fixes |
+| Plan a structural edit | `carve_plan_ast_edit`, then `carve_apply_reversible_ast_patch` |
+| Guard a file write | `carve_read_file`, `carve_write_file`, and `expectedSha256` |
+| Check publishing targets | `carve_check_targets` |
+| Review a workspace | `carve_workspace_info`, then `carve_review_workspace` |
+| Trace references | `carve_reference_graph` |
+| Preview multiple edits | `carve_prepare_workspace_edits` |
 
-Use `carve_check_targets` when more than one output or host matters. Distinguish
-valid source from a construct that degrades, requires an extension, or is
-unsupported in a particular target. Render only the chosen targets after the
-comparison and report material losses to the writer. Supply every intended
-target explicitly; plain text and ANSI are not part of the default set.
-
-The closed `--allow-loss` list includes table losses such as
-`table-span-flattened` and `table-header-cell-demoted`. The pinned spec also
-reports default Markdown export losses: `markdown-container-flattened`,
-`markdown-caption-flattened`, `markdown-attributes-dropped`, and
-`raw-html-escaped`. Roundtrip Markdown carries containers, captions, and
-attributes, so it omits the first three codes when those carriers are written.
-A checked source-to-Markdown export can report an unattached attribute run that
-an AST-only renderer cannot see. Check the installed engine's support before
-relying on these reports; carve-js 0.1.12 reports the table codes under
-`carve render --report-losses`.
-
-Preview exported Markdown in the intended reader. The pinned spec targets
-GFM: heading links use GFM slugs without `{#id}` suffixes, table cells keep
-their breaks within one row, and headerless tables gain an empty header.
-It also specifies preserved frontmatter and fragment links, flattened
-definition lists, list-tables written as pipe tables, and escapes that work
-across adjacent nodes. These rules do not establish released-engine support, so check exported links
-before publishing. The heading case has since caught up: 0.1.7 wrote `{#h}`
-after an explicitly identified heading and linked to `#h`, which a GFM reader
-displays as a literal suffix under a different anchor, while 0.1.10 writes the
-bare heading and rewrites the link to the GFM slug.
-
-When an export must import back without losing structure, carve-js 0.1.11 provides `carve render --roundtrip`, which writes the preservation carriers (named
-`data-carve-` attributes in HTML, carrier comments in Markdown). An authored attribute with a reserved carrier name is dropped
-and reported as `carrier-attribute-dropped`, so do not author `data-carve-`
-attributes by hand.
-
-## Workspace references
-
-When a root is authorized, start with `carve_review_workspace` for bounded lint
-and local link/anchor checks; use its automatic versus writer-review fix plan.
-Use `carve_reference_graph` before changing shared heading IDs, document links,
-images, footnotes, or abbreviations. Resolve broken edges and review orphaned
-definitions, then preview affected files together. A clean lint result does not
-prove that references between documents still resolve.
-
-The MCP's optional prompts are convenient entry points, not substitutes for
-these checks. Follow their tool results and load only the narrow resources the
-result identifies.
+Do not load every resource pre-emptively. If MCP is absent or does not serve 0.2, use the pinned engine's CLI for lint, format, and render, and inspect its library tree for structural work.

@@ -1,33 +1,35 @@
-import { test } from 'node:test'
+import test from 'node:test'
 import assert from 'node:assert/strict'
-import { copyFileSync, mkdirSync, mkdtempSync, writeFileSync } from 'node:fs'
-import { tmpdir } from 'node:os'
-import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
-import { coverageFindings } from '../scripts/normative-coverage.mjs'
+import { readFileSync } from 'node:fs'
+import { resolve, join } from 'node:path'
 
-const spec = join(dirname(fileURLToPath(import.meta.url)), '..', 'spec')
-const SOURCES = ['resources/spec/rules.json', 'resources/normative-clauses.txt', 'resources/grammar.ebnf']
+const root = resolve(import.meta.dirname, '..', 'spec/spec/0.2')
+const chapters = ['syntax-blocks', 'syntax-inline', 'html', 'ast', 'writer', 'includes', 'tooling', 'extensions', 'import-html', 'source-layout']
+const ids = new Set()
 
-// A carve checkout after carve#4546: the rule views are built at docs build and
-// gitignored, so docs/rules/ does not exist.
-function checkoutWithoutViews(gitignore) {
-  const dir = mkdtempSync(join(tmpdir(), 'carve-skill-coverage-'))
-  for (const path of SOURCES) {
-    mkdirSync(dirname(join(dir, path)), { recursive: true })
-    copyFileSync(join(spec, path), join(dir, path))
+test('0.2 clauses have unique ids across the normative chapters', () => {
+  for (const chapter of chapters) {
+    const source = readFileSync(join(root, `${chapter}.md`), 'utf8')
+    const found = [...source.matchAll(/^\*\*(?:Exception )?(C2-[A-Z]-\d{3})\*\*/gm)].map(match => match[1])
+    assert.ok(found.length >= 3, `${chapter} has too few clauses`)
+    for (const id of found) {
+      assert.ok(!ids.has(id), `${id} is repeated`)
+      ids.add(id)
+    }
   }
-  if (gitignore !== undefined) writeFileSync(join(dir, '.gitignore'), gitignore)
-  return dir
-}
-
-test('gitignored rule views that were never built are not a finding', () => {
-  const findings = coverageFindings(checkoutWithoutViews('node_modules/\ndocs/rules/\n'))
-  assert.deepEqual(findings, [], findings.join('\n'))
+  assert.ok(ids.size > 300, `only ${ids.size} clauses found`)
 })
 
-test('missing rule views the checkout does not ignore are still a finding', () => {
-  const findings = coverageFindings(checkoutWithoutViews('node_modules/\n'))
-  assert.equal(findings.length, 1)
-  assert.match(findings[0], /^docs\/rules: ENOENT/)
+test('0.2 conformance cases cite existing clauses', () => {
+  if (ids.size === 0) {
+    for (const chapter of chapters) {
+      for (const match of readFileSync(join(root, `${chapter}.md`), 'utf8').matchAll(/^\*\*(?:Exception )?(C2-[A-Z]-\d{3})\*\*/gm)) ids.add(match[1])
+    }
+  }
+  const cases = JSON.parse(readFileSync(join(root, 'conformance/clause-cases.json'), 'utf8')).cases
+  assert.ok(cases.length > 100, `only ${cases.length} cases found`)
+  for (const row of cases) {
+    assert.ok(row.clauses.length > 0, `${row.id} cites no clause`)
+    for (const id of row.clauses) assert.ok(ids.has(id), `${row.id} cites missing ${id}`)
+  }
 })

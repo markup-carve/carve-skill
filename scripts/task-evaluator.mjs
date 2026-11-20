@@ -1,7 +1,8 @@
 import { readFileSync, realpathSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { carveToHtml, carveToPlainText, lintCarve } from '@markup-carve/carve'
+import { lint, parse, render } from '@markup-carve/carve'
+import { toPlainText } from '@markup-carve/carve/export'
 import { countTokens } from 'gpt-tokenizer/model/gpt-5'
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)))
@@ -19,8 +20,8 @@ function changedLines(before, after) {
 }
 
 export function evaluateCandidate(task, source, loadedReferences = task.loadedReferences ?? []) {
-  const html = carveToHtml(source)
-  const text = carveToPlainText(source)
+  const html = render(source)
+  const text = toPlainText(parse(source)).output
   const skill = readFileSync(join(root, 'SKILL.md'), 'utf8')
   const contextTokens = countTokens(skill) + loadedReferences.reduce(
     (total, name) => total + countTokens(readFileSync(join(root, 'references', name), 'utf8')),
@@ -28,7 +29,7 @@ export function evaluateCandidate(task, source, loadedReferences = task.loadedRe
   )
   const editLines = changedLines(task.input, source)
   const dimensions = {
-    validCarve: lintCarve(source).length === 0,
+    validCarve: lint(source).length === 0,
     meaningPreserved: task.requiredText.every((fragment) => text.includes(fragment)),
     minimalEdit: editLines <= task.maxChangedLines,
     correctConstructs: task.requiredHtml.every((fragment) => html.includes(fragment)) &&

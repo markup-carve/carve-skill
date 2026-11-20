@@ -1,125 +1,78 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$comment": "Measured, not asserted: test/behavior.test.mjs runs a probe per feature against the engine in testedEngine and fails when a recorded value disagrees. Two values here were stale falses until that probe existed.",
-  "testedEngine": "@markup-carve/carve@0.1.16",
-  "policy": "Prefer released-engine behavior. A spec-only construct must not be authored unless the target explicitly supports it.",
+  "dialect": "Carve 0.2 freeze candidate",
+  "status": "development on next2; not released",
+  "spec": "markup-carve/carve next2 spec/0.2",
+  "referenceEngine": "markup-carve/carve-js next2",
+  "cli": "node dist/cli.js (installed name carve)",
+  "api": "@markup-carve/carve (package root); entries ./node, ./import, ./export, ./extensions",
+  "html": true,
+  "carveWriter": true,
+  "htmlImport": true,
+  "astSchema": "2.0",
+  "referenceOnly": [
+    "upgrade",
+    "Markdown/GFM/Djot/BBCode importers (@markup-carve/carve/import)",
+    "Markdown/plain/ANSI exports (@markup-carve/carve/export)",
+    "standard extensions (@markup-carve/carve/extensions)"
+  ],
+  "removedFromShared02": [
+    "Markdown writer",
+    "plain writer",
+    "ANSI writer",
+    "0.1 editor APIs"
+  ],
+  "hostDependent": [
+    "raw HTML",
+    "include resolver and root",
+    "registered extensions",
+    "URL policy"
+  ],
+  "source": {
+    "blocks": "spec/0.2/syntax-blocks.md",
+    "inline": "spec/0.2/syntax-inline.md",
+    "html": "spec/0.2/html.md",
+    "ast": "spec/0.2/ast.md",
+    "writer": "spec/0.2/writer.md",
+    "includes": "spec/0.2/includes.md",
+    "tooling": "spec/0.2/tooling.md",
+    "extensions": "spec/0.2/extensions.md",
+    "upgrade": "spec/0.2/UPGRADING.md",
+    "lineShapes": "spec/0.2/data/line-shapes.json",
+    "lintRules": "spec/0.2/data/lint-rules.json"
+  },
+  "testedEngine": "@markup-carve/carve",
+  "testedRevision": "fb2718493f3bcb70b4a26d05ae2ee084ec978552",
   "features": {
-    "trailing_comment": {
-      "syntax": "%%",
-      "spec": true,
-      "inTestedEngine": true
+    "plus_is_text": {
+      "clause": "C2-B-059",
+      "source": "A paragraph.\n\n+\n",
+      "html": "<p>+</p>"
     },
-    "fenced_comment": {
-      "syntax": "%%%",
-      "spec": true,
-      "inTestedEngine": true
+    "emphasis": {
+      "clause": "C2-I-046",
+      "source": "A /word/.\n",
+      "html": "<em>word</em>"
     },
-    "delimited_comment": {
-      "syntax": "{% comment %}",
-      "spec": true,
-      "inTestedEngine": true,
-      "guidance": "Shipped in 0.1.4. Older engines need %% instead."
+    "strong": {
+      "clause": "C2-I-046",
+      "source": "A *word*.\n",
+      "html": "<strong>word</strong>"
     },
-    "container_exact_closer": {
-      "syntax": "equal-width nested ::: fences",
-      "spec": true,
-      "inTestedEngine": true,
-      "guidance": "Shipped in 0.1.4: an equal-width nested container nests. An equal-width CODE fence still closes early."
+    "braced_underline": {
+      "clause": "C2-I-055",
+      "source": "A {_word_}.\n",
+      "html": "<u>word</u>"
     },
-    "admonition_landmark_name": {
-      "syntax": "::: note with an optional quoted title",
-      "spec": true,
-      "inTestedEngine": true,
-      "guidance": "Shipped in 0.1.6: untitled admonitions use aria-label; titled admonitions use aria-labelledby pointing to the visible title."
+    "star_break": {
+      "clause": "C2-B-159",
+      "source": "A\n\n***\n",
+      "html": "<hr"
     },
-    "raw_html": {
-      "syntax": "`x`{=html} or ```=html",
-      "spec": true,
-      "inTestedEngine": true,
-      "renderer": "html only"
-    },
-    "tier3_renderers": {
-      "syntax": "mermaid, chart, rendered math, host directives",
-      "spec": true,
-      "inTestedEngine": "host-dependent"
-    },
-    "vertical_cell_alignment": {
-      "syntax": "|=<^ and |=>v, a second table alignment axis",
-      "spec": true,
-      "inTestedEngine": true,
-      "guidance": "Shipped in 0.1.5. Was prose-only guidance saying 0.1.4 left the markers as literal cell text, which stayed in the skill for a release after it stopped being true."
-    },
-    "braced_cell_alignment": {
-      "syntax": "|={>} and |{<v}, alignment symbols leading the cell's attribute block",
-      "spec": true,
-      "inTestedEngine": true,
-      "guidance": "markup-carve/carve#5091 D3. carve-js 0.1.15 renders the braced block as cell text and reads only the 0.1.13 prefixes (|=>, |<v), which stay readable through 0.1.x and are removed in 0.2.0. Write the braces only for an engine released after 0.1.15."
-    },
-    "nested_bare_emphasis": {
-      "syntax": "_*x*_, one bare mark directly inside another",
-      "spec": true,
-      "inTestedEngine": true,
-      "guidance": "PART 3's word-boundary guard (CARVE-P9-043) exempts a delimiter that opens directly after a `_` or `/` that is an open entry on the stack, closed later or not. `_*x*_` nests. `_*x* q` nests the strong and leaves the `_` literal; 0.1.15 leaves the whole run literal."
-    },
-    "fence_opener_fallback_lint": {
-      "syntax": "carve lint reporting a fence opener whose info string is not valid",
-      "spec": true,
-      "inTestedEngine": true,
-      "guidance": "Shipped in 0.1.9: an opener that does not recover, such as ```{.x}, reports `fence-opener-fallback` and still degrades to an inline code span, so the finding names the degradation rather than preventing it. ```js {.diff} is recovered after 0.1.15: the fence keeps its language, drops the attributes and reports `fence-title-syntax`. 0.1.7 reported nothing."
-    },
-    "directive_title": {
-      "syntax": "::: footnotes \"Title\" - a quoted title on a placement marker",
-      "spec": true,
-      "inTestedEngine": true,
-      "guidance": "Shipped in 0.1.9: a placing marker's quoted title renders as the placed element's first child with aria-labelledby, and an opener label follows it as <p class=\"div-label\">. 0.1.7 dropped both when the marker placed (markup-carve/carve-js#2073), so a title is safe to write only from 0.1.9 on."
-    },
-    "footnotes_placement_lint": {
-      "syntax": "carve lint reporting a ::: footnotes marker written inside a container",
-      "spec": true,
-      "inTestedEngine": true,
-      "guidance": "Shipped in 0.1.9 for footnotes only: a ::: footnotes marker inside a container reports `footnotes-placement-in-container`. The sibling rules `bibliography-placement-in-container` and `references-placement-in-container` are still unreported, so for those two kinds only the render shows that the marker did not place."
-    },
-    "doubled_arrows": {
-      "syntax": "==> <== <=> smart-punctuation arrows",
-      "spec": true,
-      "inTestedEngine": true,
-      "guidance": "Shipped in 0.1.5, and `=>` STOPPED converting in the same release. Write -->, <--, <-->, ==>, <== or <=>. The single-dash ->, <- and <-> stay literal text after 0.1.15 (they converted through 0.1.15); `=>` is literal text too."
-    },
-    "first_block_marker_quote": {
-      "syntax": "> + over a block at the quote's marker column",
-      "spec": true,
-      "inTestedEngine": true,
-      "guidance": "Spec rule CARVE-P9-067 (markup-carve/carve#4409): one attach rule, and a list attaches in every host except a list item. carve-js 0.1.13 to 0.1.15 accepts the first-block form in lists, descriptions, quotes and footnotes but pulls a non-list block only: a column-0 list below > +, : + or [^a]: + stays outside and lint reports continuation-marker-refused."
-    },
-    "first_block_marker_footnote": {
-      "syntax": "[^a]: + over a block at the note's marker column",
-      "spec": true,
-      "inTestedEngine": true,
-      "guidance": "carve-js 0.1.13 to 0.1.15 places the following code block inside the footnote. A column-0 list attaches under the spec (markup-carve/carve#4409) and is not pulled in those releases; 0.1.11 and 0.1.12 still pulled it."
-    },
-    "relative_plus_marker": {
-      "syntax": "a lone + at an open nested item's marker column attaches the next block written at that column to the nested item; a + at any other column is text",
-      "spec": true,
-      "inTestedEngine": true,
-      "guidance": "Spec CARVE-P9-067 (markup-carve/carve#3445, #4409). carve-js 0.1.13 implements it. 0.1.12 and earlier attach the block after an indented + to the outer item and drop a refused +; for those targets put a nested item's block at its content column after a blank line."
-    },
-    "delimited_table": {
-      "syntax": "{table} on the line above a csv or tsv fence",
-      "spec": true,
-      "inTestedEngine": true,
-      "guidance": "Spec 0.1.10, carve-js 0.1.12. Without {table}, or with malformed quoting, the fence stays code."
-    },
-    "empty_destination": {
-      "syntax": "[t]() and ![t]() and a bare [label]: definition",
-      "spec": true,
-      "inTestedEngine": true,
-      "guidance": "Spec 0.1.10 (CARVE-P3-024), carve-js 0.1.12: href=\"\" / src=\"\". Lint reports a bare definition as empty-reference-definition."
-    },
-    "grapheme_delimiter": {
-      "syntax": "a delimiter followed by a combining mark, variation selector or U+200D is text",
-      "spec": true,
-      "inTestedEngine": true,
-      "guidance": "Spec 0.1.10 (CARVE-P3-025), carve-js 0.1.12."
+    "native_table_header": {
+      "clause": "C2-B-171",
+      "source": "|= Name |\n| A |\n",
+      "html": "<th scope=\"col\">Name</th>"
     }
   }
 }

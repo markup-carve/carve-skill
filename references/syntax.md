@@ -91,6 +91,25 @@ Read [guide][].
 
 Attribute lines attach forward without an intervening blank line. Reference definitions require their own block boundary. An include looks like `{{ chapter.crv #intro }}` and expands only when the host enables a resolver and root. See [includes](../spec/spec/0.2/includes.md).
 
+## Frontmatter and metadata blocks
+
+````crv
+---
+title: Book
+---
+
+= Chapter 1
+
+{#ch1}
+---yaml
+author: Ada
+---
+
+Text.
+````
+
+Line 1 may open frontmatter with a bare `---`. After line 1, `---` glued to a format word (`yaml`, `toml`, `json`) opens a metadata block only at column 0 at the top level, after a blank line or an attribute line; a bare `---`, an indented opener and one inside a container stay text. The payload is opaque and renders nothing. `{#id}` above it is a lookup key, not a link target. A missing closer runs to the end of the document and reports `unclosed-frontmatter`. Only the line-1 block declares `carve-version`. See the upstream [metadata blocks page](https://github.com/markup-carve/carve/blob/next2/docs/metadata-blocks.md); the pinned spec predates it.
+
 ## Changed in 0.2
 
 `+` continuation, bare underline/strike/highlight, hyphen or underscore thematic breaks, tilde code fences, and GFM separator headers no longer have their 0.1 meanings. For source migration, read [migration](traps-migration.md).

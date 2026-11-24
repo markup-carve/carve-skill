@@ -52,7 +52,7 @@ A heading may also use `#` through `######`. Most block openers need a blank lin
 : Definition
 ```
 
-A list item needs text or a block on the marker line. Indent later blocks to the item's content column. A blank line between items makes the list loose. Ordered markers include decimal, alphabetic, and Roman styles; use the [block chapter](../spec/spec/0.2/syntax-blocks.md) for start and style rules. `+` has no attachment role.
+A list item needs text or a block on the marker line. Indent later blocks to the item's content column. A `::` term continues only on lines indented past its mark. A blank line between items makes the list loose. Ordered markers include decimal, alphabetic, and Roman styles; use the [block chapter](../spec/spec/0.2/syntax-blocks.md) for start and style rules. `+` has no attachment role.
 
 ## Fences and divs
 
@@ -76,7 +76,7 @@ Backtick fences make code. A language follows the opener without a space. Colon 
 ^ Inventory
 ```
 
-`|=` marks a header cell; the brace prefix holds alignment. A GFM separator row is data in 0.2. Captions follow an eligible table, image, code, or math block. See the [table rules](../spec/spec/0.2/syntax-blocks.md#tables) for spans, attributes, and delimited CSV or TSV tables.
+`|=` marks a header cell; the brace prefix holds alignment. A GFM separator row is data in 0.2. Captions follow an eligible table, image, code, or math block. A caption continues only on lines indented past its `^`; an unindented line starts the next block. See the [table rules](../spec/spec/0.2/syntax-blocks.md#tables) for spans, attributes, and delimited CSV or TSV tables.
 
 ## Attributes, definitions, includes
 
@@ -89,7 +89,7 @@ An introduction.
 Read [guide][].
 ```
 
-Attribute lines attach forward without an intervening blank line. Reference definitions require their own block boundary. An include looks like `{{ chapter.crv #intro }}` and expands only when the host enables a resolver and root. See [includes](../spec/spec/0.2/includes.md).
+Attribute lines attach forward without an intervening blank line. Reference definitions require their own block boundary. A link definition may put its title or attribute block on one line indented below it, and an abbreviation expansion continues on indented lines. An include looks like `{{ chapter.crv #intro }}` and expands only when the host enables a resolver and root. See [includes](../spec/spec/0.2/includes.md).
 
 ## Frontmatter and metadata blocks
 
@@ -108,11 +108,11 @@ author: Ada
 Text.
 ````
 
-Line 1 may open frontmatter with a bare `---`. After line 1, `---` glued to a format word (`yaml`, `toml`, `json`) opens a metadata block only at column 0 at the top level, after a blank line or an attribute line; a bare `---`, an indented opener and one inside a container stay text. The payload is opaque and renders nothing. `{#id}` above it is a lookup key, not a link target. A missing closer runs to the end of the document and reports `unclosed-frontmatter`. Only the line-1 block declares `carve-version`. See the upstream [metadata blocks page](https://github.com/markup-carve/carve/blob/next2/docs/metadata-blocks.md); the pinned spec predates it.
+Line 1 may open frontmatter with a bare `---`. After line 1, `---` glued to a format word (`yaml`, `toml`, `json`) opens a metadata block only at column 0 at the top level, after a blank line or an attribute line; a bare `---`, an indented opener and one inside a container stay text. The payload is opaque and renders nothing. `{#id}` above it is a lookup key, not a link target. Attribute lines that start on line 1 and sit directly above a typed opener make it the document frontmatter. A missing closer runs to the end of the document and reports `unclosed-frontmatter`. Only the line-1 block declares `carve-version`. See [frontmatter](../spec/spec/0.2/syntax-blocks.md#frontmatter) (C2-B-232, C2-B-233) and the [metadata blocks page](../spec/docs/metadata-blocks.md).
 
 ## Changed in 0.2
 
-`+` continuation, bare underline/strike/highlight, hyphen or underscore thematic breaks, tilde code fences, and GFM separator headers no longer have their 0.1 meanings. For source migration, read [migration](traps-migration.md).
+`+` continuation, bare underline/strike/highlight, hyphen or underscore thematic breaks, tilde code fences, and GFM separator headers no longer have their 0.1 meanings. Captions and terms no longer take unindented lines. For source migration, read [migration](traps-migration.md).
 
 ## Rendered example
 

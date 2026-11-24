@@ -6,11 +6,11 @@
 
 ## Definitions and links
 
-A reference definition starts at a block boundary. A reference use resolves by the 0.2 label rules; unresolved forms can remain text and report diagnostics. `</#id>` is a cross-reference, not a literal path. Link destinations and images follow the HTML URL policy, which the host chooses. See [inline references](../spec/spec/0.2/syntax-inline.md#reference-resolution).
+A reference definition starts at a block boundary. One line indented below a link definition can carry its title or attribute block; a brace line there is not an attribute line for the next block. A reference use resolves by the 0.2 label rules; unresolved forms can remain text and report diagnostics. `</#id>` is a cross-reference, not a literal path. Link destinations and images follow the HTML URL policy, which the host chooses. See [inline references](../spec/spec/0.2/syntax-inline.md#reference-resolution).
 
 ## Footnotes and captions
 
-`[^note]` refers to a footnote definition. Captions begin `^ ` after an eligible figure, table, code block, or math block. A caption can absorb a following line until a blank boundary. Inspect generated HTML for note placement and caption numbering. See [HTML footnotes](../spec/spec/0.2/html.md#footnotes) and [block captions](../spec/spec/0.2/syntax-blocks.md#captions).
+`[^note]` refers to a footnote definition. Captions begin `^ ` after an eligible figure, table, code block, or math block. A caption continues only on lines indented past its `^`, as a heading does; an unindented line starts the next block, and a second `^` line directly below a caption is text that `unattached-caption` reports. Inspect generated HTML for note placement and caption numbering. See [HTML footnotes](../spec/spec/0.2/html.md#footnotes) and [block captions](../spec/spec/0.2/syntax-blocks.md#captions).
 
 ## Attributes and cells
 

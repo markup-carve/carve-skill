@@ -42,7 +42,7 @@
     "lintRules": "spec/0.2/data/lint-rules.json"
   },
   "testedEngine": "@markup-carve/carve",
-  "testedRevision": "c25bccc979240d4300a5edbe9980d1e510c33b39",
+  "testedRevision": "42644b716ea55e55842953a2733fcccfea3718b6",
   "features": {
     "plus_is_text": {
       "clause": "C2-B-059",

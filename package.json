@@ -39,7 +39,7 @@
     "samples:check": "node scripts/check-samples.mjs"
   },
   "devDependencies": {
-    "@markup-carve/carve": "github:markup-carve/carve-js#c25bccc979240d4300a5edbe9980d1e510c33b39",
+    "@markup-carve/carve": "github:markup-carve/carve-js#42644b716ea55e55842953a2733fcccfea3718b6",
     "gpt-tokenizer": "4.0.0"
   }
 }

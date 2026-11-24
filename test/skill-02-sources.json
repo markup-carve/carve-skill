@@ -1,16 +1,16 @@
 {
   "spec/0.2/README.md": "e867dbe85390ab5e0f7cc496a6a5d12f1b687a7fcd959d2d13bde6341e51069f",
-  "spec/0.2/STATUS.md": "cdf962872d98dde935f0a7d0a4e3054cb4bcf04f054d4478856c3e36b8de44f4",
-  "spec/0.2/UPGRADING.md": "cf25f05fd8b72d61ecd51345a10a0c13b24a342b9cc94a80659ea7a04b870f79",
-  "spec/0.2/syntax-blocks.md": "f01b48818c08b1020265f9c336b5f59cf59ede692a2b01506266ba2ee6399a44",
+  "spec/0.2/STATUS.md": "10c0e9e3ae28d4077711733f56506e8ab47afff5451b3c44f49631311252a60b",
+  "spec/0.2/UPGRADING.md": "a4bbc09ef1b4487fe203865f4fc998233ee4ce65429bc338c40f480df957d5dd",
+  "spec/0.2/syntax-blocks.md": "4045ad2132a31ca530d8a2a7dc4ce327cbbad309488be55ef2f16afcda3ce579",
   "spec/0.2/syntax-inline.md": "fcdf282624870890913d1244491863f06a0998aff1ebae7b9abe5754728197a8",
   "spec/0.2/html.md": "a036e4bf17b35f557fdb7121ed834b1a9ae1a802ec95845cbb0d783a9d03d31b",
   "spec/0.2/ast.md": "58223ee3633469deb8fbaa559169344db664c7c8821362363e58a16ab884e867",
-  "spec/0.2/writer.md": "9d2f36168d5956bfaa2c228525fea33cbfc7fa091ba4f950f6e6012eb00139d0",
+  "spec/0.2/writer.md": "69767aabd8689e0bd34c5a802aa363de0f6cb7a68afa99bfc1bf726332d39245",
   "spec/0.2/includes.md": "a98e2884c31d0284e08807aa9ca6233911bfcbd964c06cc4482e7dd3a0c7ff82",
   "spec/0.2/source-layout.md": "78d9259fe8d388377df8a793457ffb0694f98a72ce50898acbd2c69e62d9b5f1",
   "spec/0.2/tooling.md": "811cd06f63a2c57fe90bb1443bc51e3a3095c4c99d02b7fe174ca8de45377a1a",
-  "spec/0.2/extensions.md": "b4b1aafed74e08d7d405f8ee5f854c00dd4f19e32d9e171c9a4fc06feb98666d",
+  "spec/0.2/extensions.md": "8071c709b1b597890f0287a1b9c920c079ca73d8ff858ecc8b0054861b8e7a3f",
   "spec/0.2/import-html.md": "36c1dd17708b7bfb0fbafcd666d3dc521d5be4e6d84ea3b2d1c33c4fb5a0668f",
   "spec/0.2/data/annotation-ranges.schema.json": "101110d73441c83952a0386f23c9439e6541ae38386c4560538a564a0b649254",
   "spec/0.2/data/ast-results.json": "b230645250e6dc05119240b39fdd10ece6f08ff4e4770cde6e0dc24b274e32af",
@@ -33,7 +33,7 @@
   "spec/0.2/data/inline-delimiters.json": "16130a64fbb80fb567a92a4af82f0e06728d336110e7557cebb80cd188af2c38",
   "spec/0.2/data/inline-scan.json": "8b1931c7a44ab665b76e2e6b16f31c197407bbe1b24366e72fc463e122e43acb",
   "spec/0.2/data/inline-sigils.json": "3e19ced5086964ac9ef03c099df28cfd2e0ef3a139e35e9533dc23e825369a6b",
-  "spec/0.2/data/interrupters.json": "4b00acc8488b49969b819d5bcfedb14e34927bf7bbc0fedc58e56d7db0cfd2be",
+  "spec/0.2/data/interrupters.json": "ea613fc9d6bf785b12fe63fd6b4d4a162b6f6c78d11ae2de9fcdcc8c6d967c8d",
   "spec/0.2/data/layout-schema.json": "1857829aac653a99075724585c0dc081df53b0761ec199698079630d13d3597b",
   "spec/0.2/data/limits.json": "60b1acb67f54194b07ef07808a4746b3c885094d8b98df665bebb560b8bdd8f6",
   "spec/0.2/data/line-shapes.json": "a3a73828fbc916305829fae51610a674b51379ddb92baafde87f88d744eb5cf2",
@@ -52,5 +52,5 @@
   "docs/get-started.md": "bdb46f46765e81fbb46c496817a065087346a8cae77d2286cba711e8702ec0e5",
   "docs/include-files.md": "289c5f1c2d3a0e921a79b2f0eb3151abf4ee7df39be35a47cd008dcd05750919",
   "docs/validation.md": "2919b4c087965c948e4225807c372ccee27777bb8b855930b51d78f1e7227501",
-  "docs/upgrade-0-2.md": "4fc20f725607a5669b89594a3b2c1bd2109494d3ab787a3e81980bddcb5e7751"
+  "docs/upgrade-0-2.md": "13fe042fe19576aadeebb3b089600da41706951a7d73da3ad52c2d208d79de47"
 }

@@ -112,7 +112,7 @@ Line 1 may open frontmatter with a bare `---`. After line 1, `---` glued to a fo
 
 ## Changed in 0.2
 
-`+` continuation, bare underline/strike/highlight, hyphen or underscore thematic breaks, tilde code fences, and GFM separator headers no longer have their 0.1 meanings. Captions and terms no longer take unindented lines. For source migration, read [migration](traps-migration.md).
+`+` continuation, bare underline/strike/highlight, hyphen or underscore thematic breaks, tilde code fences, and GFM separator headers no longer have their 0.1 meanings. Captions and terms no longer take unindented lines: only a paragraph does, and every other block except a fenced one continues only on lines indented past its marker. For source migration, read [migration](traps-migration.md).
 
 ## Rendered example
 

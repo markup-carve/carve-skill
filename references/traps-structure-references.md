@@ -2,7 +2,7 @@
 
 ## Sections and headings
 
-0.2 HTML renders headings and sections according to [C2-H](../spec/spec/0.2/html.md#paragraphs-headings-and-sections). Generated ids, section boundaries, and repeated headings need actual render checks. `lint` reads `headingIds` (`--heading-ids`), so `broken-fragment-link` checks against the ids your render option generates; lint with the same value. A source heading can use `=` or `#`; `=` is the simple canonical spelling. Put attributes above the heading.
+0.2 HTML renders headings and sections according to [C2-H](../spec/spec/0.2/html.md#paragraphs-headings-and-sections). Generated ids, section boundaries, and repeated headings need actual render checks. `lint` reads `headingIds` (`--heading-ids`), so `broken-fragment-link` checks against the ids your render option generates; lint with the same value. A page that writes its own title as the `<h1>` sets the render option `headingShift` (`--heading-shift`, 0 to 5, default 0, [C2-H-208](../spec/spec/0.2/html.md#options)): with 1, `=` renders as `<h2>`, at every depth and in expanded includes, while ids, cross-references, the tree and `fmt` output keep the authored levels. A shifted level above 6 renders as `<div role="heading" aria-level="N">` with one `heading-shift-above-6` warning. A source heading can use `=` or `#`; `=` is the simple canonical spelling. Put attributes above the heading.
 
 ## Definitions and links
 

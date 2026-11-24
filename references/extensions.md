@@ -14,6 +14,7 @@ Beyond the core (Tier-1) syntax, Carve has opt-in extensions. **The syntax is st
 | Citation | `[@key]`, `[@key, p. 5]`, `[-@key]` (suppress author), `[+@key]` (integral) | Tier-2 |
 | Code callouts | `<1>` markers in a code fence, bound to an `<ol>` | Tier-2 |
 | List-table | `::: list-table` block | Tier-2 |
+| Spoiler | inline `:spoiler[text]`, block `::: spoiler "Title"` (`<details class="spoiler">`; host CSS does the blur). Off: `<span class="ext-spoiler">` / `<div class="spoiler">`, text visible | Tier-2 |
 | Symbols | `:name:` (rendered via the processor `symbols` map; literal fallback) | core syntax |
 | Table of contents | `::: toc` (with `depth` / `from` / `to`) | Tier-3 |
 | Footnotes relocation | `::: footnotes` | core |

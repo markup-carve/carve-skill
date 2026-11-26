@@ -1,9 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "dialect": "Carve 0.2 freeze candidate",
-  "status": "development on next2; not released",
-  "spec": "markup-carve/carve next2 spec/0.2",
-  "referenceEngine": "markup-carve/carve-js next2",
+  "status": "development on main; not released",
+  "spec": "markup-carve/carve main spec/0.2",
+  "referenceEngine": "markup-carve/carve-js main",
   "cli": "node dist/cli.js (installed name carve)",
   "api": "@markup-carve/carve (package root); entries ./node, ./import, ./export, ./extensions",
   "html": true,

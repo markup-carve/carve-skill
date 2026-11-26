@@ -5,7 +5,7 @@ description: Write, edit, validate, or migrate Carve 0.2 documents and snippets.
 
 # Working with Carve 0.2
 
-Carve 0.2 is a development version. Use the `next2` specification and a 0.2 engine for 0.2 work. Released 0.1 packages teach different syntax. Check [capabilities](references/capabilities.json) before choosing a target.
+Carve 0.2 is a development version. Use the `main` specification and a 0.2 engine for 0.2 work. Released 0.1 packages teach different syntax. Check [capabilities](references/capabilities.json) before choosing a target.
 
 ## Route
 
@@ -22,7 +22,7 @@ Read [syntax](references/syntax.md) for source forms. Use the focused [foundatio
 
 ## Validate
 
-From a built `carve-js` `next2` checkout, use `node dist/cli.js lint FILE`, `fmt --check FILE`, and `render FILE`. Check `--help` in that checkout for actual flags. `lint` reports parse and lint findings; rendering and writing may report additional losses. The library entry is the package root `@markup-carve/carve`; `/import`, `/export`, and `/extensions` are separate entries. See [validation](references/validation.md).
+From a built `carve-js` `main` checkout, use `node dist/cli.js lint FILE`, `fmt --check FILE`, and `render FILE`. Check `--help` in that checkout for actual flags. `lint` reports parse and lint findings; rendering and writing may report additional losses. The library entry is the package root `@markup-carve/carve`; `/import`, `/export`, and `/extensions` are separate entries. See [validation](references/validation.md).
 
 Preserve the author's meaning when editing. For new source, write the canonical form that `fmt` emits. For a shown HTML result, render the exact source with the target 0.2 engine. Check accessibility, URLs, raw HTML, and includes with [quality and safety](references/quality-and-safety.md). Use [reader-focused review](references/reader-focused.md) when prose is the task.
 

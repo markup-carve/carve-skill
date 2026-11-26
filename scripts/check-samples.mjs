@@ -6,7 +6,7 @@ import { spawnSync } from 'node:child_process'
 const root = resolve(import.meta.dirname, '..')
 const cli = process.env.CARVE_CLI
 if (!cli) {
-  process.stderr.write('Set CARVE_CLI to the absolute path of a built carve-js next2 dist/cli.js\n')
+  process.stderr.write('Set CARVE_CLI to the absolute path of a built carve-js main dist/cli.js\n')
   process.exit(2)
 }
 const files = ['SKILL.md', ...readdirSync(join(root, 'references')).filter(x => x.endsWith('.md')).map(x => `references/${x}`)]

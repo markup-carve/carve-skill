@@ -96,7 +96,7 @@ test('every reference page is watched or deliberately exempt from spec review', 
 // pattern-matched for a path that could be re-spelled correctly and still be
 // wrong on the next release.
 test('the round-trip lint script reports a document it must reject', () => {
-  // On next2 `lint:examples` is scripts/check-samples.mjs, which lints every Carve
+  // On main `lint:examples` is scripts/check-samples.mjs, which lints every Carve
   // fence of SKILL.md and the references through the 0.2 CLI. It runs here on a
   // copy whose SKILL.md holds `**x**`, so the gate is shown to fail.
   const script = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')).scripts['lint:examples']

@@ -1,6 +1,6 @@
 # Validate Carve 0.2
 
-The authority is the `next2` [tooling contract](../spec/spec/0.2/tooling.md), [writer and lint chapter](../spec/spec/0.2/writer.md), and [lint catalog](../spec/spec/0.2/data/lint-rules.json). Use a 0.2 engine. In the JavaScript checkout, build first with `npm ci && npm run build`; invoke `node dist/cli.js` or the installed `carve` command.
+The authority is the `main` [tooling contract](../spec/spec/0.2/tooling.md), [writer and lint chapter](../spec/spec/0.2/writer.md), and [lint catalog](../spec/spec/0.2/data/lint-rules.json). Use a 0.2 engine. In the JavaScript checkout, build first with `npm ci && npm run build`; invoke `node dist/cli.js` or the installed `carve` command.
 
 ```sh
 node dist/cli.js lint page.crv

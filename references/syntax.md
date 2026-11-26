@@ -1,6 +1,6 @@
 # Carve 0.2 syntax
 
-This card summarizes the `next2` [block](../spec/spec/0.2/syntax-blocks.md) and [inline](../spec/spec/0.2/syntax-inline.md) chapters. The chapters decide edge cases. The 0.2 [cheat sheet](../spec/docs/cheatsheet.md) is the short upstream card.
+This card summarizes the `main` [block](../spec/spec/0.2/syntax-blocks.md) and [inline](../spec/spec/0.2/syntax-inline.md) chapters. The chapters decide edge cases. The 0.2 [cheat sheet](../spec/docs/cheatsheet.md) is the short upstream card.
 
 ## Inline
 

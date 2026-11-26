@@ -11,7 +11,7 @@ const skill = readFileSync(join(root, 'SKILL.md'), 'utf8')
 test('default-loaded skill stays within its measured context budget', () => {
   const tokens = countTokens(skill)
   assert.ok(tokens <= 800, `SKILL.md is ${tokens} GPT-5 tokens; move conditional detail to references`)
-  assert.equal(tokens, 797, 'update the published measurements when SKILL.md changes')
+  assert.equal(tokens, 707, 'update the published measurements when SKILL.md changes')
 })
 
 test('published progressive-disclosure profiles stay exact', () => {
@@ -32,7 +32,7 @@ test('published progressive-disclosure profiles stay exact', () => {
         Math.max(...trapTokens) +
         tokens('traps-migration.md'),
     },
-    { routine: 2995, foundations: 4612, blocks: 4378, structure: 4898, largestMigration: 7430 },
+    { routine: 2006, foundations: 1177, blocks: 1210, structure: 1446, largestMigration: 3227 },
     'update the published profile table when routed references change',
   )
 })

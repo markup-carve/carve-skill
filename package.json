@@ -28,17 +28,18 @@
   ],
   "scripts": {
     "test": "node --test test/*.test.mjs",
-    "lint:examples": "node node_modules/@markup-carve/carve/dist/cli.js lint examples/*.crv",
-    "fmt:examples": "node node_modules/@markup-carve/carve/dist/cli.js fmt --check examples/*.crv",
+    "lint:examples": "node scripts/check-samples.mjs",
+    "fmt:examples": "node scripts/check-samples.mjs",
     "test:behavior": "node --test test/behavior.test.mjs",
     "eval:tasks": "node scripts/task-evaluator.mjs",
     "context:measure": "node scripts/measure-context.mjs",
     "version:check": "node scripts/check-installed-version.mjs",
-    "spec:check": "node scripts/check-spec-review.mjs",
-    "spec:review": "node scripts/record-spec-review.mjs"
+    "spec:check": "node scripts/check-02-source-review.mjs",
+    "spec:review": "node scripts/check-02-source-review.mjs --write",
+    "samples:check": "node scripts/check-samples.mjs"
   },
   "devDependencies": {
-    "@markup-carve/carve": "0.1.17",
+    "@markup-carve/carve": "github:markup-carve/carve-js#42644b716ea55e55842953a2733fcccfea3718b6",
     "gpt-tokenizer": "4.0.0"
   }
 }

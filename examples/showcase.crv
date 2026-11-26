@@ -1,67 +1,12 @@
----yaml
-title: Carve Showcase
-tags: [carve, demo]
----
+= Carve 0.2 showcase
 
-{#intro}
-# Carve Showcase
+A paragraph with /emphasis/, *strong text*, and a [link](https://example.com).
 
-A short document exercising core Carve constructs. It passes `carve lint` and
-`carve fmt --check`, so it doubles as the skill's round-trip check and as the
-one place the instruction SKILL.md gives agents is run on this repository.
+> A short quotation.
 
-Inline: /italic/, *bold*, /*bold italic*/, _underline_, ~strike~, =highlight=, %% carve-lint-disable-line markdown-italic-underline
-`code`, water is H{,2,}O and energy is E = mc{^2^}. See </#tables> below,
-and a footnote here.[^note] An inline aside too.^[Inline footnotes number into
-the same endnotes.]
+- One item
+- Another item
 
-## Lists
-
-- unordered item
-- item with two attached notes
-+
-> A note attached to the item above.
-+
-> A second note. Indented at the content column these two quotes would read
-> as one, which is where the continuation marker is required.
-
-- [ ] a task
-- [x] a done task
-
-1. first
-2. second
-
-:: term
-: Its definition, one block per entry.
-
-{#tables}
-## Tables
-
-|= Name |={>} Score |
-| Alice |{<} 30 |
-| Bob |{<} 42 |
-^ Table: a small scoreboard.
-
-## Code and math
-
-```python "example.py"
-def greet(name: str) -> str:
-    return f"Hello, {name}"
-```
-
-Inline math $`e^{i\pi} + 1 = 0` and a display block:
-
-$$`\int_0^1 x \, dx = \tfrac{1}{2}`
-
-## Admonition and quote
-
-::: note "Heads up"
-Attributes for a heading go on the line above it, not trailing.
-:::
-
-> The markup looks like its output.
-^ Carve's mnemonic
-
-%% This comment does not render.
-
-[^note]: A reference footnote definition.
+|= Name |={>} Qty |
+| Apples | 3 |
+^ Inventory

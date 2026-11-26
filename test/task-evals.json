@@ -24,7 +24,8 @@
   {
     "name": "attach a fenced block to a list item",
     "input": "- first\n- second\n",
-    "gold": "- first\n+\n```js\nx()\n```\n- second\n",
+    "gold": "- first\n\n  ```js\n  x()\n  ```\n- second\n",
+    "goldNote": "0.2 C2-B-059 (U-123): no continuation marker; the fence is indented to the item content column",
     "requiredHtml": ["<li>first", "<pre><code class=\"language-js\">x()"],
     "requiredText": ["first", "x()", "second"],
     "forbiddenSource": [],

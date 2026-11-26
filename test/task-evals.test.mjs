@@ -18,8 +18,10 @@ for (const task of tasks) {
 
 test('the scorer rejects Markdown habits and excessive context', () => {
   const task = tasks[0]
+  // The 0.2 references are smaller than the 0.1 ones, so three of them no longer exceed the budget; all of them do.
   const result = evaluateCandidate(task, 'A *lean* and **strong** statement.', [
-    'syntax.md', 'traps-foundations.md', 'traps-blocks-containers.md',
+    'syntax.md', 'traps-foundations.md', 'traps-blocks-containers.md', 'traps-structure-references.md',
+    'traps-migration.md', 'validation.md', 'workflows.md',
   ])
   assert.equal(result.dimensions.correctConstructs, false)
   assert.equal(result.dimensions.contextBudget, false)

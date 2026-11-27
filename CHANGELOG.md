@@ -6,10 +6,24 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-27
+
+The skill teaches Carve 0.2, checked against carve-js 0.2.
+
+### Breaking
+
+- The skill teaches the Carve 0.2 syntax and no longer the 0.1 dialect. A released 0.1 `carve` command reads documents written with it differently (#225, #231, #246).
+
 ### Improvements
 
-- The skill teaches Carve 0.2 against the renamed carve-js `next2` engine: the CLI is `carve` (`dist/cli.js`) and the library is the package root `@markup-carve/carve`, with the `/import`, `/export` and `/extensions` entries.
-- The references name the carve-js Markdown, GFM, Djot and BBCode importers, the Markdown, plain-text and ANSI exports, and the provisional standard extensions.
+- The CLI is `carve` and the library is the package root `@markup-carve/carve`, with the `/import`, `/export` and `/extensions` entries; the install lines use `npm i -g @markup-carve/carve@^0.2` (#226).
+- The references name the carve-js Markdown, GFM, Djot and BBCode importers, the Markdown, plain-text and ANSI exports, the provisional standard extensions, and the `--adapter word` and `google-docs` HTML import option (#226, #237).
+- The syntax card covers typed metadata blocks after line 1 and the general continuation rule: a quote or item paragraph takes an unindented line, a heading and a term do not (#239, #240, #243).
+- The 0.2 skill explains `headingShift`, which replaces the removed `headingLevelShift()` extension (#241).
+- The extensions reference teaches the inline and block spoiler forms and their fallback when the extension is off (#242).
+- The guidance was reviewed against the 0.2 spec: captions and terms continue only on indented lines, link and abbreviation definitions take indented lines, and migration notices are off unless `lint --upgrade` (#235, #240, #243).
+
+**Full Changelog**: https://github.com/markup-carve/carve-skill/compare/0.1.9...0.2.0
 
 ## [0.1.9] - 2026-11-12
 
